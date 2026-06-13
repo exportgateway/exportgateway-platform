@@ -1,0 +1,109 @@
+{
+  "sheets": [
+    "grdAis2Report_DocAndItem_import"
+  ],
+  "grdAis2Report_DocAndItem_import": {
+    "raw_preview": [
+      [
+        "Dokument",
+        "",
+        "Postavka",
+        "",
+        ""
+      ],
+      [
+        "Izvoznik",
+        "Uvoznik",
+        "Postavka",
+        "",
+        "Seštevki"
+      ],
+      [
+        "Drž.",
+        "Drž.",
+        "TARIC",
+        "Opis blaga",
+        "Neto masa"
+      ],
+      [
+        "ES",
+        "SI",
+        "8609 00 90 00",
+        "1X RABLJEN, PRAZEN 20´ DC KONTEJNER, ZA PREVOZ BLAGA, LETNIK 2026.;1 KOS",
+        ""
+      ],
+      [
+        "ES",
+        "SI",
+        "8609 00 90 00",
+        "1X RABLJEN, PRAZEN 20´ DC KONTEJNER, ZA PREVOZ BLAGA, LETNIK 2026.;1 KOS",
+        ""
+      ],
+      [
+        "ES",
+        "SI",
+        "8609 00 90 00",
+        "1X RABLJEN, PRAZEN 20´ DC KONTEJNER, ZA PREVOZ BLAGA, LETNIK 2026.;1 KOS",
+        ""
+      ],
+      [
+        "ES",
+        "SI",
+        "8609 00 90 00",
+        "1X RABLJEN, PRAZEN 20´ DC KONTEJNER, ZA PREVOZ BLAGA, LETNIK 2026.;1 KOS",
+        ""
+      ],
+      [
+        "ES",
+        "SI",
+        "8609 00 90 00",
+        "1X RABLJEN, PRAZEN 20´ DC KONTEJNER, ZA PREVOZ BLAGA, LETNIK 2026.;1 KOS",
+        ""
+      ]
+    ],
+    "header1_columns": [
+      "Izvoznik",
+      "Uvoznik",
+      "Postavka",
+      "Unnamed: 3",
+      "Seštevki"
+    ],
+    "header1_preview": [
+      [
+        "Drž.",
+        "Drž.",
+        "TARIC",
+        "Opis blaga",
+        "Neto masa"
+      ],
+      [
+        "ES",
+        "SI",
+        "8609 00 90 00",
+        "1X RABLJEN, PRAZEN 20´ DC KONTEJNER, ZA PREVOZ BLAGA, LETNIK 2026.;1 KOS",
+        ""
+      ],
+      [
+        "ES",
+        "SI",
+        "8609 00 90 00",
+        "1X RABLJEN, PRAZEN 20´ DC KONTEJNER, ZA PREVOZ BLAGA, LETNIK 2026.;1 KOS",
+        ""
+      ],
+      [
+        "ES",
+        "SI",
+        "8609 00 90 00",
+        "1X RABLJEN, PRAZEN 20´ DC KONTEJNER, ZA PREVOZ BLAGA, LETNIK 2026.;1 KOS",
+        ""
+      ],
+      [
+        "ES",
+        "SI",
+        "8609 00 90 00",
+        "1X RABLJEN, PRAZEN 20´ DC KONTEJNER, ZA PREVOZ BLAGA, LETNIK 2026.;1 KOS",
+        ""
+      ]
+    ]
+  }
+}

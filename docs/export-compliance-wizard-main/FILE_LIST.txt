@@ -1,0 +1,33 @@
+Update Textile Ranking Fix 2026-06-02 (GitHub)
+==============================================
+
+Copy these paths into export-compliance-wizard repo root:
+
+MODIFIED (5 files)
+------------------
+app/services/cn_entities.py
+app/services/cn_ranking.py
+app/services/taxonomy_service.py
+app/services/cn_database.py
+app/services/classification_pipeline.py
+
+NEW (1 file)
+------------
+tests/test_textile_ranking_fix.py
+
+PREREQUISITE (if not already deployed)
+--------------------------------------
+Updates/Update Historical Classifications 2026-06-02 (GitHub)/
+(or ensure cn_database.py + classification_pipeline.py include historical layer)
+
+NO WORDPRESS CHANGE
+-------------------
+wordpress-export-compliance-wizard.html unchanged
+
+VERIFY QUERIES
+--------------
+500 kos moške jeans hlače
+500 kos moške bombažne jeans hlače
+500 pcs men's denim jeans trousers
+
+Expected winner: 6203 42 xx (not 6205 20 00)

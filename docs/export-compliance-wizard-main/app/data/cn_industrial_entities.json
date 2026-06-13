@@ -1,0 +1,256 @@
+{
+  "brands": [
+    {
+      "id": "pepperl+fuchs",
+      "patterns": ["pepperl\\+fuchs", "pepperl\\s*\\+\\s*fuchs", "pepperl\\s*&\\s*fuchs", "pepperl\\s+fuchs", "p\\+f"]
+    },
+    {
+      "id": "siemens",
+      "patterns": ["\\bsiemens\\b"]
+    },
+    {
+      "id": "danfoss",
+      "patterns": ["\\bdanfoss\\b"]
+    },
+    {
+      "id": "bosch",
+      "patterns": ["\\bbosch\\b"]
+    },
+    {
+      "id": "ifm",
+      "patterns": ["\\bifm\\b"]
+    },
+    {
+      "id": "sick",
+      "patterns": ["\\bsick\\b"]
+    },
+    {
+      "id": "omron",
+      "patterns": ["\\bomron\\b"]
+    },
+    {
+      "id": "schneider",
+      "patterns": ["schneider\\s+electric", "\\bschneider\\b"]
+    },
+    {
+      "id": "abb",
+      "patterns": ["\\babb\\b"]
+    },
+    {
+      "id": "turck",
+      "patterns": ["\\bturck\\b", "\\btürk\\b"]
+    },
+    {
+      "id": "balluff",
+      "patterns": ["\\bballuff\\b"]
+    }
+  ],
+  "manufacturer_series": [
+    {
+      "brands": ["ifm"],
+      "model_pattern": "PN[0-9A-Z\\-]+",
+      "family": "pressure_sensor",
+      "enrichment": "IFM pressure sensor transmitter",
+      "search_terms": ["pressure", "transducer", "transmitter", "measuring"]
+    },
+    {
+      "brands": ["ifm"],
+      "model_pattern": "SI[0-9A-Z\\-]+",
+      "family": "proximity_sensor",
+      "enrichment": "IFM inductive proximity sensor",
+      "search_terms": ["proximity", "inductive", "sensor"]
+    },
+    {
+      "brands": ["pepperl+fuchs"],
+      "model_pattern": "NBB[0-9A-Z\\-]+",
+      "family": "proximity_sensor",
+      "enrichment": "Pepperl+Fuchs inductive proximity sensor",
+      "search_terms": ["proximity", "inductive", "sensor"]
+    },
+    {
+      "brands": ["pepperl+fuchs"],
+      "model_pattern": "REF[0-9A-Z\\-]+",
+      "family": "temperature_sensor",
+      "enrichment": "Pepperl+Fuchs temperature sensor",
+      "search_terms": ["temperature", "sensor"]
+    },
+    {
+      "brands": ["danfoss"],
+      "model_pattern": "FC[0-9A-Z\\-]+",
+      "family": "frequency_inverter",
+      "enrichment": "Danfoss frequency inverter VFD drive",
+      "search_terms": ["static", "converter", "inverter", "frequency"]
+    },
+    {
+      "brands": ["danfoss"],
+      "model_pattern": "MBS[0-9A-Z\\-]+",
+      "family": "pressure_sensor",
+      "enrichment": "Danfoss pressure sensor transmitter",
+      "search_terms": ["pressure", "transducer"]
+    },
+    {
+      "brands": ["schneider"],
+      "model_pattern": "ATV[0-9A-Z\\-]+",
+      "family": "frequency_inverter",
+      "enrichment": "Schneider Electric variable frequency drive inverter",
+      "search_terms": ["static", "converter", "inverter", "frequency"]
+    },
+    {
+      "brands": ["siemens"],
+      "model_pattern": "S7[\\-0-9A-Z]+",
+      "family": "industrial_automation",
+      "enrichment": "Siemens S7 PLC programmable controller",
+      "search_terms": ["programmable", "controller", "logic"]
+    },
+    {
+      "brands": ["siemens"],
+      "model_pattern": "6ES[0-9A-Z\\-]+",
+      "family": "industrial_automation",
+      "enrichment": "Siemens SIMATIC automation module",
+      "search_terms": ["programmable", "controller"]
+    },
+    {
+      "brands": ["abb"],
+      "model_pattern": "ACS[0-9A-Z\\-]+",
+      "family": "frequency_inverter",
+      "enrichment": "ABB frequency inverter drive",
+      "search_terms": ["static", "converter", "inverter"]
+    },
+    {
+      "brands": ["omron"],
+      "model_pattern": "E2[0-9A-Z\\-]+",
+      "family": "proximity_sensor",
+      "enrichment": "Omron proximity sensor",
+      "search_terms": ["proximity", "inductive"]
+    },
+    {
+      "brands": ["sick"],
+      "model_pattern": "WT[0-9A-Z\\-]+",
+      "family": "proximity_sensor",
+      "enrichment": "Sick photoelectric sensor",
+      "search_terms": ["sensor", "measuring"]
+    }
+  ],
+  "product_families": [
+    {
+      "family": "temperature_sensor",
+      "phrases": [
+        "temperature sensor",
+        "temperaturni senzor",
+        "industrial temperature sensor",
+        "temperature transducer",
+        "thermocouple",
+        "rtd sensor",
+        "pt100 sensor"
+      ],
+      "chapters": ["90"],
+      "headings": ["9025"],
+      "search_terms": ["thermometer", "temperature", "measuring", "pyrometer"]
+    },
+    {
+      "family": "pressure_sensor",
+      "phrases": [
+        "pressure sensor",
+        "senzor tlaka",
+        "pressure transducer",
+        "pressure transmitter"
+      ],
+      "chapters": ["90"],
+      "headings": ["9026"],
+      "search_terms": ["pressure", "gauge", "manometer", "measuring"]
+    },
+    {
+      "family": "proximity_sensor",
+      "phrases": [
+        "proximity sensor",
+        "inductive sensor",
+        "induktivni senzor",
+        "capacitive sensor",
+        "proximity switch"
+      ],
+      "chapters": ["85", "90"],
+      "headings": ["8536", "9032"],
+      "search_terms": ["proximity", "inductive", "sensor"]
+    },
+    {
+      "family": "electric_motor",
+      "phrases": [
+        "electric motor",
+        "electrical motor",
+        "induction motor",
+        "servo motor",
+        "ac motor",
+        "dc motor"
+      ],
+      "chapters": ["85"],
+      "headings": ["8501"],
+      "search_terms": ["motor", "electric", "synchronous", "universal"]
+    },
+    {
+      "family": "frequency_inverter",
+      "phrases": [
+        "frequency inverter",
+        "variable frequency drive",
+        "vfd",
+        "ac drive",
+        "frequency converter",
+        "static converter drive"
+      ],
+      "chapters": ["85"],
+      "headings": ["8504"],
+      "search_terms": ["static", "converters", "inverter", "frequency", "rectifiers"]
+    },
+    {
+      "family": "sensor",
+      "phrases": ["sensor", "senzor", "sensors", "senzorji", "measuring sensor", "industrial sensor"],
+      "chapters": ["90"],
+      "headings": ["9025", "9026", "9032"],
+      "search_terms": ["measuring", "instruments"]
+    },
+    {
+      "family": "industrial_automation",
+      "phrases": [
+        "plc",
+        "plc modul",
+        "plc module",
+        "programmable logic",
+        "programmable controller",
+        "cpu module",
+        "industrial automation",
+        "automation module",
+        "control module"
+      ],
+      "chapters": ["85"],
+      "headings": ["8537"],
+      "search_terms": ["programmable", "controller", "logic", "automatic"]
+    }
+  ],
+  "penalize_headings_when_families": {
+    "8704": ["electric_motor"],
+    "8703": ["electric_motor"],
+    "8702": ["electric_motor"],
+    "8708": ["electric_motor"],
+    "9402": [
+      "furniture_office_chair",
+      "furniture_office_desk",
+      "furniture_cabinet",
+      "furniture_shelving",
+      "furniture_workstation"
+    ],
+    "8443": ["office_printer_consumable"],
+    "960860": ["stationery_pen"],
+    "9613": ["stationery_pen"],
+    "8418": ["temperature_sensor", "pressure_sensor", "proximity_sensor", "sensor"],
+    "8413": ["power_supply", "frequency_inverter", "ups"],
+    "8536": ["ups"],
+    "9026": ["proximity_sensor"],
+    "9025": ["proximity_sensor"],
+    "9018": ["electronics_monitor"],
+    "3506": ["industrial_hmi"],
+    "9306": ["office_printer_consumable"],
+    "8505": ["stationery_marker"],
+    "3907": ["apparel_jacket", "apparel_jacket_womens"],
+    "6206": ["apparel_tshirt_mens"]
+  },
+  "model_prefixes_never_rank": ["ref", "mbs", "rt", "es7", "6es"]
+}

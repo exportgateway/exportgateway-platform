@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Export Compliance Wizard | ExportGateway.eu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg app-navbar">
+      <div class="container">
+        <a class="navbar-brand brand-lockup" href="/">
+          <span class="brand-mark">EG</span>
+          <span>
+            <strong>ExportGateway.eu</strong>
+            <small>Compliance Wizard</small>
+          </span>
+        </a>
+        <span class="navbar-text d-none d-md-inline">Export, customs and landed cost estimator</span>
+      </div>
+    </nav>
+
+    <main class="container py-4 py-lg-5">
+      <section class="app-header mb-4">
+        <div>
+          <p class="eyebrow mb-2">Export Compliance Wizard</p>
+          <h1>Estimate export requirements before the shipment moves.</h1>
+          <p class="text-muted mb-0">Classify goods, estimate duties and VAT, build a document checklist, and generate a PDF report for your team.</p>
+        </div>
+        <div class="status-card">
+          <span class="status-dot"></span>
+          JSON API ready
+        </div>
+      </section>
+
+      <div class="compliance-disclaimer-banner" role="note" aria-label="Legal disclaimer">
+        <strong>Indicative estimates only.</strong>
+        This tool provides indicative estimates only.
+        CN classification, customs duties, VAT rates, freight estimates and customs measures must be independently verified before commercial or customs use.
+      </div>
+
+      <div id="complianceWizard" class="wizard-shell">
+        <aside class="wizard-steps" aria-label="Wizard steps">
+          <button class="step-pill active" data-step-target="1"><span>1</span>Product</button>
+          <button class="step-pill" data-step-target="2"><span>2</span>Shipment</button>
+          <button class="step-pill" data-step-target="3"><span>3</span>Transport</button>
+          <button class="step-pill" data-step-target="4"><span>4</span>Results</button>
+        </aside>
+
+        <form id="wizardForm" class="wizard-panel">
+          <section class="wizard-step active" data-step="1">
+            <div class="section-title">
+              <h2>Product Information</h2>
+              <p>Enter a clear commercial description. Add a CN / HS code if it is already known.</p>
+            </div>
+            <div class="row g-3">
+              <div class="col-12">
+                <label class="form-label" for="productDescription">Product description</label>
+                <textarea id="productDescription" class="form-control" rows="4" required placeholder="Example: cotton t-shirts for adults" oninput="document.getElementById('classifyNextBtn').disabled = !this.value.trim()"></textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="cnCode">CN / HS code</label>
+                <input id="cnCode" class="form-control" placeholder="Optional">
+              </div>
+            </div>
+            <div id="classificationResult" class="result-panel d-none mt-4"></div>
+            <p id="classificationManualNotice" class="classification-manual-notice d-none" role="status"></p>
+            <div class="wizard-actions">
+              <button type="button" class="btn btn-primary" id="classifyNextBtn" disabled>Search CN suggestions</button>
+            </div>
+          </section>
+
+          <section class="wizard-step" data-step="2">
+            <div class="section-title">
+              <h2>Shipment Details</h2>
+              <p>These values drive the document, duty, VAT and landed cost estimates.</p>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label" for="originCountry">Origin country</label>
+                <input id="originCountry" class="form-control" value="Slovenia" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="destinationCountry">Destination country</label>
+                <input id="destinationCountry" class="form-control" value="Germany" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="goodsValue">Goods value (EUR)</label>
+                <input id="goodsValue" type="number" min="1" step="0.01" class="form-control" value="10000" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="netWeight">Net weight (kg)</label>
+                <input id="netWeight" type="number" min="0.01" step="0.01" class="form-control" value="750" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="grossWeight">Gross weight (kg)</label>
+                <input id="grossWeight" type="number" min="0.01" step="0.01" class="form-control" value="800" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="incoterm">Incoterm</label>
+                <select id="incoterm" class="form-select">
+                  <option>EXW</option>
+                  <option>FCA</option>
+                  <option>CPT</option>
+                  <option>CIP</option>
+                  <option selected>DAP</option>
+                  <option>DDP</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="transportMode">Transport mode</label>
+                <select id="transportMode" class="form-select">
+                  <option selected>Road</option>
+                  <option>Sea</option>
+                  <option>Air</option>
+                </select>
+              </div>
+            </div>
+            <div class="wizard-actions">
+              <button type="button" class="btn btn-outline-secondary" data-prev>Back</button>
+              <button type="button" class="btn btn-primary" data-next>Continue</button>
+            </div>
+          </section>
+
+          <section class="wizard-step" data-step="3">
+            <div class="section-title">
+              <h2>Transport Cost</h2>
+              <p>Enter a known transport cost or calculate an estimate from freight inputs.</p>
+            </div>
+            <div class="row g-3 align-items-end">
+              <div class="col-md-6">
+                <label class="form-label" for="transportCost">Transport cost (EUR)</label>
+                <input id="transportCost" type="number" min="0" step="0.01" class="form-control" value="500">
+              </div>
+              <div class="col-md-6">
+                <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#transportModal">Calculate Transport Cost</button>
+              </div>
+            </div>
+            <div id="transportResult" class="result-panel d-none mt-4"></div>
+            <div class="wizard-actions">
+              <button type="button" class="btn btn-outline-secondary" data-prev>Back</button>
+              <button type="button" class="btn btn-primary" id="calculateAllBtn">Calculate compliance result</button>
+            </div>
+          </section>
+
+          <section class="wizard-step" data-step="4">
+            <div class="section-title">
+              <h2>Compliance Result</h2>
+              <p>Use this estimate as a planning checklist before confirming the shipment.</p>
+            </div>
+
+            <div id="routeNotice" class="result-panel route-notice-panel d-none mb-4" role="status"></div>
+            <div id="landedCards" class="summary-grid mb-4"></div>
+
+            <div id="resultsClassificationSummary" class="result-panel d-none mb-4"></div>
+            <p id="resultsTransportSource" class="source-label d-none mb-4"></p>
+
+            <div class="row g-4">
+              <div class="col-lg-6">
+                <div class="content-block">
+                  <h3>Required Documents</h3>
+                  <ul id="requiredDocs" class="clean-list"></ul>
+                  <h4>Optional Documents</h4>
+                  <ul id="optionalDocs" class="clean-list muted"></ul>
+                  <div id="docNotes" class="notes"></div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="content-block">
+                  <h3>Customs Duties</h3>
+                  <p id="dutiesSourceLabel" class="source-label d-none"></p>
+                  <p class="duty-disclaimer">Customs duties shown are illustrative estimates and do not represent official tariff data.</p>
+                  <div class="table-responsive">
+                    <table class="table align-middle">
+                      <thead><tr><th>Type</th><th>Code</th><th>Description</th></tr></thead>
+                      <tbody id="dutiesTable"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="content-block mt-4">
+              <h3>VAT Estimate (Simplified Model)</h3>
+              <p id="vatRateSourceLabel" class="source-label d-none"></p>
+              <p id="vatWarningLabel" class="classification-manual-notice d-none" role="alert"></p>
+              <p class="vat-explanation">
+                Import VAT is estimated using a simplified model: customs value equals goods value plus transport cost plus estimated duty,
+                multiplied by a standard VAT rate for the destination country. Reduced rates, exemptions, deferment and incoterm-specific rules are not applied.
+              </p>
+              <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                  <tbody id="vatTable"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="lead-panel mt-4">
+              <div>
+                <h3>Need Assistance With This Shipment?</h3>
+                <p>Send the calculation context to ExportGateway.eu and request support with classification, documents or customs handling.</p>
+              </div>
+              <div class="d-flex flex-column flex-sm-row gap-2">
+                <button type="button" class="btn btn-light" id="pdfBtn">Download PDF</button>
+                <button type="button" class="btn btn-accent" id="openLeadBtn">Request Assistance</button>
+              </div>
+            </div>
+
+            <div class="wizard-actions">
+              <button type="button" class="btn btn-outline-secondary" data-prev>Back</button>
+              <button type="button" class="btn btn-outline-primary" id="restartBtn">Start new estimate</button>
+            </div>
+          </section>
+        </form>
+      </div>
+    </main>
+
+    <div class="modal fade" id="transportModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title fs-5">Calculate Transport Cost</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label" for="pickupPostal">Pickup postal code</label>
+                <input id="pickupPostal" class="form-control" value="1000">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="deliveryPostal">Delivery postal code</label>
+                <input id="deliveryPostal" class="form-control" value="80331">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="freightWeight">Weight</label>
+                <input id="freightWeight" type="number" class="form-control" value="800">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="loadingMeters">Loading meters</label>
+                <input id="loadingMeters" type="number" step="0.1" class="form-control" value="2.4">
+              </div>
+              <div class="col-12">
+                <label class="form-label" for="vehicleType">Vehicle type</label>
+                <select id="vehicleType" class="form-select">
+                  <option>Van</option>
+                  <option>7.5t Truck</option>
+                  <option selected>13.6m Truck</option>
+                  <option>Mega Trailer</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="modalTransportBtn">Calculate and use estimate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="leadModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title fs-5">Request Assistance</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div id="leadFormFields">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label" for="companyName">Company name</label>
+                  <input id="companyName" class="form-control" required minlength="2">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="contactName">Contact name</label>
+                  <input id="contactName" class="form-control" required minlength="2">
+                </div>
+                <div class="col-12">
+                  <label class="form-label" for="contactEmail">Email</label>
+                  <input id="contactEmail" type="email" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="leadOriginCountry">Country of export</label>
+                  <input id="leadOriginCountry" class="form-control" readonly>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="leadDestinationCountry">Destination country</label>
+                  <input id="leadDestinationCountry" class="form-control" readonly>
+                </div>
+                <div class="col-12">
+                  <label class="form-label" for="leadProductDescription">Product description</label>
+                  <textarea id="leadProductDescription" class="form-control" rows="3" readonly></textarea>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="leadCnCode">CN code</label>
+                  <input id="leadCnCode" class="form-control" readonly>
+                </div>
+                <div class="col-12">
+                  <label class="form-label" for="leadWizardSummary">Wizard summary</label>
+                  <textarea id="leadWizardSummary" class="form-control" rows="7" readonly></textarea>
+                </div>
+              </div>
+            </div>
+            <div id="leadSuccess" class="result-panel lead-success-panel d-none" role="status">
+              <strong>Request sent successfully.</strong>
+              <p class="mb-0 mt-2">Thank you. Your request has been sent to ExportGateway.eu. We will respond shortly.</p>
+            </div>
+          </div>
+          <div class="modal-footer" id="leadModalFooter">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="sendLeadBtn">Submit request</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="appToast" class="toast" role="status" aria-live="polite" aria-atomic="true">
+        <div class="toast-body"></div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/egw-analytics.js"></script>
+    <script src="/static/js/classification-ui.js"></script>
+    <script src="/static/js/app.js"></script>
+  </body>
+</html>

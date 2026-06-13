@@ -1,0 +1,1180 @@
+{
+  "version": 1,
+  "description": "End-to-end classification regression suite — 108 products across 6 categories",
+  "categories": [
+    "textiles",
+    "fasteners",
+    "chemicals",
+    "food",
+    "electronics",
+    "furniture_hardware"
+  ],
+  "cases": [
+    {
+      "id": "tex-001",
+      "category": "textiles",
+      "input": "500 pcs men's denim jeans trousers",
+      "expected_heading": "6203",
+      "acceptable_headings": [
+        "6103"
+      ],
+      "disambiguation": {
+        "textile_construction": "woven",
+        "apparel_gender": "mens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-002",
+      "category": "textiles",
+      "input": "men's cotton dress shirt",
+      "expected_heading": "6205",
+      "acceptable_headings": [
+        "6105"
+      ],
+      "disambiguation": {
+        "textile_construction": "woven",
+        "apparel_gender": "mens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-003",
+      "category": "textiles",
+      "input": "Women's polyester jacket",
+      "expected_heading": "6202",
+      "acceptable_headings": [
+        "6102"
+      ],
+      "disambiguation": {
+        "textile_construction": "woven",
+        "apparel_gender": "womens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-004",
+      "category": "textiles",
+      "input": "Cotton t-shirts for adults",
+      "expected_heading": "6109",
+      "acceptable_headings": [
+        "6205",
+        "6105"
+      ],
+      "disambiguation": {
+        "textile_construction": "knitted",
+        "apparel_gender": "mens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-005",
+      "category": "textiles",
+      "input": "Moške jeans hlače",
+      "expected_heading": "6203",
+      "acceptable_headings": [
+        "6103"
+      ],
+      "disambiguation": {
+        "textile_construction": "woven",
+        "apparel_gender": "mens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-006",
+      "category": "textiles",
+      "input": "Men's cotton trousers",
+      "expected_heading": "6203",
+      "acceptable_headings": [
+        "6103"
+      ],
+      "disambiguation": {
+        "textile_construction": "woven",
+        "apparel_gender": "mens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-007",
+      "category": "textiles",
+      "input": "Men's cotton T-shirt",
+      "expected_heading": "6109",
+      "acceptable_headings": [
+        "6105"
+      ],
+      "disambiguation": {
+        "textile_construction": "knitted",
+        "apparel_gender": "mens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-008",
+      "category": "textiles",
+      "input": "women's denim skirt",
+      "expected_heading": "6204",
+      "acceptable_headings": [
+        "6203"
+      ],
+      "disambiguation": {
+        "textile_construction": "woven",
+        "apparel_gender": "womens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-009",
+      "category": "textiles",
+      "input": "men's wool sweater",
+      "expected_heading": "6110",
+      "acceptable_headings": [
+        "6104",
+        "6110"
+      ],
+      "disambiguation": {
+        "textile_construction": "knitted",
+        "apparel_gender": "mens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-010",
+      "category": "textiles",
+      "input": "cotton socks men's",
+      "expected_heading": "6115",
+      "acceptable_headings": [
+        "6405",
+        "6203"
+      ],
+      "disambiguation": {
+        "textile_construction": "knitted",
+        "apparel_gender": "mens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-011",
+      "category": "textiles",
+      "input": "Herrenhose lang",
+      "expected_heading": "6203",
+      "acceptable_headings": [
+        "6103"
+      ],
+      "disambiguation": {
+        "textile_construction": "woven",
+        "apparel_gender": "mens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-012",
+      "category": "textiles",
+      "input": "500 kos ženske bombažne majice",
+      "expected_heading": "6109",
+      "acceptable_headings": [
+        "6206"
+      ],
+      "disambiguation": {
+        "textile_construction": "knitted",
+        "apparel_gender": "womens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-013",
+      "category": "textiles",
+      "input": "Moška polo majica",
+      "expected_heading": "6105",
+      "acceptable_headings": [
+        "6110"
+      ],
+      "disambiguation": {
+        "textile_construction": "knitted",
+        "apparel_gender": "mens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-014",
+      "category": "textiles",
+      "input": "linen shirt men's",
+      "expected_heading": "6205",
+      "acceptable_headings": [
+        "6105"
+      ],
+      "disambiguation": {
+        "textile_construction": "woven",
+        "apparel_gender": "mens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-015",
+      "category": "textiles",
+      "input": "women's blouse polyester",
+      "expected_heading": "6206",
+      "acceptable_headings": [
+        "6106"
+      ],
+      "disambiguation": {
+        "textile_construction": "woven",
+        "apparel_gender": "womens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-016",
+      "category": "textiles",
+      "input": "men's cotton shorts",
+      "expected_heading": "6203",
+      "acceptable_headings": [
+        "6204",
+        "6103"
+      ],
+      "disambiguation": {
+        "textile_construction": "woven",
+        "apparel_gender": "mens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-017",
+      "category": "textiles",
+      "input": "men's denim jacket",
+      "expected_heading": "6201",
+      "acceptable_headings": [
+        "6203"
+      ],
+      "disambiguation": {
+        "textile_construction": "woven",
+        "apparel_gender": "mens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-018",
+      "category": "textiles",
+      "input": "Men's knitted polo shirt",
+      "expected_heading": "6110",
+      "acceptable_headings": [
+        "6105"
+      ],
+      "disambiguation": {
+        "textile_construction": "knitted",
+        "apparel_gender": "mens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-019",
+      "category": "textiles",
+      "input": "Ženske jeans hlače",
+      "expected_heading": "6204",
+      "acceptable_headings": [
+        "6203"
+      ],
+      "disambiguation": {
+        "textile_construction": "woven",
+        "apparel_gender": "womens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "tex-020",
+      "category": "textiles",
+      "input": "500 kos moške bombažne jeans hlače",
+      "expected_heading": "6203",
+      "acceptable_headings": [
+        "6103"
+      ],
+      "disambiguation": {
+        "textile_construction": "woven",
+        "apparel_gender": "mens"
+      },
+      "notes": ""
+    },
+    {
+      "id": "fas-001",
+      "category": "fasteners",
+      "input": "steel screws M8",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-002",
+      "category": "fasteners",
+      "input": "500 pcs hex head screws",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-003",
+      "category": "fasteners",
+      "input": "vijaki iz jekla",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-004",
+      "category": "fasteners",
+      "input": "hex nuts M10",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-005",
+      "category": "fasteners",
+      "input": "steel nuts zinc plated",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-006",
+      "category": "fasteners",
+      "input": "carriage bolt zinc",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-007",
+      "category": "fasteners",
+      "input": "wood screws 4x40",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-008",
+      "category": "fasteners",
+      "input": "M8 hex bolt",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-009",
+      "category": "fasteners",
+      "input": "stainless steel machine screws",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-010",
+      "category": "fasteners",
+      "input": "Stahlschrauben M6",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-011",
+      "category": "fasteners",
+      "input": "self-tapping screws steel",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-012",
+      "category": "fasteners",
+      "input": "lock nut M10",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-013",
+      "category": "fasteners",
+      "input": "screw and nut set assortment",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-014",
+      "category": "fasteners",
+      "input": "threaded rod M8",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-015",
+      "category": "fasteners",
+      "input": "countersunk head screw",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-016",
+      "category": "fasteners",
+      "input": "pan head screw zinc",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-017",
+      "category": "fasteners",
+      "input": "hexagon bolt M12",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "fas-018",
+      "category": "fasteners",
+      "input": "matice M10",
+      "expected_heading": "7318",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-001",
+      "category": "chemicals",
+      "input": "silicone sealant tube",
+      "expected_heading": "3214",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-002",
+      "category": "chemicals",
+      "input": "protective coating paint",
+      "expected_heading": "3209",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-003",
+      "category": "chemicals",
+      "input": "polyurethane compound",
+      "expected_heading": "3909",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-004",
+      "category": "chemicals",
+      "input": "chemosil silicone sealant",
+      "expected_heading": "3214",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-005",
+      "category": "chemicals",
+      "input": "glazing sealant silicone",
+      "expected_heading": "3214",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-006",
+      "category": "chemicals",
+      "input": "industrial adhesive sealant",
+      "expected_heading": "3214",
+      "acceptable_headings": [
+        "3506"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-007",
+      "category": "chemicals",
+      "input": "acrylic paint protective coating",
+      "expected_heading": "3209",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-008",
+      "category": "chemicals",
+      "input": "polyurethane prepolymer compound",
+      "expected_heading": "3909",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-009",
+      "category": "chemicals",
+      "input": "mangart protective coating",
+      "expected_heading": "3209",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-010",
+      "category": "chemicals",
+      "input": "construction silicone adhesive",
+      "expected_heading": "3214",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-011",
+      "category": "chemicals",
+      "input": "epoxy resin adhesive",
+      "expected_heading": "3506",
+      "acceptable_headings": [
+        "3214"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-012",
+      "category": "chemicals",
+      "input": "wood varnish coating",
+      "expected_heading": "3209",
+      "acceptable_headings": [
+        "3210"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-013",
+      "category": "chemicals",
+      "input": "rust protection paint",
+      "expected_heading": "3209",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-014",
+      "category": "chemicals",
+      "input": "PU compound industrial",
+      "expected_heading": "3909",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-015",
+      "category": "chemicals",
+      "input": "silicone gasket sealant",
+      "expected_heading": "3214",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-016",
+      "category": "chemicals",
+      "input": "primer paint metal",
+      "expected_heading": "3209",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-017",
+      "category": "chemicals",
+      "input": "two component adhesive",
+      "expected_heading": "3506",
+      "acceptable_headings": [
+        "3214"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "chem-018",
+      "category": "chemicals",
+      "input": "industrijsko lepilo",
+      "expected_heading": "3506",
+      "acceptable_headings": [
+        "3214"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-001",
+      "category": "food",
+      "input": "frozen pizza margherita",
+      "expected_heading": "1905",
+      "acceptable_headings": [
+        "2106"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-002",
+      "category": "food",
+      "input": "spaghetti pasta durum wheat",
+      "expected_heading": "1902",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-003",
+      "category": "food",
+      "input": "aromatized sugar syrup",
+      "expected_heading": "2106",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-004",
+      "category": "food",
+      "input": "fusilli pasta 500g",
+      "expected_heading": "1902",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-005",
+      "category": "food",
+      "input": "penne rigate pasta",
+      "expected_heading": "1902",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-006",
+      "category": "food",
+      "input": "prepared pizza frozen",
+      "expected_heading": "1905",
+      "acceptable_headings": [
+        "2106"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-007",
+      "category": "food",
+      "input": "uncooked durum wheat pasta",
+      "expected_heading": "1902",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-008",
+      "category": "food",
+      "input": "flavoured sugar syrup",
+      "expected_heading": "2106",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-009",
+      "category": "food",
+      "input": "frozen lasagna ready meal",
+      "expected_heading": "2106",
+      "acceptable_headings": [
+        "1905"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-010",
+      "category": "food",
+      "input": "pizza margherita frozen",
+      "expected_heading": "1905",
+      "acceptable_headings": [
+        "2106"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-011",
+      "category": "food",
+      "input": "spaghetti uncooked",
+      "expected_heading": "1902",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-012",
+      "category": "food",
+      "input": "aromatized sugar syrups industrial",
+      "expected_heading": "2106",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-013",
+      "category": "food",
+      "input": "durum wheat fusilli",
+      "expected_heading": "1902",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-014",
+      "category": "food",
+      "input": "frozen bakery pizza",
+      "expected_heading": "1905",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-015",
+      "category": "food",
+      "input": "sugar syrup aromatized",
+      "expected_heading": "2106",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-016",
+      "category": "food",
+      "input": "pasta penne 1kg",
+      "expected_heading": "1902",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-017",
+      "category": "food",
+      "input": "prepared food pizza base",
+      "expected_heading": "1905",
+      "acceptable_headings": [
+        "2106"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "food-018",
+      "category": "food",
+      "input": "industrial pasta fusilli",
+      "expected_heading": "1902",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-001",
+      "category": "electronics",
+      "input": "laptop computer 15 inch",
+      "expected_heading": "8471",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-002",
+      "category": "electronics",
+      "input": "LCD monitor 24 inch",
+      "expected_heading": "8528",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-003",
+      "category": "electronics",
+      "input": "industrial temperature sensor PT100",
+      "expected_heading": "9025",
+      "acceptable_headings": [
+        "9026"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-004",
+      "category": "electronics",
+      "input": "proximity sensor inductive",
+      "expected_heading": "8536",
+      "acceptable_headings": [
+        "9032"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-005",
+      "category": "electronics",
+      "input": "notebook computer dell",
+      "expected_heading": "8471",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-006",
+      "category": "electronics",
+      "input": "portable computer laptop",
+      "expected_heading": "8471",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-007",
+      "category": "electronics",
+      "input": "computer monitor LED",
+      "expected_heading": "8528",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-008",
+      "category": "electronics",
+      "input": "temperature sensor industrial",
+      "expected_heading": "9025",
+      "acceptable_headings": [
+        "9026"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-009",
+      "category": "electronics",
+      "input": "pressure sensor Danfoss",
+      "expected_heading": "9026",
+      "acceptable_headings": [
+        "9025"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-010",
+      "category": "electronics",
+      "input": "Pepperl+Fuchs NBB5-18GM50-E2",
+      "expected_heading": "8536",
+      "acceptable_headings": [
+        "9032"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-011",
+      "category": "electronics",
+      "input": "ABB electric motor",
+      "expected_heading": "8501",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-012",
+      "category": "electronics",
+      "input": "servo motor 3 phase",
+      "expected_heading": "8501",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-013",
+      "category": "electronics",
+      "input": "UPS battery backup",
+      "expected_heading": "8504",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-014",
+      "category": "electronics",
+      "input": "power supply 24VDC",
+      "expected_heading": "8504",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-015",
+      "category": "electronics",
+      "input": "HP printer cartridge",
+      "expected_heading": "3215",
+      "acceptable_headings": [],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-016",
+      "category": "electronics",
+      "input": "photoelectric sensor",
+      "expected_heading": "9031",
+      "acceptable_headings": [
+        "8536"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-017",
+      "category": "electronics",
+      "input": "Siemens PLC module",
+      "expected_heading": "8537",
+      "acceptable_headings": [
+        "8536"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "elec-018",
+      "category": "electronics",
+      "input": "inductive proximity sensor",
+      "expected_heading": "8536",
+      "acceptable_headings": [
+        "9032"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-001",
+      "category": "furniture_hardware",
+      "input": "pohištveno okovje za omare",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-002",
+      "category": "furniture_hardware",
+      "input": "cabinet hinge brass",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-003",
+      "category": "furniture_hardware",
+      "input": "furniture fittings mounting",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-004",
+      "category": "furniture_hardware",
+      "input": "door hinge steel",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-005",
+      "category": "furniture_hardware",
+      "input": "shelf mounting bracket",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-006",
+      "category": "furniture_hardware",
+      "input": "drawer slide fitting",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-007",
+      "category": "furniture_hardware",
+      "input": "furniture connector bracket",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-008",
+      "category": "furniture_hardware",
+      "input": "kitchen cabinet hinge",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-009",
+      "category": "furniture_hardware",
+      "input": "wardrobe fitting hinge",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-010",
+      "category": "furniture_hardware",
+      "input": "table leg bracket steel",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-011",
+      "category": "furniture_hardware",
+      "input": "pohistveno okovje",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-012",
+      "category": "furniture_hardware",
+      "input": "furniture mounting hardware",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-013",
+      "category": "furniture_hardware",
+      "input": "cabinet door hinge",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-014",
+      "category": "furniture_hardware",
+      "input": "sliding door furniture fitting",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-015",
+      "category": "furniture_hardware",
+      "input": "zamak okovje za pohistvo",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-016",
+      "category": "furniture_hardware",
+      "input": "furniture handle mounting",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-017",
+      "category": "furniture_hardware",
+      "input": "office cabinet fittings",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    },
+    {
+      "id": "furn-018",
+      "category": "furniture_hardware",
+      "input": "hinge for furniture door",
+      "expected_heading": "8302",
+      "acceptable_headings": [
+        "8308"
+      ],
+      "disambiguation": {},
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "id": "printer_cartridge",
+      "required_terms": ["cartridge"],
+      "context_terms": ["printer", "inkjet", "toner", "printing", "ink"],
+      "anti_terms": ["ammunition", "rifle", "shotgun", "firearm"],
+      "families": ["office_printer_consumable"],
+      "excluded_chapters": ["93"],
+      "penalized_headings": ["9304", "9306"],
+      "enrichment_phrases": ["printer ink cartridge office"]
+    },
+    {
+      "id": "permanent_marker",
+      "required_terms": ["marker"],
+      "context_terms": ["permanent", "felt-tip", "whiteboard", "stationery"],
+      "anti_terms": ["magnet", "magnetic"],
+      "families": ["stationery_marker"],
+      "excluded_chapters": ["85"],
+      "penalized_headings": ["8505"],
+      "enrichment_phrases": ["permanent marker pen stationery"]
+    },
+    {
+      "id": "polyester_jacket_apparel",
+      "required_terms": ["jacket"],
+      "context_terms": ["women", "men", "polyester", "cotton", "garment", "coat"],
+      "anti_context": {
+        "polyester": ["resin", "polymer", "pellets", "granules", "primary form"]
+      },
+      "families": ["apparel_jacket"],
+      "excluded_chapters": ["39"],
+      "penalized_headings": ["3907", "3901"],
+      "enrichment_phrases": ["garment jacket apparel"]
+    },
+    {
+      "id": "womens_jacket",
+      "required_terms": ["jacket"],
+      "context_terms": ["women", "womens", "ladies", "girls"],
+      "families": ["apparel_jacket_womens"],
+      "excluded_chapters": ["39"],
+      "penalized_headings": ["3907"]
+    },
+    {
+      "id": "mens_tshirt",
+      "required_terms": ["shirt"],
+      "context_terms": ["men", "mens", "boys", "t-shirt", "tshirt", "tee"],
+      "families": ["apparel_tshirt_mens"],
+      "excluded_chapters": ["39"],
+      "penalized_headings": ["6206", "6106"],
+      "enrichment_phrases": ["men's knitted t-shirt"]
+    },
+    {
+      "id": "lcd_monitor",
+      "required_terms": ["monitor"],
+      "context_terms": ["lcd", "display", "screen", "computer"],
+      "anti_terms": ["patient", "medical", "clinical", "monitoring equipment"],
+      "families": ["electronics_monitor"],
+      "excluded_chapters": ["90"],
+      "penalized_headings": ["9018", "9019"],
+      "enrichment_phrases": ["lcd computer monitor"]
+    },
+    {
+      "id": "touch_hmi",
+      "required_terms": ["hmi"],
+      "any_of_terms": ["touch panel", "human machine interface", "operator panel"],
+      "families": ["industrial_hmi"],
+      "excluded_chapters": ["35"],
+      "penalized_headings": ["3506"],
+      "enrichment_phrases": ["industrial control panel hmi"]
+    },
+    {
+      "id": "power_supply_24v",
+      "required_terms": ["supply"],
+      "context_terms": ["power", "24v", "24vdc", "dc", "smps", "psu"],
+      "anti_terms": ["pump", "water supply"],
+      "families": ["power_supply"],
+      "excluded_chapters": ["84"],
+      "penalized_headings": ["8413"],
+      "enrichment_phrases": ["electrical power supply unit"]
+    },
+    {
+      "id": "electric_motor_component",
+      "required_terms": ["motor"],
+      "context_terms": [
+        "electric",
+        "electrical",
+        "induction",
+        "servo",
+        "synchronous",
+        "phase",
+        "abb",
+        "siemens",
+        "watt",
+        "kw"
+      ],
+      "anti_terms": [
+        "vehicle",
+        "car",
+        "truck",
+        "lorry",
+        "propulsion",
+        "transport of goods",
+        "passenger",
+        "bicycle",
+        "tractor"
+      ],
+      "families": ["electric_motor"],
+      "excluded_chapters": ["87"],
+      "penalized_headings": ["8701", "8702", "8703", "8704", "8705", "8708"],
+      "enrichment_phrases": ["electric motor component 8501"]
+    },
+    {
+      "id": "office_chair_furniture",
+      "required_terms": ["chair"],
+      "context_terms": ["office", "desk", "swivel", "task", "ergonomic", "seat"],
+      "anti_terms": ["dentist", "dental", "barber", "medical", "surgical", "aircraft", "motor vehicle"],
+      "families": ["furniture_office_chair"],
+      "excluded_chapters": ["87", "90"],
+      "penalized_headings": ["9402"],
+      "enrichment_phrases": ["office chair seat furniture 9401"]
+    },
+    {
+      "id": "ballpoint_pen_product",
+      "required_terms": ["pen"],
+      "context_terms": ["ballpoint", "ball-point", "writing", "blue", "gel", "fountain"],
+      "anti_terms": ["refill", "cartridge", "replacement refill", "ink refill"],
+      "families": ["stationery_pen"],
+      "penalized_headings": ["960860", "9613"],
+      "enrichment_phrases": ["ballpoint pen writing instrument"]
+    },
+    {
+      "id": "pen_refill_explicit",
+      "required_terms": ["refill"],
+      "any_of_terms": ["pen", "ink", "ballpoint"],
+      "families": ["stationery_pen_refill"],
+      "penalized_headings": ["9612", "8443"],
+      "enrichment_phrases": ["ballpoint pen refill ink reservoir"]
+    },
+    {
+      "id": "printer_consumable_explicit",
+      "required_terms": ["cartridge"],
+      "any_of_terms": ["printer", "toner", "inkjet", "ink", "laser", "hp"],
+      "anti_terms": ["ammunition", "rifle", "firearm", "printing press", "printing machinery"],
+      "families": ["office_printer_consumable"],
+      "excluded_chapters": ["84", "93"],
+      "penalized_headings": ["8443", "844310", "844312"],
+      "enrichment_phrases": ["printer ink toner cartridge 3215"]
+    },
+    {
+      "id": "ups_backup",
+      "required_terms": ["ups"],
+      "any_of_terms": ["uninterruptible", "battery backup", "backup power"],
+      "families": ["ups"],
+      "penalized_headings": ["8543"],
+      "enrichment_phrases": ["uninterruptible power supply"]
+    }
+  ]
+}

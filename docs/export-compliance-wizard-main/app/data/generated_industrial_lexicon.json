@@ -1,0 +1,2541 @@
+{
+  "version": 1,
+  "generated_at": "2026-06-08T18:04:21.446978+00:00",
+  "source_database": "/workspace/app/data/aes_historical.db",
+  "min_frequency": 5,
+  "entry_count": 422,
+  "entries": [
+    {
+      "phrase": "durum wheat",
+      "normalized_phrase": "durum wheat",
+      "cn8": "19021100",
+      "count": 75
+    },
+    {
+      "phrase": "protective coating",
+      "normalized_phrase": "protective coating",
+      "cn8": "32091000",
+      "count": 75
+    },
+    {
+      "phrase": "sugar syrup",
+      "normalized_phrase": "sugar syrup",
+      "cn8": "21061020",
+      "count": 75
+    },
+    {
+      "phrase": "robni trak",
+      "normalized_phrase": "robni trak",
+      "cn8": "39201021",
+      "count": 60
+    },
+    {
+      "phrase": "frozen lasagna",
+      "normalized_phrase": "frozen lasagna",
+      "cn8": "21061020",
+      "count": 55
+    },
+    {
+      "phrase": "frozen lasagna ready",
+      "normalized_phrase": "frozen lasagna ready",
+      "cn8": "21061020",
+      "count": 55
+    },
+    {
+      "phrase": "frozen lasagna ready meal",
+      "normalized_phrase": "frozen lasagna ready meal",
+      "cn8": "21061020",
+      "count": 55
+    },
+    {
+      "phrase": "industrijsko lepilo",
+      "normalized_phrase": "industrijsko lepilo",
+      "cn8": "35061000",
+      "count": 55
+    },
+    {
+      "phrase": "lasagna ready",
+      "normalized_phrase": "lasagna ready",
+      "cn8": "21061020",
+      "count": 55
+    },
+    {
+      "phrase": "lasagna ready meal",
+      "normalized_phrase": "lasagna ready meal",
+      "cn8": "21061020",
+      "count": 55
+    },
+    {
+      "phrase": "ready meal",
+      "normalized_phrase": "ready meal",
+      "cn8": "21061020",
+      "count": 55
+    },
+    {
+      "phrase": "aromatized sugar",
+      "normalized_phrase": "aromatized sugar",
+      "cn8": "21061020",
+      "count": 50
+    },
+    {
+      "phrase": "cabinet hinge",
+      "normalized_phrase": "cabinet hinge",
+      "cn8": "83021000",
+      "count": 50
+    },
+    {
+      "phrase": "door hinge",
+      "normalized_phrase": "door hinge",
+      "cn8": "83021000",
+      "count": 50
+    },
+    {
+      "phrase": "head screw",
+      "normalized_phrase": "head screw",
+      "cn8": "73181100",
+      "count": 50
+    },
+    {
+      "phrase": "jeans hlace",
+      "normalized_phrase": "jeans hlace",
+      "cn8": "62031100",
+      "count": 50
+    },
+    {
+      "phrase": "men cotton",
+      "normalized_phrase": "men cotton",
+      "cn8": "62031100",
+      "count": 50
+    },
+    {
+      "phrase": "okovje za",
+      "normalized_phrase": "okovje za",
+      "cn8": "83021000",
+      "count": 50
+    },
+    {
+      "phrase": "pizza margherita",
+      "normalized_phrase": "pizza margherita",
+      "cn8": "19051000",
+      "count": 50
+    },
+    {
+      "phrase": "pohistveno okovje",
+      "normalized_phrase": "pohistveno okovje",
+      "cn8": "83021000",
+      "count": 50
+    },
+    {
+      "phrase": "proximity sensor",
+      "normalized_phrase": "proximity sensor",
+      "cn8": "85361010",
+      "count": 50
+    },
+    {
+      "phrase": "silicone sealant",
+      "normalized_phrase": "silicone sealant",
+      "cn8": "32141010",
+      "count": 50
+    },
+    {
+      "phrase": "temperature sensor",
+      "normalized_phrase": "temperature sensor",
+      "cn8": "90251120",
+      "count": 50
+    },
+    {
+      "phrase": "abs robni",
+      "normalized_phrase": "abs robni",
+      "cn8": "39201021",
+      "count": 30
+    },
+    {
+      "phrase": "abs robni trak",
+      "normalized_phrase": "abs robni trak",
+      "cn8": "39201021",
+      "count": 30
+    },
+    {
+      "phrase": "abs robni trak beli",
+      "normalized_phrase": "abs robni trak beli",
+      "cn8": "39201021",
+      "count": 30
+    },
+    {
+      "phrase": "beli 22",
+      "normalized_phrase": "beli 22",
+      "cn8": "39201021",
+      "count": 30
+    },
+    {
+      "phrase": "beli 22 mm",
+      "normalized_phrase": "beli 22 mm",
+      "cn8": "39201021",
+      "count": 30
+    },
+    {
+      "phrase": "jeans hlace",
+      "normalized_phrase": "jeans hlace",
+      "cn8": "62034231",
+      "count": 30
+    },
+    {
+      "phrase": "moske jeans",
+      "normalized_phrase": "moske jeans",
+      "cn8": "62034231",
+      "count": 30
+    },
+    {
+      "phrase": "moske jeans hlace",
+      "normalized_phrase": "moske jeans hlace",
+      "cn8": "62034231",
+      "count": 30
+    },
+    {
+      "phrase": "photoelectric sensor",
+      "normalized_phrase": "photoelectric sensor",
+      "cn8": "90314900",
+      "count": 30
+    },
+    {
+      "phrase": "pohistveno okovje",
+      "normalized_phrase": "pohistveno okovje",
+      "cn8": "83025000",
+      "count": 30
+    },
+    {
+      "phrase": "robni trak abs",
+      "normalized_phrase": "robni trak abs",
+      "cn8": "39201021",
+      "count": 30
+    },
+    {
+      "phrase": "robni trak beli",
+      "normalized_phrase": "robni trak beli",
+      "cn8": "39201021",
+      "count": 30
+    },
+    {
+      "phrase": "robni trak beli 22",
+      "normalized_phrase": "robni trak beli 22",
+      "cn8": "39201021",
+      "count": 30
+    },
+    {
+      "phrase": "screw m8",
+      "normalized_phrase": "screw m8",
+      "cn8": "73181590",
+      "count": 30
+    },
+    {
+      "phrase": "steel screw",
+      "normalized_phrase": "steel screw",
+      "cn8": "73181590",
+      "count": 30
+    },
+    {
+      "phrase": "steel screw m8",
+      "normalized_phrase": "steel screw m8",
+      "cn8": "73181590",
+      "count": 30
+    },
+    {
+      "phrase": "trak abs",
+      "normalized_phrase": "trak abs",
+      "cn8": "39201021",
+      "count": 30
+    },
+    {
+      "phrase": "trak beli",
+      "normalized_phrase": "trak beli",
+      "cn8": "39201021",
+      "count": 30
+    },
+    {
+      "phrase": "trak beli 22",
+      "normalized_phrase": "trak beli 22",
+      "cn8": "39201021",
+      "count": 30
+    },
+    {
+      "phrase": "trak beli 22 mm",
+      "normalized_phrase": "trak beli 22 mm",
+      "cn8": "39201021",
+      "count": 30
+    },
+    {
+      "phrase": "15 inch",
+      "normalized_phrase": "15 inch",
+      "cn8": "84713000",
+      "count": 25
+    },
+    {
+      "phrase": "18gm50 e2",
+      "normalized_phrase": "18gm50 e2",
+      "cn8": "85361010",
+      "count": 25
+    },
+    {
+      "phrase": "24 inch",
+      "normalized_phrase": "24 inch",
+      "cn8": "85284200",
+      "count": 25
+    },
+    {
+      "phrase": "500 kos",
+      "normalized_phrase": "500 kos",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "500 kos",
+      "normalized_phrase": "500 kos",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "500 kos moske",
+      "normalized_phrase": "500 kos moske",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "500 kos moske bombazne",
+      "normalized_phrase": "500 kos moske bombazne",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "500 kos zenske",
+      "normalized_phrase": "500 kos zenske",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "500 kos zenske bombazne",
+      "normalized_phrase": "500 kos zenske bombazne",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "500 pcs",
+      "normalized_phrase": "500 pcs",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "500 pcs",
+      "normalized_phrase": "500 pcs",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "500 pcs hex",
+      "normalized_phrase": "500 pcs hex",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "500 pcs hex head",
+      "normalized_phrase": "500 pcs hex head",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "500 pcs men",
+      "normalized_phrase": "500 pcs men",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "500 pcs men denim",
+      "normalized_phrase": "500 pcs men denim",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "abb electric",
+      "normalized_phrase": "abb electric",
+      "cn8": "85011010",
+      "count": 25
+    },
+    {
+      "phrase": "abb electric motor",
+      "normalized_phrase": "abb electric motor",
+      "cn8": "85011010",
+      "count": 25
+    },
+    {
+      "phrase": "acrylic paint",
+      "normalized_phrase": "acrylic paint",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "acrylic paint protective",
+      "normalized_phrase": "acrylic paint protective",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "acrylic paint protective coating",
+      "normalized_phrase": "acrylic paint protective coating",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "adhesive sealant",
+      "normalized_phrase": "adhesive sealant",
+      "cn8": "32141010",
+      "count": 25
+    },
+    {
+      "phrase": "and nut",
+      "normalized_phrase": "and nut",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "and nut set",
+      "normalized_phrase": "and nut set",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "and nut set assortment",
+      "normalized_phrase": "and nut set assortment",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "aromatized sugar syrup",
+      "normalized_phrase": "aromatized sugar syrup",
+      "cn8": "21061020",
+      "count": 25
+    },
+    {
+      "phrase": "aromatized sugar syrups",
+      "normalized_phrase": "aromatized sugar syrups",
+      "cn8": "21061020",
+      "count": 25
+    },
+    {
+      "phrase": "aromatized sugar syrups industrial",
+      "normalized_phrase": "aromatized sugar syrups industrial",
+      "cn8": "21061020",
+      "count": 25
+    },
+    {
+      "phrase": "bakery pizza",
+      "normalized_phrase": "bakery pizza",
+      "cn8": "19051000",
+      "count": 25
+    },
+    {
+      "phrase": "battery backup",
+      "normalized_phrase": "battery backup",
+      "cn8": "85041020",
+      "count": 25
+    },
+    {
+      "phrase": "blouse polyester",
+      "normalized_phrase": "blouse polyester",
+      "cn8": "62061000",
+      "count": 25
+    },
+    {
+      "phrase": "bolt m12",
+      "normalized_phrase": "bolt m12",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "bolt zinc",
+      "normalized_phrase": "bolt zinc",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "bombazne jeans",
+      "normalized_phrase": "bombazne jeans",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "bombazne jeans hlace",
+      "normalized_phrase": "bombazne jeans hlace",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "bombazne majice",
+      "normalized_phrase": "bombazne majice",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "bracket steel",
+      "normalized_phrase": "bracket steel",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "cabinet door",
+      "normalized_phrase": "cabinet door",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "cabinet door hinge",
+      "normalized_phrase": "cabinet door hinge",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "cabinet fittings",
+      "normalized_phrase": "cabinet fittings",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "cabinet hinge brass",
+      "normalized_phrase": "cabinet hinge brass",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "carriage bolt",
+      "normalized_phrase": "carriage bolt",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "carriage bolt zinc",
+      "normalized_phrase": "carriage bolt zinc",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "chemosil silicone",
+      "normalized_phrase": "chemosil silicone",
+      "cn8": "32141010",
+      "count": 25
+    },
+    {
+      "phrase": "chemosil silicone sealant",
+      "normalized_phrase": "chemosil silicone sealant",
+      "cn8": "32141010",
+      "count": 25
+    },
+    {
+      "phrase": "coating paint",
+      "normalized_phrase": "coating paint",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "component adhesive",
+      "normalized_phrase": "component adhesive",
+      "cn8": "35061000",
+      "count": 25
+    },
+    {
+      "phrase": "compound industrial",
+      "normalized_phrase": "compound industrial",
+      "cn8": "39091000",
+      "count": 25
+    },
+    {
+      "phrase": "computer 15",
+      "normalized_phrase": "computer 15",
+      "cn8": "84713000",
+      "count": 25
+    },
+    {
+      "phrase": "computer 15 inch",
+      "normalized_phrase": "computer 15 inch",
+      "cn8": "84713000",
+      "count": 25
+    },
+    {
+      "phrase": "computer dell",
+      "normalized_phrase": "computer dell",
+      "cn8": "84713000",
+      "count": 25
+    },
+    {
+      "phrase": "computer laptop",
+      "normalized_phrase": "computer laptop",
+      "cn8": "84713000",
+      "count": 25
+    },
+    {
+      "phrase": "computer monitor",
+      "normalized_phrase": "computer monitor",
+      "cn8": "85284200",
+      "count": 25
+    },
+    {
+      "phrase": "computer monitor led",
+      "normalized_phrase": "computer monitor led",
+      "cn8": "85284200",
+      "count": 25
+    },
+    {
+      "phrase": "connector bracket",
+      "normalized_phrase": "connector bracket",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "construction silicone",
+      "normalized_phrase": "construction silicone",
+      "cn8": "32141010",
+      "count": 25
+    },
+    {
+      "phrase": "construction silicone adhesive",
+      "normalized_phrase": "construction silicone adhesive",
+      "cn8": "32141010",
+      "count": 25
+    },
+    {
+      "phrase": "cotton dress",
+      "normalized_phrase": "cotton dress",
+      "cn8": "62052000",
+      "count": 25
+    },
+    {
+      "phrase": "cotton dress shirt",
+      "normalized_phrase": "cotton dress shirt",
+      "cn8": "62052000",
+      "count": 25
+    },
+    {
+      "phrase": "cotton shirt",
+      "normalized_phrase": "cotton shirt",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "cotton shirts",
+      "normalized_phrase": "cotton shirts",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "cotton shirts for",
+      "normalized_phrase": "cotton shirts for",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "cotton shirts for adults",
+      "normalized_phrase": "cotton shirts for adults",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "cotton shorts",
+      "normalized_phrase": "cotton shorts",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "cotton socks",
+      "normalized_phrase": "cotton socks",
+      "cn8": "61151010",
+      "count": 25
+    },
+    {
+      "phrase": "cotton socks men",
+      "normalized_phrase": "cotton socks men",
+      "cn8": "61151010",
+      "count": 25
+    },
+    {
+      "phrase": "cotton trousers",
+      "normalized_phrase": "cotton trousers",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "countersunk head",
+      "normalized_phrase": "countersunk head",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "countersunk head screw",
+      "normalized_phrase": "countersunk head screw",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "denim jacket",
+      "normalized_phrase": "denim jacket",
+      "cn8": "62012000",
+      "count": 25
+    },
+    {
+      "phrase": "denim jeans",
+      "normalized_phrase": "denim jeans",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "denim jeans trousers",
+      "normalized_phrase": "denim jeans trousers",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "denim skirt",
+      "normalized_phrase": "denim skirt",
+      "cn8": "62041100",
+      "count": 25
+    },
+    {
+      "phrase": "door furniture",
+      "normalized_phrase": "door furniture",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "door furniture fitting",
+      "normalized_phrase": "door furniture fitting",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "door hinge steel",
+      "normalized_phrase": "door hinge steel",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "drawer slide",
+      "normalized_phrase": "drawer slide",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "drawer slide fitting",
+      "normalized_phrase": "drawer slide fitting",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "dress shirt",
+      "normalized_phrase": "dress shirt",
+      "cn8": "62052000",
+      "count": 25
+    },
+    {
+      "phrase": "durum wheat fusilli",
+      "normalized_phrase": "durum wheat fusilli",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "durum wheat pasta",
+      "normalized_phrase": "durum wheat pasta",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "electric motor",
+      "normalized_phrase": "electric motor",
+      "cn8": "85011010",
+      "count": 25
+    },
+    {
+      "phrase": "epoxy resin",
+      "normalized_phrase": "epoxy resin",
+      "cn8": "35061000",
+      "count": 25
+    },
+    {
+      "phrase": "epoxy resin adhesive",
+      "normalized_phrase": "epoxy resin adhesive",
+      "cn8": "35061000",
+      "count": 25
+    },
+    {
+      "phrase": "fitting hinge",
+      "normalized_phrase": "fitting hinge",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "fittings mounting",
+      "normalized_phrase": "fittings mounting",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "flavoured sugar",
+      "normalized_phrase": "flavoured sugar",
+      "cn8": "21061020",
+      "count": 25
+    },
+    {
+      "phrase": "flavoured sugar syrup",
+      "normalized_phrase": "flavoured sugar syrup",
+      "cn8": "21061020",
+      "count": 25
+    },
+    {
+      "phrase": "food pizza",
+      "normalized_phrase": "food pizza",
+      "cn8": "19051000",
+      "count": 25
+    },
+    {
+      "phrase": "food pizza base",
+      "normalized_phrase": "food pizza base",
+      "cn8": "19051000",
+      "count": 25
+    },
+    {
+      "phrase": "for adults",
+      "normalized_phrase": "for adults",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "for furniture",
+      "normalized_phrase": "for furniture",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "for furniture door",
+      "normalized_phrase": "for furniture door",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "frozen bakery",
+      "normalized_phrase": "frozen bakery",
+      "cn8": "19051000",
+      "count": 25
+    },
+    {
+      "phrase": "frozen bakery pizza",
+      "normalized_phrase": "frozen bakery pizza",
+      "cn8": "19051000",
+      "count": 25
+    },
+    {
+      "phrase": "frozen pizza",
+      "normalized_phrase": "frozen pizza",
+      "cn8": "19051000",
+      "count": 25
+    },
+    {
+      "phrase": "frozen pizza margherita",
+      "normalized_phrase": "frozen pizza margherita",
+      "cn8": "19051000",
+      "count": 25
+    },
+    {
+      "phrase": "fuchs nbb5",
+      "normalized_phrase": "fuchs nbb5",
+      "cn8": "85361010",
+      "count": 25
+    },
+    {
+      "phrase": "fuchs nbb5 18gm50",
+      "normalized_phrase": "fuchs nbb5 18gm50",
+      "cn8": "85361010",
+      "count": 25
+    },
+    {
+      "phrase": "fuchs nbb5 18gm50 e2",
+      "normalized_phrase": "fuchs nbb5 18gm50 e2",
+      "cn8": "85361010",
+      "count": 25
+    },
+    {
+      "phrase": "furniture connector",
+      "normalized_phrase": "furniture connector",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "furniture connector bracket",
+      "normalized_phrase": "furniture connector bracket",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "furniture door",
+      "normalized_phrase": "furniture door",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "furniture fitting",
+      "normalized_phrase": "furniture fitting",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "furniture fittings",
+      "normalized_phrase": "furniture fittings",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "furniture fittings mounting",
+      "normalized_phrase": "furniture fittings mounting",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "furniture handle",
+      "normalized_phrase": "furniture handle",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "furniture handle mounting",
+      "normalized_phrase": "furniture handle mounting",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "furniture mounting",
+      "normalized_phrase": "furniture mounting",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "furniture mounting hardware",
+      "normalized_phrase": "furniture mounting hardware",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "fusilli pasta",
+      "normalized_phrase": "fusilli pasta",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "fusilli pasta 500g",
+      "normalized_phrase": "fusilli pasta 500g",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "gasket sealant",
+      "normalized_phrase": "gasket sealant",
+      "cn8": "32141010",
+      "count": 25
+    },
+    {
+      "phrase": "glazing sealant",
+      "normalized_phrase": "glazing sealant",
+      "cn8": "32141010",
+      "count": 25
+    },
+    {
+      "phrase": "glazing sealant silicone",
+      "normalized_phrase": "glazing sealant silicone",
+      "cn8": "32141010",
+      "count": 25
+    },
+    {
+      "phrase": "handle mounting",
+      "normalized_phrase": "handle mounting",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "head screw zinc",
+      "normalized_phrase": "head screw zinc",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "head screws",
+      "normalized_phrase": "head screws",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "herrenhose lang",
+      "normalized_phrase": "herrenhose lang",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "hex bolt",
+      "normalized_phrase": "hex bolt",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "hex head",
+      "normalized_phrase": "hex head",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "hex head screws",
+      "normalized_phrase": "hex head screws",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "hex nuts",
+      "normalized_phrase": "hex nuts",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "hex nuts m10",
+      "normalized_phrase": "hex nuts m10",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "hexagon bolt",
+      "normalized_phrase": "hexagon bolt",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "hexagon bolt m12",
+      "normalized_phrase": "hexagon bolt m12",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "hinge brass",
+      "normalized_phrase": "hinge brass",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "hinge for",
+      "normalized_phrase": "hinge for",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "hinge for furniture",
+      "normalized_phrase": "hinge for furniture",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "hinge for furniture door",
+      "normalized_phrase": "hinge for furniture door",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "hinge steel",
+      "normalized_phrase": "hinge steel",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "hp printer",
+      "normalized_phrase": "hp printer",
+      "cn8": "32151100",
+      "count": 25
+    },
+    {
+      "phrase": "hp printer cartridge",
+      "normalized_phrase": "hp printer cartridge",
+      "cn8": "32151100",
+      "count": 25
+    },
+    {
+      "phrase": "inductive proximity",
+      "normalized_phrase": "inductive proximity",
+      "cn8": "85361010",
+      "count": 25
+    },
+    {
+      "phrase": "inductive proximity sensor",
+      "normalized_phrase": "inductive proximity sensor",
+      "cn8": "85361010",
+      "count": 25
+    },
+    {
+      "phrase": "industrial adhesive",
+      "normalized_phrase": "industrial adhesive",
+      "cn8": "32141010",
+      "count": 25
+    },
+    {
+      "phrase": "industrial adhesive sealant",
+      "normalized_phrase": "industrial adhesive sealant",
+      "cn8": "32141010",
+      "count": 25
+    },
+    {
+      "phrase": "industrial pasta",
+      "normalized_phrase": "industrial pasta",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "industrial pasta fusilli",
+      "normalized_phrase": "industrial pasta fusilli",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "industrial temperature",
+      "normalized_phrase": "industrial temperature",
+      "cn8": "90251120",
+      "count": 25
+    },
+    {
+      "phrase": "industrial temperature sensor",
+      "normalized_phrase": "industrial temperature sensor",
+      "cn8": "90251120",
+      "count": 25
+    },
+    {
+      "phrase": "industrial temperature sensor pt100",
+      "normalized_phrase": "industrial temperature sensor pt100",
+      "cn8": "90251120",
+      "count": 25
+    },
+    {
+      "phrase": "iz jekla",
+      "normalized_phrase": "iz jekla",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "jeans hlace",
+      "normalized_phrase": "jeans hlace",
+      "cn8": "62041100",
+      "count": 25
+    },
+    {
+      "phrase": "jeans trousers",
+      "normalized_phrase": "jeans trousers",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "kitchen cabinet",
+      "normalized_phrase": "kitchen cabinet",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "kitchen cabinet hinge",
+      "normalized_phrase": "kitchen cabinet hinge",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "knitted polo",
+      "normalized_phrase": "knitted polo",
+      "cn8": "61101110",
+      "count": 25
+    },
+    {
+      "phrase": "knitted polo shirt",
+      "normalized_phrase": "knitted polo shirt",
+      "cn8": "61101110",
+      "count": 25
+    },
+    {
+      "phrase": "kos moske",
+      "normalized_phrase": "kos moske",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "kos moske bombazne",
+      "normalized_phrase": "kos moske bombazne",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "kos moske bombazne jeans",
+      "normalized_phrase": "kos moske bombazne jeans",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "kos zenske",
+      "normalized_phrase": "kos zenske",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "kos zenske bombazne",
+      "normalized_phrase": "kos zenske bombazne",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "kos zenske bombazne majice",
+      "normalized_phrase": "kos zenske bombazne majice",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "laptop computer",
+      "normalized_phrase": "laptop computer",
+      "cn8": "84713000",
+      "count": 25
+    },
+    {
+      "phrase": "laptop computer 15",
+      "normalized_phrase": "laptop computer 15",
+      "cn8": "84713000",
+      "count": 25
+    },
+    {
+      "phrase": "laptop computer 15 inch",
+      "normalized_phrase": "laptop computer 15 inch",
+      "cn8": "84713000",
+      "count": 25
+    },
+    {
+      "phrase": "lcd monitor",
+      "normalized_phrase": "lcd monitor",
+      "cn8": "85284200",
+      "count": 25
+    },
+    {
+      "phrase": "lcd monitor 24",
+      "normalized_phrase": "lcd monitor 24",
+      "cn8": "85284200",
+      "count": 25
+    },
+    {
+      "phrase": "lcd monitor 24 inch",
+      "normalized_phrase": "lcd monitor 24 inch",
+      "cn8": "85284200",
+      "count": 25
+    },
+    {
+      "phrase": "leg bracket",
+      "normalized_phrase": "leg bracket",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "leg bracket steel",
+      "normalized_phrase": "leg bracket steel",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "linen shirt",
+      "normalized_phrase": "linen shirt",
+      "cn8": "62052000",
+      "count": 25
+    },
+    {
+      "phrase": "linen shirt men",
+      "normalized_phrase": "linen shirt men",
+      "cn8": "62052000",
+      "count": 25
+    },
+    {
+      "phrase": "lock nut",
+      "normalized_phrase": "lock nut",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "lock nut m10",
+      "normalized_phrase": "lock nut m10",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "m8 hex",
+      "normalized_phrase": "m8 hex",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "m8 hex bolt",
+      "normalized_phrase": "m8 hex bolt",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "machine screws",
+      "normalized_phrase": "machine screws",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "mangart protective",
+      "normalized_phrase": "mangart protective",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "mangart protective coating",
+      "normalized_phrase": "mangart protective coating",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "margherita frozen",
+      "normalized_phrase": "margherita frozen",
+      "cn8": "19051000",
+      "count": 25
+    },
+    {
+      "phrase": "matice m10",
+      "normalized_phrase": "matice m10",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "men cotton",
+      "normalized_phrase": "men cotton",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "men cotton",
+      "normalized_phrase": "men cotton",
+      "cn8": "62052000",
+      "count": 25
+    },
+    {
+      "phrase": "men cotton dress",
+      "normalized_phrase": "men cotton dress",
+      "cn8": "62052000",
+      "count": 25
+    },
+    {
+      "phrase": "men cotton dress shirt",
+      "normalized_phrase": "men cotton dress shirt",
+      "cn8": "62052000",
+      "count": 25
+    },
+    {
+      "phrase": "men cotton shirt",
+      "normalized_phrase": "men cotton shirt",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "men cotton shorts",
+      "normalized_phrase": "men cotton shorts",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "men cotton trousers",
+      "normalized_phrase": "men cotton trousers",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "men denim",
+      "normalized_phrase": "men denim",
+      "cn8": "62012000",
+      "count": 25
+    },
+    {
+      "phrase": "men denim",
+      "normalized_phrase": "men denim",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "men denim jacket",
+      "normalized_phrase": "men denim jacket",
+      "cn8": "62012000",
+      "count": 25
+    },
+    {
+      "phrase": "men denim jeans",
+      "normalized_phrase": "men denim jeans",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "men denim jeans trousers",
+      "normalized_phrase": "men denim jeans trousers",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "men knitted",
+      "normalized_phrase": "men knitted",
+      "cn8": "61101110",
+      "count": 25
+    },
+    {
+      "phrase": "men knitted polo",
+      "normalized_phrase": "men knitted polo",
+      "cn8": "61101110",
+      "count": 25
+    },
+    {
+      "phrase": "men knitted polo shirt",
+      "normalized_phrase": "men knitted polo shirt",
+      "cn8": "61101110",
+      "count": 25
+    },
+    {
+      "phrase": "men wool",
+      "normalized_phrase": "men wool",
+      "cn8": "61101110",
+      "count": 25
+    },
+    {
+      "phrase": "men wool sweater",
+      "normalized_phrase": "men wool sweater",
+      "cn8": "61101110",
+      "count": 25
+    },
+    {
+      "phrase": "monitor 24",
+      "normalized_phrase": "monitor 24",
+      "cn8": "85284200",
+      "count": 25
+    },
+    {
+      "phrase": "monitor 24 inch",
+      "normalized_phrase": "monitor 24 inch",
+      "cn8": "85284200",
+      "count": 25
+    },
+    {
+      "phrase": "monitor led",
+      "normalized_phrase": "monitor led",
+      "cn8": "85284200",
+      "count": 25
+    },
+    {
+      "phrase": "moska polo",
+      "normalized_phrase": "moska polo",
+      "cn8": "61051000",
+      "count": 25
+    },
+    {
+      "phrase": "moska polo majica",
+      "normalized_phrase": "moska polo majica",
+      "cn8": "61051000",
+      "count": 25
+    },
+    {
+      "phrase": "moske bombazne",
+      "normalized_phrase": "moske bombazne",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "moske bombazne jeans",
+      "normalized_phrase": "moske bombazne jeans",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "moske bombazne jeans hlace",
+      "normalized_phrase": "moske bombazne jeans hlace",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "moske jeans",
+      "normalized_phrase": "moske jeans",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "moske jeans hlace",
+      "normalized_phrase": "moske jeans hlace",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "motor phase",
+      "normalized_phrase": "motor phase",
+      "cn8": "85011010",
+      "count": 25
+    },
+    {
+      "phrase": "mounting bracket",
+      "normalized_phrase": "mounting bracket",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "mounting hardware",
+      "normalized_phrase": "mounting hardware",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "nbb5 18gm50",
+      "normalized_phrase": "nbb5 18gm50",
+      "cn8": "85361010",
+      "count": 25
+    },
+    {
+      "phrase": "nbb5 18gm50 e2",
+      "normalized_phrase": "nbb5 18gm50 e2",
+      "cn8": "85361010",
+      "count": 25
+    },
+    {
+      "phrase": "notebook computer",
+      "normalized_phrase": "notebook computer",
+      "cn8": "84713000",
+      "count": 25
+    },
+    {
+      "phrase": "notebook computer dell",
+      "normalized_phrase": "notebook computer dell",
+      "cn8": "84713000",
+      "count": 25
+    },
+    {
+      "phrase": "nut m10",
+      "normalized_phrase": "nut m10",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "nut set",
+      "normalized_phrase": "nut set",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "nut set assortment",
+      "normalized_phrase": "nut set assortment",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "nuts m10",
+      "normalized_phrase": "nuts m10",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "nuts zinc",
+      "normalized_phrase": "nuts zinc",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "nuts zinc plated",
+      "normalized_phrase": "nuts zinc plated",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "office cabinet",
+      "normalized_phrase": "office cabinet",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "office cabinet fittings",
+      "normalized_phrase": "office cabinet fittings",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "okovje za omare",
+      "normalized_phrase": "okovje za omare",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "okovje za pohistvo",
+      "normalized_phrase": "okovje za pohistvo",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "paint metal",
+      "normalized_phrase": "paint metal",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "paint protective",
+      "normalized_phrase": "paint protective",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "paint protective coating",
+      "normalized_phrase": "paint protective coating",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "pan head",
+      "normalized_phrase": "pan head",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "pan head screw",
+      "normalized_phrase": "pan head screw",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "pan head screw zinc",
+      "normalized_phrase": "pan head screw zinc",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "pasta 500g",
+      "normalized_phrase": "pasta 500g",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "pasta durum",
+      "normalized_phrase": "pasta durum",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "pasta durum wheat",
+      "normalized_phrase": "pasta durum wheat",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "pasta fusilli",
+      "normalized_phrase": "pasta fusilli",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "pasta penne",
+      "normalized_phrase": "pasta penne",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "pasta penne 1kg",
+      "normalized_phrase": "pasta penne 1kg",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "pcs hex",
+      "normalized_phrase": "pcs hex",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "pcs hex head",
+      "normalized_phrase": "pcs hex head",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "pcs hex head screws",
+      "normalized_phrase": "pcs hex head screws",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "pcs men",
+      "normalized_phrase": "pcs men",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "pcs men denim",
+      "normalized_phrase": "pcs men denim",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "pcs men denim jeans",
+      "normalized_phrase": "pcs men denim jeans",
+      "cn8": "62031100",
+      "count": 25
+    },
+    {
+      "phrase": "penne 1kg",
+      "normalized_phrase": "penne 1kg",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "penne rigate",
+      "normalized_phrase": "penne rigate",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "penne rigate pasta",
+      "normalized_phrase": "penne rigate pasta",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "pepperl fuchs",
+      "normalized_phrase": "pepperl fuchs",
+      "cn8": "85361010",
+      "count": 25
+    },
+    {
+      "phrase": "pepperl fuchs nbb5",
+      "normalized_phrase": "pepperl fuchs nbb5",
+      "cn8": "85361010",
+      "count": 25
+    },
+    {
+      "phrase": "pepperl fuchs nbb5 18gm50",
+      "normalized_phrase": "pepperl fuchs nbb5 18gm50",
+      "cn8": "85361010",
+      "count": 25
+    },
+    {
+      "phrase": "photoelectric sensor",
+      "normalized_phrase": "photoelectric sensor",
+      "cn8": "90311000",
+      "count": 25
+    },
+    {
+      "phrase": "pizza base",
+      "normalized_phrase": "pizza base",
+      "cn8": "19051000",
+      "count": 25
+    },
+    {
+      "phrase": "pizza frozen",
+      "normalized_phrase": "pizza frozen",
+      "cn8": "19051000",
+      "count": 25
+    },
+    {
+      "phrase": "pizza margherita frozen",
+      "normalized_phrase": "pizza margherita frozen",
+      "cn8": "19051000",
+      "count": 25
+    },
+    {
+      "phrase": "plc module",
+      "normalized_phrase": "plc module",
+      "cn8": "85371010",
+      "count": 25
+    },
+    {
+      "phrase": "pohistveno okovje za",
+      "normalized_phrase": "pohistveno okovje za",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "pohistveno okovje za omare",
+      "normalized_phrase": "pohistveno okovje za omare",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "polo majica",
+      "normalized_phrase": "polo majica",
+      "cn8": "61051000",
+      "count": 25
+    },
+    {
+      "phrase": "polo shirt",
+      "normalized_phrase": "polo shirt",
+      "cn8": "61101110",
+      "count": 25
+    },
+    {
+      "phrase": "polyester jacket",
+      "normalized_phrase": "polyester jacket",
+      "cn8": "62022000",
+      "count": 25
+    },
+    {
+      "phrase": "polyurethane compound",
+      "normalized_phrase": "polyurethane compound",
+      "cn8": "39091000",
+      "count": 25
+    },
+    {
+      "phrase": "polyurethane prepolymer",
+      "normalized_phrase": "polyurethane prepolymer",
+      "cn8": "39091000",
+      "count": 25
+    },
+    {
+      "phrase": "polyurethane prepolymer compound",
+      "normalized_phrase": "polyurethane prepolymer compound",
+      "cn8": "39091000",
+      "count": 25
+    },
+    {
+      "phrase": "portable computer",
+      "normalized_phrase": "portable computer",
+      "cn8": "84713000",
+      "count": 25
+    },
+    {
+      "phrase": "portable computer laptop",
+      "normalized_phrase": "portable computer laptop",
+      "cn8": "84713000",
+      "count": 25
+    },
+    {
+      "phrase": "power supply",
+      "normalized_phrase": "power supply",
+      "cn8": "85041020",
+      "count": 25
+    },
+    {
+      "phrase": "power supply 24vdc",
+      "normalized_phrase": "power supply 24vdc",
+      "cn8": "85041020",
+      "count": 25
+    },
+    {
+      "phrase": "prepared food",
+      "normalized_phrase": "prepared food",
+      "cn8": "19051000",
+      "count": 25
+    },
+    {
+      "phrase": "prepared food pizza",
+      "normalized_phrase": "prepared food pizza",
+      "cn8": "19051000",
+      "count": 25
+    },
+    {
+      "phrase": "prepared food pizza base",
+      "normalized_phrase": "prepared food pizza base",
+      "cn8": "19051000",
+      "count": 25
+    },
+    {
+      "phrase": "prepared pizza",
+      "normalized_phrase": "prepared pizza",
+      "cn8": "19051000",
+      "count": 25
+    },
+    {
+      "phrase": "prepared pizza frozen",
+      "normalized_phrase": "prepared pizza frozen",
+      "cn8": "19051000",
+      "count": 25
+    },
+    {
+      "phrase": "prepolymer compound",
+      "normalized_phrase": "prepolymer compound",
+      "cn8": "39091000",
+      "count": 25
+    },
+    {
+      "phrase": "pressure sensor",
+      "normalized_phrase": "pressure sensor",
+      "cn8": "90261021",
+      "count": 25
+    },
+    {
+      "phrase": "pressure sensor danfoss",
+      "normalized_phrase": "pressure sensor danfoss",
+      "cn8": "90261021",
+      "count": 25
+    },
+    {
+      "phrase": "primer paint",
+      "normalized_phrase": "primer paint",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "primer paint metal",
+      "normalized_phrase": "primer paint metal",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "printer cartridge",
+      "normalized_phrase": "printer cartridge",
+      "cn8": "32151100",
+      "count": 25
+    },
+    {
+      "phrase": "protection paint",
+      "normalized_phrase": "protection paint",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "protective coating paint",
+      "normalized_phrase": "protective coating paint",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "proximity sensor inductive",
+      "normalized_phrase": "proximity sensor inductive",
+      "cn8": "85361010",
+      "count": 25
+    },
+    {
+      "phrase": "pu compound",
+      "normalized_phrase": "pu compound",
+      "cn8": "39091000",
+      "count": 25
+    },
+    {
+      "phrase": "pu compound industrial",
+      "normalized_phrase": "pu compound industrial",
+      "cn8": "39091000",
+      "count": 25
+    },
+    {
+      "phrase": "resin adhesive",
+      "normalized_phrase": "resin adhesive",
+      "cn8": "35061000",
+      "count": 25
+    },
+    {
+      "phrase": "rigate pasta",
+      "normalized_phrase": "rigate pasta",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "rod m8",
+      "normalized_phrase": "rod m8",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "rust protection",
+      "normalized_phrase": "rust protection",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "rust protection paint",
+      "normalized_phrase": "rust protection paint",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "screw and",
+      "normalized_phrase": "screw and",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "screw and nut",
+      "normalized_phrase": "screw and nut",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "screw and nut set",
+      "normalized_phrase": "screw and nut set",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "screw zinc",
+      "normalized_phrase": "screw zinc",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "screws 4x40",
+      "normalized_phrase": "screws 4x40",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "screws m8",
+      "normalized_phrase": "screws m8",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "screws steel",
+      "normalized_phrase": "screws steel",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "sealant silicone",
+      "normalized_phrase": "sealant silicone",
+      "cn8": "32141010",
+      "count": 25
+    },
+    {
+      "phrase": "sealant tube",
+      "normalized_phrase": "sealant tube",
+      "cn8": "32141010",
+      "count": 25
+    },
+    {
+      "phrase": "self tapping",
+      "normalized_phrase": "self tapping",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "self tapping screws",
+      "normalized_phrase": "self tapping screws",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "self tapping screws steel",
+      "normalized_phrase": "self tapping screws steel",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "sensor danfoss",
+      "normalized_phrase": "sensor danfoss",
+      "cn8": "90261021",
+      "count": 25
+    },
+    {
+      "phrase": "sensor inductive",
+      "normalized_phrase": "sensor inductive",
+      "cn8": "85361010",
+      "count": 25
+    },
+    {
+      "phrase": "sensor industrial",
+      "normalized_phrase": "sensor industrial",
+      "cn8": "90251120",
+      "count": 25
+    },
+    {
+      "phrase": "sensor pt100",
+      "normalized_phrase": "sensor pt100",
+      "cn8": "90251120",
+      "count": 25
+    },
+    {
+      "phrase": "servo motor",
+      "normalized_phrase": "servo motor",
+      "cn8": "85011010",
+      "count": 25
+    },
+    {
+      "phrase": "servo motor phase",
+      "normalized_phrase": "servo motor phase",
+      "cn8": "85011010",
+      "count": 25
+    },
+    {
+      "phrase": "set assortment",
+      "normalized_phrase": "set assortment",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "shelf mounting",
+      "normalized_phrase": "shelf mounting",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "shelf mounting bracket",
+      "normalized_phrase": "shelf mounting bracket",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "shirt men",
+      "normalized_phrase": "shirt men",
+      "cn8": "62052000",
+      "count": 25
+    },
+    {
+      "phrase": "shirts for",
+      "normalized_phrase": "shirts for",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "shirts for adults",
+      "normalized_phrase": "shirts for adults",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "siemens plc",
+      "normalized_phrase": "siemens plc",
+      "cn8": "85371010",
+      "count": 25
+    },
+    {
+      "phrase": "siemens plc module",
+      "normalized_phrase": "siemens plc module",
+      "cn8": "85371010",
+      "count": 25
+    },
+    {
+      "phrase": "silicone adhesive",
+      "normalized_phrase": "silicone adhesive",
+      "cn8": "32141010",
+      "count": 25
+    },
+    {
+      "phrase": "silicone gasket",
+      "normalized_phrase": "silicone gasket",
+      "cn8": "32141010",
+      "count": 25
+    },
+    {
+      "phrase": "silicone gasket sealant",
+      "normalized_phrase": "silicone gasket sealant",
+      "cn8": "32141010",
+      "count": 25
+    },
+    {
+      "phrase": "silicone sealant tube",
+      "normalized_phrase": "silicone sealant tube",
+      "cn8": "32141010",
+      "count": 25
+    },
+    {
+      "phrase": "slide fitting",
+      "normalized_phrase": "slide fitting",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "sliding door",
+      "normalized_phrase": "sliding door",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "sliding door furniture",
+      "normalized_phrase": "sliding door furniture",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "sliding door furniture fitting",
+      "normalized_phrase": "sliding door furniture fitting",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "socks men",
+      "normalized_phrase": "socks men",
+      "cn8": "61151010",
+      "count": 25
+    },
+    {
+      "phrase": "spaghetti pasta",
+      "normalized_phrase": "spaghetti pasta",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "spaghetti pasta durum",
+      "normalized_phrase": "spaghetti pasta durum",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "spaghetti pasta durum wheat",
+      "normalized_phrase": "spaghetti pasta durum wheat",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "spaghetti uncooked",
+      "normalized_phrase": "spaghetti uncooked",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "stahlschrauben m6",
+      "normalized_phrase": "stahlschrauben m6",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "stainless steel",
+      "normalized_phrase": "stainless steel",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "stainless steel machine",
+      "normalized_phrase": "stainless steel machine",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "stainless steel machine screws",
+      "normalized_phrase": "stainless steel machine screws",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "steel machine",
+      "normalized_phrase": "steel machine",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "steel machine screws",
+      "normalized_phrase": "steel machine screws",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "steel nuts",
+      "normalized_phrase": "steel nuts",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "steel nuts zinc",
+      "normalized_phrase": "steel nuts zinc",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "steel nuts zinc plated",
+      "normalized_phrase": "steel nuts zinc plated",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "steel screws",
+      "normalized_phrase": "steel screws",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "steel screws m8",
+      "normalized_phrase": "steel screws m8",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "sugar syrup aromatized",
+      "normalized_phrase": "sugar syrup aromatized",
+      "cn8": "21061020",
+      "count": 25
+    },
+    {
+      "phrase": "sugar syrups",
+      "normalized_phrase": "sugar syrups",
+      "cn8": "21061020",
+      "count": 25
+    },
+    {
+      "phrase": "sugar syrups industrial",
+      "normalized_phrase": "sugar syrups industrial",
+      "cn8": "21061020",
+      "count": 25
+    },
+    {
+      "phrase": "supply 24vdc",
+      "normalized_phrase": "supply 24vdc",
+      "cn8": "85041020",
+      "count": 25
+    },
+    {
+      "phrase": "syrup aromatized",
+      "normalized_phrase": "syrup aromatized",
+      "cn8": "21061020",
+      "count": 25
+    },
+    {
+      "phrase": "syrups industrial",
+      "normalized_phrase": "syrups industrial",
+      "cn8": "21061020",
+      "count": 25
+    },
+    {
+      "phrase": "table leg",
+      "normalized_phrase": "table leg",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "table leg bracket",
+      "normalized_phrase": "table leg bracket",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "table leg bracket steel",
+      "normalized_phrase": "table leg bracket steel",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "tapping screws",
+      "normalized_phrase": "tapping screws",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "tapping screws steel",
+      "normalized_phrase": "tapping screws steel",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "temperature sensor industrial",
+      "normalized_phrase": "temperature sensor industrial",
+      "cn8": "90251120",
+      "count": 25
+    },
+    {
+      "phrase": "temperature sensor pt100",
+      "normalized_phrase": "temperature sensor pt100",
+      "cn8": "90251120",
+      "count": 25
+    },
+    {
+      "phrase": "threaded rod",
+      "normalized_phrase": "threaded rod",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "threaded rod m8",
+      "normalized_phrase": "threaded rod m8",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "two component",
+      "normalized_phrase": "two component",
+      "cn8": "35061000",
+      "count": 25
+    },
+    {
+      "phrase": "two component adhesive",
+      "normalized_phrase": "two component adhesive",
+      "cn8": "35061000",
+      "count": 25
+    },
+    {
+      "phrase": "uncooked durum",
+      "normalized_phrase": "uncooked durum",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "uncooked durum wheat",
+      "normalized_phrase": "uncooked durum wheat",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "uncooked durum wheat pasta",
+      "normalized_phrase": "uncooked durum wheat pasta",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "ups battery",
+      "normalized_phrase": "ups battery",
+      "cn8": "85041020",
+      "count": 25
+    },
+    {
+      "phrase": "ups battery backup",
+      "normalized_phrase": "ups battery backup",
+      "cn8": "85041020",
+      "count": 25
+    },
+    {
+      "phrase": "varnish coating",
+      "normalized_phrase": "varnish coating",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "vijaki iz",
+      "normalized_phrase": "vijaki iz",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "vijaki iz jekla",
+      "normalized_phrase": "vijaki iz jekla",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "wardrobe fitting",
+      "normalized_phrase": "wardrobe fitting",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "wardrobe fitting hinge",
+      "normalized_phrase": "wardrobe fitting hinge",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "wheat fusilli",
+      "normalized_phrase": "wheat fusilli",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "wheat pasta",
+      "normalized_phrase": "wheat pasta",
+      "cn8": "19021100",
+      "count": 25
+    },
+    {
+      "phrase": "women blouse",
+      "normalized_phrase": "women blouse",
+      "cn8": "62061000",
+      "count": 25
+    },
+    {
+      "phrase": "women blouse polyester",
+      "normalized_phrase": "women blouse polyester",
+      "cn8": "62061000",
+      "count": 25
+    },
+    {
+      "phrase": "women denim",
+      "normalized_phrase": "women denim",
+      "cn8": "62041100",
+      "count": 25
+    },
+    {
+      "phrase": "women denim skirt",
+      "normalized_phrase": "women denim skirt",
+      "cn8": "62041100",
+      "count": 25
+    },
+    {
+      "phrase": "women polyester",
+      "normalized_phrase": "women polyester",
+      "cn8": "62022000",
+      "count": 25
+    },
+    {
+      "phrase": "women polyester jacket",
+      "normalized_phrase": "women polyester jacket",
+      "cn8": "62022000",
+      "count": 25
+    },
+    {
+      "phrase": "wood screws",
+      "normalized_phrase": "wood screws",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "wood screws 4x40",
+      "normalized_phrase": "wood screws 4x40",
+      "cn8": "73181100",
+      "count": 25
+    },
+    {
+      "phrase": "wood varnish",
+      "normalized_phrase": "wood varnish",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "wood varnish coating",
+      "normalized_phrase": "wood varnish coating",
+      "cn8": "32091000",
+      "count": 25
+    },
+    {
+      "phrase": "wool sweater",
+      "normalized_phrase": "wool sweater",
+      "cn8": "61101110",
+      "count": 25
+    },
+    {
+      "phrase": "za omare",
+      "normalized_phrase": "za omare",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "za pohistvo",
+      "normalized_phrase": "za pohistvo",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "zamak okovje",
+      "normalized_phrase": "zamak okovje",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "zamak okovje za",
+      "normalized_phrase": "zamak okovje za",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "zamak okovje za pohistvo",
+      "normalized_phrase": "zamak okovje za pohistvo",
+      "cn8": "83021000",
+      "count": 25
+    },
+    {
+      "phrase": "zenske bombazne",
+      "normalized_phrase": "zenske bombazne",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "zenske bombazne majice",
+      "normalized_phrase": "zenske bombazne majice",
+      "cn8": "61091000",
+      "count": 25
+    },
+    {
+      "phrase": "zenske jeans",
+      "normalized_phrase": "zenske jeans",
+      "cn8": "62041100",
+      "count": 25
+    },
+    {
+      "phrase": "zenske jeans hlace",
+      "normalized_phrase": "zenske jeans hlace",
+      "cn8": "62041100",
+      "count": 25
+    },
+    {
+      "phrase": "zinc plated",
+      "normalized_phrase": "zinc plated",
+      "cn8": "73181100",
+      "count": 25
+    }
+  ]
+}

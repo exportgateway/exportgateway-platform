@@ -1,0 +1,852 @@
+{
+  "version": 1,
+  "families": [
+    {
+      "id": "electronics_laptop",
+      "label": "Laptop / portable computer",
+      "phrases": ["laptop computer", "laptop", "notebook computer", "portable computer", "notebook pc"],
+      "chapters": ["84"],
+      "excluded_chapters": ["03", "48", "87", "90"],
+      "headings": ["8471"],
+      "search_terms": ["laptop", "portable", "computer", "notebook", "adp machines"],
+      "penalized_headings": ["8418"]
+    },
+    {
+      "id": "cycles_bicycle",
+      "label": "Bicycle",
+      "phrases": ["bicycle", "bike", "pedal cycle", "pedal cycles", "push bike"],
+      "chapters": ["87"],
+      "excluded_chapters": ["03", "48", "84", "90"],
+      "headings": ["8712"],
+      "search_terms": ["bicycle", "cycles", "pedal"],
+      "disambiguation": ["cycle_type"]
+    },
+    {
+      "id": "stationery_pen",
+      "label": "Pen (stationery)",
+      "phrases": [
+        "ball-point pen",
+        "ballpoint pen",
+        "fountain pen",
+        "pen with liquid ink",
+        "chemical pens",
+        "gel pen",
+        "felt-tip pen"
+      ],
+      "chapters": ["96"],
+      "excluded_chapters": ["32", "38"],
+      "headings": ["9608"],
+      "search_terms": ["pen", "ball-point", "ballpoint", "ink", "writing"],
+      "penalized_headings": ["3824", "960860", "9613"]
+    },
+    {
+      "id": "stationery_pen_refill",
+      "label": "Pen refill / ink refill",
+      "phrases": [
+        "pen refill",
+        "ink refill",
+        "replacement refill",
+        "refill for ballpoint",
+        "ballpoint refill"
+      ],
+      "chapters": ["96"],
+      "excluded_chapters": ["32", "38", "84"],
+      "headings": ["9608"],
+      "search_terms": ["refill", "ink-reservoir", "ball point"],
+      "penalized_headings": ["9612", "3824"]
+    },
+    {
+      "id": "electric_motor",
+      "label": "Electric motor / generator component",
+      "phrases": [
+        "electric motor",
+        "electrical motor",
+        "induction motor",
+        "servo motor",
+        "ac motor",
+        "dc motor",
+        "three phase electric motor",
+        "three-phase electric motor",
+        "synchronous motor",
+        "traction motor",
+        "abb electric motor",
+        "siemens electric motor"
+      ],
+      "chapters": ["85"],
+      "excluded_chapters": ["87", "84"],
+      "headings": ["8501"],
+      "search_terms": ["motor", "motors", "electric", "synchronous", "universal", "ac", "dc"],
+      "penalized_headings": ["8701", "8702", "8703", "8704", "8705", "8708"]
+    },
+    {
+      "id": "furniture_office_chair",
+      "label": "Office chair / seat",
+      "phrases": [
+        "office chair",
+        "desk chair",
+        "swivel chair",
+        "task chair",
+        "ergonomic chair",
+        "office seat"
+      ],
+      "chapters": ["94"],
+      "excluded_chapters": ["87", "90"],
+      "headings": ["9401"],
+      "search_terms": ["seat", "chair", "office", "swivel"],
+      "penalized_headings": ["9402"]
+    },
+    {
+      "id": "furniture_office_desk",
+      "label": "Office desk / table",
+      "phrases": ["office desk", "writing desk", "computer desk", "work desk"],
+      "chapters": ["94"],
+      "excluded_chapters": ["87"],
+      "headings": ["9403"],
+      "search_terms": ["desk", "table", "office"],
+      "penalized_headings": ["9402"]
+    },
+    {
+      "id": "furniture_cabinet",
+      "label": "Cabinet / storage furniture",
+      "phrases": ["office cabinet", "filing cabinet", "storage cabinet", "cupboard"],
+      "chapters": ["94"],
+      "headings": ["9403", "9404"],
+      "search_terms": ["cabinet", "furniture", "storage"],
+      "penalized_headings": ["9402"]
+    },
+    {
+      "id": "furniture_shelving",
+      "label": "Shelving / rack",
+      "phrases": ["shelving unit", "storage shelf", "office shelving", "rack shelving"],
+      "chapters": ["94"],
+      "headings": ["9403", "9404"],
+      "search_terms": ["shelf", "shelving", "rack"],
+      "penalized_headings": ["9402"]
+    },
+    {
+      "id": "furniture_workstation",
+      "label": "Workstation furniture",
+      "phrases": ["office workstation", "workstation desk", "modular workstation"],
+      "chapters": ["94"],
+      "headings": ["9403", "9401"],
+      "search_terms": ["workstation", "office", "furniture"],
+      "penalized_headings": ["9402"]
+    },
+    {
+      "id": "photoelectric_sensor",
+      "label": "Photoelectric sensor",
+      "phrases": ["photoelectric sensor", "photo sensor", "light barrier sensor"],
+      "chapters": ["85", "90"],
+      "headings": ["8536", "9031"],
+      "search_terms": ["photoelectric", "optical", "sensor"],
+      "penalized_headings": ["9026"]
+    },
+    {
+      "id": "industrial_valve",
+      "label": "Valve",
+      "phrases": ["hydraulic valve", "safety valve", "relief valve", "solenoid valve"],
+      "chapters": ["84"],
+      "excluded_chapters": ["03", "48", "87"],
+      "headings": ["8481"],
+      "search_terms": ["valve", "valves"],
+      "disambiguation": ["valve_type"]
+    },
+    {
+      "id": "apparel_trousers_mens",
+      "label": "Men's trousers",
+      "phrases": [
+        "men's trousers",
+        "men's long trousers",
+        "men's cotton trousers",
+        "mens cotton trousers",
+        "mens trousers",
+        "long trousers pants",
+        "trousers pants men's"
+      ],
+      "chapters": ["61", "62"],
+      "excluded_chapters": ["03", "16", "48", "84", "85", "87", "90", "30"],
+      "headings": ["6103", "6203"],
+      "search_terms": ["trousers", "breeches", "pants", "men", "male"],
+      "disambiguation": ["textile_construction"]
+    },
+    {
+      "id": "apparel_trousers",
+      "label": "Trousers",
+      "phrases": ["trousers", "pants", "breeches"],
+      "chapters": ["61", "62"],
+      "excluded_chapters": ["03", "48", "84"],
+      "headings": ["6103", "6104", "6203", "6204"],
+      "search_terms": ["trousers", "pants", "cotton"],
+      "disambiguation": ["textile_construction", "apparel_gender"]
+    },
+    {
+      "id": "apparel_shirts",
+      "label": "Shirts and tops",
+      "phrases": ["shirt", "t-shirt", "jersey"],
+      "chapters": ["61", "62"],
+      "excluded_chapters": ["03", "48"],
+      "headings": ["6105", "6106", "6109", "6205", "6206"],
+      "search_terms": ["shirts", "t-shirts"]
+    },
+    {
+      "id": "fastener_screw",
+      "label": "Screws / threaded fasteners",
+      "phrases": [
+        "steel screw",
+        "steel screws",
+        "wood screw",
+        "machine screw",
+        "screw",
+        "screws",
+        "stahlschrauben",
+        "vijak",
+        "vijaki"
+      ],
+      "chapters": ["73"],
+      "excluded_chapters": ["84", "85", "87", "96"],
+      "headings": ["7318"],
+      "search_terms": ["screw", "screws", "threaded", "fastener"],
+      "penalized_headings": ["8471", "8481", "9608"]
+    },
+    {
+      "id": "fastener_nut",
+      "label": "Nuts / threaded fasteners",
+      "phrases": [
+        "hex nut",
+        "hex nuts",
+        "lock nut",
+        "steel nut",
+        "steel nuts",
+        "nut",
+        "nuts"
+      ],
+      "chapters": ["73"],
+      "excluded_chapters": ["84", "85", "87", "08", "12"],
+      "headings": ["7318"],
+      "search_terms": ["nut", "nuts", "threaded", "fastener"],
+      "penalized_headings": ["0802", "1202", "2106"]
+    },
+    {
+      "id": "fastener_bolt",
+      "label": "Bolts / threaded fasteners",
+      "phrases": ["bolt", "bolts", "hex bolt", "carriage bolt"],
+      "chapters": ["73"],
+      "excluded_chapters": ["84", "87"],
+      "headings": ["7318"],
+      "search_terms": ["bolt", "bolts", "threaded"],
+      "penalized_headings": ["8471"]
+    },
+    {
+      "id": "fastener_threaded_rod",
+      "label": "Threaded rod / stud bolt",
+      "phrases": [
+        "threaded rod",
+        "stud bolt",
+        "threaded bar",
+        "navojna palica",
+        "navojni drog"
+      ],
+      "chapters": ["73"],
+      "excluded_chapters": ["84", "85", "87"],
+      "headings": ["7318"],
+      "search_terms": ["threaded", "rod", "stud", "bar"],
+      "penalized_headings": ["7307"]
+    },
+    {
+      "id": "food_prepared_pizza",
+      "label": "Prepared pizza / pizza meal",
+      "phrases": ["pizza", "frozen pizza", "prepared pizza", "pizza margherita"],
+      "chapters": ["19", "21"],
+      "excluded_chapters": ["73", "84", "85"],
+      "headings": ["1905", "2106"],
+      "search_terms": ["pizza", "prepared", "food", "bakers"],
+      "penalized_headings": ["7318", "8471"]
+    },
+    {
+      "id": "food_prepared_meal",
+      "label": "Prepared / ready meal",
+      "phrases": [
+        "ready meal",
+        "prepared meal",
+        "lasagna",
+        "frozen lasagna",
+        "prepared food"
+      ],
+      "chapters": ["19", "21"],
+      "excluded_chapters": ["02", "20", "73", "84"],
+      "headings": ["2106", "1905"],
+      "search_terms": ["meal", "prepared", "ready", "lasagna"],
+      "penalized_headings": ["2004", "1902"]
+    },
+    {
+      "id": "bearing_ball",
+      "label": "Ball bearings",
+      "phrases": ["ball bearing", "ball bearings", "deep groove"],
+      "chapters": ["84"],
+      "excluded_chapters": ["03", "48", "87", "90"],
+      "headings": ["8482"],
+      "search_terms": ["ball", "bearing", "bearings"]
+    },
+    {
+      "id": "temperature_sensor",
+      "label": "Temperature sensor",
+      "phrases": ["temperature sensor", "temperature transducer", "thermocouple", "rtd sensor"],
+      "chapters": ["90"],
+      "excluded_chapters": ["84", "85", "03"],
+      "headings": ["9025"],
+      "search_terms": ["thermometer", "temperature", "measuring", "pyrometer"],
+      "penalized_headings": ["8418"]
+    },
+    {
+      "id": "pressure_sensor",
+      "label": "Pressure sensor",
+      "phrases": ["pressure sensor", "pressure transducer", "pressure transmitter"],
+      "chapters": ["90"],
+      "excluded_chapters": ["84", "03"],
+      "headings": ["9026"],
+      "search_terms": ["pressure", "gauge", "manometer"]
+    },
+    {
+      "id": "proximity_sensor",
+      "label": "Proximity sensor",
+      "phrases": ["proximity sensor", "inductive sensor", "capacitive sensor"],
+      "chapters": ["85", "90"],
+      "excluded_chapters": ["03"],
+      "headings": ["8536", "9032"],
+      "search_terms": ["proximity", "inductive", "sensor"],
+      "penalized_headings": ["9025", "9026"]
+    },
+    {
+      "id": "sensor",
+      "label": "Measuring sensor",
+      "phrases": ["sensor", "sensors", "measuring sensor", "industrial sensor"],
+      "chapters": ["90"],
+      "excluded_chapters": ["03", "48"],
+      "headings": ["9025", "9026", "9032"],
+      "search_terms": ["measuring", "instruments"],
+      "disambiguation": ["sensor_measurement_type"]
+    },
+    {
+      "id": "industrial_automation",
+      "label": "Industrial automation / PLC",
+      "phrases": ["plc", "plc module", "programmable controller", "programmable logic", "cpu module"],
+      "chapters": ["85"],
+      "excluded_chapters": ["03", "87"],
+      "headings": ["8537"],
+      "search_terms": ["programmable", "controller", "logic"]
+    },
+    {
+      "id": "frequency_inverter",
+      "label": "Frequency inverter / VFD",
+      "phrases": [
+        "frequency inverter",
+        "variable frequency drive",
+        "vfd",
+        "ac drive",
+        "frequency converter",
+        "static converter"
+      ],
+      "chapters": ["85"],
+      "excluded_chapters": ["03", "84", "87"],
+      "headings": ["8504"],
+      "search_terms": ["static", "converters", "inverter", "frequency", "rectifiers"],
+      "penalized_headings": ["8413"]
+    },
+    {
+      "id": "electronics_monitor",
+      "label": "LCD / computer monitor",
+      "phrases": ["lcd monitor", "computer monitor", "display monitor", "led monitor", "monitor"],
+      "chapters": ["85"],
+      "excluded_chapters": ["90"],
+      "headings": ["8528"],
+      "search_terms": ["monitor", "display", "lcd"],
+      "penalized_headings": ["9018", "9019"]
+    },
+    {
+      "id": "industrial_hmi",
+      "label": "Industrial HMI / touch panel",
+      "phrases": [
+        "touch panel hmi",
+        "hmi panel",
+        "human machine interface",
+        "operator panel",
+        "industrial hmi"
+      ],
+      "chapters": ["85"],
+      "excluded_chapters": ["35"],
+      "headings": ["8537", "8528"],
+      "search_terms": ["control", "panel", "display", "programmable"],
+      "penalized_headings": ["3506"]
+    },
+    {
+      "id": "power_supply",
+      "label": "Power supply unit",
+      "phrases": ["power supply", "psu", "smps", "24vdc", "24 vdc", "dc power supply"],
+      "chapters": ["85"],
+      "excluded_chapters": ["84"],
+      "headings": ["8504"],
+      "search_terms": ["power", "supply", "static", "converter"],
+      "penalized_headings": ["8413"]
+    },
+    {
+      "id": "ups",
+      "label": "Uninterruptible power supply",
+      "phrases": ["ups", "uninterruptible power supply", "battery backup", "ups battery"],
+      "chapters": ["85"],
+      "excluded_chapters": ["84"],
+      "headings": ["8504"],
+      "search_terms": ["uninterruptible", "static", "converter", "power", "ups"],
+      "penalized_headings": ["8543", "854370", "8536"]
+    },
+    {
+      "id": "office_printer_consumable",
+      "label": "Printer cartridge / toner",
+      "phrases": [
+        "printer cartridge",
+        "ink cartridge",
+        "toner cartridge",
+        "print cartridge"
+      ],
+      "chapters": ["32"],
+      "excluded_chapters": ["93", "84"],
+      "headings": ["3215"],
+      "search_terms": ["cartridge", "ink", "toner", "inkjet", "laser"],
+      "penalized_headings": ["9306", "9304", "8443", "844310", "844312", "844331", "844339"]
+    },
+    {
+      "id": "stationery_marker",
+      "label": "Permanent marker",
+      "phrases": ["permanent marker", "felt-tip marker", "whiteboard marker"],
+      "chapters": ["96"],
+      "excluded_chapters": ["85"],
+      "headings": ["9608", "9609"],
+      "search_terms": ["marker", "felt", "pen"],
+      "penalized_headings": ["8505"]
+    },
+    {
+      "id": "apparel_jacket_womens",
+      "label": "Women's jacket / coat",
+      "phrases": [
+        "women's jacket",
+        "womens jacket",
+        "women's polyester jacket",
+        "ladies jacket",
+        "women's coat"
+      ],
+      "chapters": ["61", "62"],
+      "excluded_chapters": ["39"],
+      "headings": ["6102", "6104", "6202", "6204"],
+      "search_terms": ["jacket", "coat", "women", "polyester"],
+      "penalized_headings": ["3907"],
+      "disambiguation": ["textile_construction"]
+    },
+    {
+      "id": "apparel_jacket",
+      "label": "Jacket / coat",
+      "phrases": ["jacket", "coat", "anorak", "windbreaker"],
+      "chapters": ["61", "62"],
+      "excluded_chapters": ["39"],
+      "headings": ["6101", "6102", "6201", "6202"],
+      "search_terms": ["jacket", "coat"],
+      "penalized_headings": ["3907"],
+      "disambiguation": ["textile_construction", "apparel_gender"]
+    },
+    {
+      "id": "apparel_tshirt_womens",
+      "label": "Women's T-shirt",
+      "phrases": [
+        "ženske majice",
+        "bombažne majice",
+        "women's t-shirts",
+        "ladies t-shirts",
+        "women's t-shirt",
+        "ladies t-shirt",
+        "womens cotton t-shirt"
+      ],
+      "chapters": ["61"],
+      "excluded_chapters": ["39", "62"],
+      "headings": ["6109"],
+      "search_terms": ["t-shirt", "shirt", "knitted", "women"],
+      "penalized_headings": ["6104", "6204", "6206"],
+      "disambiguation": ["textile_construction"]
+    },
+    {
+      "id": "apparel_blouse_womens",
+      "label": "Women's blouse",
+      "phrases": ["women's blouse", "ladies blouse", "women's blouses", "ladies blouses", "bluza"],
+      "chapters": ["61", "62"],
+      "excluded_chapters": ["03", "48"],
+      "headings": ["6206", "6106"],
+      "search_terms": ["blouse", "blouses", "women"],
+      "penalized_headings": ["6105", "6205"],
+      "disambiguation": ["textile_construction", "apparel_gender"]
+    },
+    {
+      "id": "apparel_polo_mens",
+      "label": "Men's polo shirt",
+      "phrases": [
+        "moška polo majica",
+        "men's polo shirt",
+        "mens polo shirt",
+        "men's knitted polo",
+        "polo shirt",
+        "polo majica"
+      ],
+      "chapters": ["61"],
+      "excluded_chapters": ["39", "62"],
+      "headings": ["6105", "6110"],
+      "search_terms": ["polo", "shirt", "knitted", "men"],
+      "penalized_headings": ["6205"],
+      "disambiguation": ["textile_construction"]
+    },
+    {
+      "id": "apparel_tshirt_mens",
+      "label": "Men's T-shirt",
+      "phrases": [
+        "men's cotton t-shirt",
+        "mens cotton t-shirt",
+        "men's t-shirt",
+        "mens t-shirt",
+        "men's tee shirt"
+      ],
+      "chapters": ["61"],
+      "excluded_chapters": ["39", "62"],
+      "headings": ["6109"],
+      "search_terms": ["t-shirt", "shirt", "knitted", "men"],
+      "penalized_headings": ["6206", "6106"],
+      "disambiguation": ["textile_construction"]
+    },
+    {
+      "id": "relay",
+      "label": "Electrical relay",
+      "phrases": ["relay", "relays", "electrical relay"],
+      "chapters": ["85"],
+      "excluded_chapters": ["03"],
+      "headings": ["8536"],
+      "search_terms": ["relay", "switching"]
+    },
+    {
+      "id": "circuit_breaker",
+      "label": "Circuit breaker",
+      "phrases": ["circuit breaker", "mcb", "miniature circuit breaker"],
+      "chapters": ["85"],
+      "excluded_chapters": ["03"],
+      "headings": ["8536"],
+      "search_terms": ["circuit", "breaker"]
+    },
+    {
+      "id": "pharma_tablet",
+      "label": "Medicament tablets",
+      "phrases": ["paracetamol tablets", "ibuprofen tablets", "tablets medicament", "medicament tablets"],
+      "chapters": ["30"],
+      "excluded_chapters": ["03", "17", "19", "21"],
+      "headings": ["3003", "3004"],
+      "search_terms": ["medicament", "tablets", "doses", "pharmaceutical"]
+    },
+    {
+      "id": "electrical_insulation_tester",
+      "label": "Insulation resistance tester",
+      "phrases": [
+        "insulation resistance tester",
+        "megohmmeter",
+        "teraohm",
+        "insulation tester"
+      ],
+      "chapters": ["90"],
+      "excluded_chapters": ["85", "87"],
+      "headings": ["9030", "9031"],
+      "search_terms": ["insulation", "resistance", "measuring", "megohmmeter"]
+    },
+    {
+      "id": "micro_ohmmeter",
+      "label": "Micro-ohmmeter",
+      "phrases": ["micro-ohmmeter", "microohmmeter", "low resistance measuring"],
+      "chapters": ["90"],
+      "headings": ["9030", "9031"],
+      "search_terms": ["resistance", "ohmmeter", "measuring"]
+    },
+    {
+      "id": "silicone_sealant",
+      "label": "Silicone sealant / adhesive",
+      "phrases": [
+        "silicone sealant",
+        "chemosil",
+        "glazing sealant",
+        "construction silicone adhesive",
+        "silicone adhesive",
+        "silicone gasket sealant",
+        "construction adhesive sealant"
+      ],
+      "chapters": ["32", "35"],
+      "excluded_chapters": ["30", "48"],
+      "headings": ["3214", "3506"],
+      "search_terms": ["silicone", "sealant", "adhesive"],
+      "penalized_headings": ["3006", "4821", "3504"]
+    },
+    {
+      "id": "industrial_adhesive",
+      "label": "Industrial adhesive / epoxy",
+      "phrases": [
+        "epoxy resin adhesive",
+        "epoxy adhesive",
+        "two component adhesive",
+        "two-component adhesive",
+        "industrijsko lepilo",
+        "pu adhesive"
+      ],
+      "chapters": ["35", "32"],
+      "excluded_chapters": ["30", "48"],
+      "headings": ["3506", "3214"],
+      "search_terms": ["adhesive", "epoxy", "resin", "compound"],
+      "penalized_headings": ["4821", "3006", "3504"]
+    },
+    {
+      "id": "protective_coating_paint",
+      "label": "Paint / protective coating",
+      "phrases": [
+        "protective coating",
+        "paint coating",
+        "mangart",
+        "wood varnish coating",
+        "rust protection paint",
+        "primer paint",
+        "primer paint metal",
+        "rust paint",
+        "varnish coating",
+        "acrylic paint protective coating",
+        "metal primer"
+      ],
+      "chapters": ["32"],
+      "excluded_chapters": ["30", "48", "97"],
+      "headings": ["3209", "3210"],
+      "search_terms": ["paint", "coating", "varnish", "primer", "rust"],
+      "penalized_headings": ["4810", "9701", "3212", "4821"]
+    },
+    {
+      "id": "shipping_container",
+      "label": "Shipping / freight container",
+      "phrases": [
+        "shipping container",
+        "freight container",
+        "empty container",
+        "ship container"
+      ],
+      "chapters": ["86"],
+      "excluded_chapters": ["87", "73"],
+      "headings": ["8609"],
+      "search_terms": ["container", "freight", "shipping"],
+      "penalized_headings": ["8701", "7310", "8704"]
+    },
+    {
+      "id": "food_pasta",
+      "label": "Uncooked pasta",
+      "phrases": ["fusilli", "spaghetti", "penne", "uncooked pasta", "durum wheat pasta"],
+      "chapters": ["19"],
+      "excluded_chapters": ["21", "23"],
+      "headings": ["1902"],
+      "search_terms": ["pasta", "fusilli", "wheat", "durum"]
+    },
+    {
+      "id": "polyurethane_compound",
+      "label": "Polyurethane compound",
+      "phrases": ["polyurethane compound", "polyurethane prepolymer", "pu compound"],
+      "chapters": ["39"],
+      "headings": ["3909", "3506"],
+      "search_terms": ["polyurethane", "compound", "polymer"],
+      "penalized_headings": ["3901"]
+    },
+    {
+      "id": "earth_resistance_tester",
+      "label": "Earth / ground resistance measuring set",
+      "phrases": [
+        "earth measurement set",
+        "earth measuring set",
+        "earth resistance set",
+        "ground resistance measuring",
+        "4 wire earth"
+      ],
+      "chapters": ["90"],
+      "excluded_chapters": ["85", "87"],
+      "headings": ["9030", "9031"],
+      "search_terms": ["earth", "ground", "resistance", "measuring"],
+      "penalized_headings": ["8504"]
+    },
+    {
+      "id": "software_media_disc",
+      "label": "Software on disc / recorded media",
+      "phrases": ["software on disc", "pc software", "recorded media software"],
+      "chapters": ["85"],
+      "headings": ["8523"],
+      "search_terms": ["software", "disc", "media", "recorded"]
+    },
+    {
+      "id": "furniture_fittings",
+      "label": "Furniture fittings / mountings",
+      "phrases": [
+        "furniture fittings",
+        "furniture mounting",
+        "furniture mounting hardware",
+        "pohistveno okovje",
+        "pohištveno okovje",
+        "pohistveno okovje za pohistvo",
+        "pohištveno okovje za pohištvo",
+        "zamak okovje",
+        "zamak okovje za pohistvo",
+        "cabinet hinge",
+        "cabinet door hinge",
+        "door hinge",
+        "kitchen cabinet hinge",
+        "wardrobe fitting hinge",
+        "hinge for furniture",
+        "hinge brass",
+        "hinge steel",
+        "drawer slide",
+        "drawer slide fitting",
+        "mounting bracket",
+        "shelf bracket",
+        "table leg bracket",
+        "sliding door furniture fitting",
+        "furniture handle mounting",
+        "office cabinet fittings"
+      ],
+      "chapters": ["83"],
+      "excluded_chapters": ["73", "94", "39"],
+      "headings": ["8302", "8308"],
+      "search_terms": ["furniture", "fittings", "mountings", "hinge", "bracket", "okovje"],
+      "penalized_headings": ["7318", "9403", "9405", "8304", "3926", "9401"]
+    },
+    {
+      "id": "food_aromatized_syrup",
+      "label": "Aromatized sugar syrup",
+      "phrases": [
+        "aromatized sugar syrup",
+        "aromatized sugar syrups",
+        "flavoured sugar syrup"
+      ],
+      "chapters": ["21"],
+      "excluded_chapters": ["85"],
+      "headings": ["2106"],
+      "search_terms": ["syrup", "sugar", "aromatized"],
+      "penalized_headings": ["8504"]
+    },
+    {
+      "id": "tool_steel_bars",
+      "label": "Cold-formed tool steel bars",
+      "phrases": ["cold formed tool steel", "cold-formed tool steel bars", "tool steel bars"],
+      "chapters": ["72"],
+      "headings": ["7228", "7224"],
+      "search_terms": ["tool", "steel", "bars"],
+      "penalized_headings": ["7304"]
+    },
+    {
+      "id": "wire_rope",
+      "label": "Wire rope",
+      "phrases": ["wire rope", "steel wire rope"],
+      "chapters": ["73"],
+      "headings": ["7312"],
+      "search_terms": ["wire", "rope", "stranded"],
+      "penalized_headings": ["7313"]
+    },
+    {
+      "id": "hydraulic_pressure_valve",
+      "label": "Hydraulic pressure control valve",
+      "phrases": [
+        "hydraulic pressure control valve",
+        "pressure control valve",
+        "druckregelventil",
+        "hydraulic pressure valve"
+      ],
+      "chapters": ["84"],
+      "excluded_chapters": ["87", "90"],
+      "headings": ["8481"],
+      "search_terms": ["hydraulic", "valve", "pressure", "control"]
+    },
+    {
+      "id": "vehicle_goods",
+      "label": "Goods vehicle",
+      "phrases": ["goods vehicle", "truck", "lorry", "motor vehicle for the transport of goods", "kamion"],
+      "chapters": ["87"],
+      "excluded_chapters": ["48", "03", "84"],
+      "headings": ["8704", "8701"],
+      "search_terms": ["goods", "motor", "vehicles", "transport", "diesel"],
+      "disambiguation": ["vehicle_gvm_band"]
+    },
+    {
+      "id": "vehicle_goods_used",
+      "label": "Used goods vehicle",
+      "phrases": ["used goods vehicle", "used truck", "rabljeno tovorno vozilo"],
+      "chapters": ["87"],
+      "excluded_chapters": ["48", "03"],
+      "headings": ["8704"],
+      "search_terms": ["used", "goods", "vehicle", "diesel"],
+      "disambiguation": ["vehicle_gvm_band"]
+    },
+    {
+      "id": "vehicle_tractor",
+      "label": "Tractor unit",
+      "phrases": ["tractor unit", "road tractor", "vlačilec"],
+      "chapters": ["87"],
+      "excluded_chapters": ["48"],
+      "headings": ["8701"],
+      "search_terms": ["tractor", "semitrailer"]
+    },
+    {
+      "id": "vehicle_passenger",
+      "label": "Passenger vehicle",
+      "phrases": ["passenger car", "motor car", "osebno vozilo"],
+      "chapters": ["87"],
+      "excluded_chapters": ["48"],
+      "headings": ["8703"],
+      "search_terms": ["passenger", "motor", "cars"]
+    }
+  ],
+  "disambiguation_questions": {
+    "textile_construction": {
+      "prompt": "Is the garment knitted or crocheted, or woven?",
+      "options": [
+        {"id": "knitted", "label": "Knitted or crocheted", "heading_priors": ["6103", "6104", "6105"]},
+        {"id": "woven", "label": "Woven (not knitted)", "heading_priors": ["6203", "6204", "6205"]}
+      ]
+    },
+    "vehicle_gvm_band": {
+      "prompt": "What is the gross vehicle weight (GVM)?",
+      "options": [
+        {"id": "not_over_5t", "label": "Not over 5 tonnes", "search_terms": ["not exceeding 5"]},
+        {"id": "over_5t", "label": "Over 5 tonnes", "search_terms": ["exceeding 5"]}
+      ]
+    },
+    "apparel_gender": {
+      "prompt": "Who is the garment intended for?",
+      "options": [
+        {"id": "mens", "label": "Men or boys", "heading_priors": ["6103", "6203"]},
+        {"id": "womens", "label": "Women or girls", "heading_priors": ["6104", "6204"]},
+        {"id": "unisex", "label": "Unisex / not specified", "heading_priors": ["6103", "6104", "6203", "6204"]}
+      ]
+    },
+    "sensor_measurement_type": {
+      "prompt": "What does the sensor primarily measure?",
+      "options": [
+        {"id": "temperature", "label": "Temperature", "heading_priors": ["9025"], "search_terms": ["temperature", "thermometer"]},
+        {"id": "pressure", "label": "Pressure", "heading_priors": ["9026"], "search_terms": ["pressure", "manometer"]},
+        {"id": "proximity", "label": "Proximity / position", "heading_priors": ["9032", "8536"], "search_terms": ["proximity", "inductive"]}
+      ]
+    },
+    "cycle_type": {
+      "prompt": "What are you classifying?",
+      "options": [
+        {"id": "complete_bike", "label": "Complete bicycle", "heading_priors": ["8712"], "search_terms": ["bicycles", "pedal"]},
+        {"id": "parts", "label": "Bicycle parts only", "heading_priors": ["8714", "8715"], "search_terms": ["parts", "components"]},
+        {"id": "ebike", "label": "Electric bicycle", "heading_priors": ["8711"], "search_terms": ["electric", "motor"]}
+      ]
+    },
+    "valve_type": {
+      "prompt": "What type of valve is it?",
+      "options": [
+        {"id": "safety", "label": "Safety or relief valve", "search_terms": ["safety", "relief"]},
+        {"id": "hydraulic", "label": "Hydraulic valve", "search_terms": ["hydraulic"]},
+        {"id": "general", "label": "Other valve", "search_terms": ["valve"]}
+      ]
+    }
+  },
+  "global_excluded_tokens": ["ref", "mbs", "rt", "es7", "6es"]
+}

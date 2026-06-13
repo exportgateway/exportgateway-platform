@@ -1,0 +1,165 @@
+{
+
+  "name": "exportgateway-platform",
+
+  "version": "0.1.0",
+
+  "private": true,
+
+  "scripts": {
+
+    "dev": "next dev",
+
+    "dev:clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\" && npm run dev",
+
+    "predev": "node scripts/ensure-dev-cache.mjs && node scripts/verify-css-setup.mjs",
+
+    "prebuild": "node scripts/guard-no-concurrent-dev.mjs && node scripts/verify-css-setup.mjs && npx tsx scripts/verify-intrastat-presets.ts",
+
+    "build": "next build",
+
+    "postbuild": "node scripts/verify-css-build.mjs",
+
+    "start": "next start",
+
+    "lint": "next lint",
+
+    "verify:css": "node scripts/verify-css-setup.mjs",
+
+    "verify:css:build": "node scripts/verify-css-build.mjs",
+
+    "verify:css:live": "node scripts/check-live-css.mjs",
+
+    "verify:mapbox": "node scripts/verify-mapbox.mjs",
+
+    "verify:intrastat": "npx tsx scripts/verify-intrastat-presets.ts",
+
+    "test:destination-country": "node scripts/test-destination-country.mjs",
+
+    "test:preferential-origin": "node scripts/test-preferential-origin-engine.mjs",
+
+    "test:shipment-summary": "npx tsx scripts/test-shipment-summary.ts",
+
+    "test:hs-aggregation": "npx tsx scripts/test-hs-aggregation.ts",
+
+    "test:mrn-export": "npx tsx scripts/test-mrn-export.ts",
+
+    "test:declaration-descriptions": "npx tsx scripts/test-declaration-descriptions.ts",
+
+    "test:golden-fa26022525": "npx tsx scripts/test-golden-fa26022525.ts",
+
+    "test:golden-2602002968": "npx tsx scripts/test-golden-2602002968.ts",
+
+    "test:invoice-date-readiness": "npx tsx scripts/test-invoice-date-readiness.ts",
+
+    "test:readiness-score": "npx tsx scripts/test-readiness-score.ts",
+
+    "test:origin-countries-ux": "npx tsx scripts/test-origin-countries-ux.ts",
+
+    "test:confidence-score": "npx tsx scripts/test-confidence-score.ts",
+
+    "test:export-auditor-regression": "npx tsx scripts/test-export-auditor-regression.ts",
+
+    "test:preferential-origin-decision": "npx tsx scripts/test-preferential-origin-decision.ts",
+
+    "test:preference-scheme": "npx tsx scripts/test-preference-scheme.ts",
+
+    "test:export-auditor-global": "npx tsx scripts/test-export-auditor-global.ts",
+
+    "test:invoice-value-consistency": "npx tsx scripts/test-invoice-value-consistency.ts",
+
+    "test:export-auditor-business-rules": "npx tsx scripts/test-export-auditor-business-rules.ts",
+
+    "test:export-auditor-origin-readiness": "npx tsx scripts/test-export-auditor-origin-readiness.ts",
+
+    "test:pdf-ui-validation-2602002968": "npx tsx scripts/test-pdf-ui-validation-2602002968.ts",
+
+    "test:allocation-source-validation-2602002968": "npx tsx scripts/test-allocation-source-validation-2602002968.ts",
+
+    "test:text-encoding-a0054-2026": "npx tsx scripts/forensic-text-encoding-a0054-2026.ts",
+
+    "test:pdf-font-repair-registry": "npx tsx scripts/test-pdf-font-repair-registry.ts",
+
+    "test:i26-0515": "npx tsx scripts/test-i26-0515.ts",
+
+    "test:golden-2600246": "npx tsx scripts/test-golden-2600246.ts",
+
+    "test:golden-70399": "npx tsx scripts/test-golden-70399.ts",
+
+    "test:golden-denkirs-2026-156": "npx tsx scripts/test-golden-denkirs-2026-156.ts",
+
+    "test:multilingual-extraction": "npx tsx scripts/test-multilingual-extraction.ts",
+
+    "test:origin-issue-reclassification": "npx tsx scripts/test-origin-issue-reclassification.ts",
+
+    "test:validation-pdf-export": "npx tsx scripts/test-validation-pdf-export.ts",
+
+    "test:ocr-observability": "npx tsx scripts/test-ocr-observability.ts",
+
+    "test:declaration-description-health": "npx tsx scripts/test-declaration-description-health.ts",
+
+    "test:css": "node scripts/verify-css-setup.mjs && npm run build && node scripts/verify-css-build.mjs",
+
+    "screenshots": "node scripts/capture-screenshots.mjs"
+
+  },
+
+  "dependencies": {
+
+    "autoprefixer": "^10.4.20",
+
+    "clsx": "^2.1.1",
+
+    "framer-motion": "^11.15.0",
+
+    "lucide-react": "^0.469.0",
+
+    "mapbox-gl": "^3.24.0",
+
+    "next": "^15.1.0",
+
+    "pdf-parse": "^2.4.5",
+
+    "postcss": "^8.4.49",
+
+    "react": "^19.0.0",
+
+    "react-dom": "^19.0.0",
+
+    "recharts": "^3.8.1",
+
+    "tailwindcss": "^3.4.17",
+
+    "xlsx": "^0.18.5"
+
+  },
+
+  "optionalDependencies": {
+
+    "better-sqlite3": "^11.8.1"
+
+  },
+
+  "devDependencies": {
+
+    "@types/better-sqlite3": "^7.6.12",
+
+    "@types/mapbox-gl": "^3.4.1",
+
+    "@types/node": "^22.10.0",
+
+    "@types/react": "^19.0.0",
+
+    "@types/react-dom": "^19.0.0",
+
+    "eslint": "^9.17.0",
+
+    "eslint-config-next": "^15.1.0",
+
+    "typescript": "^5.7.0"
+
+  }
+
+}
+
+

@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: export-compliance-wizard
+    env: python
+    plan: starter
+    buildCommand: python -m pip install --upgrade pip setuptools wheel && pip install -r requirements.txt && (test ! -f AES_EXPORTS.xlsx || PYTHONPATH=. python scripts/import_aes_exports.py --rebuild) && (test ! -f AES_IMPORTS.xlsx || PYTHONPATH=. python scripts/import_aes_imports.py --rebuild)
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --log-level info
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: CORS_ORIGINS
+        value: https://exportgateway.eu
+      - key: AI_CLASSIFICATION_ENABLED
+        value: "true"
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: AI_PROVIDER_API_KEY
+        sync: false
+      - key: TARIC_INTEGRATION_ENABLED
+        value: "false"
+      - key: LEAD_EMAIL_TO
+        value: info@exportgateway.eu
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_FROM
+        sync: false
+      - key: SMTP_USE_TLS
+        value: "true"
+      - key: MAPBOX_TOKEN
+        sync: false
+      - key: AES_MODE
+        value: full
+      - key: AES_RUNTIME_IMPORT
+        value: "false"

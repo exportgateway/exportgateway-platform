@@ -1,0 +1,402 @@
+{
+  "generated_at": "2026-06-08T20:41:45.546824+00:00",
+  "source_database": "/workspace/app/data/aes_historical.db",
+  "min_frequency": 5,
+  "candidate_count": 56,
+  "review_required": true,
+  "note": "Do not auto-modify cn_taxonomy_v1.json. Human review required.",
+  "candidates": [
+    {
+      "phrase": "robni trak",
+      "frequency": 60,
+      "cn8": "39201021",
+      "suggested_family": "plastics_edge_band",
+      "suggested_heading": "3920"
+    },
+    {
+      "phrase": "robni trak abs",
+      "frequency": 30,
+      "cn8": "39201021",
+      "suggested_family": "plastics_edge_band",
+      "suggested_heading": "3920"
+    },
+    {
+      "phrase": "trak abs",
+      "frequency": 30,
+      "cn8": "39201021",
+      "suggested_family": "plastics_edge_band",
+      "suggested_heading": "3920"
+    },
+    {
+      "phrase": "abs robni trak beli 22 mm",
+      "frequency": 30,
+      "cn8": "39201021",
+      "suggested_family": "plastics_edge_band",
+      "suggested_heading": "3920"
+    },
+    {
+      "phrase": "abs robni trak beli 22",
+      "frequency": 30,
+      "cn8": "39201021",
+      "suggested_family": "plastics_edge_band",
+      "suggested_heading": "3920"
+    },
+    {
+      "phrase": "robni trak beli 22 mm",
+      "frequency": 30,
+      "cn8": "39201021",
+      "suggested_family": "plastics_edge_band",
+      "suggested_heading": "3920"
+    },
+    {
+      "phrase": "abs robni trak beli",
+      "frequency": 30,
+      "cn8": "39201021",
+      "suggested_family": "plastics_edge_band",
+      "suggested_heading": "3920"
+    },
+    {
+      "phrase": "robni trak beli 22",
+      "frequency": 30,
+      "cn8": "39201021",
+      "suggested_family": "plastics_edge_band",
+      "suggested_heading": "3920"
+    },
+    {
+      "phrase": "robni trak beli",
+      "frequency": 30,
+      "cn8": "39201021",
+      "suggested_family": "plastics_edge_band",
+      "suggested_heading": "3920"
+    },
+    {
+      "phrase": "abs robni trak",
+      "frequency": 30,
+      "cn8": "39201021",
+      "suggested_family": "plastics_edge_band",
+      "suggested_heading": "3920"
+    },
+    {
+      "phrase": "abs robni",
+      "frequency": 30,
+      "cn8": "39201021",
+      "suggested_family": "plastics_edge_band",
+      "suggested_heading": "3920"
+    },
+    {
+      "phrase": "sikaflex 11 fc lepilo",
+      "frequency": 30,
+      "cn8": "35061000",
+      "suggested_family": "adhesive_sealant",
+      "suggested_heading": "3506"
+    },
+    {
+      "phrase": "fc lepilo",
+      "frequency": 30,
+      "cn8": "35061000",
+      "suggested_family": "adhesive_sealant",
+      "suggested_heading": "3506"
+    },
+    {
+      "phrase": "bosch gsb profesionalni vrtalnik",
+      "frequency": 30,
+      "cn8": "84672900",
+      "suggested_family": "heading_8467",
+      "suggested_heading": "8467"
+    },
+    {
+      "phrase": "gsb profesionalni vrtalnik",
+      "frequency": 30,
+      "cn8": "84672900",
+      "suggested_family": "heading_8467",
+      "suggested_heading": "8467"
+    },
+    {
+      "phrase": "bosch gsb profesionalni",
+      "frequency": 30,
+      "cn8": "84672900",
+      "suggested_family": "heading_8467",
+      "suggested_heading": "8467"
+    },
+    {
+      "phrase": "profesionalni vrtalnik",
+      "frequency": 30,
+      "cn8": "84672900",
+      "suggested_family": "heading_8467",
+      "suggested_heading": "8467"
+    },
+    {
+      "phrase": "gsb profesionalni",
+      "frequency": 30,
+      "cn8": "84672900",
+      "suggested_family": "heading_8467",
+      "suggested_heading": "8467"
+    },
+    {
+      "phrase": "makita akumulatorski vrtalnik",
+      "frequency": 30,
+      "cn8": "84672900",
+      "suggested_family": "heading_8467",
+      "suggested_heading": "8467"
+    },
+    {
+      "phrase": "akumulatorski vrtalnik",
+      "frequency": 30,
+      "cn8": "84672900",
+      "suggested_family": "heading_8467",
+      "suggested_heading": "8467"
+    },
+    {
+      "phrase": "makita akumulatorski",
+      "frequency": 30,
+      "cn8": "84672900",
+      "suggested_family": "heading_8467",
+      "suggested_heading": "8467"
+    },
+    {
+      "phrase": "hilti te 30 kombinirano kladivo",
+      "frequency": 30,
+      "cn8": "84672900",
+      "suggested_family": "heading_8467",
+      "suggested_heading": "8467"
+    },
+    {
+      "phrase": "te 30 kombinirano kladivo",
+      "frequency": 30,
+      "cn8": "84672900",
+      "suggested_family": "heading_8467",
+      "suggested_heading": "8467"
+    },
+    {
+      "phrase": "hilti te 30 kombinirano",
+      "frequency": 30,
+      "cn8": "84672900",
+      "suggested_family": "heading_8467",
+      "suggested_heading": "8467"
+    },
+    {
+      "phrase": "kombinirano kladivo",
+      "frequency": 30,
+      "cn8": "84672900",
+      "suggested_family": "heading_8467",
+      "suggested_heading": "8467"
+    },
+    {
+      "phrase": "te 30 kombinirano",
+      "frequency": 30,
+      "cn8": "84672900",
+      "suggested_family": "heading_8467",
+      "suggested_heading": "8467"
+    },
+    {
+      "phrase": "sika 1a vodotesno tesnilo",
+      "frequency": 30,
+      "cn8": "35061000",
+      "suggested_family": "adhesive_sealant",
+      "suggested_heading": "3506"
+    },
+    {
+      "phrase": "1a vodotesno tesnilo",
+      "frequency": 30,
+      "cn8": "35061000",
+      "suggested_family": "adhesive_sealant",
+      "suggested_heading": "3506"
+    },
+    {
+      "phrase": "vodotesno tesnilo",
+      "frequency": 30,
+      "cn8": "35061000",
+      "suggested_family": "adhesive_sealant",
+      "suggested_heading": "3506"
+    },
+    {
+      "phrase": "sika 1a vodotesno",
+      "frequency": 30,
+      "cn8": "35061000",
+      "suggested_family": "adhesive_sealant",
+      "suggested_heading": "3506"
+    },
+    {
+      "phrase": "1a vodotesno",
+      "frequency": 30,
+      "cn8": "35061000",
+      "suggested_family": "adhesive_sealant",
+      "suggested_heading": "3506"
+    },
+    {
+      "phrase": "pcs hex head",
+      "frequency": 25,
+      "cn8": "73181100",
+      "suggested_family": "fastener_screws",
+      "suggested_heading": "7318"
+    },
+    {
+      "phrase": "hex head",
+      "frequency": 25,
+      "cn8": "73181100",
+      "suggested_family": "fastener_screws",
+      "suggested_heading": "7318"
+    },
+    {
+      "phrase": "m8 hex",
+      "frequency": 25,
+      "cn8": "73181100",
+      "suggested_family": "fastener_screws",
+      "suggested_heading": "7318"
+    },
+    {
+      "phrase": "stainless steel machine",
+      "frequency": 25,
+      "cn8": "73181100",
+      "suggested_family": "fastener_screws",
+      "suggested_heading": "7318"
+    },
+    {
+      "phrase": "countersunk head",
+      "frequency": 25,
+      "cn8": "73181100",
+      "suggested_family": "fastener_screws",
+      "suggested_heading": "7318"
+    },
+    {
+      "phrase": "pan head",
+      "frequency": 25,
+      "cn8": "73181100",
+      "suggested_family": "fastener_screws",
+      "suggested_heading": "7318"
+    },
+    {
+      "phrase": "sealant tube",
+      "frequency": 25,
+      "cn8": "32141010",
+      "suggested_family": "heading_3214",
+      "suggested_heading": "3214"
+    },
+    {
+      "phrase": "sealant silicone",
+      "frequency": 25,
+      "cn8": "32141010",
+      "suggested_family": "heading_3214",
+      "suggested_heading": "3214"
+    },
+    {
+      "phrase": "industrial adhesive sealant",
+      "frequency": 25,
+      "cn8": "32141010",
+      "suggested_family": "heading_3214",
+      "suggested_heading": "3214"
+    },
+    {
+      "phrase": "pepperl fuchs nbb5 18gm50 e2",
+      "frequency": 25,
+      "cn8": "85361010",
+      "suggested_family": "heading_8536",
+      "suggested_heading": "8536"
+    },
+    {
+      "phrase": "pepperl fuchs nbb5 18gm50",
+      "frequency": 25,
+      "cn8": "85361010",
+      "suggested_family": "heading_8536",
+      "suggested_heading": "8536"
+    },
+    {
+      "phrase": "fuchs nbb5 18gm50 e2",
+      "frequency": 25,
+      "cn8": "85361010",
+      "suggested_family": "heading_8536",
+      "suggested_heading": "8536"
+    },
+    {
+      "phrase": "pepperl fuchs nbb5",
+      "frequency": 25,
+      "cn8": "85361010",
+      "suggested_family": "heading_8536",
+      "suggested_heading": "8536"
+    },
+    {
+      "phrase": "fuchs nbb5 18gm50",
+      "frequency": 25,
+      "cn8": "85361010",
+      "suggested_family": "heading_8536",
+      "suggested_heading": "8536"
+    },
+    {
+      "phrase": "nbb5 18gm50 e2",
+      "frequency": 25,
+      "cn8": "85361010",
+      "suggested_family": "heading_8536",
+      "suggested_heading": "8536"
+    },
+    {
+      "phrase": "motor phase",
+      "frequency": 25,
+      "cn8": "85011010",
+      "suggested_family": "heading_8501",
+      "suggested_heading": "8501"
+    },
+    {
+      "phrase": "okovje za omare",
+      "frequency": 25,
+      "cn8": "83021000",
+      "suggested_family": "furniture_fittings",
+      "suggested_heading": "8302"
+    },
+    {
+      "phrase": "za omare",
+      "frequency": 25,
+      "cn8": "83021000",
+      "suggested_family": "furniture_fittings",
+      "suggested_heading": "8302"
+    },
+    {
+      "phrase": "fittings mounting",
+      "frequency": 25,
+      "cn8": "83021000",
+      "suggested_family": "furniture_fittings",
+      "suggested_heading": "8302"
+    },
+    {
+      "phrase": "shelf mounting",
+      "frequency": 25,
+      "cn8": "83021000",
+      "suggested_family": "furniture_fittings",
+      "suggested_heading": "8302"
+    },
+    {
+      "phrase": "furniture connector bracket",
+      "frequency": 25,
+      "cn8": "83021000",
+      "suggested_family": "furniture_fittings",
+      "suggested_heading": "8302"
+    },
+    {
+      "phrase": "furniture connector",
+      "frequency": 25,
+      "cn8": "83021000",
+      "suggested_family": "furniture_fittings",
+      "suggested_heading": "8302"
+    },
+    {
+      "phrase": "connector bracket",
+      "frequency": 25,
+      "cn8": "83021000",
+      "suggested_family": "furniture_fittings",
+      "suggested_heading": "8302"
+    },
+    {
+      "phrase": "leg bracket steel",
+      "frequency": 25,
+      "cn8": "83021000",
+      "suggested_family": "furniture_fittings",
+      "suggested_heading": "8302"
+    },
+    {
+      "phrase": "bracket steel",
+      "frequency": 25,
+      "cn8": "83021000",
+      "suggested_family": "furniture_fittings",
+      "suggested_heading": "8302"
+    }
+  ]
+}

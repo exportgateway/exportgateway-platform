@@ -1,0 +1,197 @@
+/** Types aligned with export-auditor backend (https://export-auditor.onrender.com) */
+
+export interface ApiInvoiceItem {
+  item_code?: string;
+  description?: string | null;
+  quantity?: number | string | null;
+  unit_price?: number | string | null;
+  line_total?: number | string | null;
+  hs_code?: string | null;
+  country_of_origin?: string;
+  position_number?: number | null;
+  net_weight?: number | string | null;
+}
+
+export interface ShipmentSummary {
+  package_count: number | null;
+  package_type: string | null;
+  gross_weight_total: number | null;
+  gross_weight_unit: string | null;
+  net_weight_total: number | null;
+  net_weight_unit: string | null;
+  pallet_dimensions: string | null;
+  pallet_count: number | null;
+}
+
+export interface DeliveryAddress {
+  company: string | null;
+  address: string | null;
+  city: string | null;
+  postal_code: string | null;
+  country: string | null;
+  country_code: string | null;
+}
+
+export interface NormalizedInvoice {
+  invoice_number?: string | null;
+  invoice_date?: string | null;
+  exporter?: string | null;
+  consignee?: string | null;
+  country?: string | null;
+  country_code?: string | null;
+  incoterms?: string | null;
+  currency?: string | null;
+  /** Amount EUR from invoice totals page — highest priority for canonical value. */
+  amount_eur?: string | number | null;
+  total_value?: string | number | null;
+  total_value_numeric?: number | null;
+  vat_article?: string | null;
+  items?: ApiInvoiceItem[];
+  document_flags?: Record<string, boolean | string | number>;
+  /** Per-field extraction source tracking for confidence scoring. */
+  extraction_provenance?: import("@/lib/export-auditor/extraction-provenance").ExtractionProvenanceEntry[];
+  /** Optional OCR-extracted origin / preference declaration block (footer legal text). */
+  origin_declaration_text?: string | null;
+  preference_declarations?: string[];
+  /** Full OCR text for shipment-level pattern extraction (invoice-level only). */
+  ocr_text?: string | null;
+  shipment_notes?: string | null;
+  packing_info?: string | null;
+  footer_text?: string | null;
+  delivery_notes?: string | null;
+  shipment_summary?: ShipmentSummary;
+  delivery_address?: DeliveryAddress;
+  authorised_exporter_number?: string | null;
+  /** Page count and other OCR pipeline metadata (set server-side after PDF parse). */
+  ocr_metadata?: {
+    page_count?: number;
+    pdf_text_length?: number;
+    ocr_text_length?: number;
+    extraction_source?: string;
+    shipment_fields_detected?: string[];
+    shipment_fields_missing?: string[];
+    raw_ocr_has_shipment_summary?: boolean;
+    raw_ocr_has_ocr_text?: boolean;
+    raw_ocr_has_delivery_address?: boolean;
+  };
+}
+
+export interface ReadinessResponse {
+  score: number;
+  status: string;
+  checks_passed: number;
+  checks_total: number;
+  warnings: string[];
+  errors: string[];
+}
+
+export interface PreferenceAnalysis {
+  destination_outside_eu?: boolean;
+  invoice_value?: number;
+  origin_declaration_found?: boolean;
+  authorised_exporter_found?: boolean;
+  eur1_recommended?: boolean;
+  required_documents?: string[];
+  reason?: string;
+  recommendation?: string;
+}
+
+export interface PreferenceOriginResponse {
+  preference_analysis: PreferenceAnalysis;
+}
+
+export interface DispositionResponse {
+  status?: string;
+  exporter?: string;
+  consignee?: string;
+  country?: string;
+  country_code?: string;
+  invoice_number?: string;
+  invoice_date?: string;
+  incoterms?: string;
+  currency?: string;
+  total_value?: string;
+  total_value_numeric?: number;
+  vat_article?: string;
+  total_items?: number;
+  tariff_codes?: string[];
+  countries_of_origin?: string[];
+  missing_tariff_codes?: number;
+  missing_country_of_origin?: number;
+  summary?: string;
+  disposition_text?: string;
+}
+
+export interface ApiAuditIssue {
+  severity: "ERROR" | "WARNING" | "INFO" | string;
+  code?: string;
+  message: string;
+  recommendation?: string;
+}
+
+export interface AuditReportResponse {
+  audit_status: "READY" | "WARNING" | "ERROR" | string;
+  readiness: {
+    score: number;
+    status: string;
+    warnings: string[];
+    errors: string[];
+  };
+  preference_origin: {
+    preference_status?: string;
+    destination_outside_eu?: boolean;
+    invoice_value?: number;
+    origin_declaration_found?: boolean;
+    authorised_exporter_found?: boolean;
+    eur1_recommended?: boolean;
+    required_documents?: string[];
+    recommendation?: string;
+  };
+  issues: ApiAuditIssue[];
+  recommended_actions: string[];
+  summary: string;
+  shipment_summary?: ShipmentSummary;
+  delivery_address?: DeliveryAddress;
+  hs_aggregation?: ApiHsAggregationRow[];
+  preferential_summary?: ApiPreferenceAggregationRow[];
+  non_preferential_summary?: ApiPreferenceAggregationRow[];
+  unknown_preference_summary?: ApiPreferenceAggregationRow[];
+  mrn_summary?: ApiMrnSummary;
+  mrn_export_ready?: boolean;
+}
+
+export interface ApiHsAggregationRow {
+  hs_code: string;
+  total_quantity: number;
+  total_value: number;
+  total_net_weight?: number | null;
+  item_count: number;
+  countries_of_origin: string[];
+  source_positions?: number[];
+}
+
+export interface ApiPreferenceAggregationRow {
+  hs_code: string;
+  total_value: number;
+  total_net_weight?: number | null;
+  total_quantity?: number;
+  source_positions?: number[];
+}
+
+export interface ApiMrnSummary {
+  total_goods_lines: number;
+  unique_hs_codes: number;
+  total_invoice_value: number;
+  total_net_weight?: number | null;
+  total_gross_weight?: number | null;
+  countries_of_origin: string[];
+  excluded_service_lines?: number;
+}
+
+export interface ExportAuditorPipelineResponse {
+  invoice: NormalizedInvoice;
+  readiness: ReadinessResponse;
+  disposition: DispositionResponse;
+  preferenceOrigin: PreferenceOriginResponse;
+  auditReport: AuditReportResponse;
+}

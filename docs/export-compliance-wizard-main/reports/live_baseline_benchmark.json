@@ -1,0 +1,2403 @@
+{
+  "benchmark_id": "live_baseline_v1",
+  "benchmark_version": "1.0.0",
+  "benchmark_name": "FULL LIVE Production Baseline",
+  "purpose": "Baseline before loading full AES export (~62,891) and declarations database (~50,000). Rerun with identical case IDs for diff.",
+  "generated_at": "2026-06-08T21:13:43.210468+00:00",
+  "target": {
+    "classify_product_url": "https://export-compliance-wizard.onrender.com/classify-product",
+    "health_url": "https://export-compliance-wizard.onrender.com/health"
+  },
+  "environment_snapshot": {
+    "health": {
+      "status": "ok",
+      "production_ready": true,
+      "app": "Export Compliance Wizard",
+      "environment": "production",
+      "product_understanding": {
+        "openai_configured": true,
+        "openai_enabled": true,
+        "openai_model": "gpt-4o-mini",
+        "fallback_available": true,
+        "understanding_ready": true
+      },
+      "aes_knowledge_engine": {
+        "enabled": true,
+        "historical_db_present": true,
+        "historical_records": 3200,
+        "industrial_lexicon_phrases": 422,
+        "brand_entries": 7
+      },
+      "memory_footprint": {
+        "current_rss_mb": 239.1,
+        "legacy_argos_torch_overhead_mb": 262.0,
+        "legacy_estimated_total_mb": 501.1,
+        "estimated_memory_savings_mb": 262.0,
+        "render_plan_recommendation": "starter",
+        "notes": "legacy_overhead measured locally from translation_init RSS delta (~262 MB). Merged freight+intrastat typically fits Render Starter after cleanup."
+      }
+    },
+    "aes_knowledge_engine": {
+      "enabled": true,
+      "historical_db_present": true,
+      "historical_records": 3200,
+      "industrial_lexicon_phrases": 422,
+      "brand_entries": 7
+    },
+    "historical_records": 3200,
+    "database_source": "regression_seed_bootstrap_3200"
+  },
+  "request_defaults": {
+    "include_historical_evidence": true,
+    "historical_validation_enabled": true
+  },
+  "metric_definitions": {
+    "success": "classification_state == SUGGEST and suggested_cn is not null",
+    "aes_usage": "historical_evidence_count > 0 OR historical_validation_applied OR AES validation bonus in top explanation OR historical:* keyword",
+    "historical_candidates_used": "any suggestion matched_keywords contains aes_knowledge:*",
+    "industrial_lexicon_used": "description matches phrase in generated_industrial_lexicon.json (phrase-level signal)",
+    "brand_knowledge_used": "known brand in description AND brand signal in response (Entities brand= or brand:* keyword)"
+  },
+  "test_set": {
+    "total_cases": 64,
+    "categories": {
+      "TEXTILES": 9,
+      "FASTENERS": 7,
+      "CHEMICALS": 9,
+      "FURNITURE": 10,
+      "TOOLS": 7,
+      "FOOD": 7,
+      "ELECTRONICS": 6,
+      "INDUSTRIAL": 9
+    }
+  },
+  "cases": [
+    {
+      "id": "textiles_01",
+      "category": "TEXTILES",
+      "description": "500 kos moške bombažne jeans hlače",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "6203 42 31",
+      "heading": "6203",
+      "chapter": "62",
+      "confidence": 0.94,
+      "detected_attributes": {
+        "gender": "Men",
+        "material": "Cotton",
+        "fabric": "Denim",
+        "construction": "Woven"
+      },
+      "product_family": "apparel_trousers_mens, apparel_trousers",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4490.8,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "sl",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=apparel_trousers_mens, apparel_trousers. Ranked CN 6203 42 31 using product-aware matching (heading text, CN8 description, structure hint). Key terms: family:apparel_trousers_mens, historical:6203, material:cotton, cotton, trousers, denim, chapter:62, heading:6203."
+      }
+    },
+    {
+      "id": "textiles_02",
+      "category": "TEXTILES",
+      "description": "500 kos ženske bombažne jeans hlače",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "6203 42 31",
+      "heading": "6203",
+      "chapter": "62",
+      "confidence": 0.94,
+      "detected_attributes": {
+        "gender": "Women",
+        "material": "Cotton",
+        "fabric": "Denim",
+        "construction": "Woven"
+      },
+      "product_family": "apparel_trousers_mens, apparel_trousers_womens, apparel_trousers",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3960.1,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "sl",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=apparel_trousers_mens, apparel_trousers_womens, apparel_trousers. Ranked CN 6203 42 31 using product-aware matching (heading text, CN8 description, structure hint). Key terms: family:apparel_trousers_mens, historical:6203, material:cotton, cotton, trousers, denim, chapter:62, heading:6203."
+      }
+    },
+    {
+      "id": "textiles_03",
+      "category": "TEXTILES",
+      "description": "Moška polo majica",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "6110 11 10",
+      "heading": "6110",
+      "chapter": "61",
+      "confidence": 0.94,
+      "detected_attributes": {
+        "gender": "Men",
+        "material": null,
+        "fabric": null,
+        "construction": "Woven"
+      },
+      "product_family": "apparel_shirts, apparel_shirt_mens, apparel_polo_mens, apparel_tshirt_mens",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4635.4,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "sl",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=apparel_shirts, apparel_shirt_mens, apparel_polo_mens, apparel_tshirt_mens; model=least 50. Ranked CN 6110 11 10 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:apparel_shirts, jerseys, pullovers, containing, weight, wool, weighing, more."
+      }
+    },
+    {
+      "id": "textiles_04",
+      "category": "TEXTILES",
+      "description": "Ženske bombažne majice",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "6109 10 00",
+      "heading": "6109",
+      "chapter": "61",
+      "confidence": 0.94,
+      "detected_attributes": {
+        "gender": "Women",
+        "material": "Cotton",
+        "fabric": "Jersey",
+        "construction": "Knitted"
+      },
+      "product_family": "apparel_tshirt_womens, apparel_shirts",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4558.0,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "sl",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=apparel_tshirt_womens, apparel_shirts. Ranked CN 6109 10 00 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:apparel_tshirt_womens, historical:6109, material:cotton, cotton, shirt, shirts, chapter:61, heading:6109."
+      }
+    },
+    {
+      "id": "textiles_05",
+      "category": "TEXTILES",
+      "description": "women's blouse polyester",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "6206 10 00",
+      "heading": "6206",
+      "chapter": "62",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": "Women",
+        "material": "Polyester",
+        "fabric": null,
+        "construction": "Woven"
+      },
+      "product_family": "apparel_blouse_womens, apparel_shirts",
+      "product_type": null,
+      "historical_evidence_count": 25,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4358.3,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=apparel_blouse_womens, apparel_shirts. Ranked CN 6206 10 00 using product-aware matching (heading text, structure hint). Key terms: family:apparel_blouse_womens, historical:6206, shirt, blouse, women, chapter:62, heading:6206, heading:6206-womens-blouse. AES validation bonus +8.93 (confidence=0.99, declarations=25)."
+      }
+    },
+    {
+      "id": "textiles_06",
+      "category": "TEXTILES",
+      "description": "Men's cotton dress shirt",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "6105 10 00",
+      "heading": "6105",
+      "chapter": "61",
+      "confidence": 0.94,
+      "detected_attributes": {
+        "gender": "Men",
+        "material": "Cotton",
+        "fabric": null,
+        "construction": "Woven"
+      },
+      "product_family": "apparel_shirts, apparel_shirt_mens, apparel_tshirt_mens",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4139.7,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.92,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=apparel_shirts, apparel_shirt_mens, apparel_tshirt_mens. Ranked CN 6105 10 00 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:apparel_shirts, historical:6105, material_text:cotton, cotton, shirt, dress, knitted, chapter:61."
+      }
+    },
+    {
+      "id": "textiles_07",
+      "category": "TEXTILES",
+      "description": "Men's knitted polo shirt",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "6110 11 10",
+      "heading": "6110",
+      "chapter": "61",
+      "confidence": 0.94,
+      "detected_attributes": {
+        "gender": "Men",
+        "material": "Cotton",
+        "fabric": "Jersey",
+        "construction": "Knitted"
+      },
+      "product_family": "apparel_shirts, apparel_shirt_mens, apparel_polo_mens, apparel_tshirt_mens",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3757.6,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=apparel_shirts, apparel_shirt_mens, apparel_polo_mens, apparel_tshirt_mens; model=least 50. Ranked CN 6110 11 10 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:apparel_shirts, jerseys, pullovers, containing, weight, wool, weighing, more."
+      }
+    },
+    {
+      "id": "textiles_08",
+      "category": "TEXTILES",
+      "description": "Jeanshose Herren Baumwolle",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "6203 42 31",
+      "heading": "6203",
+      "chapter": "62",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": "Men",
+        "material": "Cotton",
+        "fabric": "Denim",
+        "construction": "Woven"
+      },
+      "product_family": "apparel_trousers_mens",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4438.7,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "de",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=apparel_trousers_mens. Ranked CN 6203 42 31 using product-aware matching (heading text, CN8 description, structure hint). Key terms: family:apparel_trousers_mens, historical:6203, material:cotton, cotton, denim, chapter:62, heading:6203, boost:6203-mens-trousers. AES validation bonus +2.10 (confidence=0.86, declarations=70)."
+      }
+    },
+    {
+      "id": "textiles_09",
+      "category": "TEXTILES",
+      "description": "Cotton socks men's",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "6203 12 00",
+      "heading": "6203",
+      "chapter": "62",
+      "confidence": 0.94,
+      "detected_attributes": {
+        "gender": "Men",
+        "material": "Cotton",
+        "fabric": null,
+        "construction": "Knitted"
+      },
+      "product_family": "apparel_socks_mens",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3945.2,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.92,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=apparel_socks_mens. Ranked CN 6203 12 00 using product-aware matching (CN8 description, structure hint). Key terms: material:cotton, synthetic, fibres, heading:6203."
+      }
+    },
+    {
+      "id": "fasteners_01",
+      "category": "FASTENERS",
+      "description": "steel screw M8",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "7318 11 00",
+      "heading": "7318",
+      "chapter": "73",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "fasteners",
+      "product_type": "screw",
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4063.7,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.92,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=fastener_screw. Ranked CN 7318 11 00 using product-aware matching (heading text, CN8 description, structure hint). Key terms: family:fastener_screw, universal_family:fasteners, type:screw, historical:7318, material:steel, steel, screw, screws. AES validation bonus +25.45 (confidence=0.88, declarations=75)."
+      }
+    },
+    {
+      "id": "fasteners_02",
+      "category": "FASTENERS",
+      "description": "threaded rod M8",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "7318 11 00",
+      "heading": "7318",
+      "chapter": "73",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Metal",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "fastener_screw, fastener_threaded_rod",
+      "product_type": null,
+      "historical_evidence_count": 25,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 5735.7,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=fastener_screw, fastener_threaded_rod. Ranked CN 7318 11 00 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:fastener_screw, historical:7318, coach, screws, threaded, chapter:73, heading:7318. AES validation bonus +11.22 (confidence=0.99, declarations=25)."
+      }
+    },
+    {
+      "id": "fasteners_03",
+      "category": "FASTENERS",
+      "description": "hex head bolt zinc plated",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "7318 11 00",
+      "heading": "7318",
+      "chapter": "73",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Steel",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "fastener_bolt, fastener_screw",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4357.7,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=fastener_bolt, fastener_screw. Ranked CN 7318 11 00 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:fastener_bolt, historical:7318, material:steel, coach, screws, threaded, chapter:73, heading:7318. AES validation bonus +11.25 (confidence=0.99, declarations=125)."
+      }
+    },
+    {
+      "id": "fasteners_04",
+      "category": "FASTENERS",
+      "description": "stainless steel nut M10",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "7318 12 10",
+      "heading": "7318",
+      "chapter": "73",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Stainless Steel",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "fastener_nut, fastener_screw",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3643.2,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=fastener_nut, fastener_screw. Ranked CN 7318 12 10 using product-aware matching (heading text, CN8 description, structure hint). Key terms: family:fastener_nut, historical:7318, material_text:stainless steel, coach, screws, threaded, stainless, steel."
+      }
+    },
+    {
+      "id": "fasteners_05",
+      "category": "FASTENERS",
+      "description": "inox vijaki",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "7318 11 00",
+      "heading": "7318",
+      "chapter": "73",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Steel",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "fastener_screw",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3551.8,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "sl",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=fastener_screw. Ranked CN 7318 11 00 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:fastener_screw, historical:7318, material:steel, screws, threaded, steel, iron, chapter:73. AES validation bonus +12.75 (confidence=0.99, declarations=95)."
+      }
+    },
+    {
+      "id": "fasteners_06",
+      "category": "FASTENERS",
+      "description": "DIN 933 bolt",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "7318 12 10",
+      "heading": "7318",
+      "chapter": "73",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Steel",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "fastener_bolt, fastener_screw",
+      "product_type": null,
+      "historical_evidence_count": 75,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3450.5,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.92,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=fastener_bolt, fastener_screw; model=DIN 933. Ranked CN 7318 12 10 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:fastener_bolt, historical:7318, material:steel, steel, stainless, iron, chapter:73, heading:7318. AES validation bonus +2.40 (confidence=0.99, declarations=75)."
+      }
+    },
+    {
+      "id": "fasteners_07",
+      "category": "FASTENERS",
+      "description": "DIN 934 nut",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "7318 11 00",
+      "heading": "7318",
+      "chapter": "73",
+      "confidence": 0.78,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Steel",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "fastener_nut",
+      "product_type": null,
+      "historical_evidence_count": 0,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 5447.7,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=fastener_nut; model=DIN 934. Ranked CN 7318 11 00 using product-aware matching (structure hint). Key terms: family:fastener_nut, historical:7318, material:steel, chapter:73, heading:7318."
+      }
+    },
+    {
+      "id": "chemicals_01",
+      "category": "CHEMICALS",
+      "description": "Sikaflex 11 FC Purform",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "3214 10 10",
+      "heading": "3214",
+      "chapter": "32",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "construction_chemicals",
+      "product_type": "sealant",
+      "historical_evidence_count": 30,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": true
+      },
+      "latency_ms": 4047.2,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=silicone_sealant, construction_chemicals_silicone_sealant. Ranked CN 3214 10 10 using product-aware matching (structure hint). Key terms: family:silicone_sealant, universal_family:construction_chemicals, type:sealant, historical:3214, chapter:32, heading:3214."
+      }
+    },
+    {
+      "id": "chemicals_02",
+      "category": "CHEMICALS",
+      "description": "Sikaflex 221",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "3214 10 10",
+      "heading": "3214",
+      "chapter": "32",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Polyurethane",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "silicone_sealant, construction_chemicals_sikaflex",
+      "product_type": null,
+      "historical_evidence_count": 30,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": true
+      },
+      "latency_ms": 4251.8,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=silicone_sealant, construction_chemicals_sikaflex. Ranked CN 3214 10 10 using product-aware matching (structure hint). Key terms: family:silicone_sealant, historical:3214, chapter:32, heading:3214."
+      }
+    },
+    {
+      "id": "chemicals_03",
+      "category": "CHEMICALS",
+      "description": "Loctite 243",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "3214 10 10",
+      "heading": "3214",
+      "chapter": "32",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "construction_chemicals",
+      "product_type": "sealant",
+      "historical_evidence_count": 30,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": true
+      },
+      "latency_ms": 3956.0,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=silicone_sealant, construction_chemicals_loctite. Ranked CN 3214 10 10 using product-aware matching (structure hint). Key terms: family:silicone_sealant, universal_family:construction_chemicals, type:sealant, historical:3214, chapter:32, heading:3214."
+      }
+    },
+    {
+      "id": "chemicals_04",
+      "category": "CHEMICALS",
+      "description": "Loctite 638",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "3214 10 10",
+      "heading": "3214",
+      "chapter": "32",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "construction_chemicals",
+      "product_type": "sealant",
+      "historical_evidence_count": 30,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": true
+      },
+      "latency_ms": 3744.0,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=silicone_sealant, construction_chemicals. Ranked CN 3214 10 10 using product-aware matching (structure hint). Key terms: family:silicone_sealant, universal_family:construction_chemicals, type:sealant, historical:3214, chapter:32, heading:3214."
+      }
+    },
+    {
+      "id": "chemicals_05",
+      "category": "CHEMICALS",
+      "description": "construction silicone adhesive",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "3214 10 10",
+      "heading": "3214",
+      "chapter": "32",
+      "confidence": 0.94,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Silicone",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "silicone_sealant, construction_chemicals_silicone_sealant",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4149.3,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.92,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=silicone_sealant, construction_chemicals_silicone_sealant. Ranked CN 3214 10 10 using product-aware matching (CN8 description, structure hint). Key terms: family:silicone_sealant, historical:3214, material:silicone, glaziers, putty, grafting, resin, cements."
+      }
+    },
+    {
+      "id": "chemicals_06",
+      "category": "CHEMICALS",
+      "description": "polyurethane sealant",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "3214 10 10",
+      "heading": "3214",
+      "chapter": "32",
+      "confidence": 0.94,
+      "detected_attributes": null,
+      "product_family": "construction_chemicals",
+      "product_type": "sealant",
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3655.8,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.92,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=silicone_sealant, construction_chemicals_sealant. Ranked CN 3214 10 10 using product-aware matching (structure hint). Key terms: family:silicone_sealant, universal_family:construction_chemicals, type:sealant, historical:3214, chapter:32, heading:3214."
+      }
+    },
+    {
+      "id": "chemicals_07",
+      "category": "CHEMICALS",
+      "description": "vodotesno tesnilo",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "3214 10 10",
+      "heading": "3214",
+      "chapter": "32",
+      "confidence": 0.94,
+      "detected_attributes": null,
+      "product_family": "construction_chemicals",
+      "product_type": "sealant",
+      "historical_evidence_count": 0,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3745.8,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.8,
+        "detected_language": "sl",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=silicone_sealant, construction_chemicals_sealant. Ranked CN 3214 10 10 using product-aware matching (structure hint). Key terms: family:silicone_sealant, universal_family:construction_chemicals, type:sealant, historical:3214, chapter:32, heading:3214."
+      }
+    },
+    {
+      "id": "chemicals_08",
+      "category": "CHEMICALS",
+      "description": "industrijsko lepilo",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "3214 10 10",
+      "heading": "3214",
+      "chapter": "32",
+      "confidence": 0.94,
+      "detected_attributes": null,
+      "product_family": "construction_chemicals",
+      "product_type": "adhesive",
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3656.2,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "hr",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=industrial_adhesive, construction_chemicals. Ranked CN 3214 10 10 using product-aware matching (CN8 description, structure hint). Key terms: family:industrial_adhesive, universal_family:construction_chemicals, type:adhesive, glaziers, putty, grafting, resin, cements."
+      }
+    },
+    {
+      "id": "chemicals_09",
+      "category": "CHEMICALS",
+      "description": "epoxy resin adhesive",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "3506 10 00",
+      "heading": "3506",
+      "chapter": "35",
+      "confidence": 0.94,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Epoxy Resin",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "industrial_adhesive, construction_chemicals",
+      "product_type": null,
+      "historical_evidence_count": 100,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4445.3,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=industrial_adhesive, construction_chemicals. Ranked CN 3506 10 00 using product-aware matching (CN8 description, structure hint). Key terms: family:industrial_adhesive, historical:3506, products, suitable, glues, adhesives, retail, sale."
+      }
+    },
+    {
+      "id": "furniture_01",
+      "category": "FURNITURE",
+      "description": "ABS robni trak beli 22 mm",
+      "classification_state": "EXPERT_REQUIRED",
+      "success": false,
+      "suggested_cn": "7006 00 90",
+      "heading": "7006",
+      "chapter": "70",
+      "confidence": 0.67,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Abs",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "furniture_hardware",
+      "product_type": null,
+      "historical_evidence_count": 0,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": false,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4660.6,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "sl",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=furniture_hardware; model=white 22. Ranked CN 7006 00 90 using product-aware matching (heading text). Key terms: material_text:abs, edge."
+      }
+    },
+    {
+      "id": "furniture_02",
+      "category": "FURNITURE",
+      "description": "robni trak ABS",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "3919 90 20",
+      "heading": "3919",
+      "chapter": "39",
+      "confidence": 0.75,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Plastic",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "fastener_tape",
+      "product_type": null,
+      "historical_evidence_count": 0,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": false,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 5421.5,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "hr",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=fastener_tape. Ranked CN 3919 90 20 using product-aware matching (heading text, CN8 description). Key terms: material_text:plastic, tape, adhesive, plastic."
+      }
+    },
+    {
+      "id": "furniture_03",
+      "category": "FURNITURE",
+      "description": "PVC robni trak",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "9403 70 00",
+      "heading": "9403",
+      "chapter": "94",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Plastic",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "furniture_hardware",
+      "product_type": null,
+      "historical_evidence_count": 0,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": false,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4066.5,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "hr",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=furniture_hardware. Ranked CN 9403 70 00 using product-aware matching (CN8 description). Key terms: material_text:plastic, furniture."
+      }
+    },
+    {
+      "id": "furniture_04",
+      "category": "FURNITURE",
+      "description": "okovje za omare",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8302 10 00",
+      "heading": "8302",
+      "chapter": "83",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "furniture_hardware",
+      "product_type": "fittings",
+      "historical_evidence_count": 50,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3742.9,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.8,
+        "detected_language": "sl",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=furniture_fittings, furniture_hardware. Ranked CN 8302 10 00 using product-aware matching (heading text, structure hint). Key terms: family:furniture_fittings, universal_family:furniture_hardware, type:fittings, historical:8302, fittings, furniture, chapter:83, heading:8302. AES validation bonus +33.49 (confidence=0.99, declarations=50)."
+      }
+    },
+    {
+      "id": "furniture_05",
+      "category": "FURNITURE",
+      "description": "pohištveno okovje",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8302 10 00",
+      "heading": "8302",
+      "chapter": "83",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "furniture_hardware",
+      "product_type": "fittings",
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3987.3,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.84,
+        "detected_language": "sl",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=furniture_fittings, furniture_hardware. Ranked CN 8302 10 00 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:furniture_fittings, universal_family:furniture_hardware, type:fittings, historical:8302, hinges, furniture, fittings, mountings. AES validation bonus +36.75 (confidence=0.99, declarations=125)."
+      }
+    },
+    {
+      "id": "furniture_06",
+      "category": "FURNITURE",
+      "description": "zamak okovje za pohištvo",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8302 30 00",
+      "heading": "8302",
+      "chapter": "83",
+      "confidence": 0.94,
+      "detected_attributes": null,
+      "product_family": "furniture_hardware",
+      "product_type": "fittings",
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4820.8,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "sl",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=furniture_fittings, furniture_hardware. Ranked CN 8302 30 00 using product-aware matching (heading text, CN8 description, structure hint). Key terms: family:furniture_fittings, universal_family:furniture_hardware, type:fittings, historical:8302, furniture, fittings, mountings, base."
+      }
+    },
+    {
+      "id": "furniture_07",
+      "category": "FURNITURE",
+      "description": "drawer slide fitting",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8302 10 00",
+      "heading": "8302",
+      "chapter": "83",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "furniture_hardware",
+      "product_type": null,
+      "historical_evidence_count": 75,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3959.4,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.8,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=furniture_hardware, furniture_fittings. Ranked CN 8302 10 00 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:furniture_fittings, universal_family:furniture_hardware, historical:8302, hinges, fitting, chapter:83, heading:8302. AES validation bonus +25.51 (confidence=0.99, declarations=75)."
+      }
+    },
+    {
+      "id": "furniture_08",
+      "category": "FURNITURE",
+      "description": "vodila za predale",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "9403 60 90",
+      "heading": "9403",
+      "chapter": "94",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "furniture_hardware",
+      "product_type": null,
+      "historical_evidence_count": 25,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4625.7,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.8,
+        "detected_language": "sl",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=furniture_hardware. Ranked CN 9403 60 90 using product-aware matching (CN8 description). Key terms: furniture."
+      }
+    },
+    {
+      "id": "furniture_09",
+      "category": "FURNITURE",
+      "description": "connector bracket",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8302 10 00",
+      "heading": "8302",
+      "chapter": "83",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "fasteners",
+      "product_type": "bracket",
+      "historical_evidence_count": 75,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3457.6,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.8,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=furniture_fittings, fastener_bracket. Ranked CN 8302 10 00 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:furniture_fittings, universal_family:fasteners, type:bracket, historical:8302, hinges, bracket, chapter:83, heading:8302. AES validation bonus +32.73 (confidence=0.99, declarations=75)."
+      }
+    },
+    {
+      "id": "furniture_10",
+      "category": "FURNITURE",
+      "description": "cabinet door hinge",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8302 10 00",
+      "heading": "8302",
+      "chapter": "83",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Metal",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "furniture_fittings, furniture_hardware_hinge",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3955.3,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=furniture_fittings, furniture_hardware_hinge. Ranked CN 8302 10 00 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:furniture_fittings, historical:8302, material_text:metal, hinges, door, hinge, chapter:83, heading:8302. AES validation bonus +14.10 (confidence=0.99, declarations=125)."
+      }
+    },
+    {
+      "id": "tools_01",
+      "category": "TOOLS",
+      "description": "Bosch GSB 18V",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8465 95 00",
+      "heading": "8465",
+      "chapter": "84",
+      "confidence": 0.75,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Plastic",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "electronics_power_tool",
+      "product_type": null,
+      "historical_evidence_count": 30,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": true
+      },
+      "latency_ms": 4343.2,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.8,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: brand=bosch; family=electronics_power_tool. Ranked CN 8465 95 00 using product-aware matching (CN8 description). Key terms: material_text:plastic, drill."
+      }
+    },
+    {
+      "id": "tools_02",
+      "category": "TOOLS",
+      "description": "Bosch GSR 18V Professional",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8465 95 00",
+      "heading": "8465",
+      "chapter": "84",
+      "confidence": 0.75,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Plastic",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "electronics_power_tools",
+      "product_type": null,
+      "historical_evidence_count": 30,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": true
+      },
+      "latency_ms": 4037.2,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: brand=bosch; family=electronics_power_tools. Ranked CN 8465 95 00 using product-aware matching (CN8 description). Key terms: material_text:plastic, drill."
+      }
+    },
+    {
+      "id": "tools_03",
+      "category": "TOOLS",
+      "description": "Makita DHR242",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8465 95 00",
+      "heading": "8465",
+      "chapter": "84",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Plastic",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "electronics_power_tools",
+      "product_type": null,
+      "historical_evidence_count": 30,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4562.5,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.8,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=electronics_power_tools; model=DHR242. Ranked CN 8465 95 00 using product-aware matching (CN8 description). Key terms: material_text:plastic, drill."
+      }
+    },
+    {
+      "id": "tools_04",
+      "category": "TOOLS",
+      "description": "Hilti TE 6-A22",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8459 69 10",
+      "heading": "8459",
+      "chapter": "84",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "electronics_power_tool",
+      "product_type": null,
+      "historical_evidence_count": 30,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4354.8,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.8,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=electronics_power_tool. Ranked CN 8459 69 10 using product-aware matching (CN8 description, heading text). Key terms: tool, drilling."
+      }
+    },
+    {
+      "id": "tools_05",
+      "category": "TOOLS",
+      "description": "akumulatorski vrtalnik",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8543 70 03",
+      "heading": "8543",
+      "chapter": "85",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Plastic",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "electronics_power_tools",
+      "product_type": null,
+      "historical_evidence_count": 0,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": false,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 5485.3,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "hr",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=electronics_power_tools. Ranked CN 8543 70 03 using product-aware matching (CN8 description). Key terms: cordless."
+      }
+    },
+    {
+      "id": "tools_06",
+      "category": "TOOLS",
+      "description": "kombinirano kladivo",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8416 20 20",
+      "heading": "8416",
+      "chapter": "84",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "tools_hammer",
+      "product_type": null,
+      "historical_evidence_count": 0,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": false,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4035.3,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "hr",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=tools_hammer. Ranked CN 8416 20 20 using product-aware matching (CN8 description). Key terms: combination."
+      }
+    },
+    {
+      "id": "tools_07",
+      "category": "TOOLS",
+      "description": "professional hammer drill",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8459 69 10",
+      "heading": "8459",
+      "chapter": "84",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "tools_power_drills",
+      "product_type": null,
+      "historical_evidence_count": 0,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": false,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4213.2,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=tools_power_drills. Ranked CN 8459 69 10 using product-aware matching (heading text, CN8 description). Key terms: drill, tool."
+      }
+    },
+    {
+      "id": "food_01",
+      "category": "FOOD",
+      "description": "durum wheat pasta",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "1902 11 00",
+      "heading": "1902",
+      "chapter": "19",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Wheat",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "food_pasta",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4035.1,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=food_pasta. Ranked CN 1902 11 00 using product-aware matching (heading text, CN8 description, structure hint). Key terms: family:food_pasta, uncooked, containing, eggs, pasta, chapter:19, heading:1902. AES validation bonus +8.02 (confidence=0.99, declarations=125)."
+      }
+    },
+    {
+      "id": "food_02",
+      "category": "FOOD",
+      "description": "spaghetti",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "1902 11 00",
+      "heading": "1902",
+      "chapter": "19",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Durum Wheat",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "food_pasta",
+      "product_type": null,
+      "historical_evidence_count": 50,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4333.4,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "it",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=food_pasta. Ranked CN 1902 11 00 using product-aware matching (heading text, structure hint). Key terms: family:food_pasta, spaghetti, pasta, chapter:19, heading:1902. AES validation bonus +5.99 (confidence=0.99, declarations=50)."
+      }
+    },
+    {
+      "id": "food_03",
+      "category": "FOOD",
+      "description": "frozen pizza",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "1905 10 00",
+      "heading": "1905",
+      "chapter": "19",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "food",
+      "product_type": "pizza",
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3840.4,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.92,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=food_prepared_pizza, food_pizza. Ranked CN 1905 10 00 using product-aware matching (CN8 description, structure hint). Key terms: family:food_prepared_pizza, universal_family:food, type:pizza, historical:1905, crispbread, chapter:19, heading:1905. AES validation bonus +24.13 (confidence=0.99, declarations=125)."
+      }
+    },
+    {
+      "id": "food_04",
+      "category": "FOOD",
+      "description": "frozen bakery pizza",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "1905 10 00",
+      "heading": "1905",
+      "chapter": "19",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "food",
+      "product_type": "pizza",
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4400.2,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=food_prepared_pizza, food_pizza. Ranked CN 1905 10 00 using product-aware matching (CN8 description, structure hint). Key terms: family:food_prepared_pizza, universal_family:food, type:pizza, historical:1905, crispbread, chapter:19, heading:1905. AES validation bonus +24.13 (confidence=0.99, declarations=125)."
+      }
+    },
+    {
+      "id": "food_05",
+      "category": "FOOD",
+      "description": "frozen lasagna ready meal",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "2106 10 20",
+      "heading": "2106",
+      "chapter": "21",
+      "confidence": 0.94,
+      "detected_attributes": null,
+      "product_family": "food",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3732.6,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=food_ready_meal, food_prepared_meal. Ranked CN 2106 10 20 using product-aware matching (CN8 description, structure hint). Key terms: family:food_prepared_meal, universal_family:food, historical:2106, containing, milkfats, sucrose, isoglucose, glucose."
+      }
+    },
+    {
+      "id": "food_06",
+      "category": "FOOD",
+      "description": "sugar syrup",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "2106 10 20",
+      "heading": "2106",
+      "chapter": "21",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "food_syrup",
+      "product_type": null,
+      "historical_evidence_count": 100,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 6057.4,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=food_syrup. Ranked CN 2106 10 20 using product-aware matching (CN8 description, heading text). Key terms: containing, milkfats, sucrose, isoglucose, glucose, starch, weight, less. AES validation bonus +10.98 (confidence=0.99, declarations=100)."
+      }
+    },
+    {
+      "id": "food_07",
+      "category": "FOOD",
+      "description": "aromatized sugar syrup",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "2106 10 20",
+      "heading": "2106",
+      "chapter": "21",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "food",
+      "product_type": null,
+      "historical_evidence_count": 100,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3755.3,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=food_syrup, food_aromatized_syrup. Ranked CN 2106 10 20 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:food_aromatized_syrup, universal_family:food, containing, milkfats, sucrose, isoglucose, glucose, starch. AES validation bonus +25.55 (confidence=0.99, declarations=100)."
+      }
+    },
+    {
+      "id": "electronics_01",
+      "category": "ELECTRONICS",
+      "description": "photoelectric sensor",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "9031 10 00",
+      "heading": "9031",
+      "chapter": "90",
+      "confidence": 0.94,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Plastic",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "sensor, temperature_sensor, electronics_sensor, photoelectric_sensor",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4051.7,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=sensor, temperature_sensor, electronics_sensor, photoelectric_sensor. Ranked CN 9031 10 00 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:sensor, historical:9031, machines, balancing, mechanical, parts, measuring, instruments."
+      }
+    },
+    {
+      "id": "electronics_02",
+      "category": "ELECTRONICS",
+      "description": "proximity sensor",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8536 10 10",
+      "heading": "8536",
+      "chapter": "85",
+      "confidence": 0.94,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Plastic",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "proximity_sensor, sensor, temperature_sensor, electronics_sensor",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": true,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3648.2,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=proximity_sensor, sensor, temperature_sensor, electronics_sensor. Ranked CN 8536 10 10 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:proximity_sensor, current, exceeding, switch, apparatus, chapter:85, heading:8536, proximity:8536."
+      }
+    },
+    {
+      "id": "electronics_03",
+      "category": "ELECTRONICS",
+      "description": "temperature sensor",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "9025 11 20",
+      "heading": "9025",
+      "chapter": "90",
+      "confidence": 0.94,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Plastic",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "temperature_sensor, sensor, electronics_sensor",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4136.6,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=temperature_sensor, sensor, electronics_sensor. Ranked CN 9025 11 20 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:temperature_sensor, historical:9025, thermometer, instruments, clinical, veterinary, thermometers, pyrometer."
+      }
+    },
+    {
+      "id": "electronics_04",
+      "category": "ELECTRONICS",
+      "description": "network switch",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8517 62 00",
+      "heading": "8517",
+      "chapter": "85",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Plastic",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "electronics_network_switch",
+      "product_type": null,
+      "historical_evidence_count": 0,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": false,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3875.5,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=electronics_network_switch. Ranked CN 8517 62 00 using product-aware matching (heading text, CN8 description). Key terms: network, switch, data, communication."
+      }
+    },
+    {
+      "id": "electronics_05",
+      "category": "ELECTRONICS",
+      "description": "wifi router",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8517 14 00",
+      "heading": "8517",
+      "chapter": "85",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Plastic",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "electronics_networking",
+      "product_type": null,
+      "historical_evidence_count": 0,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": false,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3690.4,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=electronics_networking. Ranked CN 8517 14 00 using product-aware matching (CN8 description). Key terms: network."
+      }
+    },
+    {
+      "id": "electronics_06",
+      "category": "ELECTRONICS",
+      "description": "industrial PLC controller",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8537 10 91",
+      "heading": "8537",
+      "chapter": "85",
+      "confidence": 0.94,
+      "detected_attributes": null,
+      "product_family": "universal family: fasteners|apparel|construction_chemicals|food|electronics|furniture_hardware",
+      "product_type": "controller",
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4182.3,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=industrial_automation, electronics_controller. Ranked CN 8537 10 91 using product-aware matching (CN8 description, structure hint). Key terms: family:industrial_automation, universal_family:universal family: fasteners|apparel|construction_chemicals|food|electronics|furniture_hardware, type:controller, programmable, controller, control, chapter:85, heading:8537."
+      }
+    },
+    {
+      "id": "industrial_01",
+      "category": "INDUSTRIAL",
+      "description": "aluminium profile",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "7604 10 90",
+      "heading": "7604",
+      "chapter": "76",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Aluminium",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "furniture_hardware",
+      "product_type": null,
+      "historical_evidence_count": 0,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": false,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4356.4,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=furniture_hardware. Ranked CN 7604 10 90 using product-aware matching (heading text, CN8 description). Key terms: material_text:aluminium, aluminium, profile."
+      }
+    },
+    {
+      "id": "industrial_02",
+      "category": "INDUSTRIAL",
+      "description": "aluminijasti profil",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "7303 00 90",
+      "heading": "7303",
+      "chapter": "73",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Aluminum",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "furniture_hardware",
+      "product_type": null,
+      "historical_evidence_count": 0,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": false,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3943.1,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "hr",
+        "translation_used": true,
+        "top_match_explanation": "Entities: family=furniture_hardware. Ranked CN 7303 00 90 using product-aware matching (heading text). Key terms: profile, construction, material."
+      }
+    },
+    {
+      "id": "industrial_03",
+      "category": "INDUSTRIAL",
+      "description": "stainless steel tube",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "7318 12 10",
+      "heading": "7318",
+      "chapter": "73",
+      "confidence": 0.94,
+      "detected_attributes": null,
+      "product_family": "universal family: fasteners|apparel|construction_chemicals|food|electronics|furniture_hardware",
+      "product_type": null,
+      "historical_evidence_count": 125,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3784.6,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=metal_tube, fastener_screw. Ranked CN 7318 12 10 using product-aware matching (heading text, CN8 description, structure hint). Key terms: family:fastener_screw, universal_family:universal family: fasteners|apparel|construction_chemicals|food|electronics|furniture_hardware, historical:7318, material:steel, coach, screws, threaded, stainless."
+      }
+    },
+    {
+      "id": "industrial_04",
+      "category": "INDUSTRIAL",
+      "description": "PVC pipe fitting",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "6906 00 00",
+      "heading": "6906",
+      "chapter": "69",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Plastic",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "construction_hardware",
+      "product_type": null,
+      "historical_evidence_count": 75,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3853.4,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=construction_hardware. Ranked CN 6906 00 00 using product-aware matching (CN8 description, heading text). Key terms: pipe, fitting, construction."
+      }
+    },
+    {
+      "id": "industrial_05",
+      "category": "INDUSTRIAL",
+      "description": "rubber gasket",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8484 20 00",
+      "heading": "8484",
+      "chapter": "84",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Rubber",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "fastener_gasket",
+      "product_type": null,
+      "historical_evidence_count": 25,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4154.3,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=fastener_gasket. Ranked CN 8484 20 00 using product-aware matching (heading text, CN8 description). Key terms: gasket, joint, mechanical."
+      }
+    },
+    {
+      "id": "industrial_06",
+      "category": "INDUSTRIAL",
+      "description": "hydraulic hose",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8481 20 10",
+      "heading": "8481",
+      "chapter": "84",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Rubber",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "fastener_hose",
+      "product_type": null,
+      "historical_evidence_count": 0,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": false,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4323.1,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.8,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=fastener_hose. Ranked CN 8481 20 10 using product-aware matching (CN8 description, structure hint). Key terms: material_text:rubber, hydraulic, oleohydraulic, power, transmission, heading:8481."
+      }
+    },
+    {
+      "id": "industrial_07",
+      "category": "INDUSTRIAL",
+      "description": "bearing 6205",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8482 80 00",
+      "heading": "8482",
+      "chapter": "84",
+      "confidence": 0.83,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Steel",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "fastener_bearing",
+      "product_type": null,
+      "historical_evidence_count": 0,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": false,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 4157.3,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.8,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=fastener_bearing; model=6205. Ranked CN 8482 80 00 using product-aware matching (CN8 description, structure hint). Key terms: bearing, ball, roller, bearings, heading:8482."
+      }
+    },
+    {
+      "id": "industrial_08",
+      "category": "INDUSTRIAL",
+      "description": "ball bearing SKF",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8482 80 00",
+      "heading": "8482",
+      "chapter": "84",
+      "confidence": 0.94,
+      "detected_attributes": {
+        "gender": null,
+        "material": "Steel",
+        "fabric": null,
+        "construction": null
+      },
+      "product_family": "fastener_ball_bearing, bearing_ball",
+      "product_type": null,
+      "historical_evidence_count": 0,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": false,
+        "aes_validation_bonus_applied": false,
+        "historical_validation_applied": false,
+        "industrial_lexicon_used": false,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3536.4,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.9,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=fastener_ball_bearing, bearing_ball. Ranked CN 8482 80 00 using product-aware matching (CN8 description, structure hint). Key terms: family:bearing_ball, ball, bearing, bearings, roller, chapter:84, heading:8482."
+      }
+    },
+    {
+      "id": "industrial_09",
+      "category": "INDUSTRIAL",
+      "description": "electric motor 3kW",
+      "classification_state": "SUGGEST",
+      "success": true,
+      "suggested_cn": "8501 10 10",
+      "heading": "8501",
+      "chapter": "85",
+      "confidence": 0.83,
+      "detected_attributes": null,
+      "product_family": "electronics",
+      "product_type": "motor",
+      "historical_evidence_count": 50,
+      "historical_candidates_used": false,
+      "signals": {
+        "aes_usage": true,
+        "aes_validation_bonus_applied": true,
+        "historical_validation_applied": true,
+        "industrial_lexicon_used": true,
+        "brand_knowledge_used": false
+      },
+      "latency_ms": 3813.4,
+      "error": null,
+      "response_meta": {
+        "data_quality_score": 0.8,
+        "detected_language": "en",
+        "translation_used": false,
+        "top_match_explanation": "Entities: family=electric_motor, electronics_motor; model=8501. Ranked CN 8501 10 10 using product-aware matching (CN8 description, heading text, structure hint). Key terms: family:electric_motor, universal_family:electronics, type:motor, synchronous, motors, output, exceeding, electric. AES validation bonus +69.34 (confidence=0.99, declarations=50)."
+      }
+    }
+  ],
+  "summary": {
+    "total_cases": 64,
+    "errors": 0,
+    "overall_success_rate": 0.9844,
+    "average_confidence": 0.8573,
+    "disambiguation_rate": 0.0,
+    "expert_required_rate": 0.0156,
+    "abstain_rate": 0.0,
+    "aes_usage_rate": 0.7969,
+    "historical_candidate_injection_rate": 0.0156,
+    "industrial_lexicon_usage_rate": 0.5469,
+    "brand_knowledge_usage_rate": 0.0938,
+    "by_category": {
+      "TEXTILES": {
+        "total": 9,
+        "errors": 0,
+        "success_rate": 1.0,
+        "average_confidence": 0.9156,
+        "disambiguation_rate": 0.0,
+        "expert_required_rate": 0.0,
+        "aes_usage_rate": 1.0,
+        "historical_candidate_injection_rate": 0.0,
+        "industrial_lexicon_usage_rate": 0.8889,
+        "brand_knowledge_usage_rate": 0.0
+      },
+      "FASTENERS": {
+        "total": 7,
+        "errors": 0,
+        "success_rate": 1.0,
+        "average_confidence": 0.8229,
+        "disambiguation_rate": 0.0,
+        "expert_required_rate": 0.0,
+        "aes_usage_rate": 1.0,
+        "historical_candidate_injection_rate": 0.0,
+        "industrial_lexicon_usage_rate": 0.5714,
+        "brand_knowledge_usage_rate": 0.0
+      },
+      "CHEMICALS": {
+        "total": 9,
+        "errors": 0,
+        "success_rate": 1.0,
+        "average_confidence": 0.8911,
+        "disambiguation_rate": 0.0,
+        "expert_required_rate": 0.0,
+        "aes_usage_rate": 1.0,
+        "historical_candidate_injection_rate": 0.0,
+        "industrial_lexicon_usage_rate": 0.3333,
+        "brand_knowledge_usage_rate": 0.4444
+      },
+      "FURNITURE": {
+        "total": 10,
+        "errors": 0,
+        "success_rate": 0.9,
+        "average_confidence": 0.817,
+        "disambiguation_rate": 0.0,
+        "expert_required_rate": 0.1,
+        "aes_usage_rate": 0.7,
+        "historical_candidate_injection_rate": 0.0,
+        "industrial_lexicon_usage_rate": 0.9,
+        "brand_knowledge_usage_rate": 0.0
+      },
+      "TOOLS": {
+        "total": 7,
+        "errors": 0,
+        "success_rate": 1.0,
+        "average_confidence": 0.8071,
+        "disambiguation_rate": 0.0,
+        "expert_required_rate": 0.0,
+        "aes_usage_rate": 0.5714,
+        "historical_candidate_injection_rate": 0.0,
+        "industrial_lexicon_usage_rate": 0.0,
+        "brand_knowledge_usage_rate": 0.2857
+      },
+      "FOOD": {
+        "total": 7,
+        "errors": 0,
+        "success_rate": 1.0,
+        "average_confidence": 0.8457,
+        "disambiguation_rate": 0.0,
+        "expert_required_rate": 0.0,
+        "aes_usage_rate": 1.0,
+        "historical_candidate_injection_rate": 0.0,
+        "industrial_lexicon_usage_rate": 0.8571,
+        "brand_knowledge_usage_rate": 0.0
+      },
+      "ELECTRONICS": {
+        "total": 6,
+        "errors": 0,
+        "success_rate": 1.0,
+        "average_confidence": 0.9033,
+        "disambiguation_rate": 0.0,
+        "expert_required_rate": 0.0,
+        "aes_usage_rate": 0.6667,
+        "historical_candidate_injection_rate": 0.1667,
+        "industrial_lexicon_usage_rate": 0.5,
+        "brand_knowledge_usage_rate": 0.0
+      },
+      "INDUSTRIAL": {
+        "total": 9,
+        "errors": 0,
+        "success_rate": 1.0,
+        "average_confidence": 0.8544,
+        "disambiguation_rate": 0.0,
+        "expert_required_rate": 0.0,
+        "aes_usage_rate": 0.4444,
+        "historical_candidate_injection_rate": 0.0,
+        "industrial_lexicon_usage_rate": 0.2222,
+        "brand_knowledge_usage_rate": 0.0
+      }
+    },
+    "classification_state_counts": {
+      "EXPERT_REQUIRED": 1,
+      "SUGGEST": 63
+    },
+    "average_latency_ms": 4180.9
+  },
+  "comparison": {
+    "case_id_field": "id",
+    "primary_key_fields": [
+      "id",
+      "description",
+      "category"
+    ],
+    "diff_fields": [
+      "classification_state",
+      "suggested_cn",
+      "heading",
+      "chapter",
+      "confidence",
+      "historical_evidence_count",
+      "historical_candidates_used"
+    ],
+    "expected_followup_databases": [
+      {
+        "name": "full_aes_export",
+        "expected_records": 62891
+      },
+      {
+        "name": "declarations_import",
+        "expected_records": 50000
+      }
+    ]
+  }
+}

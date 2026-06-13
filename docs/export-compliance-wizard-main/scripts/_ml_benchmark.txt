@@ -1,0 +1,147 @@
+﻿python : Translation unavailable for 'pl'; using original text for classification.
+At C:\Users\blažso\AppData\Local\Temp\ps-script-6d167f1e-336b-4a7d-bd58-e07bde9a93a6.ps1:106 char:88
++ ... ce-wizard'; python scripts/run_multilingual_benchmark.py 2>&1 | Out-F ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Translation una...classification.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Translation unavailable for 'pl'; using original text for classification.
+Translation unavailable for 'da'; using original text for classification.
+Translation unavailable for 'da'; using original text for classification.
+Translation unavailable for 'sl'; using original text for classification.
+Translation unavailable for 'sl'; using original text for classification.
+Translation unavailable for 'da'; using original text for classification.
+Translation unavailable for 'da'; using original text for classification.
+Translation unavailable for 'et'; using original text for classification.
+Translation unavailable for 'et'; using original text for classification.
+
+### [vehicles] sl: Rabljeno tovorno vozilo DAF XF 480
+- Detected: Slovenian (sl)
+- Engine: glossary-fallback (1.82 ms)
+- Translated: used goods vehicle truck DAF XF 480
+- Top 1: 8704 21 39 (OK)
+  1. 8704 21 39 (0.94) Ś Used
+  2. 8704 21 99 (0.94) Ś Used
+  3. 8703 32 90 (0.86) Ś Used
+  4. 8703 31 90 (0.86) Ś Used
+  5. 8704 41 99 (0.82) Ś Used
+
+### [vehicles] de: Gebrauchter LKW MAN TGX 18.520
+- Detected: German (de)
+- Engine: glossary-fallback (283.91 ms)
+- Translated: used goods vehicle truck MAN TGX 18.520
+- Top 1: 8704 21 39 (OK)
+  1. 8704 21 39 (0.94) Ś Used
+  2. 8704 21 99 (0.94) Ś Used
+  3. 8703 32 90 (0.86) Ś Used
+  4. 8703 31 90 (0.86) Ś Used
+  5. 8704 41 99 (0.82) Ś Used
+
+### [vehicles] fr: Camion usÚ DAF XF 480
+- Detected: French (fr)
+- Engine: glossary-fallback (0.15 ms)
+- Translated: used truck goods vehicle DAF XF 480
+- Top 1: 8704 21 39 (OK)
+  1. 8704 21 39 (0.94) Ś Used
+  2. 8704 21 99 (0.94) Ś Used
+  3. 8703 32 90 (0.86) Ś Used
+  4. 8703 31 90 (0.86) Ś Used
+  5. 8704 41 99 (0.82) Ś Used
+
+### [vehicles] it: Autocarro usato Iveco Stralis
+- Detected: Italian (it)
+- Engine: glossary-fallback (3.42 ms)
+- Translated: used goods vehicle truck Iveco Stralis
+- Top 1: 8704 21 39 (OK)
+  1. 8704 21 39 (0.94) Ś Used
+  2. 8704 21 99 (0.94) Ś Used
+  3. 8703 32 90 (0.86) Ś Used
+  4. 8703 31 90 (0.86) Ś Used
+  5. 8704 41 99 (0.82) Ś Used
+
+### [vehicles] es: Camiˇn de mercancÝas usado
+- Detected: Polish (pl)
+- Engine: unavailable (0.79 ms)
+- Translated: Camiˇn de mercancÝas usado
+- Top 1: Ś (CHECK)
+
+### [bearings] de: Kugellager
+- Detected: Danish (da)
+- Engine: unavailable (16.37 ms)
+- Translated: Kugellager
+- Top 1: Ś (CHECK)
+
+### [bearings] pl: úo┐yska kulkowe
+- Detected: Polish (pl)
+- Engine: glossary-fallback (0.12 ms)
+- Translated: ball bearings
+- Top 1: 8482 80 00 (OK)
+  1. 8482 80 00 (0.94) Ś Other, including combined ball/roller bearings
+  2. 8482 30 00 (0.9) Ś Spherical roller bearings
+  3. 8482 20 00 (0.9) Ś Tapered roller bearings, including cone and tapered roller assemblies
+  4. 8482 40 00 (0.9) Ś Needle roller bearings, including cage and needle roller assemblies
+  5. 8482 50 00 (0.9) Ś Other cylindrical roller bearings, including cage and roller assemblie
+
+### [bearings] cs: KulovÚ lo×isko
+- Detected: Slovenian (sl)
+- Engine: unavailable (0.32 ms)
+- Translated: KulovÚ lo×isko
+- Top 1: Ś (CHECK)
+
+### [bearings] nl: Kogellagers
+- Detected: Danish (da)
+- Engine: unavailable (3.51 ms)
+- Translated: Kogellagers
+- Top 1: Ś (CHECK)
+
+### [valves] fr: Soupape hydraulique
+- Detected: French (fr)
+- Engine: glossary-fallback (3.38 ms)
+- Translated: hydraulic valve
+- Top 1: 8481 20 10 (OK)
+  1. 8481 20 10 (0.94) Ś Valves for the control of oleohydraulic power transmission
+  2. 8481 20 90 (0.91) Ś Valves for the control of pneumatic power transmission
+  3. 8413 50 61 (0.63) Ś Hydraulic fluid power
+  4. 8481 80 40 (0.63) Ś Valves for pneumatic tyres and inner tubes
+  5. 8412 29 81 (0.57) Ś Hydraulic fluid power motors
+
+### [valves] hu: Hidraulikus szelep
+- Detected: Estonian (et)
+- Engine: unavailable (3.1 ms)
+- Translated: Hidraulikus szelep
+- Top 1: Ś (CHECK)
+
+### [valves] ro: SupapŃ hidraulicŃ
+- Detected: Romanian (ro)
+- Engine: glossary-fallback (0.13 ms)
+- Translated: hydraulic valve
+- Top 1: 8481 20 10 (OK)
+  1. 8481 20 10 (0.94) Ś Valves for the control of oleohydraulic power transmission
+  2. 8481 20 90 (0.91) Ś Valves for the control of pneumatic power transmission
+  3. 8413 50 61 (0.63) Ś Hydraulic fluid power
+  4. 8481 80 40 (0.63) Ś Valves for pneumatic tyres and inner tubes
+  5. 8412 29 81 (0.57) Ś Hydraulic fluid power motors
+
+### [pharma] pt: Comprimidos de paracetamol
+- Detected: Spanish (es)
+- Engine: glossary-fallback (27.73 ms)
+- Translated: paracetamol tablets
+- Top 1: 3004 49 00 (OK)
+  1. 3004 49 00 (0.94) Ś Other
+  2. 3004 90 00 (0.94) Ś Other
+  3. 3004 39 00 (0.94) Ś Other
+  4. 3004 41 00 (0.94) Ś Containing ephedrine or its salts
+  5. 3004 43 00 (0.94) Ś Containing norephedrine or its salts
+Traceback (most recent call last):
+  File "C:\Users\bla×so\Documents\CURSOR\export-compliance-wizard\scripts\run_multilingual_benchmark.py", line 83, in <
+module>
+    main()
+    ~~~~^^
+  File "C:\Users\bla×so\Documents\CURSOR\export-compliance-wizard\scripts\run_multilingual_benchmark.py", line 67, in m
+ain
+    print(f"\n### [{category}] {lang}: {query}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\bla×so\AppData\Local\Programs\Python\Python314\Lib\encodings\cp1250.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 19-24: character maps to <undefined>

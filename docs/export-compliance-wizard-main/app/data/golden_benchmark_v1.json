@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "description": "Phase A golden set — regression for classification accuracy",
+  "cases": [
+    {
+      "id": "sl-apparel-trousers-mens",
+      "query": "Moške dolge hlače",
+      "language": "sl",
+      "expected_chapters": ["61", "62"],
+      "forbidden_chapters": ["03", "48"],
+      "disambiguation": { "textile_construction": "woven" },
+      "expected_cn_prefixes": ["6203"]
+    },
+    {
+      "id": "sl-bearing-skf",
+      "query": "Kroglasti ležaj SKF 6205",
+      "language": "sl",
+      "expected_chapters": ["84"],
+      "forbidden_chapters": ["03", "48", "87"],
+      "expected_cn_prefixes": ["8482"]
+    },
+    {
+      "id": "sl-sensor-pepperl",
+      "query": "Industrijski temperaturni senzor Pepperl+Fuchs REF-H180",
+      "language": "sl",
+      "expected_chapters": ["90"],
+      "forbidden_chapters": ["84"],
+      "forbidden_heading_prefixes": ["8418"]
+    },
+    {
+      "id": "sl-pressure-danfoss",
+      "query": "Senzor tlaka Danfoss MBS3000",
+      "language": "sl",
+      "expected_chapters": ["90"],
+      "forbidden_chapters": ["03"]
+    },
+    {
+      "id": "en-paracetamol",
+      "query": "Paracetamol tablets",
+      "language": "en",
+      "expected_chapters": ["30"],
+      "forbidden_chapters": ["17", "21"],
+      "expected_cn_prefixes": ["3004", "3003"]
+    },
+    {
+      "id": "sl-truck-daf",
+      "query": "Rabljeno tovorno vozilo DAF XF 480",
+      "language": "sl",
+      "expected_chapters": ["87"],
+      "forbidden_chapters": ["48"],
+      "disambiguation": { "vehicle_gvm_band": "over_5t" }
+    },
+    {
+      "id": "en-trousers",
+      "query": "Men's cotton trousers",
+      "language": "en",
+      "expected_chapters": ["61", "62"],
+      "forbidden_chapters": ["03"]
+    },
+    {
+      "id": "en-laptop",
+      "query": "Laptop computer portable",
+      "language": "en",
+      "expected_chapters": ["84"],
+      "forbidden_chapters": ["49"]
+    },
+    {
+      "id": "en-cotton-tshirt",
+      "query": "Cotton t-shirts for adults",
+      "language": "en",
+      "expected_chapters": ["61", "62"],
+      "forbidden_chapters": ["03"]
+    },
+    {
+      "id": "de-trousers",
+      "query": "Herrenhose lang",
+      "language": "de",
+      "expected_chapters": ["61", "62"],
+      "forbidden_chapters": ["03", "48"],
+      "disambiguation": { "textile_construction": "woven" }
+    },
+    {
+      "id": "sl-plc-siemens",
+      "query": "Siemens PLC modul",
+      "language": "sl",
+      "expected_chapters": ["85"],
+      "forbidden_chapters": ["87", "03"]
+    },
+    {
+      "id": "en-proximity-omron",
+      "query": "Omron proximity sensor",
+      "language": "en",
+      "expected_chapters": ["85", "90"],
+      "forbidden_chapters": ["03", "8418"]
+    },
+    {
+      "id": "sl-inductive-ifm",
+      "query": "IFM induktivni senzor",
+      "language": "sl",
+      "expected_chapters": ["85", "90"],
+      "forbidden_chapters": ["03"]
+    },
+    {
+      "id": "en-hydraulic-valve",
+      "query": "Hydraulic control valve",
+      "language": "en",
+      "expected_chapters": ["84"],
+      "forbidden_chapters": ["87"]
+    },
+    {
+      "id": "en-air-rifle-pellet",
+      "query": "Air rifle pellets 4.5mm",
+      "language": "en",
+      "expected_chapters": ["93"],
+      "forbidden_chapters": ["30"]
+    }
+  ]
+}

@@ -1,0 +1,1632 @@
+{
+  "generated_at": "2026-06-08T18:10:35.189002+00:00",
+  "suite_version": 1,
+  "engine": "keyword_lexicon_fallback",
+  "ai_classification_enabled": false,
+  "summary": {
+    "total_cases": 110,
+    "passed": 110,
+    "failed": 0,
+    "overall_accuracy_pct": 100.0,
+    "accuracy_by_category": {
+      "textiles": {
+        "total": 20,
+        "passed": 20,
+        "failed": 0,
+        "accuracy_pct": 100.0
+      },
+      "fasteners": {
+        "total": 18,
+        "passed": 18,
+        "failed": 0,
+        "accuracy_pct": 100.0
+      },
+      "chemicals": {
+        "total": 18,
+        "passed": 18,
+        "failed": 0,
+        "accuracy_pct": 100.0
+      },
+      "food": {
+        "total": 18,
+        "passed": 18,
+        "failed": 0,
+        "accuracy_pct": 100.0
+      },
+      "electronics": {
+        "total": 18,
+        "passed": 18,
+        "failed": 0,
+        "accuracy_pct": 100.0
+      },
+      "furniture_hardware": {
+        "total": 18,
+        "passed": 18,
+        "failed": 0,
+        "accuracy_pct": 100.0
+      }
+    },
+    "root_cause_counts": {}
+  },
+  "root_cause_analysis": [
+    {
+      "cause": "category_accuracy_gap",
+      "count": 0,
+      "description": "Lowest-accuracy categories need taxonomy phrase coverage and family-first tuning.",
+      "affected_categories": [
+        "textiles",
+        "fasteners"
+      ],
+      "category_accuracy": {
+        "textiles": 100.0,
+        "fasteners": 100.0
+      },
+      "recommended_fix": "Prioritize furniture_hardware and chemicals phrase lists and disambiguate hinge/bracket vs fastener collisions."
+    }
+  ],
+  "top_failures": [],
+  "results": [
+    {
+      "id": "tex-001",
+      "category": "textiles",
+      "input": "500 pcs men's denim jeans trousers",
+      "expected_heading": "6203",
+      "actual_heading": "6203",
+      "actual_cn_code": "6203 42 31",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_trousers_mens",
+        "apparel_trousers"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "tex-002",
+      "category": "textiles",
+      "input": "men's cotton dress shirt",
+      "expected_heading": "6205",
+      "actual_heading": "6105",
+      "actual_cn_code": "6105 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_shirts",
+        "apparel_tshirt_mens"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "tex-003",
+      "category": "textiles",
+      "input": "Women's polyester jacket",
+      "expected_heading": "6202",
+      "actual_heading": "6202",
+      "actual_cn_code": "6202 30 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_jacket_womens",
+        "apparel_jacket"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "tex-004",
+      "category": "textiles",
+      "input": "Cotton t-shirts for adults",
+      "expected_heading": "6109",
+      "actual_heading": "6205",
+      "actual_cn_code": "6205 20 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_shirts"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "tex-005",
+      "category": "textiles",
+      "input": "Moške jeans hlače",
+      "expected_heading": "6203",
+      "actual_heading": "6203",
+      "actual_cn_code": "6203 42 31",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_trousers_mens",
+        "apparel_trousers",
+        "apparel_general_mens"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "tex-006",
+      "category": "textiles",
+      "input": "Men's cotton trousers",
+      "expected_heading": "6203",
+      "actual_heading": "6203",
+      "actual_cn_code": "6203 19 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_trousers_mens",
+        "apparel_trousers"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "tex-007",
+      "category": "textiles",
+      "input": "Men's cotton T-shirt",
+      "expected_heading": "6109",
+      "actual_heading": "6105",
+      "actual_cn_code": "6105 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_shirts",
+        "apparel_tshirt_mens"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "tex-008",
+      "category": "textiles",
+      "input": "women's denim skirt",
+      "expected_heading": "6204",
+      "actual_heading": "6203",
+      "actual_cn_code": "6203 42 31",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_trousers_mens"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "tex-009",
+      "category": "textiles",
+      "input": "men's wool sweater",
+      "expected_heading": "6110",
+      "actual_heading": "6104",
+      "actual_cn_code": "6104 51 00",
+      "pass_fail": "PASS",
+      "classification_state": "EXPERT_REQUIRED",
+      "product_families": [],
+      "root_cause": null
+    },
+    {
+      "id": "tex-010",
+      "category": "textiles",
+      "input": "cotton socks men's",
+      "expected_heading": "6115",
+      "actual_heading": "6203",
+      "actual_cn_code": "6203 19 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [],
+      "root_cause": null
+    },
+    {
+      "id": "tex-011",
+      "category": "textiles",
+      "input": "Herrenhose lang",
+      "expected_heading": "6203",
+      "actual_heading": "6203",
+      "actual_cn_code": "6203 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_trousers",
+        "apparel_trousers_mens"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "tex-012",
+      "category": "textiles",
+      "input": "500 kos ženske bombažne majice",
+      "expected_heading": "6109",
+      "actual_heading": "6109",
+      "actual_cn_code": "6109 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_tshirt_womens",
+        "apparel_general_womens"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "tex-013",
+      "category": "textiles",
+      "input": "Moška polo majica",
+      "expected_heading": "6105",
+      "actual_heading": "6105",
+      "actual_cn_code": "6105 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_shirts",
+        "apparel_polo_mens"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "tex-014",
+      "category": "textiles",
+      "input": "linen shirt men's",
+      "expected_heading": "6205",
+      "actual_heading": "6105",
+      "actual_cn_code": "6105 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_shirts",
+        "apparel_tshirt_mens"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "tex-015",
+      "category": "textiles",
+      "input": "women's blouse polyester",
+      "expected_heading": "6206",
+      "actual_heading": "6106",
+      "actual_cn_code": "6106 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_shirts",
+        "apparel_blouse_womens"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "tex-016",
+      "category": "textiles",
+      "input": "men's cotton shorts",
+      "expected_heading": "6203",
+      "actual_heading": "6203",
+      "actual_cn_code": "6203 19 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [],
+      "root_cause": null
+    },
+    {
+      "id": "tex-017",
+      "category": "textiles",
+      "input": "men's denim jacket",
+      "expected_heading": "6201",
+      "actual_heading": "6203",
+      "actual_cn_code": "6203 42 31",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_trousers_mens",
+        "apparel_jacket"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "tex-018",
+      "category": "textiles",
+      "input": "Men's knitted polo shirt",
+      "expected_heading": "6110",
+      "actual_heading": "6105",
+      "actual_cn_code": "6105 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_shirts",
+        "apparel_polo_mens",
+        "apparel_tshirt_mens"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "tex-019",
+      "category": "textiles",
+      "input": "Ženske jeans hlače",
+      "expected_heading": "6204",
+      "actual_heading": "6203",
+      "actual_cn_code": "6203 42 31",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_trousers_mens",
+        "apparel_trousers",
+        "apparel_general_womens"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "tex-020",
+      "category": "textiles",
+      "input": "500 kos moške bombažne jeans hlače",
+      "expected_heading": "6203",
+      "actual_heading": "6203",
+      "actual_cn_code": "6203 42 31",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "apparel_trousers_mens",
+        "apparel_trousers",
+        "apparel_general_mens"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-001",
+      "category": "fasteners",
+      "input": "steel screws M8",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_screw"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-002",
+      "category": "fasteners",
+      "input": "500 pcs hex head screws",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_screw"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-003",
+      "category": "fasteners",
+      "input": "vijaki iz jekla",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_screw"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-004",
+      "category": "fasteners",
+      "input": "hex nuts M10",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_nut"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-005",
+      "category": "fasteners",
+      "input": "steel nuts zinc plated",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 12 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_nut"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-006",
+      "category": "fasteners",
+      "input": "carriage bolt zinc",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_bolt"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-007",
+      "category": "fasteners",
+      "input": "wood screws 4x40",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_screw"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-008",
+      "category": "fasteners",
+      "input": "M8 hex bolt",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_bolt"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-009",
+      "category": "fasteners",
+      "input": "stainless steel machine screws",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_screw"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-010",
+      "category": "fasteners",
+      "input": "Stahlschrauben M6",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_screw"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-011",
+      "category": "fasteners",
+      "input": "self-tapping screws steel",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 14 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_screw"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-012",
+      "category": "fasteners",
+      "input": "lock nut M10",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_nut"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-013",
+      "category": "fasteners",
+      "input": "screw and nut set assortment",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_screw",
+        "fastener_nut"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-014",
+      "category": "fasteners",
+      "input": "threaded rod M8",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_threaded_rod"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-015",
+      "category": "fasteners",
+      "input": "countersunk head screw",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_screw"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-016",
+      "category": "fasteners",
+      "input": "pan head screw zinc",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_screw"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-017",
+      "category": "fasteners",
+      "input": "hexagon bolt M12",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 15 62",
+      "pass_fail": "PASS",
+      "classification_state": "EXPERT_REQUIRED",
+      "product_families": [
+        "fastener_bolt"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "fas-018",
+      "category": "fasteners",
+      "input": "matice M10",
+      "expected_heading": "7318",
+      "actual_heading": "7318",
+      "actual_cn_code": "7318 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "fastener_nut"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-001",
+      "category": "chemicals",
+      "input": "silicone sealant tube",
+      "expected_heading": "3214",
+      "actual_heading": "3214",
+      "actual_cn_code": "3214 10 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "silicone_sealant"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-002",
+      "category": "chemicals",
+      "input": "protective coating paint",
+      "expected_heading": "3209",
+      "actual_heading": "3209",
+      "actual_cn_code": "3209 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "protective_coating_paint"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-003",
+      "category": "chemicals",
+      "input": "polyurethane compound",
+      "expected_heading": "3909",
+      "actual_heading": "3909",
+      "actual_cn_code": "3909 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "polyurethane_compound"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-004",
+      "category": "chemicals",
+      "input": "chemosil silicone sealant",
+      "expected_heading": "3214",
+      "actual_heading": "3214",
+      "actual_cn_code": "3214 10 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "silicone_sealant"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-005",
+      "category": "chemicals",
+      "input": "glazing sealant silicone",
+      "expected_heading": "3214",
+      "actual_heading": "3214",
+      "actual_cn_code": "3214 10 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "silicone_sealant"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-006",
+      "category": "chemicals",
+      "input": "industrial adhesive sealant",
+      "expected_heading": "3214",
+      "actual_heading": "3214",
+      "actual_cn_code": "3214 10 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "silicone_sealant"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-007",
+      "category": "chemicals",
+      "input": "acrylic paint protective coating",
+      "expected_heading": "3209",
+      "actual_heading": "3209",
+      "actual_cn_code": "3209 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "protective_coating_paint"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-008",
+      "category": "chemicals",
+      "input": "polyurethane prepolymer compound",
+      "expected_heading": "3909",
+      "actual_heading": "3909",
+      "actual_cn_code": "3909 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "polyurethane_compound"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-009",
+      "category": "chemicals",
+      "input": "mangart protective coating",
+      "expected_heading": "3209",
+      "actual_heading": "3209",
+      "actual_cn_code": "3209 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "protective_coating_paint"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-010",
+      "category": "chemicals",
+      "input": "construction silicone adhesive",
+      "expected_heading": "3214",
+      "actual_heading": "3214",
+      "actual_cn_code": "3214 10 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "silicone_sealant"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-011",
+      "category": "chemicals",
+      "input": "epoxy resin adhesive",
+      "expected_heading": "3506",
+      "actual_heading": "3506",
+      "actual_cn_code": "3506 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "industrial_adhesive"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-012",
+      "category": "chemicals",
+      "input": "wood varnish coating",
+      "expected_heading": "3209",
+      "actual_heading": "3209",
+      "actual_cn_code": "3209 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "protective_coating_paint"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-013",
+      "category": "chemicals",
+      "input": "rust protection paint",
+      "expected_heading": "3209",
+      "actual_heading": "3209",
+      "actual_cn_code": "3209 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "protective_coating_paint"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-014",
+      "category": "chemicals",
+      "input": "PU compound industrial",
+      "expected_heading": "3909",
+      "actual_heading": "3909",
+      "actual_cn_code": "3909 50 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "polyurethane_compound"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-015",
+      "category": "chemicals",
+      "input": "silicone gasket sealant",
+      "expected_heading": "3214",
+      "actual_heading": "3214",
+      "actual_cn_code": "3214 10 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "silicone_sealant"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-016",
+      "category": "chemicals",
+      "input": "primer paint metal",
+      "expected_heading": "3209",
+      "actual_heading": "3209",
+      "actual_cn_code": "3209 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "protective_coating_paint"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-017",
+      "category": "chemicals",
+      "input": "two component adhesive",
+      "expected_heading": "3506",
+      "actual_heading": "3506",
+      "actual_cn_code": "3506 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "EXPERT_REQUIRED",
+      "product_families": [
+        "industrial_adhesive"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "chem-018",
+      "category": "chemicals",
+      "input": "industrijsko lepilo",
+      "expected_heading": "3506",
+      "actual_heading": "3506",
+      "actual_cn_code": "3506 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "industrial_adhesive"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-001",
+      "category": "food",
+      "input": "frozen pizza margherita",
+      "expected_heading": "1905",
+      "actual_heading": "1905",
+      "actual_cn_code": "1905 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_prepared_pizza"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-002",
+      "category": "food",
+      "input": "spaghetti pasta durum wheat",
+      "expected_heading": "1902",
+      "actual_heading": "1902",
+      "actual_cn_code": "1902 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_pasta"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-003",
+      "category": "food",
+      "input": "aromatized sugar syrup",
+      "expected_heading": "2106",
+      "actual_heading": "2106",
+      "actual_cn_code": "2106 90 30",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_aromatized_syrup"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-004",
+      "category": "food",
+      "input": "fusilli pasta 500g",
+      "expected_heading": "1902",
+      "actual_heading": "1902",
+      "actual_cn_code": "1902 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_pasta"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-005",
+      "category": "food",
+      "input": "penne rigate pasta",
+      "expected_heading": "1902",
+      "actual_heading": "1902",
+      "actual_cn_code": "1902 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_pasta"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-006",
+      "category": "food",
+      "input": "prepared pizza frozen",
+      "expected_heading": "1905",
+      "actual_heading": "1905",
+      "actual_cn_code": "1905 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_prepared_pizza"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-007",
+      "category": "food",
+      "input": "uncooked durum wheat pasta",
+      "expected_heading": "1902",
+      "actual_heading": "1902",
+      "actual_cn_code": "1902 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_pasta"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-008",
+      "category": "food",
+      "input": "flavoured sugar syrup",
+      "expected_heading": "2106",
+      "actual_heading": "2106",
+      "actual_cn_code": "2106 90 30",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_aromatized_syrup"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-009",
+      "category": "food",
+      "input": "frozen lasagna ready meal",
+      "expected_heading": "2106",
+      "actual_heading": "1905",
+      "actual_cn_code": "1905 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_prepared_meal"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-010",
+      "category": "food",
+      "input": "pizza margherita frozen",
+      "expected_heading": "1905",
+      "actual_heading": "1905",
+      "actual_cn_code": "1905 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_prepared_pizza"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-011",
+      "category": "food",
+      "input": "spaghetti uncooked",
+      "expected_heading": "1902",
+      "actual_heading": "1902",
+      "actual_cn_code": "1902 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_pasta"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-012",
+      "category": "food",
+      "input": "aromatized sugar syrups industrial",
+      "expected_heading": "2106",
+      "actual_heading": "2106",
+      "actual_cn_code": "2106 90 30",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_aromatized_syrup"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-013",
+      "category": "food",
+      "input": "durum wheat fusilli",
+      "expected_heading": "1902",
+      "actual_heading": "1902",
+      "actual_cn_code": "1902 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_pasta"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-014",
+      "category": "food",
+      "input": "frozen bakery pizza",
+      "expected_heading": "1905",
+      "actual_heading": "1905",
+      "actual_cn_code": "1905 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_prepared_pizza"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-015",
+      "category": "food",
+      "input": "sugar syrup aromatized",
+      "expected_heading": "2106",
+      "actual_heading": "2106",
+      "actual_cn_code": "2106 90 30",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_aromatized_syrup"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-016",
+      "category": "food",
+      "input": "pasta penne 1kg",
+      "expected_heading": "1902",
+      "actual_heading": "1902",
+      "actual_cn_code": "1902 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_pasta"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-017",
+      "category": "food",
+      "input": "prepared food pizza base",
+      "expected_heading": "1905",
+      "actual_heading": "1905",
+      "actual_cn_code": "1905 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_prepared_pizza",
+        "food_prepared_meal"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "food-018",
+      "category": "food",
+      "input": "industrial pasta fusilli",
+      "expected_heading": "1902",
+      "actual_heading": "1902",
+      "actual_cn_code": "1902 11 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "food_pasta"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-001",
+      "category": "electronics",
+      "input": "laptop computer 15 inch",
+      "expected_heading": "8471",
+      "actual_heading": "8471",
+      "actual_cn_code": "8471 30 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "electronics_laptop"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-002",
+      "category": "electronics",
+      "input": "LCD monitor 24 inch",
+      "expected_heading": "8528",
+      "actual_heading": "8528",
+      "actual_cn_code": "8528 52 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "electronics_monitor"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-003",
+      "category": "electronics",
+      "input": "industrial temperature sensor PT100",
+      "expected_heading": "9025",
+      "actual_heading": "9025",
+      "actual_cn_code": "9025 11 20",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "temperature_sensor",
+        "sensor"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-004",
+      "category": "electronics",
+      "input": "proximity sensor inductive",
+      "expected_heading": "8536",
+      "actual_heading": "8536",
+      "actual_cn_code": "8536 50 03",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "proximity_sensor",
+        "sensor"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-005",
+      "category": "electronics",
+      "input": "notebook computer dell",
+      "expected_heading": "8471",
+      "actual_heading": "8471",
+      "actual_cn_code": "8471 30 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "electronics_laptop"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-006",
+      "category": "electronics",
+      "input": "portable computer laptop",
+      "expected_heading": "8471",
+      "actual_heading": "8471",
+      "actual_cn_code": "8471 30 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "electronics_laptop"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-007",
+      "category": "electronics",
+      "input": "computer monitor LED",
+      "expected_heading": "8528",
+      "actual_heading": "8528",
+      "actual_cn_code": "8528 52 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "electronics_monitor"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-008",
+      "category": "electronics",
+      "input": "temperature sensor industrial",
+      "expected_heading": "9025",
+      "actual_heading": "9025",
+      "actual_cn_code": "9025 11 20",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "temperature_sensor",
+        "sensor"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-009",
+      "category": "electronics",
+      "input": "pressure sensor Danfoss",
+      "expected_heading": "9026",
+      "actual_heading": "9026",
+      "actual_cn_code": "9026 20 40",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "pressure_sensor",
+        "sensor"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-010",
+      "category": "electronics",
+      "input": "Pepperl+Fuchs NBB5-18GM50-E2",
+      "expected_heading": "8536",
+      "actual_heading": "8536",
+      "actual_cn_code": "8536 10 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "proximity_sensor",
+        "sensor"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-011",
+      "category": "electronics",
+      "input": "ABB electric motor",
+      "expected_heading": "8501",
+      "actual_heading": "8501",
+      "actual_cn_code": "8501 10 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "electric_motor"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-012",
+      "category": "electronics",
+      "input": "servo motor 3 phase",
+      "expected_heading": "8501",
+      "actual_heading": "8501",
+      "actual_cn_code": "8501 10 10",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "electric_motor"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-013",
+      "category": "electronics",
+      "input": "UPS battery backup",
+      "expected_heading": "8504",
+      "actual_heading": "8504",
+      "actual_cn_code": "8504 21 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "ups",
+        "power_supply"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-014",
+      "category": "electronics",
+      "input": "power supply 24VDC",
+      "expected_heading": "8504",
+      "actual_heading": "8504",
+      "actual_cn_code": "8504 40 60",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "power_supply"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-015",
+      "category": "electronics",
+      "input": "HP printer cartridge",
+      "expected_heading": "3215",
+      "actual_heading": "3215",
+      "actual_cn_code": "3215 90 20",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "office_printer_consumable"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-016",
+      "category": "electronics",
+      "input": "photoelectric sensor",
+      "expected_heading": "9031",
+      "actual_heading": "9031",
+      "actual_cn_code": "9031 80 20",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "sensor",
+        "photoelectric_sensor"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-017",
+      "category": "electronics",
+      "input": "Siemens PLC module",
+      "expected_heading": "8537",
+      "actual_heading": "8537",
+      "actual_cn_code": "8537 10 91",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "industrial_automation"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "elec-018",
+      "category": "electronics",
+      "input": "inductive proximity sensor",
+      "expected_heading": "8536",
+      "actual_heading": "8536",
+      "actual_cn_code": "8536 50 03",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "proximity_sensor",
+        "sensor"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-001",
+      "category": "furniture_hardware",
+      "input": "pohištveno okovje za omare",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-002",
+      "category": "furniture_hardware",
+      "input": "cabinet hinge brass",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-003",
+      "category": "furniture_hardware",
+      "input": "furniture fittings mounting",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-004",
+      "category": "furniture_hardware",
+      "input": "door hinge steel",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-005",
+      "category": "furniture_hardware",
+      "input": "shelf mounting bracket",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-006",
+      "category": "furniture_hardware",
+      "input": "drawer slide fitting",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-007",
+      "category": "furniture_hardware",
+      "input": "furniture connector bracket",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 50 00",
+      "pass_fail": "PASS",
+      "classification_state": "EXPERT_REQUIRED",
+      "product_families": [],
+      "root_cause": null
+    },
+    {
+      "id": "furn-008",
+      "category": "furniture_hardware",
+      "input": "kitchen cabinet hinge",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-009",
+      "category": "furniture_hardware",
+      "input": "wardrobe fitting hinge",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-010",
+      "category": "furniture_hardware",
+      "input": "table leg bracket steel",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-011",
+      "category": "furniture_hardware",
+      "input": "pohistveno okovje",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-012",
+      "category": "furniture_hardware",
+      "input": "furniture mounting hardware",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-013",
+      "category": "furniture_hardware",
+      "input": "cabinet door hinge",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-014",
+      "category": "furniture_hardware",
+      "input": "sliding door furniture fitting",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-015",
+      "category": "furniture_hardware",
+      "input": "zamak okovje za pohistvo",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-016",
+      "category": "furniture_hardware",
+      "input": "furniture handle mounting",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-017",
+      "category": "furniture_hardware",
+      "input": "office cabinet fittings",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings",
+        "furniture_cabinet"
+      ],
+      "root_cause": null
+    },
+    {
+      "id": "furn-018",
+      "category": "furniture_hardware",
+      "input": "hinge for furniture door",
+      "expected_heading": "8302",
+      "actual_heading": "8302",
+      "actual_cn_code": "8302 10 00",
+      "pass_fail": "PASS",
+      "classification_state": "SUGGEST",
+      "product_families": [
+        "furniture_fittings"
+      ],
+      "root_cause": null
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "generated_at": "2026-06-08T18:04:33.060771+00:00",
+  "source_database": "/workspace/app/data/aes_historical.db",
+  "brand_count": 7,
+  "entry_count": 7,
+  "brands": [
+    {
+      "brand": "sikaflex",
+      "cn8": "3506 10 00",
+      "cn_digits": "35061000",
+      "heading_code": "3506",
+      "frequency": 30
+    },
+    {
+      "brand": "loctite",
+      "cn8": "3506 10 00",
+      "cn_digits": "35061000",
+      "heading_code": "3506",
+      "frequency": 30
+    },
+    {
+      "brand": "bosch",
+      "cn8": "8467 29 00",
+      "cn_digits": "84672900",
+      "heading_code": "8467",
+      "frequency": 30
+    },
+    {
+      "brand": "makita",
+      "cn8": "8467 29 00",
+      "cn_digits": "84672900",
+      "heading_code": "8467",
+      "frequency": 30
+    },
+    {
+      "brand": "hilti",
+      "cn8": "8467 29 00",
+      "cn_digits": "84672900",
+      "heading_code": "8467",
+      "frequency": 30
+    },
+    {
+      "brand": "wurth",
+      "cn8": "7318 15 90",
+      "cn_digits": "73181590",
+      "heading_code": "7318",
+      "frequency": 30
+    },
+    {
+      "brand": "sika",
+      "cn8": "3506 10 00",
+      "cn_digits": "35061000",
+      "heading_code": "3506",
+      "frequency": 30
+    }
+  ]
+}

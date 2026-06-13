@@ -1,0 +1,164 @@
+{
+  "version": 1,
+  "concepts": [
+    {
+      "id": "apparel_trousers",
+      "families": ["apparel_trousers", "apparel_trousers_mens"],
+      "en_normalized": "trousers pants",
+      "phrases": {
+        "sl": ["moške dolge hlače", "dolge hlače", "moške hlače", "hlače", "hlač"],
+        "hr": ["muške hlače", "duge hlače", "hlače"],
+        "de": ["lange hose", "herrenhose", "hose"],
+        "en": ["men's long trousers", "long trousers", "trousers", "pants"]
+      }
+    },
+    {
+      "id": "apparel_mens",
+      "families": ["apparel_general_mens"],
+      "en_normalized": "men's apparel",
+      "phrases": {
+        "sl": ["moška oblačila", "moške"],
+        "de": ["herrenbekleidung", "herren"],
+        "en": ["men's clothing", "menswear"]
+      }
+    },
+    {
+      "id": "apparel_womens",
+      "families": ["apparel_general_womens"],
+      "en_normalized": "women's apparel",
+      "phrases": {
+        "sl": ["ženska oblačila", "ženske"],
+        "de": ["damenbekleidung"],
+        "en": ["women's clothing", "womenswear"]
+      }
+    },
+    {
+      "id": "apparel_shirt",
+      "families": ["apparel_shirts"],
+      "en_normalized": "shirt blouse",
+      "phrases": {
+        "sl": ["srajca", "majica", "kmajica"],
+        "de": ["hemd", "hemden"],
+        "en": ["shirt", "t-shirt", "blouse"]
+      }
+    },
+    {
+      "id": "bearing_ball",
+      "families": ["bearing_ball"],
+      "en_normalized": "ball bearing",
+      "phrases": {
+        "sl": ["kroglasti ležaj", "kroglični ležaj", "ležaj"],
+        "hr": ["kuglični ležaj", "ležaj"],
+        "de": ["kugellager", "rillenkugellager"],
+        "en": ["ball bearing", "deep groove ball bearing"]
+      }
+    },
+    {
+      "id": "sensor_temperature",
+      "families": ["temperature_sensor", "sensor"],
+      "en_normalized": "temperature sensor industrial",
+      "phrases": {
+        "sl": ["temperaturni senzor", "industrijski temperaturni senzor", "senzor temperature"],
+        "de": ["temperatursensor", "industrieller temperatursensor"],
+        "en": ["temperature sensor", "industrial temperature sensor"]
+      }
+    },
+    {
+      "id": "sensor_pressure",
+      "families": ["pressure_sensor", "sensor"],
+      "en_normalized": "pressure sensor",
+      "phrases": {
+        "sl": ["senzor tlaka"],
+        "de": ["drucksensor", "industrieller drucksensor"],
+        "fr": ["capteur de pression", "capteur de pression industriel"],
+        "en": ["pressure sensor", "pressure transmitter"]
+      }
+    },
+    {
+      "id": "valve_hydraulic_pressure",
+      "families": ["hydraulic_pressure_valve", "industrial_valve"],
+      "en_normalized": "hydraulic pressure control valve",
+      "phrases": {
+        "de": ["hydraulisches druckregelventil", "druckregelventil"],
+        "en": ["hydraulic pressure control valve", "pressure control valve"]
+      }
+    },
+    {
+      "id": "food_pasta_invoice",
+      "families": ["food_pasta"],
+      "en_normalized": "uncooked pasta fusilli",
+      "phrases": {
+        "en": ["fusilli pasta", "barilla fusilli", "durum wheat pasta"]
+      }
+    },
+    {
+      "id": "shipping_container_empty",
+      "families": ["shipping_container"],
+      "en_normalized": "empty freight shipping container",
+      "phrases": {
+        "en": ["empty ship container", "empty shipping container", "shipping container 40"]
+      }
+    },
+    {
+      "id": "vehicle_truck_used",
+      "families": ["vehicle_goods", "vehicle_goods_used"],
+      "en_normalized": "used goods vehicle truck",
+      "phrases": {
+        "sl": ["rabljeno tovorno vozilo", "tovorno vozilo", "kamion"],
+        "de": ["gebrauchter lkw", "nutzfahrzeug"],
+        "en": ["used goods vehicle", "used truck", "tractor unit"]
+      }
+    },
+    {
+      "id": "pharma_paracetamol",
+      "families": ["pharma_tablet"],
+      "en_normalized": "paracetamol tablets medicament",
+      "phrases": {
+        "sl": ["tablete paracetamola", "paracetamol"],
+        "de": ["paracetamol tabletten"],
+        "en": ["paracetamol tablets", "acetaminophen tablets"]
+      }
+    },
+    {
+      "id": "plc_module",
+      "families": ["industrial_automation"],
+      "en_normalized": "PLC module programmable controller",
+      "phrases": {
+        "sl": ["plc modul"],
+        "de": ["sps modul"],
+        "en": ["plc module", "programmable controller"]
+      }
+    },
+    {
+      "id": "electronics_laptop",
+      "families": ["electronics_laptop"],
+      "en_normalized": "laptop portable computer",
+      "phrases": {
+        "de": ["laptop-computer", "laptop computer"],
+        "en": ["laptop computer", "notebook computer", "portable computer"]
+      }
+    },
+    {
+      "id": "cycles_bicycle",
+      "families": ["cycles_bicycle"],
+      "en_normalized": "bicycle pedal cycle",
+      "phrases": {
+        "en": ["bicycle", "bike", "pedal cycle"]
+      }
+    },
+    {
+      "id": "stationery_pen",
+      "families": ["stationery_pen"],
+      "en_normalized": "pen ball-point liquid ink",
+      "phrases": {
+        "en": [
+          "ball-point pen",
+          "pen with liquid ink",
+          "chemical pens with liquid ink",
+          "chemical pens",
+          "fountain pen"
+        ]
+      }
+    }
+  ]
+}

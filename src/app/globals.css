@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 250 251 252;
+    --foreground: 15 23 42;
+    --brand: 37 99 235;
+    --brand-light: 59 130 246;
+    --muted: 100 116 139;
+    --border: 229 231 235;
+    --card: 255 255 255;
+    --radius: 0.75rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-surface-light text-slate-900;
+  }
+
+  ::selection {
+    @apply bg-brand-100 text-brand-900;
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24;
+  }
+
+  .container-narrow {
+    @apply mx-auto max-w-7xl;
+  }
+
+  .container-text {
+    @apply mx-auto max-w-3xl;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-brand-600 to-brand-400 bg-clip-text text-transparent;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-brand-500/5 hover:-translate-y-0.5;
+  }
+
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-xl border border-surface-border rounded-2xl;
+  }
+
+  .dark-card {
+    @apply bg-surface-dark-card border border-surface-dark-border rounded-xl;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-brand-700 hover:shadow-md hover:shadow-brand-600/20 active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-surface-border bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:bg-surface-muted hover:border-slate-300 active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-slate-600 transition-all duration-200 hover:bg-surface-muted hover:text-slate-900;
+  }
+
+  .input-field {
+    @apply w-full rounded-lg border border-surface-border bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 transition-colors focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20;
+  }
+
+  .label-text {
+    @apply block text-sm font-medium text-slate-700 mb-1.5;
+  }
+
+  .platform-panel {
+    @apply rounded-2xl border border-surface-border bg-white shadow-sm;
+  }
+
+  .platform-section-title {
+    @apply text-lg font-bold tracking-tight text-slate-900;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animate-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animate-delay-400 {
+    animation-delay: 400ms;
+  }
+}
+

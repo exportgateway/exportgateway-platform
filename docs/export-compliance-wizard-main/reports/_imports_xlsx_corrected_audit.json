@@ -1,0 +1,937 @@
+{
+  "rows_in_sheet": 19453,
+  "valid_rows": 16800,
+  "unique_cn8": 1551,
+  "distinct_original_tariffs": 1631,
+  "distinct_cn8": 1551,
+  "normalization_failures": 0,
+  "skipped": {
+    "duplicates": 2634,
+    "invalid_tariff": 4,
+    "invalid_countries": 15
+  },
+  "top_50_cn8": [
+    {
+      "cn8": "86090090",
+      "count": 415
+    },
+    {
+      "cn8": "30021500",
+      "count": 247
+    },
+    {
+      "cn8": "21069098",
+      "count": 243
+    },
+    {
+      "cn8": "72199080",
+      "count": 243
+    },
+    {
+      "cn8": "87141090",
+      "count": 228
+    },
+    {
+      "cn8": "84099100",
+      "count": 224
+    },
+    {
+      "cn8": "19059070",
+      "count": 221
+    },
+    {
+      "cn8": "94042910",
+      "count": 200
+    },
+    {
+      "cn8": "30049000",
+      "count": 179
+    },
+    {
+      "cn8": "40169997",
+      "count": 179
+    },
+    {
+      "cn8": "40169300",
+      "count": 178
+    },
+    {
+      "cn8": "76061191",
+      "count": 172
+    },
+    {
+      "cn8": "39269097",
+      "count": 172
+    },
+    {
+      "cn8": "84031090",
+      "count": 166
+    },
+    {
+      "cn8": "39203000",
+      "count": 158
+    },
+    {
+      "cn8": "84039090",
+      "count": 158
+    },
+    {
+      "cn8": "94039910",
+      "count": 154
+    },
+    {
+      "cn8": "76061193",
+      "count": 148
+    },
+    {
+      "cn8": "87141050",
+      "count": 148
+    },
+    {
+      "cn8": "48211010",
+      "count": 143
+    },
+    {
+      "cn8": "73259910",
+      "count": 142
+    },
+    {
+      "cn8": "87141040",
+      "count": 137
+    },
+    {
+      "cn8": "85118000",
+      "count": 129
+    },
+    {
+      "cn8": "72193410",
+      "count": 128
+    },
+    {
+      "cn8": "72193310",
+      "count": 126
+    },
+    {
+      "cn8": "73202020",
+      "count": 126
+    },
+    {
+      "cn8": "48203000",
+      "count": 125
+    },
+    {
+      "cn8": "87141030",
+      "count": 125
+    },
+    {
+      "cn8": "87141010",
+      "count": 122
+    },
+    {
+      "cn8": "94016100",
+      "count": 118
+    },
+    {
+      "cn8": "84834029",
+      "count": 117
+    },
+    {
+      "cn8": "73269098",
+      "count": 113
+    },
+    {
+      "cn8": "85472000",
+      "count": 101
+    },
+    {
+      "cn8": "73259990",
+      "count": 98
+    },
+    {
+      "cn8": "22089048",
+      "count": 95
+    },
+    {
+      "cn8": "22089033",
+      "count": 94
+    },
+    {
+      "cn8": "85121000",
+      "count": 92
+    },
+    {
+      "cn8": "94039100",
+      "count": 91
+    },
+    {
+      "cn8": "82055980",
+      "count": 89
+    },
+    {
+      "cn8": "84213100",
+      "count": 86
+    },
+    {
+      "cn8": "85111000",
+      "count": 85
+    },
+    {
+      "cn8": "12119086",
+      "count": 84
+    },
+    {
+      "cn8": "84834023",
+      "count": 83
+    },
+    {
+      "cn8": "84842000",
+      "count": 82
+    },
+    {
+      "cn8": "94039990",
+      "count": 77
+    },
+    {
+      "cn8": "73159000",
+      "count": 77
+    },
+    {
+      "cn8": "33049900",
+      "count": 75
+    },
+    {
+      "cn8": "85365019",
+      "count": 74
+    },
+    {
+      "cn8": "95049080",
+      "count": 72
+    },
+    {
+      "cn8": "83024200",
+      "count": 71
+    }
+  ],
+  "top_50_descriptions": [
+    {
+      "description": "580 KOM     KANALSKI POKROVI IZ NODULARNEGA LITEGA ŽELEZA (STANDARD EN 1563) ZA VGRADNJO V CESTE IN PLOČNIKE, ZA DOSTOP DO KANALIZACIJE ALI ELEKTRIKE, KI JE SPELJANA V ZEMLJI POD CESTO ALI PLOČNIKOM",
+      "count": 3
+    },
+    {
+      "description": "RABLJEN PRAZEN 40´ KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+      "count": 3
+    },
+    {
+      "description": "GRED ZA MOPED;1 KOS",
+      "count": 3
+    },
+    {
+      "description": "1000 KOS        SAMOLEPILNE TISKANE ETIKETE",
+      "count": 2
+    },
+    {
+      "description": "GUMI TESNILA;10 KOSOV",
+      "count": 2
+    },
+    {
+      "description": "2304 KOM (23040,00 L)    RAFINIRANO OLJE IZ SONČNIČNIH SEMEN ZA ČLOVEŠKO PREHRANO, PAKIRANO V PET PLASTENKE PO 10,00 L, 2 PLASTENKI V 1 KARTONU, 1152 KARTONOV=2304 PLASTENK",
+      "count": 2
+    },
+    {
+      "description": "GUMI TESNILA;20 KOSOV",
+      "count": 2
+    },
+    {
+      "description": "355 KOM    POSTELJNI VLOŽKI IZ DRUGIH MATERIALOV Z VZMETMI: VZMETNICE RAZLIČNIH TRDOT IN DIMENZIJ",
+      "count": 2
+    },
+    {
+      "description": "5600,00 KG    PROIZVODI, KI SO PRIMERNI ZA UPORABO LEPILA ALI SREDSTVA ZA LEPLJENJE",
+      "count": 2
+    },
+    {
+      "description": "6600 KOS      ŽIVILA - NAMAZ RIBELLA HUMMUS NATURAL (PAKIRANO PO 200 g)",
+      "count": 2
+    },
+    {
+      "description": "5280 KOS      ŽIVILA - NAMAZ RIBELLA HUMMUS PUMPKIN SEEDS (PAKIRANO PO 200 g)",
+      "count": 2
+    },
+    {
+      "description": "1320 KOS      ŽIVILA - NAMAZ RIBELLA HUMMUS SPICY (PAKIRANO PO 200 g)",
+      "count": 2
+    },
+    {
+      "description": "2640 KOS      ŽIVILA - NAMAZ RIBELLA HUMMUS ITALIANO (PAKIRANO PO 200 g)",
+      "count": 2
+    },
+    {
+      "description": "660 KOS        ŽIVILA - NAMAZ RIBELLA HUMMUS KALAMATA OLIVES (PAKIRANO PO 200 g)",
+      "count": 2
+    },
+    {
+      "description": "660 KOS        ŽIVILA - NAMAZ RIBELLA HUMMUS CARAMELIZED ONION (PAKIRANO PO 200 g)",
+      "count": 2
+    },
+    {
+      "description": "660 KOS        ŽIVILA - NAMAZ GURU HUMMUS JALAPENO (PAKIRANO PO 180 g)",
+      "count": 2
+    },
+    {
+      "description": "672 KOS        ŽIVILA - NAMAZ RIBELLA GRAB & GO SPICY (PAKIRANO PO 130 g)",
+      "count": 2
+    },
+    {
+      "description": "7920 KOS      ŽIVILA - NAMAZ RIBELLA HUMMUS NATURAL (PAKIRANO PO 200 g)",
+      "count": 2
+    },
+    {
+      "description": "3960 KOS      ŽIVILA - NAMAZ RIBELLA HUMMUS PUMPKIN SEEDS (PAKIRANO PO 200 g)",
+      "count": 2
+    },
+    {
+      "description": "660 KOS        ŽIVILA - NAMAZ RIBELLA HUMMUS CARAMELIZED GARLIC (PAKIRANO PO 200 g)",
+      "count": 2
+    },
+    {
+      "description": "1320 KOS      ŽIVILA - NAMAZ GURU HUMMUS BEETROOT (PAKIRANO PO 180 g)",
+      "count": 2
+    },
+    {
+      "description": "7920 KOS      ŽIVILA - NAMAZ RIBELLA HUMMUS HOFER NATURAL (PAKIRANO PO 240 g - 9 KOS) + NAMAZ RIBELLA HUMMUS PUMPKIN SEEDS (PAKIRANO PO 240 g - 3 KOS)",
+      "count": 2
+    },
+    {
+      "description": "224 KOM    POSTELJNI VLOŽKI IZ DRUGIH MATERIALOV Z VZMETMI: VZMETNICE RAZLIČNIH TRDOT IN DIMENZIJ",
+      "count": 2
+    },
+    {
+      "description": "RABLJEN PRAZEN 40´ HC ASIS KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+      "count": 2
+    },
+    {
+      "description": "RABLJEN PRAZEN 40´ HC CW KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+      "count": 2
+    },
+    {
+      "description": "22200,00 KG    PROIZVODI, KI SO PRIMERNI ZA UPORABO LEPILA ALI SREDSTVA ZA LEPLJENJE",
+      "count": 2
+    },
+    {
+      "description": "ZOBNIK ZA MOPED;1 KOS",
+      "count": 2
+    },
+    {
+      "description": "HUPA ZA MOPED;4 KOSI",
+      "count": 2
+    },
+    {
+      "description": "PRITISNO STIKALO ZA MOPED;1 KOS",
+      "count": 2
+    },
+    {
+      "description": "530 KOM     KANALSKI POKROVI IZ NODULARNEGA LITEGA ŽELEZA (STANDARD EN 1563) ZA VGRADNJO V CESTE IN PLOČNIKE, ZA DOSTOP DO KANALIZACIJE ALI ELEKTRIKE, KI JE SPELJANA V ZEMLJI POD CESTO ALI PLOČNIKOM",
+      "count": 2
+    },
+    {
+      "description": "RABLJEN PRAZEN 20´ KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+      "count": 2
+    },
+    {
+      "description": "HUPA ZA MOPED;3 KOSI",
+      "count": 2
+    },
+    {
+      "description": "PIPICA GORIVA ZA MOPED;3 KOSI",
+      "count": 2
+    },
+    {
+      "description": "ZRAČNI FILTER ZA MOPED;5 KOSOV",
+      "count": 2
+    },
+    {
+      "description": "RABLJENI PRAZNI 40´ KONTEJNERJI ZA PREVOZ BLAGA.;4 KOSI",
+      "count": 2
+    },
+    {
+      "description": "KLJUČAVNICE ZA VRATA;510 KOSOV",
+      "count": 2
+    },
+    {
+      "description": "OSEBNA LASTNINA FIZIČNIH OSEBE, KI PRINAŠA SVOJE OSEBNE PREDMETE NA SVOJE OBIČAJNO PREBIVALIŠČE V SLOVENIJI;1 KPL",
+      "count": 2
+    },
+    {
+      "description": "VŽIGALNE SVEČKE ZA MOPED;10 KOSOV",
+      "count": 2
+    },
+    {
+      "description": "RABLJENA PRAZNA 40´ KONTEJNERJA ZA PREVOZ BLAGA;2 KOSA",
+      "count": 2
+    },
+    {
+      "description": "2 KOM ZOBNIK V HITROSTI APN ZA MOTORNA KOLESA",
+      "count": 2
+    },
+    {
+      "description": "ZVONEC ZA MOPED;2 KOSA",
+      "count": 2
+    },
+    {
+      "description": "1 KOM KAZALNIKI HISTROSTI ZA VOZILA/KAZALNIK HITROSTI 100KM/H 60MM",
+      "count": 2
+    },
+    {
+      "description": "ZOBNIKI ZA MOPEDE;5 KOSOV",
+      "count": 2
+    },
+    {
+      "description": "ZOBNIKI ZA MOPEDE APN;3 KOSI",
+      "count": 2
+    },
+    {
+      "description": "VIJAKI Z GLAVO, ZA MOPED;10 KOSOV",
+      "count": 2
+    },
+    {
+      "description": "ZOBNIKI ZA MOPEDE;6 KOSOV",
+      "count": 2
+    },
+    {
+      "description": "3 KOM POLŽ MERILNIKA HITROSTI ZA MOPEDE",
+      "count": 2
+    },
+    {
+      "description": "21950,00 KG    PROIZVODI, KI SO PRIMERNI ZA UPORABO LEPILA ALI SREDSTVA ZA LEPLJENJE",
+      "count": 2
+    },
+    {
+      "description": "2 KOS    POLŽ MERILNIKA HITROSTI ZA MOPEDE",
+      "count": 2
+    },
+    {
+      "description": "1 KOM TULJAVA",
+      "count": 2
+    }
+  ],
+  "random_100": [
+    {
+      "original_tariff": "8609009000",
+      "normalized_cn8": "86090090",
+      "expected": "86090090"
+    },
+    {
+      "original_tariff": "8609009000",
+      "normalized_cn8": "86090090",
+      "expected": "86090090"
+    },
+    {
+      "original_tariff": "8609009000",
+      "normalized_cn8": "86090090",
+      "expected": "86090090"
+    },
+    {
+      "original_tariff": "7606119186",
+      "normalized_cn8": "76061191",
+      "expected": "76061191"
+    },
+    {
+      "original_tariff": "7606119386",
+      "normalized_cn8": "76061193",
+      "expected": "76061193"
+    },
+    {
+      "original_tariff": "9401610000",
+      "normalized_cn8": "94016100",
+      "expected": "94016100"
+    },
+    {
+      "original_tariff": "9401610000",
+      "normalized_cn8": "94016100",
+      "expected": "94016100"
+    },
+    {
+      "original_tariff": "9404909000",
+      "normalized_cn8": "94049090",
+      "expected": "94049090"
+    },
+    {
+      "original_tariff": "8536490099",
+      "normalized_cn8": "85364900",
+      "expected": "85364900"
+    },
+    {
+      "original_tariff": "4820300000",
+      "normalized_cn8": "48203000",
+      "expected": "48203000"
+    },
+    {
+      "original_tariff": "9404291000",
+      "normalized_cn8": "94042910",
+      "expected": "94042910"
+    },
+    {
+      "original_tariff": "8609009000",
+      "normalized_cn8": "86090090",
+      "expected": "86090090"
+    },
+    {
+      "original_tariff": "8609009000",
+      "normalized_cn8": "86090090",
+      "expected": "86090090"
+    },
+    {
+      "original_tariff": "3920300090",
+      "normalized_cn8": "39203000",
+      "expected": "39203000"
+    },
+    {
+      "original_tariff": "7229200090",
+      "normalized_cn8": "72292000",
+      "expected": "72292000"
+    },
+    {
+      "original_tariff": "3402509000",
+      "normalized_cn8": "34025090",
+      "expected": "34025090"
+    },
+    {
+      "original_tariff": "8424200000",
+      "normalized_cn8": "84242000",
+      "expected": "84242000"
+    },
+    {
+      "original_tariff": "3923301000",
+      "normalized_cn8": "39233010",
+      "expected": "39233010"
+    },
+    {
+      "original_tariff": "3401300000",
+      "normalized_cn8": "34013000",
+      "expected": "34013000"
+    },
+    {
+      "original_tariff": "3923509000",
+      "normalized_cn8": "39235090",
+      "expected": "39235090"
+    },
+    {
+      "original_tariff": "0813409580",
+      "normalized_cn8": "08134095",
+      "expected": "08134095"
+    },
+    {
+      "original_tariff": "0813409580",
+      "normalized_cn8": "08134095",
+      "expected": "08134095"
+    },
+    {
+      "original_tariff": "0813100000",
+      "normalized_cn8": "08131000",
+      "expected": "08131000"
+    },
+    {
+      "original_tariff": "0813200000",
+      "normalized_cn8": "08132000",
+      "expected": "08132000"
+    },
+    {
+      "original_tariff": "3921110090",
+      "normalized_cn8": "39211100",
+      "expected": "39211100"
+    },
+    {
+      "original_tariff": "3923301000",
+      "normalized_cn8": "39233010",
+      "expected": "39233010"
+    },
+    {
+      "original_tariff": "8302420090",
+      "normalized_cn8": "83024200",
+      "expected": "83024200"
+    },
+    {
+      "original_tariff": "8301401100",
+      "normalized_cn8": "83014011",
+      "expected": "83014011"
+    },
+    {
+      "original_tariff": "9403999090",
+      "normalized_cn8": "94039990",
+      "expected": "94039990"
+    },
+    {
+      "original_tariff": "9403991090",
+      "normalized_cn8": "94039910",
+      "expected": "94039910"
+    },
+    {
+      "original_tariff": "8302100090",
+      "normalized_cn8": "83021000",
+      "expected": "83021000"
+    },
+    {
+      "original_tariff": "4418750000",
+      "normalized_cn8": "44187500",
+      "expected": "44187500"
+    },
+    {
+      "original_tariff": "3506919099",
+      "normalized_cn8": "35069190",
+      "expected": "35069190"
+    },
+    {
+      "original_tariff": "9404291000",
+      "normalized_cn8": "94042910",
+      "expected": "94042910"
+    },
+    {
+      "original_tariff": "6304199099",
+      "normalized_cn8": "63041990",
+      "expected": "63041990"
+    },
+    {
+      "original_tariff": "3915101000",
+      "normalized_cn8": "39151010",
+      "expected": "39151010"
+    },
+    {
+      "original_tariff": "3915101000",
+      "normalized_cn8": "39151010",
+      "expected": "39151010"
+    },
+    {
+      "original_tariff": "1805000000",
+      "normalized_cn8": "18050000",
+      "expected": "18050000"
+    },
+    {
+      "original_tariff": "6403999690",
+      "normalized_cn8": "64039996",
+      "expected": "64039996"
+    },
+    {
+      "original_tariff": "6406905090",
+      "normalized_cn8": "64069050",
+      "expected": "64069050"
+    },
+    {
+      "original_tariff": "8609009000",
+      "normalized_cn8": "86090090",
+      "expected": "86090090"
+    },
+    {
+      "original_tariff": "8609009000",
+      "normalized_cn8": "86090090",
+      "expected": "86090090"
+    },
+    {
+      "original_tariff": "9403910090",
+      "normalized_cn8": "94039100",
+      "expected": "94039100"
+    },
+    {
+      "original_tariff": "9403991090",
+      "normalized_cn8": "94039910",
+      "expected": "94039910"
+    },
+    {
+      "original_tariff": "8716393000",
+      "normalized_cn8": "87163930",
+      "expected": "87163930"
+    },
+    {
+      "original_tariff": "7606119186",
+      "normalized_cn8": "76061191",
+      "expected": "76061191"
+    },
+    {
+      "original_tariff": "7606119386",
+      "normalized_cn8": "76061193",
+      "expected": "76061193"
+    },
+    {
+      "original_tariff": "7606129293",
+      "normalized_cn8": "76061292",
+      "expected": "76061292"
+    },
+    {
+      "original_tariff": "8609009000",
+      "normalized_cn8": "86090090",
+      "expected": "86090090"
+    },
+    {
+      "original_tariff": "8609009000",
+      "normalized_cn8": "86090090",
+      "expected": "86090090"
+    },
+    {
+      "original_tariff": "8403909000",
+      "normalized_cn8": "84039090",
+      "expected": "84039090"
+    },
+    {
+      "original_tariff": "4902900000",
+      "normalized_cn8": "49029000",
+      "expected": "49029000"
+    },
+    {
+      "original_tariff": "8403909000",
+      "normalized_cn8": "84039090",
+      "expected": "84039090"
+    },
+    {
+      "original_tariff": "8414593590",
+      "normalized_cn8": "84145935",
+      "expected": "84145935"
+    },
+    {
+      "original_tariff": "8516299900",
+      "normalized_cn8": "85162999",
+      "expected": "85162999"
+    },
+    {
+      "original_tariff": "8403109000",
+      "normalized_cn8": "84031090",
+      "expected": "84031090"
+    },
+    {
+      "original_tariff": "8403909000",
+      "normalized_cn8": "84039090",
+      "expected": "84039090"
+    },
+    {
+      "original_tariff": "3923210000",
+      "normalized_cn8": "39232100",
+      "expected": "39232100"
+    },
+    {
+      "original_tariff": "3921904300",
+      "normalized_cn8": "39219043",
+      "expected": "39219043"
+    },
+    {
+      "original_tariff": "8501522089",
+      "normalized_cn8": "85015220",
+      "expected": "85015220"
+    },
+    {
+      "original_tariff": "8501523090",
+      "normalized_cn8": "85015230",
+      "expected": "85015230"
+    },
+    {
+      "original_tariff": "3926909790",
+      "normalized_cn8": "39269097",
+      "expected": "39269097"
+    },
+    {
+      "original_tariff": "4821101000",
+      "normalized_cn8": "48211010",
+      "expected": "48211010"
+    },
+    {
+      "original_tariff": "8309909090",
+      "normalized_cn8": "83099090",
+      "expected": "83099090"
+    },
+    {
+      "original_tariff": "2208201800",
+      "normalized_cn8": "22082018",
+      "expected": "22082018"
+    },
+    {
+      "original_tariff": "2204219429",
+      "normalized_cn8": "22042194",
+      "expected": "22042194"
+    },
+    {
+      "original_tariff": "2204219429",
+      "normalized_cn8": "22042194",
+      "expected": "22042194"
+    },
+    {
+      "original_tariff": "2204219429",
+      "normalized_cn8": "22042194",
+      "expected": "22042194"
+    },
+    {
+      "original_tariff": "2204219429",
+      "normalized_cn8": "22042194",
+      "expected": "22042194"
+    },
+    {
+      "original_tariff": "2204219319",
+      "normalized_cn8": "22042193",
+      "expected": "22042193"
+    },
+    {
+      "original_tariff": "2204219429",
+      "normalized_cn8": "22042194",
+      "expected": "22042194"
+    },
+    {
+      "original_tariff": "2204219429",
+      "normalized_cn8": "22042194",
+      "expected": "22042194"
+    },
+    {
+      "original_tariff": "2204219319",
+      "normalized_cn8": "22042193",
+      "expected": "22042193"
+    },
+    {
+      "original_tariff": "2204219319",
+      "normalized_cn8": "22042193",
+      "expected": "22042193"
+    },
+    {
+      "original_tariff": "2204219419",
+      "normalized_cn8": "22042194",
+      "expected": "22042194"
+    },
+    {
+      "original_tariff": "2204219329",
+      "normalized_cn8": "22042193",
+      "expected": "22042193"
+    },
+    {
+      "original_tariff": "2204219429",
+      "normalized_cn8": "22042194",
+      "expected": "22042194"
+    },
+    {
+      "original_tariff": "2204219431",
+      "normalized_cn8": "22042194",
+      "expected": "22042194"
+    },
+    {
+      "original_tariff": "2204219429",
+      "normalized_cn8": "22042194",
+      "expected": "22042194"
+    },
+    {
+      "original_tariff": "2204219329",
+      "normalized_cn8": "22042193",
+      "expected": "22042193"
+    },
+    {
+      "original_tariff": "2204219429",
+      "normalized_cn8": "22042194",
+      "expected": "22042194"
+    },
+    {
+      "original_tariff": "2204219431",
+      "normalized_cn8": "22042194",
+      "expected": "22042194"
+    },
+    {
+      "original_tariff": "2204219429",
+      "normalized_cn8": "22042194",
+      "expected": "22042194"
+    },
+    {
+      "original_tariff": "2204219319",
+      "normalized_cn8": "22042193",
+      "expected": "22042193"
+    },
+    {
+      "original_tariff": "2204219419",
+      "normalized_cn8": "22042194",
+      "expected": "22042194"
+    },
+    {
+      "original_tariff": "2204219419",
+      "normalized_cn8": "22042194",
+      "expected": "22042194"
+    },
+    {
+      "original_tariff": "1509200010",
+      "normalized_cn8": "15092000",
+      "expected": "15092000"
+    },
+    {
+      "original_tariff": "3919108090",
+      "normalized_cn8": "39191080",
+      "expected": "39191080"
+    },
+    {
+      "original_tariff": "7317002000",
+      "normalized_cn8": "73170020",
+      "expected": "73170020"
+    },
+    {
+      "original_tariff": "3923301000",
+      "normalized_cn8": "39233010",
+      "expected": "39233010"
+    },
+    {
+      "original_tariff": "8547200000",
+      "normalized_cn8": "85472000",
+      "expected": "85472000"
+    },
+    {
+      "original_tariff": "8403109000",
+      "normalized_cn8": "84031090",
+      "expected": "84031090"
+    },
+    {
+      "original_tariff": "7325991060",
+      "normalized_cn8": "73259910",
+      "expected": "73259910"
+    },
+    {
+      "original_tariff": "7325991060",
+      "normalized_cn8": "73259910",
+      "expected": "73259910"
+    },
+    {
+      "original_tariff": "7325991060",
+      "normalized_cn8": "73259910",
+      "expected": "73259910"
+    },
+    {
+      "original_tariff": "9401610000",
+      "normalized_cn8": "94016100",
+      "expected": "94016100"
+    },
+    {
+      "original_tariff": "9404909000",
+      "normalized_cn8": "94049090",
+      "expected": "94049090"
+    },
+    {
+      "original_tariff": "9401911090",
+      "normalized_cn8": "94019110",
+      "expected": "94019110"
+    },
+    {
+      "original_tariff": "9404291000",
+      "normalized_cn8": "94042910",
+      "expected": "94042910"
+    },
+    {
+      "original_tariff": "6304199099",
+      "normalized_cn8": "63041990",
+      "expected": "63041990"
+    }
+  ],
+  "known_checks": {
+    "7318159090": {
+      "expected": "73181590",
+      "rows": 0
+    },
+    "3920102190": {
+      "expected": "39201021",
+      "rows": 0
+    },
+    "8302420090": {
+      "expected": "83024200",
+      "rows": 1
+    },
+    "8609009000": {
+      "expected": "86090090",
+      "rows": 1
+    }
+  }
+}

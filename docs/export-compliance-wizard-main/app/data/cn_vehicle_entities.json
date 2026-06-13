@@ -1,0 +1,55 @@
+{
+  "brands": [
+    "daf",
+    "man",
+    "volvo",
+    "scania",
+    "mercedes-benz",
+    "mercedes",
+    "iveco",
+    "renault trucks",
+    "renault",
+    "bmw",
+    "schmitz",
+    "krone"
+  ],
+  "condition_terms": {
+    "rabljeno": "used",
+    "rabljena": "used",
+    "rablj": "used",
+    "used": "used",
+    "second-hand": "used",
+    "nov": "new",
+    "nova": "new",
+    "novo": "new",
+    "new": "new"
+  },
+  "vehicle_phrases": [
+    {
+      "phrases": ["tovorno vozilo", "goods vehicle", "goods vehicles", "motor vehicle for the transport of goods", "lorry", "lorries", "truck", "trucks", "kamion"],
+      "vehicle_type": "goods_vehicle",
+      "headings": ["8704", "8701"],
+      "search_terms": ["goods", "motor", "vehicles", "transport", "g.v.w", "diesel", "compression-ignition"]
+    },
+    {
+      "phrases": ["tractor unit", "tractor units", "vlačilec", "vozilo za vleko", "road tractor", "semitrailer tractor", "semi-trailer truck"],
+      "vehicle_type": "tractor_unit",
+      "headings": ["8701"],
+      "search_terms": ["tractor", "tractors", "semitrailer", "semi-trailer", "road"]
+    },
+    {
+      "phrases": ["osebno vozilo", "passenger car", "passenger motor car", "motor car", "automobile", "personal vehicle"],
+      "vehicle_type": "passenger_vehicle",
+      "headings": ["8703"],
+      "search_terms": ["passenger", "motor", "cars", "spark-ignition", "vehicles"]
+    },
+    {
+      "phrases": ["polpriklopnik", "semi-trailer", "semitrailer", "semi trailer", "naczepa", "trailer", "trailers"],
+      "vehicle_type": "trailer",
+      "headings": ["8716"],
+      "search_terms": ["trailer", "semi-trailer", "semitrailers"]
+    }
+  ],
+  "chapter": "87",
+  "default_headings": ["8701", "8704", "8703", "8716"]
+}

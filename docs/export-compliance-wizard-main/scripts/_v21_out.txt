@@ -1,0 +1,9 @@
+﻿python : C:\Users\bla×so\AppData\Local\Programs\Python\Python314\python.exe: can't open file 'C:\\Users\\bla×so\\Docume
+nts\\CURSOR\\export-compliance-wizard\\scripts\\run_classification_v21_benchmark.py': [Errno 2] No such file or directo
+ry
+At C:\Users\blažso\AppData\Local\Temp\ps-script-0b788448-13de-4e17-ba3e-fc7098404ffb.ps1:106 char:65
++ ... ce-wizard"; python scripts/run_classification_v21_benchmark.py 2>&1 | ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\Users\bla×so...le or directory:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

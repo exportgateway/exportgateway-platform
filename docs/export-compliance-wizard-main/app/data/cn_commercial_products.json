@@ -1,0 +1,184 @@
+{
+  "version": 2,
+  "trade_names": [
+    {
+      "id": "metrel_teraohm",
+      "patterns": ["teraohm", "tera ohm", "terohm"],
+      "model_patterns": ["MI3201", "MI3200", "MI3202"],
+      "brands": ["metrel"],
+      "family": "electrical_insulation_tester",
+      "enrichment": "insulation resistance tester megohmmeter high voltage measuring instrument",
+      "search_terms": ["insulation", "resistance", "measuring", "megohmmeter"],
+      "chapters": ["90"],
+      "headings": ["9030", "9031"]
+    },
+    {
+      "id": "metrel_microohm",
+      "patterns": ["microohm", "micro ohm", "micro-ohm"],
+      "model_patterns": ["MI3250", "MI3252", "MI3255"],
+      "brands": ["metrel"],
+      "family": "micro_ohmmeter",
+      "enrichment": "micro-ohmmeter low resistance measuring instrument",
+      "search_terms": ["resistance", "measuring", "ohmmeter", "micro"],
+      "chapters": ["90"],
+      "headings": ["9030", "9031"]
+    },
+    {
+      "id": "metrel_hvlink",
+      "patterns": ["hvlink", "hv link"],
+      "model_patterns": ["A1275", "1275"],
+      "brands": ["metrel"],
+      "family": "software_media_disc",
+      "enrichment": "software on disc for measuring instrument PC",
+      "search_terms": ["software", "disc", "media", "recorded"],
+      "chapters": ["85"],
+      "headings": ["8523"]
+    },
+    {
+      "id": "chemosil_sealant",
+      "patterns": ["chemosil"],
+      "family": "silicone_sealant",
+      "enrichment": "silicone sealant glazing adhesive",
+      "search_terms": ["silicone", "sealant", "adhesive"],
+      "chapters": ["32"],
+      "headings": ["3214"],
+      "penalized_headings": ["3506"]
+    },
+    {
+      "id": "mangart_coating",
+      "patterns": ["mangart"],
+      "model_patterns": ["811248", "811\\d{3,}"],
+      "family": "protective_coating_paint",
+      "enrichment": "paint coating protective finish",
+      "search_terms": ["paint", "coating", "finish"],
+      "chapters": ["32"],
+      "headings": ["3209", "3210"],
+      "excluded_families": ["apparel_jacket", "apparel_jacket_womens"]
+    },
+    {
+      "id": "barilla_pasta",
+      "patterns": ["barilla"],
+      "context_terms": ["fusilli", "spaghetti", "penne", "pasta", "noodles"],
+      "family": "food_pasta",
+      "enrichment": "uncooked pasta durum wheat",
+      "search_terms": ["pasta", "fusilli", "durum", "wheat"],
+      "chapters": ["19"],
+      "headings": ["1902"]
+    }
+  ],
+  "invoice_phrases": [
+    {
+      "id": "empty_shipping_container",
+      "patterns": [
+        "empty ship container",
+        "empty shipping container",
+        "empty container 40",
+        "empty container 20",
+        "ship container 40",
+        "shipping container 40ft",
+        "shipping container 20ft",
+        "prazen ladijski kontejner",
+        "prazen kontejner",
+        "ladijski kontejner"
+      ],
+      "family": "shipping_container",
+      "enrichment": "empty freight shipping container for transport",
+      "search_terms": ["container", "freight", "shipping", "transport"],
+      "chapters": ["86"],
+      "headings": ["8609"],
+      "excluded_chapters": ["87", "73"],
+      "penalized_headings": ["8701", "7310", "8704"]
+    },
+    {
+      "id": "polyurethane_compound",
+      "patterns": [
+        "polyurethane compound",
+        "polyurethane prepolymer",
+        "pu compound",
+        "polyurethane resin compound"
+      ],
+      "family": "polyurethane_compound",
+      "enrichment": "polyurethane compound plastic primary form",
+      "search_terms": ["polyurethane", "compound", "polymer"],
+      "chapters": ["39"],
+      "headings": ["3909", "3506"],
+      "penalized_headings": ["3901"]
+    },
+    {
+      "id": "earth_measurement_set",
+      "patterns": [
+        "earth measurement set",
+        "earth measuring set",
+        "wire earth measurement",
+        "4 wire earth",
+        "earth resistance set",
+        "ground resistance measuring"
+      ],
+      "family": "earth_resistance_tester",
+      "enrichment": "earth ground resistance measuring instrument set",
+      "search_terms": ["earth", "ground", "resistance", "measuring"],
+      "chapters": ["90"],
+      "headings": ["9030", "9031"],
+      "penalized_headings": ["8504"]
+    },
+    {
+      "id": "furniture_fittings_sl",
+      "patterns": [
+        "pohistveno okovje",
+        "pohištveno okovje",
+        "furniture fittings",
+        "furniture mounting hardware"
+      ],
+      "family": "furniture_fittings",
+      "enrichment": "furniture fittings mountings base metal",
+      "search_terms": ["furniture", "fittings", "mountings"],
+      "chapters": ["83"],
+      "headings": ["8302", "8308"]
+    },
+    {
+      "id": "food_aromatized_syrup",
+      "patterns": [
+        "aromatized sugar syrup",
+        "aromatized sugar syrups",
+        "flavoured sugar syrup",
+        "flavored sugar syrup"
+      ],
+      "family": "food_aromatized_syrup",
+      "enrichment": "food preparation sugar syrup aromatized",
+      "search_terms": ["syrup", "sugar", "aromatized", "food"],
+      "chapters": ["21"],
+      "headings": ["2106"],
+      "penalized_headings": ["8504"]
+    },
+    {
+      "id": "tool_steel_bars",
+      "patterns": [
+        "cold formed tool steel",
+        "cold-formed tool steel",
+        "tool steel bars",
+        "cold formed tool steel bars"
+      ],
+      "family": "tool_steel_bars",
+      "enrichment": "cold formed tool steel bars alloy",
+      "search_terms": ["tool", "steel", "bars", "cold"],
+      "chapters": ["72"],
+      "headings": ["7228", "7224"],
+      "penalized_headings": ["7304"]
+    },
+    {
+      "id": "wire_rope",
+      "patterns": [
+        "wire rope",
+        "steel wire rope",
+        "18x7 wire rope"
+      ],
+      "family": "wire_rope",
+      "enrichment": "steel wire rope stranded",
+      "search_terms": ["wire", "rope", "steel", "stranded"],
+      "chapters": ["73"],
+      "headings": ["7312"],
+      "penalized_headings": ["7313"]
+    }
+  ],
+  "model_prefixes_never_rank": ["MI3201", "MI3250", "MI3252", "811248", "A1275", "1275", "HVLINK"]
+}

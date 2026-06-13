@@ -1,0 +1,115 @@
+{
+  "paracetamol": {
+    "synonyms": ["medicament", "pharmaceutical", "medicine", "therapeutic", "prophylactic", "dosage"],
+    "chapters": ["30"],
+    "headings": ["3003", "3004"]
+  },
+  "acetaminophen": {
+    "synonyms": ["paracetamol", "medicament", "pharmaceutical", "medicine"],
+    "chapters": ["30"],
+    "headings": ["3004"]
+  },
+  "ibuprofen": {
+    "synonyms": ["medicament", "pharmaceutical", "medicine", "therapeutic", "prophylactic", "dosage"],
+    "chapters": ["30"],
+    "headings": ["3003", "3004"]
+  },
+  "tablet": {
+    "synonyms": ["measured", "doses", "retail", "packings"],
+    "chapters": ["30"]
+  },
+  "tablets": {
+    "synonyms": ["measured", "doses", "retail", "packings"],
+    "chapters": ["30"]
+  },
+  "bearing": {
+    "synonyms": ["ball", "roller", "bearings"],
+    "headings": ["8482"]
+  },
+  "bearings": {
+    "synonyms": ["ball", "roller", "bearings"],
+    "headings": ["8482"]
+  },
+  "ball": {
+    "synonyms": ["ball", "roller"],
+    "headings": ["8482"]
+  },
+  "hydraulic": {
+    "synonyms": ["oleohydraulic", "hydraulic", "fluid", "power", "transmission"],
+    "headings": ["8481"]
+  },
+  "valve": {
+    "synonyms": ["valves", "oleohydraulic", "pneumatic"],
+    "headings": ["8481"]
+  },
+  "screw": {
+    "synonyms": ["screws", "threaded", "fasteners"],
+    "headings": ["7318"]
+  },
+  "screws": {
+    "synonyms": ["screws", "threaded", "fasteners"],
+    "headings": ["7318"]
+  },
+  "steel": {
+    "synonyms": ["stainless", "iron", "alloy"],
+    "headings": ["7318", "7218", "7318"]
+  },
+  "laptop": {
+    "synonyms": ["portable", "automatic", "data-processing", "computer", "processing", "machine"],
+    "headings": ["8471"]
+  },
+  "computer": {
+    "synonyms": ["data-processing", "automatic", "processing", "machine"],
+    "headings": ["8471"]
+  },
+  "pellet": {
+    "synonyms": ["cartridge", "cartridges", "ammunition", "projectile", "shot"],
+    "chapters": ["93"],
+    "headings": ["9306"]
+  },
+  "pellets": {
+    "synonyms": ["cartridge", "cartridges", "ammunition", "projectile", "shot"],
+    "chapters": ["93"],
+    "headings": ["9306"]
+  },
+  "rifle": {
+    "synonyms": ["rifles", "shotgun", "firearm", "sporting", "hunting"],
+    "chapters": ["93"],
+    "headings": ["9303", "9306"]
+  },
+  "air": {
+    "synonyms": ["spring", "gas", "guns", "pistols"],
+    "chapters": ["93"],
+    "headings": ["9304", "9306"]
+  },
+  "sensor": {
+    "synonyms": ["measuring", "instruments", "apparatus", "thermometer"],
+    "chapters": ["90"],
+    "headings": ["9025", "9026", "9032"]
+  },
+  "sensors": {
+    "synonyms": ["measuring", "instruments", "apparatus"],
+    "chapters": ["90"],
+    "headings": ["9025", "9026", "9032"]
+  },
+  "temperature": {
+    "synonyms": ["thermometer", "pyrometer", "measuring"],
+    "chapters": ["90"],
+    "headings": ["9025"]
+  },
+  "pressure": {
+    "synonyms": ["gauge", "gauges", "manometer", "measuring"],
+    "chapters": ["90"],
+    "headings": ["9026"]
+  },
+  "proximity": {
+    "synonyms": ["inductive", "detector", "switch"],
+    "chapters": ["85", "90"],
+    "headings": ["8536", "9032"]
+  },
+  "plc": {
+    "synonyms": ["programmable", "controller", "logic", "automatic"],
+    "chapters": ["85"],
+    "headings": ["8537"]
+  }
+}

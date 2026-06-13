@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.venv/
+venv/
+
+app/data/aes_historical.db
+app/data/aes_exports.db
+app/data/aes_imports.db
+app/data/historical_classifications.db
+
+reports/_probe_aes_xlsx.json

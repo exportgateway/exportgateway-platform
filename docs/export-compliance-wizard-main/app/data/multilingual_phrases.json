@@ -1,0 +1,227 @@
+{
+  "de": {
+    "gebrauchter lkw": "used goods vehicle truck",
+    "gebrauchtes nutzfahrzeug": "used goods vehicle",
+    "nutzfahrzeug": "goods vehicle",
+    "lkw": "truck lorry goods vehicle",
+    "kugellager": "ball bearings",
+    "kugellagern": "ball bearings",
+    "hydraulikventil": "hydraulic valve",
+    "hydraulisches ventil": "hydraulic valve",
+    "hydraulisches druckregelventil": "hydraulic pressure control valve",
+    "druckregelventil": "hydraulic pressure control valve",
+    "paracetamol-tabletten": "paracetamol tablets",
+    "paracetamol tabletten": "paracetamol tablets",
+    "laptop-computer": "laptop computer",
+    "laptop computer": "laptop computer",
+    "stahlschrauben": "steel screws"
+  },
+  "fr": {
+    "camion usé": "used truck goods vehicle",
+    "camion usage": "used truck goods vehicle",
+    "véhicule utilitaire": "goods vehicle",
+    "camion de marchandises": "goods vehicle truck",
+    "roulement à billes": "ball bearings",
+    "roulements à billes": "ball bearings",
+    "soupape hydraulique": "hydraulic valve",
+    "capteur de pression": "industrial pressure sensor",
+    "capteur de pression industriel": "industrial pressure sensor",
+    "comprimés de paracétamol": "paracetamol tablets",
+    "ordinateur portable": "laptop computer"
+  },
+  "it": {
+    "autocarro usato": "used goods vehicle truck",
+    "veicolo commerciale": "goods vehicle",
+    "cuscinetti a sfera": "ball bearings",
+    "cuscinetto a sfera": "ball bearing",
+    "valvola idraulica": "hydraulic valve",
+    "compresse di paracetamolo": "paracetamol tablets",
+    "computer portatile": "laptop computer"
+  },
+  "es": {
+    "camión de mercancías usado": "used goods vehicle truck",
+    "camion de mercancias usado": "used goods vehicle truck",
+    "camión usado": "used goods vehicle truck",
+    "mercancías usado": "used goods vehicle",
+    "vehículo de mercancías": "goods vehicle",
+    "cojinetes de bolas": "ball bearings",
+    "rodamientos de bolas": "ball bearings",
+    "válvula hidráulica": "hydraulic valve",
+    "pastillas de paracetamol": "paracetamol tablets",
+    "ordenador portátil": "laptop computer"
+  },
+  "pt": {
+    "camião usado": "used truck goods vehicle",
+    "veículo de mercadorias": "goods vehicle",
+    "rolamentos de esferas": "ball bearings",
+    "válvula hidráulica": "hydraulic valve",
+    "comprimidos de paracetamol": "paracetamol tablets",
+    "computador portátil": "laptop computer"
+  },
+  "nl": {
+    "gebruikte vrachtwagen": "used goods vehicle truck",
+    "vrachtwagen": "goods vehicle truck",
+    "kogellagers": "ball bearings",
+    "kogellager": "ball bearing",
+    "hydraulisch ventiel": "hydraulic valve",
+    "paracetamol tabletten": "paracetamol tablets",
+    "draagbare computer": "laptop computer"
+  },
+  "pl": {
+    "używana ciężarówka": "used goods vehicle truck",
+    "ciezarowka": "goods vehicle truck",
+    "ciężarówka": "goods vehicle truck",
+    "łożyska kulkowe": "ball bearings",
+    "lozyska kulkowe": "ball bearings",
+    "zawór hydrauliczny": "hydraulic valve",
+    "tabletki paracetamolu": "paracetamol tablets",
+    "laptop": "laptop computer"
+  },
+  "cs": {
+    "ojeté nákladní vozidlo": "used goods vehicle truck",
+    "nákladní vozidlo": "goods vehicle truck",
+    "kulové ložisko": "ball bearings",
+    "kulova loziska": "ball bearings",
+    "hydraulický ventil": "hydraulic valve",
+    "tablety paracetamolu": "paracetamol tablets",
+    "přenosný počítač": "laptop computer"
+  },
+  "sk": {
+    "ojazdené nákladné vozidlo": "used goods vehicle truck",
+    "nákladné vozidlo": "goods vehicle truck",
+    "guľôčkové ložisko": "ball bearings",
+    "hydraulický ventil": "hydraulic valve",
+    "tablety paracetamolu": "paracetamol tablets",
+    "prenosný počítač": "laptop computer"
+  },
+  "hu": {
+    "használt tehergépkocsi": "used goods vehicle truck",
+    "tehergépkocsi": "goods vehicle truck",
+    "görgőcsapágy": "ball bearings",
+    "hidraulikus szelep": "hydraulic valve",
+    "paracetamol tabletta": "paracetamol tablets",
+    "hordozható számítógép": "laptop computer"
+  },
+  "ro": {
+    "camion second-hand": "used goods vehicle truck",
+    "vehicul de marfa": "goods vehicle",
+    "rulmenti cu bile": "ball bearings",
+    "supapă hidraulică": "hydraulic valve",
+    "supapa hidraulica": "hydraulic valve",
+    "comprimate de paracetamol": "paracetamol tablets",
+    "computer portabil": "laptop computer"
+  },
+  "bg": {
+    "употребяван камион": "used goods vehicle truck",
+    "товарен автомобил": "goods vehicle truck",
+    "лоер с топче": "ball bearings",
+    "хидравличен клапан": "hydraulic valve",
+    "таблетки парацетамол": "paracetamol tablets",
+    "лаптоп компютър": "laptop computer"
+  },
+  "el": {
+    "μεταχειρισμένο φορτηγό": "used goods vehicle truck",
+    "φορτηγό": "goods vehicle truck",
+    "ρουλεμάν με σφαιρικούς κυλίνδρους": "ball bearings",
+    "υδραυλική βαλβίδα": "hydraulic valve",
+    "δισκία παρακεταμόλης": "paracetamol tablets",
+    "φορητός υπολογιστής": "laptop computer"
+  },
+  "hr": {
+    "rabljeno teretno vozilo": "used goods vehicle truck",
+    "teretno vozilo": "goods vehicle truck",
+    "kuglični ležaj": "ball bearings",
+    "kuglicni lezaj": "ball bearings",
+    "hidraulični ventil": "hydraulic valve",
+    "tablete paracetamola": "paracetamol tablets",
+    "prijenosno računalo": "laptop computer"
+  },
+  "sl": {
+    "rabljeno tovorno vozilo": "used goods vehicle truck",
+    "tovorno vozilo": "goods vehicle truck",
+    "vlačilec": "tractor unit",
+    "polpriklopnik": "semi-trailer trailer",
+    "osebno vozilo": "passenger motor car",
+    "kroglasti ležaj": "ball bearings",
+    "kroglasti lezaj": "ball bearings",
+    "kroglični ležaj": "ball bearings",
+    "kroglicni lezaj": "ball bearings",
+    "hidravlični ventil": "hydraulic valve",
+    "tablete paracetamola": "paracetamol tablets",
+    "prenosni računalnik": "laptop computer",
+    "kamion": "truck lorry goods vehicle",
+    "temperaturni senzor": "temperature sensor",
+    "industrijski temperaturni senzor": "industrial temperature sensor",
+    "senzor tlaka": "pressure sensor",
+    "induktivni senzor": "inductive proximity sensor",
+    "plc modul": "PLC module programmable controller",
+    "prazen ladijski kontejner": "empty freight shipping container",
+    "prazen kontejner": "empty shipping container",
+    "ladijski kontejner": "freight shipping container",
+    "pohistveno okovje": "furniture fittings mountings",
+    "pohištveno okovje": "furniture fittings mountings",
+    "4 wire earth measurement": "earth ground resistance measuring set",
+    "meritev ozemljitev": "earth ground resistance measuring set",
+    "moške jeans hlače": "men's jeans trousers",
+    "moške bombažne jeans hlače": "men's cotton denim jeans trousers",
+    "bombažne jeans hlače": "cotton denim jeans trousers",
+    "ženske jeans hlače": "women's jeans trousers",
+    "moška polo majica": "men's polo shirt"
+  },
+  "sr": {
+    "polovno teretno vozilo": "used goods vehicle truck",
+    "teretno vozilo": "goods vehicle truck",
+    "kuglični ležaj": "ball bearings",
+    "hidraulični ventil": "hydraulic valve",
+    "tablete paracetamola": "paracetamol tablets",
+    "prenosni računar": "laptop computer"
+  },
+  "sv": {
+    "begagnad lastbil": "used goods vehicle truck",
+    "lastbil": "goods vehicle truck",
+    "kullager": "ball bearings",
+    "hydraulventil": "hydraulic valve",
+    "paracetamoltabletter": "paracetamol tablets",
+    "bärbar dator": "laptop computer"
+  },
+  "da": {
+    "brugt lastbil": "used goods vehicle truck",
+    "lastbil": "goods vehicle truck",
+    "kugleleje": "ball bearings",
+    "hydraulventil": "hydraulic valve",
+    "paracetamol tabletter": "paracetamol tablets",
+    "bærbar computer": "laptop computer"
+  },
+  "fi": {
+    "käytetty kuorma-auto": "used goods vehicle truck",
+    "kuorma-auto": "goods vehicle truck",
+    "kuulalaakeri": "ball bearings",
+    "hydrauliventtiili": "hydraulic valve",
+    "parasetamolitabletit": "paracetamol tablets",
+    "kannettava tietokone": "laptop computer"
+  },
+  "et": {
+    "kasutatud veoauto": "used goods vehicle truck",
+    "veoauto": "goods vehicle truck",
+    "kuullaager": "ball bearings",
+    "hüdrauliklülitus": "hydraulic valve",
+    "paratsetamooli tabletid": "paracetamol tablets",
+    "sülearvuti": "laptop computer"
+  },
+  "lv": {
+    "lietots kravas automašīna": "used goods vehicle truck",
+    "kravas automašīna": "goods vehicle truck",
+    "lodīšu gultnis": "ball bearings",
+    "hidrauliskā vārsta": "hydraulic valve",
+    "paracetamola tabletes": "paracetamol tablets",
+    "pārnēsājamais dators": "laptop computer"
+  },
+  "lt": {
+    "naudota sunkvežimis": "used goods vehicle truck",
+    "sunkvežimis": "goods vehicle truck",
+    "rutulinis guolis": "ball bearings",
+    "hidraulinis vožtuvas": "hydraulic valve",
+    "paracetamolio tabletės": "paracetamol tablets",
+    "nešiojamas kompiuteris": "laptop computer"
+  }
+}

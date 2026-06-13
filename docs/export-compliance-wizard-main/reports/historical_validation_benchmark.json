@@ -1,0 +1,263 @@
+{
+  "generated_at": "2026-06-08T18:08:45.574143+00:00",
+  "sample_size": 1000,
+  "database_records": 1000,
+  "without_validation_accuracy": 0.525,
+  "with_validation_accuracy": 0.525,
+  "improvement": 0.0,
+  "validation_applied_count": 600,
+  "improved_count": 0,
+  "regressed_count": 0,
+  "results": [
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    },
+    {
+      "description": "500 pcs men's denim jeans trousers",
+      "expected_cn": "6203 11 00",
+      "without_heading": null,
+      "with_heading": null,
+      "without_cn": null,
+      "with_cn": null,
+      "improved": false,
+      "validation_applied": false
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-06-08T18:10:06.590372+00:00",
+  "regression_passed": 110,
+  "regression_total": 110,
+  "regression_accuracy_pct": 100.0,
+  "aes_sample_size": 1000,
+  "without_knowledge": {
+    "sample_size": 1000,
+    "heading_accuracy": 0.525,
+    "cn8_accuracy": 0.325,
+    "historical_candidate_usage_rate": 0.0,
+    "candidate_recall_when_injected": 0.0,
+    "improved_count": 0,
+    "regressed_count": 0,
+    "avg_injected_per_case": 0.0,
+    "avg_knowledge_candidates": 0.0
+  },
+  "with_knowledge": {
+    "sample_size": 1000,
+    "heading_accuracy": 0.525,
+    "cn8_accuracy": 0.425,
+    "historical_candidate_usage_rate": 0.075,
+    "candidate_recall_when_injected": 0.0,
+    "improved_count": 0,
+    "regressed_count": 0,
+    "avg_injected_per_case": 0.075,
+    "avg_knowledge_candidates": 1.45
+  },
+  "delta": {
+    "heading_accuracy": 0.0,
+    "cn8_accuracy": 0.1,
+    "historical_candidate_usage_rate": 0.075,
+    "improved_count": 0,
+    "regressed_count": 0
+  }
+}

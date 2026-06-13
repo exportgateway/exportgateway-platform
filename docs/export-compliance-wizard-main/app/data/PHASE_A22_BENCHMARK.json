@@ -1,0 +1,139 @@
+{
+  "version": "1.0",
+  "label": "Phase A.2.2 production validation",
+  "cases": [
+    {
+      "id": "motor_abb",
+      "query": "ABB electric motor",
+      "families": ["electric_motor"],
+      "chapter": "85",
+      "heading_prefixes": ["8501"],
+      "forbidden_chapters": ["87"],
+      "forbidden_in_display": ["vehicle", "propulsion", "transport of goods"],
+      "forbidden_in_top_desc": ["vehicle", "propulsion"]
+    },
+    {
+      "id": "motor_siemens",
+      "query": "Siemens electric motor",
+      "families": ["electric_motor"],
+      "chapter": "85",
+      "heading_prefixes": ["8501"],
+      "forbidden_chapters": ["87"]
+    },
+    {
+      "id": "motor_three_phase",
+      "query": "Three phase electric motor",
+      "families": ["electric_motor"],
+      "chapter": "85",
+      "heading_prefixes": ["8501"],
+      "forbidden_chapters": ["87"]
+    },
+    {
+      "id": "motor_servo",
+      "query": "Servo motor",
+      "families": ["electric_motor"],
+      "chapter": "85",
+      "heading_prefixes": ["8501"],
+      "forbidden_chapters": ["87", "88"]
+    },
+    {
+      "id": "furniture_chair",
+      "query": "Office chair",
+      "families": ["furniture_office_chair"],
+      "chapter": "94",
+      "heading_prefixes": ["9401"],
+      "forbidden_in_display": ["dentist", "dental", "barber"],
+      "forbidden_in_top_desc": ["dentist", "dental", "barber"]
+    },
+    {
+      "id": "pen_ballpoint",
+      "query": "Ballpoint pen",
+      "families": ["stationery_pen"],
+      "chapter": "96",
+      "heading_prefixes": ["9608"],
+      "forbidden_in_top_desc": ["refills for ballpoint", "ink-reservoir"],
+      "forbidden_cn8_prefixes": ["960860"]
+    },
+    {
+      "id": "pen_blue",
+      "query": "Blue ballpoint pen",
+      "families": ["stationery_pen"],
+      "chapter": "96",
+      "heading_prefixes": ["9608"],
+      "forbidden_cn8_prefixes": ["960860"]
+    },
+    {
+      "id": "pen_refill",
+      "query": "Pen refill",
+      "families": ["stationery_pen_refill"],
+      "chapter": "96",
+      "heading_prefixes": ["9608"],
+      "required_in_top_desc": ["refill"]
+    },
+    {
+      "id": "printer_hp",
+      "query": "HP printer cartridge",
+      "families": ["office_printer_consumable"],
+      "chapter": "32",
+      "heading_prefixes": ["3215"],
+      "forbidden_chapters": ["84"],
+      "forbidden_in_display": ["printing machinery", "offset printing"]
+    },
+    {
+      "id": "printer_toner",
+      "query": "Laser toner cartridge",
+      "families": ["office_printer_consumable"],
+      "chapter": "32",
+      "heading_prefixes": ["3215"],
+      "forbidden_in_top_desc": ["printing machinery"]
+    },
+    {
+      "id": "psu_24v",
+      "query": "Power supply 24VDC",
+      "families": ["power_supply"],
+      "chapter": "85",
+      "heading_prefixes": ["8504"],
+      "forbidden_in_top_desc": ["exceeding 500"]
+    },
+    {
+      "id": "ups_backup",
+      "query": "UPS battery backup",
+      "families": ["ups"],
+      "chapter": "85",
+      "heading_prefixes": ["8504"],
+      "forbidden_in_top_desc": ["exceeding 500"]
+    },
+    {
+      "id": "sensor_ifm_pressure",
+      "query": "IFM PN7094",
+      "families": ["pressure_sensor"],
+      "chapter": "90",
+      "heading_prefixes": ["9026"],
+      "preferred_in_top_desc": ["pressure"]
+    },
+    {
+      "id": "sensor_pepperl_proximity",
+      "query": "Pepperl+Fuchs NBB5-18GM50-E2",
+      "families": ["proximity_sensor"],
+      "chapter": "85",
+      "heading_prefixes": ["8536"],
+      "forbidden_chapters": ["87"]
+    },
+    {
+      "id": "a21_inverter_danfoss",
+      "query": "Danfoss FC302",
+      "families": ["frequency_inverter"],
+      "chapter": "85",
+      "heading_prefixes": ["8504"],
+      "forbidden_in_display": ["diesel"]
+    },
+    {
+      "id": "a21_marker",
+      "query": "Permanent marker",
+      "families": ["stationery_marker"],
+      "chapter": "96",
+      "heading_prefixes": ["9608"],
+      "forbidden_in_top_desc": ["ribbon"]
+    }
+  ]
+}

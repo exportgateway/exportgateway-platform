@@ -1,0 +1,3357 @@
+{
+  "generated_at": "2026-06-09T09:05:43.115631+00:00",
+  "read_only": true,
+  "summary": {
+    "exports_records": 62888,
+    "imports_records": 17321,
+    "exports_unique_cn8": 2430,
+    "imports_unique_cn8": 1550,
+    "combined_unique_cn8": 2884,
+    "combined_total_records": 80209,
+    "exports_size_mb": 19.42,
+    "imports_size_mb": 7.46
+  },
+  "exports_database": {
+    "label": "exports",
+    "present": true,
+    "valid_schema": true,
+    "path": "C:\\Users\\blažso\\Documents\\CURSOR\\export-compliance-wizard-main\\app\\data\\aes_exports.db",
+    "size_mb": 19.42,
+    "records": 62888,
+    "unique_cn8": 2430,
+    "top_100_cn8": [
+      {
+        "cn8": "39203000",
+        "count": 1403
+      },
+      {
+        "cn8": "83024200",
+        "count": 1103
+      },
+      {
+        "cn8": "94039910",
+        "count": 846
+      },
+      {
+        "cn8": "59031090",
+        "count": 843
+      },
+      {
+        "cn8": "58013600",
+        "count": 835
+      },
+      {
+        "cn8": "39269097",
+        "count": 763
+      },
+      {
+        "cn8": "58013300",
+        "count": 649
+      },
+      {
+        "cn8": "58013700",
+        "count": 616
+      },
+      {
+        "cn8": "44089015",
+        "count": 613
+      },
+      {
+        "cn8": "54079300",
+        "count": 571
+      },
+      {
+        "cn8": "39263000",
+        "count": 536
+      },
+      {
+        "cn8": "54077300",
+        "count": 524
+      },
+      {
+        "cn8": "63079098",
+        "count": 516
+      },
+      {
+        "cn8": "41071291",
+        "count": 501
+      },
+      {
+        "cn8": "72249018",
+        "count": 500
+      },
+      {
+        "cn8": "54075200",
+        "count": 499
+      },
+      {
+        "cn8": "54075300",
+        "count": 494
+      },
+      {
+        "cn8": "39219055",
+        "count": 492
+      },
+      {
+        "cn8": "73269098",
+        "count": 472
+      },
+      {
+        "cn8": "54076130",
+        "count": 466
+      },
+      {
+        "cn8": "72249014",
+        "count": 454
+      },
+      {
+        "cn8": "72285020",
+        "count": 418
+      },
+      {
+        "cn8": "72072032",
+        "count": 414
+      },
+      {
+        "cn8": "54077200",
+        "count": 381
+      },
+      {
+        "cn8": "94039990",
+        "count": 379
+      },
+      {
+        "cn8": "54079200",
+        "count": 375
+      },
+      {
+        "cn8": "83021000",
+        "count": 372
+      },
+      {
+        "cn8": "54076150",
+        "count": 371
+      },
+      {
+        "cn8": "48191000",
+        "count": 361
+      },
+      {
+        "cn8": "22030001",
+        "count": 357
+      },
+      {
+        "cn8": "40169300",
+        "count": 346
+      },
+      {
+        "cn8": "34029090",
+        "count": 331
+      },
+      {
+        "cn8": "48115100",
+        "count": 321
+      },
+      {
+        "cn8": "34031980",
+        "count": 318
+      },
+      {
+        "cn8": "55151290",
+        "count": 299
+      },
+      {
+        "cn8": "54071000",
+        "count": 297
+      },
+      {
+        "cn8": "58013100",
+        "count": 292
+      },
+      {
+        "cn8": "60019200",
+        "count": 292
+      },
+      {
+        "cn8": "60053500",
+        "count": 283
+      },
+      {
+        "cn8": "34039900",
+        "count": 281
+      },
+      {
+        "cn8": "27101999",
+        "count": 278
+      },
+      {
+        "cn8": "44152020",
+        "count": 278
+      },
+      {
+        "cn8": "54078300",
+        "count": 269
+      },
+      {
+        "cn8": "58110000",
+        "count": 266
+      },
+      {
+        "cn8": "84818099",
+        "count": 247
+      },
+      {
+        "cn8": "90183900",
+        "count": 237
+      },
+      {
+        "cn8": "85371091",
+        "count": 235
+      },
+      {
+        "cn8": "38140090",
+        "count": 234
+      },
+      {
+        "cn8": "59070000",
+        "count": 233
+      },
+      {
+        "cn8": "55142300",
+        "count": 223
+      },
+      {
+        "cn8": "21069098",
+        "count": 217
+      },
+      {
+        "cn8": "49111090",
+        "count": 203
+      },
+      {
+        "cn8": "83016000",
+        "count": 196
+      },
+      {
+        "cn8": "44219999",
+        "count": 192
+      },
+      {
+        "cn8": "85444290",
+        "count": 191
+      },
+      {
+        "cn8": "55151990",
+        "count": 189
+      },
+      {
+        "cn8": "52114910",
+        "count": 187
+      },
+      {
+        "cn8": "54076990",
+        "count": 186
+      },
+      {
+        "cn8": "61091000",
+        "count": 185
+      },
+      {
+        "cn8": "21069059",
+        "count": 184
+      },
+      {
+        "cn8": "35069190",
+        "count": 184
+      },
+      {
+        "cn8": "94035000",
+        "count": 181
+      },
+      {
+        "cn8": "84212300",
+        "count": 177
+      },
+      {
+        "cn8": "73089098",
+        "count": 173
+      },
+      {
+        "cn8": "83011000",
+        "count": 170
+      },
+      {
+        "cn8": "76042990",
+        "count": 169
+      },
+      {
+        "cn8": "38249996",
+        "count": 165
+      },
+      {
+        "cn8": "39233010",
+        "count": 164
+      },
+      {
+        "cn8": "94032080",
+        "count": 161
+      },
+      {
+        "cn8": "55143050",
+        "count": 157
+      },
+      {
+        "cn8": "90303100",
+        "count": 156
+      },
+      {
+        "cn8": "72111400",
+        "count": 155
+      },
+      {
+        "cn8": "54074400",
+        "count": 153
+      },
+      {
+        "cn8": "85141910",
+        "count": 152
+      },
+      {
+        "cn8": "72249002",
+        "count": 150
+      },
+      {
+        "cn8": "32089091",
+        "count": 149
+      },
+      {
+        "cn8": "73181499",
+        "count": 149
+      },
+      {
+        "cn8": "83014011",
+        "count": 146
+      },
+      {
+        "cn8": "90251900",
+        "count": 143
+      },
+      {
+        "cn8": "96039099",
+        "count": 141
+      },
+      {
+        "cn8": "83014019",
+        "count": 140
+      },
+      {
+        "cn8": "94039100",
+        "count": 138
+      },
+      {
+        "cn8": "73249000",
+        "count": 135
+      },
+      {
+        "cn8": "84099900",
+        "count": 133
+      },
+      {
+        "cn8": "39219090",
+        "count": 132
+      },
+      {
+        "cn8": "55143090",
+        "count": 131
+      },
+      {
+        "cn8": "84219990",
+        "count": 131
+      },
+      {
+        "cn8": "76042910",
+        "count": 129
+      },
+      {
+        "cn8": "27101983",
+        "count": 127
+      },
+      {
+        "cn8": "84213100",
+        "count": 127
+      },
+      {
+        "cn8": "27101981",
+        "count": 126
+      },
+      {
+        "cn8": "51113080",
+        "count": 126
+      },
+      {
+        "cn8": "84841000",
+        "count": 125
+      },
+      {
+        "cn8": "49111010",
+        "count": 124
+      },
+      {
+        "cn8": "83022000",
+        "count": 124
+      },
+      {
+        "cn8": "55121990",
+        "count": 123
+      },
+      {
+        "cn8": "82055980",
+        "count": 123
+      },
+      {
+        "cn8": "60063200",
+        "count": 122
+      },
+      {
+        "cn8": "73262000",
+        "count": 122
+      },
+      {
+        "cn8": "27101991",
+        "count": 121
+      }
+    ],
+    "top_100_descriptions": [
+      {
+        "description": "1 KOM     KOLEKCIJE",
+        "count": 19,
+        "cn8": "63079098"
+      },
+      {
+        "description": "1 KOM     KOLEKCIJE",
+        "count": 16,
+        "cn8": "49111090"
+      },
+      {
+        "description": "2 KOM     KOLEKCIJE",
+        "count": 12,
+        "cn8": "63079098"
+      },
+      {
+        "description": "5 KOM     KOLEKCIJE",
+        "count": 11,
+        "cn8": "63079098"
+      },
+      {
+        "description": "2 KOM     KOLEKCIJE",
+        "count": 10,
+        "cn8": "49111090"
+      },
+      {
+        "description": "120 KOS    BUTANON - METIL ETIL KETON",
+        "count": 9,
+        "cn8": "29141200"
+      },
+      {
+        "description": "LESENE PLOŠČATE PALETE;3 KOSI",
+        "count": 9,
+        "cn8": "44152020"
+      },
+      {
+        "description": "LESENI PLOŠČATI PALETI;2 KOSA",
+        "count": 9,
+        "cn8": "44152020"
+      },
+      {
+        "description": "9 KOM     KOLEKCIJE",
+        "count": 8,
+        "cn8": "63079098"
+      },
+      {
+        "description": "10 KOM     KOLEKCIJE",
+        "count": 7,
+        "cn8": "63079098"
+      },
+      {
+        "description": "200 KOS    PRIBOR ZA POHIŠTVO IZ PLASTIČNIH MAS",
+        "count": 7,
+        "cn8": "39263000"
+      },
+      {
+        "description": "2000,00 TM    ROBNI TRAKOVI FURNIR",
+        "count": 7,
+        "cn8": "44089015"
+      },
+      {
+        "description": "2400,00 TM     ABS ROBNI TRAKOVI",
+        "count": 7,
+        "cn8": "39203000"
+      },
+      {
+        "description": "3 KOM     KOLEKCIJE",
+        "count": 7,
+        "cn8": "49111090"
+      },
+      {
+        "description": "4 KOM     KOLEKCIJE",
+        "count": 7,
+        "cn8": "63079098"
+      },
+      {
+        "description": "400 KOS      POHIŠTVENI TEČAJI",
+        "count": 7,
+        "cn8": "83021000"
+      },
+      {
+        "description": "7 KOM     KOLEKCIJE",
+        "count": 7,
+        "cn8": "63079098"
+      },
+      {
+        "description": "8 KOM     KOLEKCIJE",
+        "count": 7,
+        "cn8": "63079098"
+      },
+      {
+        "description": "LESENA PLOŠČATA PALETA;1 KOS",
+        "count": 7,
+        "cn8": "44152020"
+      },
+      {
+        "description": "1 KOM ODMIČNA GRED",
+        "count": 6,
+        "cn8": "84831029"
+      },
+      {
+        "description": "1 KOM VARNOSTNI VENTILI",
+        "count": 6,
+        "cn8": "84814090"
+      },
+      {
+        "description": "1 KOS        VEČFAZNI MOTORJI NA IZMENIČNI TOK Z IZHODNO MOČJO NAD 7,5 kW DO VKLJUČNO 37 kW - MOTOR DVIGALA",
+        "count": 6,
+        "cn8": "85015230"
+      },
+      {
+        "description": "1 KOS       ZAGANJAČ",
+        "count": 6,
+        "cn8": "85114000"
+      },
+      {
+        "description": "100 KOS      POHIŠTVENO OKOVJE",
+        "count": 6,
+        "cn8": "83024200"
+      },
+      {
+        "description": "100 KOS     PRIBOR ZA POHIŠTVO IZ PLASTIČNIH MAS",
+        "count": 6,
+        "cn8": "39263000"
+      },
+      {
+        "description": "1000,00 TM    ROBNI TRAKOVI FURNIR",
+        "count": 6,
+        "cn8": "44089015"
+      },
+      {
+        "description": "13 KOM     KOLEKCIJE",
+        "count": 6,
+        "cn8": "63079098"
+      },
+      {
+        "description": "2 KOM    LESENO POHIŠTVO ZA SPALNICE",
+        "count": 6,
+        "cn8": "94035000"
+      },
+      {
+        "description": "2 KOM    ORODNE PLOŠČE",
+        "count": 6,
+        "cn8": "72111400"
+      },
+      {
+        "description": "200 KOS      POHIŠTVENI KOLEŠČKI",
+        "count": 6,
+        "cn8": "83022000"
+      },
+      {
+        "description": "200 KOS    POHIŠTVENI TEČAJI",
+        "count": 6,
+        "cn8": "83021000"
+      },
+      {
+        "description": "3 KOM     KOLEKCIJE",
+        "count": 6,
+        "cn8": "63079098"
+      },
+      {
+        "description": "3 KOS       LESENO POHIŠTVO ZA SPALNICE",
+        "count": 6,
+        "cn8": "94035000"
+      },
+      {
+        "description": "8 KOM     KOLEKCIJE",
+        "count": 6,
+        "cn8": "49111090"
+      },
+      {
+        "description": "ORODNI PLOŠČI, DEBELINE 4,75 mm IN VEČ;2 KOSA",
+        "count": 6,
+        "cn8": "72111400"
+      },
+      {
+        "description": "RABLJENA PRAZNA 20˝ KONTEJNERJA ZA PREVOZ BLAGA;2 KOSA",
+        "count": 6,
+        "cn8": "86090090"
+      },
+      {
+        "description": "1 KOM    POLIURETANSKE PLOŠČE",
+        "count": 5,
+        "cn8": "39207910"
+      },
+      {
+        "description": "1 KOM ZAGANJAČ",
+        "count": 5,
+        "cn8": "85114000"
+      },
+      {
+        "description": "1 KOS        DRUGO KOVINSKO POHIŠTVO",
+        "count": 5,
+        "cn8": "94032080"
+      },
+      {
+        "description": "1 KOS       HLADILNIK OLJA",
+        "count": 5,
+        "cn8": "87089135"
+      },
+      {
+        "description": "1 KOS       VARNOSTNI VENTIL",
+        "count": 5,
+        "cn8": "84814090"
+      },
+      {
+        "description": "1 KPL      POHIŠTVENI KOLEŠČKI",
+        "count": 5,
+        "cn8": "83022000"
+      },
+      {
+        "description": "10 KOM    POHIŠTVENE KLJUČAVNICE",
+        "count": 5,
+        "cn8": "83013000"
+      },
+      {
+        "description": "10 PAK        SAMOVREZNI VIJAKI",
+        "count": 5,
+        "cn8": "73181499"
+      },
+      {
+        "description": "100 KOS      PRIBOR ZA POHIŠTVO IZ PLASTIČNIH MAS",
+        "count": 5,
+        "cn8": "39263000"
+      },
+      {
+        "description": "100 KOS    DELI IN PRIBOR ZA DIHALNE APARATE",
+        "count": 5,
+        "cn8": "90192090"
+      },
+      {
+        "description": "100,00 TM    ALU ABS ROBNI TRAKOVI",
+        "count": 5,
+        "cn8": "76072010"
+      },
+      {
+        "description": "1000 KOS    POHIŠTVENI VIJAKI",
+        "count": 5,
+        "cn8": "73181290"
+      },
+      {
+        "description": "1000 KOS    POHIŠTVENO OKOVJE",
+        "count": 5,
+        "cn8": "83024200"
+      },
+      {
+        "description": "12 KOM     KOLEKCIJE",
+        "count": 5,
+        "cn8": "63079098"
+      },
+      {
+        "description": "18 KOM    PLINSKI CILINDRI",
+        "count": 5,
+        "cn8": "84799070"
+      },
+      {
+        "description": "2 KOM    DRUGO KOVINSKO POHIŠTVO",
+        "count": 5,
+        "cn8": "94032080"
+      },
+      {
+        "description": "2 KOM    POLIURETANSKE PLOŠČE",
+        "count": 5,
+        "cn8": "39207910"
+      },
+      {
+        "description": "2 KOM    PRECIZNA PODLOŽNA PLOČEVINA",
+        "count": 5,
+        "cn8": "72119080"
+      },
+      {
+        "description": "2 KOS TRDI DISKI",
+        "count": 5,
+        "cn8": "84717050"
+      },
+      {
+        "description": "2 KPL      ALU VODILA ZGORNJA IN SPODNJA, PREČNE LETVE IN ROČAJI",
+        "count": 5,
+        "cn8": "76042990"
+      },
+      {
+        "description": "2 PAK    SAMOVREZNI VIJAKI",
+        "count": 5,
+        "cn8": "73181499"
+      },
+      {
+        "description": "20 KPL ČISTILNA VOLNA JEKLENA",
+        "count": 5,
+        "cn8": "73231000"
+      },
+      {
+        "description": "200 KOS     POHIŠTVENO OKOVJE",
+        "count": 5,
+        "cn8": "83024200"
+      },
+      {
+        "description": "2000 KOS      POHIŠTVENI VIJAKI",
+        "count": 5,
+        "cn8": "73181290"
+      },
+      {
+        "description": "2200,00 TM    ABS ROBNI TRAKOVI",
+        "count": 5,
+        "cn8": "39203000"
+      },
+      {
+        "description": "3 KOM FILTRI ZA VSESANI ZRAK ZA MOTORJE Z NOTRANJIM IZGOREVANJEM",
+        "count": 5,
+        "cn8": "84213100"
+      },
+      {
+        "description": "3 KOS        MERILNI PRIBOR",
+        "count": 5,
+        "cn8": "90309000"
+      },
+      {
+        "description": "300,00 TM     ROBNI TRAKOVI FURNIR",
+        "count": 5,
+        "cn8": "44089015"
+      },
+      {
+        "description": "3100,00 TM    ABS ROBNI TRAKOVI",
+        "count": 5,
+        "cn8": "39203000"
+      },
+      {
+        "description": "350 KOM    PRIBOR ZA POHIŠTVO IZ PLASTIČNIH MAS",
+        "count": 5,
+        "cn8": "39263000"
+      },
+      {
+        "description": "4 KOM     KOLEKCIJE",
+        "count": 5,
+        "cn8": "49111090"
+      },
+      {
+        "description": "4 KOM    DRSNI LEŽAJI",
+        "count": 5,
+        "cn8": "84833080"
+      },
+      {
+        "description": "4 KPL.    LESENI MODELI ZA KALUPE S PRIPADAJOČIMI JEDROVNIKI - ZAČASNI IZVOZ",
+        "count": 5,
+        "cn8": "84803010"
+      },
+      {
+        "description": "41,00 M2      PLOŠČE IZ POLIMETILMETAKRILATA (PMMA)",
+        "count": 5,
+        "cn8": "39205100"
+      },
+      {
+        "description": "5 KOM    INDUSTRIJSKI MONITORJI ZA VGRADITEV V IGRALNE AVTOMATE - MONITORJI NA DOTIK (TOUCH MONITORJI) 23\"",
+        "count": 5,
+        "cn8": "85312040"
+      },
+      {
+        "description": "5 KOM    PRECIZNA PODLOŽNA PLOČEVINA",
+        "count": 5,
+        "cn8": "72119080"
+      },
+      {
+        "description": "5 KOM TESNILA IZ KOVINSKIH LISTOV",
+        "count": 5,
+        "cn8": "84841000"
+      },
+      {
+        "description": "500,00 TM    ROBNI TRAKOVI FURNIR",
+        "count": 5,
+        "cn8": "44089015"
+      },
+      {
+        "description": "5000 KOS    FILM IZ POLIETILEN TEREFTALATA, DEBELINE 36 MIKROMETROV",
+        "count": 5,
+        "cn8": "39206219"
+      },
+      {
+        "description": "5000,00 TM    ABS ROBNI TRAKOVI",
+        "count": 5,
+        "cn8": "39203000"
+      },
+      {
+        "description": "7 PAK        MOZNIKI",
+        "count": 5,
+        "cn8": "44219999"
+      },
+      {
+        "description": "IZOLACIJSKE PLOŠČE;3 KOSI",
+        "count": 5,
+        "cn8": "85472000"
+      },
+      {
+        "description": "IZOLACIJSKI PLOŠČI;2 KOSA",
+        "count": 5,
+        "cn8": "85472000"
+      },
+      {
+        "description": "ORODNE PLOŠČE, DEBELINE 4,75 mm IN VEČ;9 KOSOV",
+        "count": 5,
+        "cn8": "72111400"
+      },
+      {
+        "description": "1 KOM    ELEKTRIČNA PARNOKONVEKCIJSKA PEČ UNOX TIP XEVC-0511-E1RM",
+        "count": 4,
+        "cn8": "85141980"
+      },
+      {
+        "description": "1 KOM    LESENO POHIŠTVO, KI SE UPORABLJA V JEDILNICAH IN DNEVNIH SOBAH",
+        "count": 4,
+        "cn8": "94036010"
+      },
+      {
+        "description": "1 KOM    LIVARSKO ORODJE-ULIVNA KOMORA",
+        "count": 4,
+        "cn8": "84549000"
+      },
+      {
+        "description": "1 KOM ALTERNATOR",
+        "count": 4,
+        "cn8": "85059029"
+      },
+      {
+        "description": "1 KOM CEVI IZ GUME, OJAČENE ALI KOMBINIRANE SAMO S TEKSTILOM, BREZ PRIBORA",
+        "count": 4,
+        "cn8": "40093100"
+      },
+      {
+        "description": "1 KOM FILTRI ZA VSESANI ZRAK ZA MOTORJE Z NOTRANJIM IZGOREVANJEM",
+        "count": 4,
+        "cn8": "84213100"
+      },
+      {
+        "description": "1 KOM OHIŠJE TERMOSTATA",
+        "count": 4,
+        "cn8": "90329000"
+      },
+      {
+        "description": "1 KOM VARNOSTNI VENTIL",
+        "count": 4,
+        "cn8": "84814090"
+      },
+      {
+        "description": "1 KOM ČRPALKA VODE",
+        "count": 4,
+        "cn8": "84133080"
+      },
+      {
+        "description": "1 KOS        LESENO POHIŠTVO ZA JEDILNICE IN DNEVNE SOBE",
+        "count": 4,
+        "cn8": "94036010"
+      },
+      {
+        "description": "1 KOS        TERMOSTAT",
+        "count": 4,
+        "cn8": "90321080"
+      },
+      {
+        "description": "1 KOS       LESENO POHIŠTVO ZA SPALNICE",
+        "count": 4,
+        "cn8": "94035000"
+      },
+      {
+        "description": "1 KOS       MERILNI PRIBOR",
+        "count": 4,
+        "cn8": "90309000"
+      },
+      {
+        "description": "1 KOS       ČRPALKA GORIVA",
+        "count": 4,
+        "cn8": "84133020"
+      },
+      {
+        "description": "1 KPL      DRUGI IZDELKI IZ PLASTIČNIH MAS: PVC BLAŽILEC VRAT",
+        "count": 4,
+        "cn8": "39269097"
+      },
+      {
+        "description": "1 KPL      GRADBENI PROIZVODI ZA VGRADITEV IZ PLASTIČNIH MAS: PROTIPRAŠNA ŠČETKA",
+        "count": 4,
+        "cn8": "39259010"
+      },
+      {
+        "description": "1 KPL      PVC PROFIL",
+        "count": 4,
+        "cn8": "39162000"
+      },
+      {
+        "description": "10 KOM REFERENČNI PREPARATI",
+        "count": 4,
+        "cn8": "38249996"
+      },
+      {
+        "description": "10 KOS        DRUGI IZDELKI IZ PLASTIČNIH MAS",
+        "count": 4,
+        "cn8": "39269097"
+      },
+      {
+        "description": "10 KOS      MEDICINSKA OPREMA IN PRIPOMOČKI ZA MEDICINSKE NAMENE",
+        "count": 4,
+        "cn8": "90219090"
+      }
+    ],
+    "quality": {
+      "duplicate_groups": 0,
+      "duplicate_records": 0,
+      "empty_descriptions": 0,
+      "invalid_tariffs": 0,
+      "invalid_cn8": 0,
+      "normalization_failures": 0
+    },
+    "import_stats": {
+      "rows_read": 67009,
+      "rows_inserted": 62888,
+      "skipped_invalid_tariff": 5,
+      "skipped_empty_description": 1,
+      "skipped_invalid_countries": 15,
+      "skipped_header_repeats": 1,
+      "skipped_duplicates": 4099,
+      "source_file": "C:\\Users\\blažso\\Documents\\CURSOR\\export-compliance-wizard-main\\AES_EXPORTS.xlsx",
+      "unique_cn8": 2430
+    }
+  },
+  "imports_database": {
+    "label": "imports",
+    "present": true,
+    "valid_schema": true,
+    "path": "C:\\Users\\blažso\\Documents\\CURSOR\\export-compliance-wizard-main\\app\\data\\aes_imports.db",
+    "size_mb": 7.46,
+    "records": 17321,
+    "unique_cn8": 1550,
+    "top_100_cn8": [
+      {
+        "cn8": "86090090",
+        "count": 630
+      },
+      {
+        "cn8": "30021500",
+        "count": 249
+      },
+      {
+        "cn8": "72199080",
+        "count": 243
+      },
+      {
+        "cn8": "87141090",
+        "count": 228
+      },
+      {
+        "cn8": "21069098",
+        "count": 225
+      },
+      {
+        "cn8": "84099100",
+        "count": 224
+      },
+      {
+        "cn8": "19059070",
+        "count": 221
+      },
+      {
+        "cn8": "94042910",
+        "count": 207
+      },
+      {
+        "cn8": "30049000",
+        "count": 187
+      },
+      {
+        "cn8": "40169300",
+        "count": 179
+      },
+      {
+        "cn8": "40169997",
+        "count": 179
+      },
+      {
+        "cn8": "39269097",
+        "count": 172
+      },
+      {
+        "cn8": "76061191",
+        "count": 172
+      },
+      {
+        "cn8": "84031090",
+        "count": 164
+      },
+      {
+        "cn8": "94039910",
+        "count": 163
+      },
+      {
+        "cn8": "39203000",
+        "count": 160
+      },
+      {
+        "cn8": "84039090",
+        "count": 158
+      },
+      {
+        "cn8": "48211010",
+        "count": 149
+      },
+      {
+        "cn8": "87141050",
+        "count": 149
+      },
+      {
+        "cn8": "76061193",
+        "count": 148
+      },
+      {
+        "cn8": "73259910",
+        "count": 146
+      },
+      {
+        "cn8": "87141040",
+        "count": 137
+      },
+      {
+        "cn8": "73202020",
+        "count": 130
+      },
+      {
+        "cn8": "84834029",
+        "count": 130
+      },
+      {
+        "cn8": "85118000",
+        "count": 130
+      },
+      {
+        "cn8": "72193410",
+        "count": 128
+      },
+      {
+        "cn8": "87141030",
+        "count": 128
+      },
+      {
+        "cn8": "72193310",
+        "count": 126
+      },
+      {
+        "cn8": "87141010",
+        "count": 126
+      },
+      {
+        "cn8": "48203000",
+        "count": 125
+      },
+      {
+        "cn8": "94016100",
+        "count": 120
+      },
+      {
+        "cn8": "73269098",
+        "count": 113
+      },
+      {
+        "cn8": "94039100",
+        "count": 105
+      },
+      {
+        "cn8": "73259990",
+        "count": 97
+      },
+      {
+        "cn8": "85121000",
+        "count": 97
+      },
+      {
+        "cn8": "22089048",
+        "count": 95
+      },
+      {
+        "cn8": "22089033",
+        "count": 94
+      },
+      {
+        "cn8": "84213100",
+        "count": 94
+      },
+      {
+        "cn8": "85472000",
+        "count": 93
+      },
+      {
+        "cn8": "85111000",
+        "count": 92
+      },
+      {
+        "cn8": "82055980",
+        "count": 90
+      },
+      {
+        "cn8": "12119086",
+        "count": 84
+      },
+      {
+        "cn8": "84834023",
+        "count": 84
+      },
+      {
+        "cn8": "84842000",
+        "count": 83
+      },
+      {
+        "cn8": "85365019",
+        "count": 81
+      },
+      {
+        "cn8": "95049080",
+        "count": 81
+      },
+      {
+        "cn8": "73159000",
+        "count": 80
+      },
+      {
+        "cn8": "94039990",
+        "count": 80
+      },
+      {
+        "cn8": "84818081",
+        "count": 79
+      },
+      {
+        "cn8": "33049900",
+        "count": 75
+      },
+      {
+        "cn8": "73182200",
+        "count": 74
+      },
+      {
+        "cn8": "83024200",
+        "count": 74
+      },
+      {
+        "cn8": "73083000",
+        "count": 72
+      },
+      {
+        "cn8": "84212300",
+        "count": 70
+      },
+      {
+        "cn8": "90299000",
+        "count": 70
+      },
+      {
+        "cn8": "84099900",
+        "count": 69
+      },
+      {
+        "cn8": "73181582",
+        "count": 66
+      },
+      {
+        "cn8": "83014011",
+        "count": 66
+      },
+      {
+        "cn8": "73181699",
+        "count": 64
+      },
+      {
+        "cn8": "73182400",
+        "count": 64
+      },
+      {
+        "cn8": "94049090",
+        "count": 64
+      },
+      {
+        "cn8": "39211100",
+        "count": 63
+      },
+      {
+        "cn8": "73089098",
+        "count": 63
+      },
+      {
+        "cn8": "73151110",
+        "count": 63
+      },
+      {
+        "cn8": "84713000",
+        "count": 62
+      },
+      {
+        "cn8": "40091100",
+        "count": 60
+      },
+      {
+        "cn8": "34025090",
+        "count": 59
+      },
+      {
+        "cn8": "32081090",
+        "count": 56
+      },
+      {
+        "cn8": "42032910",
+        "count": 54
+      },
+      {
+        "cn8": "83021000",
+        "count": 54
+      },
+      {
+        "cn8": "85113000",
+        "count": 53
+      },
+      {
+        "cn8": "82024000",
+        "count": 52
+      },
+      {
+        "cn8": "94036010",
+        "count": 52
+      },
+      {
+        "cn8": "39206219",
+        "count": 51
+      },
+      {
+        "cn8": "39233010",
+        "count": 51
+      },
+      {
+        "cn8": "84829190",
+        "count": 51
+      },
+      {
+        "cn8": "84824000",
+        "count": 50
+      },
+      {
+        "cn8": "72193210",
+        "count": 49
+      },
+      {
+        "cn8": "87141020",
+        "count": 48
+      },
+      {
+        "cn8": "39219049",
+        "count": 47
+      },
+      {
+        "cn8": "64039196",
+        "count": 47
+      },
+      {
+        "cn8": "64039996",
+        "count": 47
+      },
+      {
+        "cn8": "73181595",
+        "count": 47
+      },
+      {
+        "cn8": "94035000",
+        "count": 47
+      },
+      {
+        "cn8": "39232100",
+        "count": 46
+      },
+      {
+        "cn8": "85318070",
+        "count": 45
+      },
+      {
+        "cn8": "94036090",
+        "count": 45
+      },
+      {
+        "cn8": "30042000",
+        "count": 43
+      },
+      {
+        "cn8": "44152020",
+        "count": 43
+      },
+      {
+        "cn8": "73181692",
+        "count": 43
+      },
+      {
+        "cn8": "84219990",
+        "count": 43
+      },
+      {
+        "cn8": "90178010",
+        "count": 43
+      },
+      {
+        "cn8": "39206290",
+        "count": 42
+      },
+      {
+        "cn8": "84829900",
+        "count": 42
+      },
+      {
+        "cn8": "20059950",
+        "count": 41
+      },
+      {
+        "cn8": "84249080",
+        "count": 41
+      },
+      {
+        "cn8": "48192000",
+        "count": 40
+      },
+      {
+        "cn8": "90328900",
+        "count": 40
+      },
+      {
+        "cn8": "85129090",
+        "count": 39
+      },
+      {
+        "cn8": "40132000",
+        "count": 38
+      }
+    ],
+    "top_100_descriptions": [
+      {
+        "description": "RABLJEN PRAZEN 20´ DV ASIS KONTEJNER, S POŠKODBAMI, ZA SHRANJEVANJE BLAGA.  ;1 KOS",
+        "count": 9,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN, POŠKODOVAN, PRAZEN 20´ DV DAMAGE  KONTEJNER, ZA PREVOZ BLAGA. ;1 KOS",
+        "count": 8,
+        "cn8": "86090090"
+      },
+      {
+        "description": "1 x RABLJEN, PRAZEN 20´ DC KONTEJNER, ZA PREVOZ BLAGA.  ;1 KOS",
+        "count": 7,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN PRAZEN 40´ HC CARGO WORTHY KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 7,
+        "cn8": "86090090"
+      },
+      {
+        "description": "VŽIGALNA TULJAVA ZA MOPED;1 KOS",
+        "count": 7,
+        "cn8": "85113000"
+      },
+      {
+        "description": "1 X RABLJEN PRAZEN 40´ HC KONTEJNER ZA PREVOZ BLAGA, L. 2024.;1 KOS",
+        "count": 6,
+        "cn8": "86090090"
+      },
+      {
+        "description": "FILTER GORIVA ZA MOPED;1 KOS",
+        "count": 6,
+        "cn8": "84212300"
+      },
+      {
+        "description": "FILTER GORIVA ZA MOPED;2 KOSA",
+        "count": 6,
+        "cn8": "84212300"
+      },
+      {
+        "description": "RABLJEN PRAZEN 20´ DV DAMAGE KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 6,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN PRAZEN 40´ HC DAMAGE KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 6,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN, POŠKODOVAN PRAZEN 20´ DV DAMAGE KONTEJNER ZA PREVOZ BLAGA. ;1 KOS",
+        "count": 6,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN, PRAZEN 40´ HC ASIS KONTEJNER, S POŠKODBAMI, ZA SHRANJEVANJE BLAGA BLAGA.  ;1 KOS",
+        "count": 6,
+        "cn8": "86090090"
+      },
+      {
+        "description": "1 KOS       KOVINSKI DELI POHIŠTVA: PODNOŽJE ZA MIZO",
+        "count": 5,
+        "cn8": "94039910"
+      },
+      {
+        "description": "1 x RABLJEN, PRAZEN 40´ HC NEW KONTEJNER, ZA PREVOZ BLAGA, LETNIK 2025.;1 KOS",
+        "count": 5,
+        "cn8": "86090090"
+      },
+      {
+        "description": "12 KOS       IGRALNE KARTE",
+        "count": 5,
+        "cn8": "95044000"
+      },
+      {
+        "description": "RABLJEN PRAZEN 20´ DV ASIS KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 5,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN PRAZEN 20´ DV CW KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 5,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN PRAZEN 40´ DV ASIS LADIJSKI KONTEJNER, S POŠKODBAMI, ZA SHRANJEVANJE BLAGA.;1 KOS",
+        "count": 5,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN PRAZEN 40´ HC ASIS KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 5,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN PRAZEN 40´ KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 5,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN, PRAZEN 20´ DV ASIS KONTEJNER, S POŠKODBAMI, ZA SHRANJEVANJE BLAGA.  ;1 KOS",
+        "count": 5,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN, PRAZEN 20´ DV DAMAGE KONTEJNER, POŠKODOVAN, ZA PREVOZ BLAGA.  ;1 KOS",
+        "count": 5,
+        "cn8": "86090090"
+      },
+      {
+        "description": "ZRAČNI FILTER ZA MOPED;1 KOS",
+        "count": 5,
+        "cn8": "84213100"
+      },
+      {
+        "description": "1 x RABLJEN PRAZEN 20´ DC KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 4,
+        "cn8": "86090090"
+      },
+      {
+        "description": "1 x RABLJEN, PRAZEN 20´ DC NEW KONTEJNER, ZA PREVOZ BLAGA, LETNIK 2025.;1 KOS",
+        "count": 4,
+        "cn8": "86090090"
+      },
+      {
+        "description": "20 KOM    STAVBNO OKOVJE ZA VRATA:KOVANE ROČKE",
+        "count": 4,
+        "cn8": "83024110"
+      },
+      {
+        "description": "200 KOM    CILINDRIČNE KLJUČAVNICE ZA KOVINSKA VRATA (BREZ CILINDRIČNIH VLOŽKOV)",
+        "count": 4,
+        "cn8": "83014011"
+      },
+      {
+        "description": "4 KOM    REZILNE VERIGE ZA ŽAGE",
+        "count": 4,
+        "cn8": "82024000"
+      },
+      {
+        "description": "500 KOM    CILINDRIČNE KLJUČAVNICE ZA KOVINSKA VRATA (BREZ CILINDRIČNIH VLOŽKOV)",
+        "count": 4,
+        "cn8": "83014011"
+      },
+      {
+        "description": "6 KOM    NAMIZNE DRUŽABNE IGRE",
+        "count": 4,
+        "cn8": "95049080"
+      },
+      {
+        "description": "8 KOM    REZILNE VERIGE ZA ŽAGE",
+        "count": 4,
+        "cn8": "82024000"
+      },
+      {
+        "description": "960 KOM    DRUGA ZDRAVILA ZA TERAPEVTSKO ALI PROFILAKTIČNO UPORABO V OBLIKI ALI EMBALAŽI ZA PRODAJO NA DROBNO:ATROGEL 100 ML.",
+        "count": 4,
+        "cn8": "30049000"
+      },
+      {
+        "description": "PRIBOR IN ARMATURE , NAMENJENI STALNI VGRADNJI: PLASTIČNA DRŽALA ZA RADIATORJE 4/1;50 KOSOV",
+        "count": 4,
+        "cn8": "39259010"
+      },
+      {
+        "description": "RABLJEN PRAZEN 40´ DV ASIS KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 4,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN PRAZEN 40´ RH DAMAGE KONTEJNER ZA PREVOZ BLAGA. ;1 KOS",
+        "count": 4,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN, POŠKODOVAN PRAZEN 20´ DV ASIS KONTEJNER ZA PREVOZ BLAGA. ;1 KOS",
+        "count": 4,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN, POŠKODOVAN PRAZEN 40´ DV DAMAGE KONTEJNER ZA PREVOZ BLAGA. ;1 KOS",
+        "count": 4,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN, PRAZEN 40´ HC ASIS KONTEJNER, Z NAPAKAMI,  ZA PREVOZ BLAGA. ;1 KOS",
+        "count": 4,
+        "cn8": "86090090"
+      },
+      {
+        "description": "STOP LUČ ZA MOPED;1 KOS",
+        "count": 4,
+        "cn8": "85121000"
+      },
+      {
+        "description": "ZAVORNE PLOŠČICE ZA MOPED;2 KOSA",
+        "count": 4,
+        "cn8": "87141010"
+      },
+      {
+        "description": "ZOBNIK ZA MOPED;1 KOS",
+        "count": 4,
+        "cn8": "84834029"
+      },
+      {
+        "description": "1 KOM    KOVINSKI DELI POHIŠTVA: PODNOŽJE ZA MIZO",
+        "count": 3,
+        "cn8": "94039910"
+      },
+      {
+        "description": "1 KOM    LESEN TOPLOTNO OBDELAN ZABOJ",
+        "count": 3,
+        "cn8": "44151010"
+      },
+      {
+        "description": "1 KOM ELEKTRIČNI VOZIČEK",
+        "count": 3,
+        "cn8": "85012000"
+      },
+      {
+        "description": "1 KOS          KOVINSKI DELI POHIŠTVA: PODNOŽJE ZA MIZE",
+        "count": 3,
+        "cn8": "94039910"
+      },
+      {
+        "description": "1 KOS       LESENO KUHINJSKO POHIŠTVO: KUHINJSKE OMARE",
+        "count": 3,
+        "cn8": "94034090"
+      },
+      {
+        "description": "1 PAKET    SLEPE ZAKOVICE ALU/STAINLESS 5x14 MM HEAD 14MM, PAKIRANO PO 250 KOM",
+        "count": 3,
+        "cn8": "83082000"
+      },
+      {
+        "description": "1 x RABLJEN , PRAZEN 20´ DC KONTEJNER ZA PREVOZ BLAGA, L. 2025.;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "1 x RABLJEN , PRAZEN 20´ DC KONTEJNER ZA PREVOZ BLAGA, LETNIK 2024.;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "1 x RABLJEN , PRAZEN 20´ DC KONTEJNER ZA PREVOZ BLAGA;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "1 x RABLJEN , PRAZEN 20´ HC KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "1 x RABLJEN PRAZEN 40´ HC BRAND NEW KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "1 x RABLJEN, PRAZEN 40´ HC BRAND NEW  KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "1 x UPORABLJEN , PRAZEN 20´ DC LADIJSKI KONTEJNER, ZA PREVOZ BLAGA, l. 2026.;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "1,00 KG    ZVEZDASTI ŽEBLJI",
+        "count": 3,
+        "cn8": "73170080"
+      },
+      {
+        "description": "100 PAR        POHIŠTVENO OKOVJE: DRSNIKI",
+        "count": 3,
+        "cn8": "83024200"
+      },
+      {
+        "description": "10000 KOS       SAMOLEPILNE TISKANE ETIKETE",
+        "count": 3,
+        "cn8": "49119900"
+      },
+      {
+        "description": "11 KOS     LESENI DELI POHIŠTVA: HRASTOVE PLOŠČE ZA MIZE",
+        "count": 3,
+        "cn8": "94039100"
+      },
+      {
+        "description": "1150 KOM    CILINDRIČNE KLJUČAVNICE ZA KOVINSKA VRATA (BREZ CILINDRIČNIH VLOŽKOV)",
+        "count": 3,
+        "cn8": "83014011"
+      },
+      {
+        "description": "12 KOM    LESENI DELI POHIŠTVA: HRASTOVE PLOŠČE ZA MIZE",
+        "count": 3,
+        "cn8": "94039100"
+      },
+      {
+        "description": "1X RABLJEN, PRAZEN 40´ HC NEW KONTEJNER, ZA PREVOZ BLAGA, LETNIK 2025.;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "1X RABLJEN, PRAZEN 40´ HC NEW KONTEJNER, ZA PREVOZ BLAGA, LETNIK 2026.;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "2 KOS    POLŽ MERILNIKA HITROSTI",
+        "count": 3,
+        "cn8": "90299000"
+      },
+      {
+        "description": "2 KOS    VŽIGALNE SVEČKE",
+        "count": 3,
+        "cn8": "85111000"
+      },
+      {
+        "description": "20 KOM PODLOŽKE IZ NERJAVNEGA JEKLA ZA MOPEDE BREZ NAVOJA",
+        "count": 3,
+        "cn8": "73182200"
+      },
+      {
+        "description": "2000 KOS       SAMOLEPILNE TISKANE ETIKETE",
+        "count": 3,
+        "cn8": "49119900"
+      },
+      {
+        "description": "20000 KOS       SAMOLEPILNE TISKANE ETIKETE",
+        "count": 3,
+        "cn8": "49119900"
+      },
+      {
+        "description": "24 KOM    IGRALNE KARTE",
+        "count": 3,
+        "cn8": "95044000"
+      },
+      {
+        "description": "25 KOM  PEČI ZA OGREVANJE PROSTOROV NA TRDA GORIVA/KAMIN  LUVANO",
+        "count": 3,
+        "cn8": "73218900"
+      },
+      {
+        "description": "2500 KOS      PALICE EPOKSI FI 40x275 mm",
+        "count": 3,
+        "cn8": "39169090"
+      },
+      {
+        "description": "30 KOM PEČI ZA OGREVANJE PROSTOROV NA TRDA GORIVA/KAMIN LUVANO LB04",
+        "count": 3,
+        "cn8": "73218900"
+      },
+      {
+        "description": "4 KOM    OBNOVLJENI ENOSTOPENJSKI TURBO KOMPRESORJI",
+        "count": 3,
+        "cn8": "84148011"
+      },
+      {
+        "description": "4 KOS       POSTELJNI VLOŽKI IZ DRUGIH MATERIALOV - POSTELJNI VLOŽKI IZ PENE IZ PLASTIČNIH MATERIALOV, PREKRITE S TKANINO IZ SINTETIČNIH MATERIALOV",
+        "count": 3,
+        "cn8": "94042990"
+      },
+      {
+        "description": "580 KOM     KANALSKI POKROVI IZ NODULARNEGA LITEGA ŽELEZA (STANDARD EN 1563) ZA VGRADNJO V CESTE IN PLOČNIKE, ZA DOSTOP DO KANALIZACIJE ALI ELEKTRIKE, KI JE SPELJANA V ZEMLJI POD CESTO ALI PLOČNIKOM",
+        "count": 3,
+        "cn8": "73259910"
+      },
+      {
+        "description": "6 KOS         NAMIZNE DRUŽABNE IGRE",
+        "count": 3,
+        "cn8": "95049080"
+      },
+      {
+        "description": "800 KOM    CILINDRIČNE KLJUČAVNICE ZA KOVINSKA VRATA (BREZ CILINDRIČNIH VLOŽKOV)",
+        "count": 3,
+        "cn8": "83014011"
+      },
+      {
+        "description": "ELEKTROKIRURŠKI MONOPOLARNI ROČNIK ZA IZSESAVANJE KIRURŠEGA DIMA (1 ŠKATLA = 20 KOSOV) ;640 KOSOV;32 ŠKATEL",
+        "count": 3,
+        "cn8": "90189040"
+      },
+      {
+        "description": "FILTER GORIVA ZA MOPED;3 KOSI",
+        "count": 3,
+        "cn8": "84212300"
+      },
+      {
+        "description": "GRED ZA MOPED;1 KOS",
+        "count": 3,
+        "cn8": "84831029"
+      },
+      {
+        "description": "JEKLENA VHODNA VRATA, S PRIPADAJOČIMI LETVAMI;21 KOSOV",
+        "count": 3,
+        "cn8": "73083000"
+      },
+      {
+        "description": "LEŽAJ ZA MOPED;1 KOS",
+        "count": 3,
+        "cn8": "84828000"
+      },
+      {
+        "description": "MALO RABLJEN, PRAZEN 40´ HC IICL KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "PIPICA GORIVA ZA MOPED;1 KOS",
+        "count": 3,
+        "cn8": "84818081"
+      },
+      {
+        "description": "PIPICA GORIVA ZA MOPED;3 KOSI",
+        "count": 3,
+        "cn8": "84818081"
+      },
+      {
+        "description": "PIPICA GORIVA ZA MOPED;5 KOSOV",
+        "count": 3,
+        "cn8": "84818081"
+      },
+      {
+        "description": "PIPICA GORIVA ZA MOPED;6 KOSOV",
+        "count": 3,
+        "cn8": "84818081"
+      },
+      {
+        "description": "POLŽ MERILNIKA HITROSTI ZA MOPED;2 KOSA",
+        "count": 3,
+        "cn8": "90299000"
+      },
+      {
+        "description": "RABLJEN POŠKODOVAN PRAZEN 40´ DV ASIS KONTEJNER ZA PREVOZ BLAGA. ;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN PRAZEN 20´ DV ASIS KONTEJNER, S POŠKODBAMI, ZA SHRANJEVANJE BLAGA, L. 2007.  ;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN PRAZEN 20´ DV ASIS LADIJSKI KONTEJNER, S POŠKODBAMI, ZA SHRANJEVANJE BLAGA.;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN PRAZEN 40´ HC CW KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN PRAZEN 40´ HQ NUEVO KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN, PRAZEN 20´ DV ASIS KONTEJNER, ZA PREVOZ BLAGA, S POŠKODBAMI.;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN, PRAZEN 20´ DV KONTEJNER, S POŠKODBAMI, ZA PREVOZ BLAGA",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN, PRAZEN 40´ HC CW KONTEJNER ZA PREVOZ BLAGA, L. 2011.;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN, PRAZEN, 20´ DV ASIS KONTEJNER, S POŠKODBAMI, ZA SHRANJEVANJE BLAGA.  ;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN, PRAZEN, 40´ HC ASIS KONTEJNER, S POŠKODBAMI, ZA SHRANJEVANJE BLAGA.  ;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN, PRAZEN, POŠKODOVAN 20´ DV DAMAGE KONTEJNER, ZA PREVOZ BLAGA.  ;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN, PRAZEN, POŠKODOVAN 40´ HC DAMAGE KONTEJNER, ZA PREVOZ BLAGA.  ;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      },
+      {
+        "description": "RABLJEN, PRAZEN, S POŠKODBAMI, 20´ DV ASIS KONTEJNER, ZA PREVOZ BLAGA. ;1 KOS",
+        "count": 3,
+        "cn8": "86090090"
+      }
+    ],
+    "quality": {
+      "duplicate_groups": 0,
+      "duplicate_records": 0,
+      "empty_descriptions": 0,
+      "invalid_tariffs": 0,
+      "invalid_cn8": 0,
+      "normalization_failures": 0
+    },
+    "import_stats": {
+      "rows_read": 19453,
+      "rows_inserted": 17321,
+      "skipped_invalid_tariff": 4,
+      "skipped_empty_description": 3,
+      "skipped_invalid_countries": 13,
+      "skipped_header_repeats": 0,
+      "skipped_duplicates": 2112,
+      "source_file": "C:\\Users\\blažso\\Documents\\CURSOR\\export-compliance-wizard-main\\AES_IMPORTS.xlsx",
+      "unique_cn8": 1550
+    }
+  },
+  "normalization_check": {
+    "present": true,
+    "total_records": 17321,
+    "distinct_original_tariffs": 1631,
+    "distinct_cn8": 1550,
+    "ten_digit_original_tariffs": 17321,
+    "eight_digit_original_tariffs": 0,
+    "random_100_samples": [
+      {
+        "original_tariff": "1905907000",
+        "normalized_cn8": "19059070",
+        "expected_cn8": "19059070",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8544601000",
+        "normalized_cn8": "85446010",
+        "expected_cn8": "85446010",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8609009000",
+        "normalized_cn8": "86090090",
+        "expected_cn8": "86090090",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "2005995090",
+        "normalized_cn8": "20059950",
+        "expected_cn8": "20059950",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "9404291000",
+        "normalized_cn8": "94042910",
+        "expected_cn8": "94042910",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "3004900000",
+        "normalized_cn8": "30049000",
+        "expected_cn8": "30049000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "7318158290",
+        "normalized_cn8": "73181582",
+        "expected_cn8": "73181582",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "9029100090",
+        "normalized_cn8": "90291000",
+        "expected_cn8": "90291000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "7219321000",
+        "normalized_cn8": "72193210",
+        "expected_cn8": "72193210",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "7315111000",
+        "normalized_cn8": "73151110",
+        "expected_cn8": "73151110",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "9017801000",
+        "normalized_cn8": "90178010",
+        "expected_cn8": "90178010",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "7318169990",
+        "normalized_cn8": "73181699",
+        "expected_cn8": "73181699",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "6505003000",
+        "normalized_cn8": "65050030",
+        "expected_cn8": "65050030",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "4016999790",
+        "normalized_cn8": "40169997",
+        "expected_cn8": "40169997",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8407908090",
+        "normalized_cn8": "84079080",
+        "expected_cn8": "84079080",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "7219908000",
+        "normalized_cn8": "72199080",
+        "expected_cn8": "72199080",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "7606119186",
+        "normalized_cn8": "76061191",
+        "expected_cn8": "76061191",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "3926909790",
+        "normalized_cn8": "39269097",
+        "expected_cn8": "39269097",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "7318156290",
+        "normalized_cn8": "73181562",
+        "expected_cn8": "73181562",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8481808190",
+        "normalized_cn8": "84818081",
+        "expected_cn8": "84818081",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "7326909890",
+        "normalized_cn8": "73269098",
+        "expected_cn8": "73269098",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8609009000",
+        "normalized_cn8": "86090090",
+        "expected_cn8": "86090090",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "9403603000",
+        "normalized_cn8": "94036030",
+        "expected_cn8": "94036030",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "6115210000",
+        "normalized_cn8": "61152100",
+        "expected_cn8": "61152100",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8512200090",
+        "normalized_cn8": "85122000",
+        "expected_cn8": "85122000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "3926909790",
+        "normalized_cn8": "39269097",
+        "expected_cn8": "39269097",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "4203291000",
+        "normalized_cn8": "42032910",
+        "expected_cn8": "42032910",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "3921110090",
+        "normalized_cn8": "39211100",
+        "expected_cn8": "39211100",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "1905907000",
+        "normalized_cn8": "19059070",
+        "expected_cn8": "19059070",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "3922200000",
+        "normalized_cn8": "39222000",
+        "expected_cn8": "39222000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8609009000",
+        "normalized_cn8": "86090090",
+        "expected_cn8": "86090090",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "2005995090",
+        "normalized_cn8": "20059950",
+        "expected_cn8": "20059950",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "7219321000",
+        "normalized_cn8": "72193210",
+        "expected_cn8": "72193210",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8546200000",
+        "normalized_cn8": "85462000",
+        "expected_cn8": "85462000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "7318155290",
+        "normalized_cn8": "73181552",
+        "expected_cn8": "73181552",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "1905907000",
+        "normalized_cn8": "19059070",
+        "expected_cn8": "19059070",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "9029900090",
+        "normalized_cn8": "90299000",
+        "expected_cn8": "90299000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "2106909855",
+        "normalized_cn8": "21069098",
+        "expected_cn8": "21069098",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8504330090",
+        "normalized_cn8": "85043300",
+        "expected_cn8": "85043300",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8482990090",
+        "normalized_cn8": "84829900",
+        "expected_cn8": "84829900",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8609009000",
+        "normalized_cn8": "86090090",
+        "expected_cn8": "86090090",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8511100090",
+        "normalized_cn8": "85111000",
+        "expected_cn8": "85111000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8714103000",
+        "normalized_cn8": "87141030",
+        "expected_cn8": "87141030",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "7324100090",
+        "normalized_cn8": "73241000",
+        "expected_cn8": "73241000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "3926909790",
+        "normalized_cn8": "39269097",
+        "expected_cn8": "39269097",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8714103000",
+        "normalized_cn8": "87141030",
+        "expected_cn8": "87141030",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8483102990",
+        "normalized_cn8": "84831029",
+        "expected_cn8": "84831029",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "3304200000",
+        "normalized_cn8": "33042000",
+        "expected_cn8": "33042000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8547200090",
+        "normalized_cn8": "85472000",
+        "expected_cn8": "85472000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8482400000",
+        "normalized_cn8": "84824000",
+        "expected_cn8": "84824000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8504500090",
+        "normalized_cn8": "85045000",
+        "expected_cn8": "85045000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8301401100",
+        "normalized_cn8": "83014011",
+        "expected_cn8": "83014011",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8301401100",
+        "normalized_cn8": "83014011",
+        "expected_cn8": "83014011",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "3405901000",
+        "normalized_cn8": "34059010",
+        "expected_cn8": "34059010",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8482101090",
+        "normalized_cn8": "84821010",
+        "expected_cn8": "84821010",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "4009210000",
+        "normalized_cn8": "40092100",
+        "expected_cn8": "40092100",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8714109090",
+        "normalized_cn8": "87141090",
+        "expected_cn8": "87141090",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "9403609000",
+        "normalized_cn8": "94036090",
+        "expected_cn8": "94036090",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8424908080",
+        "normalized_cn8": "84249080",
+        "expected_cn8": "84249080",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "4203291000",
+        "normalized_cn8": "42032910",
+        "expected_cn8": "42032910",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8511800090",
+        "normalized_cn8": "85118000",
+        "expected_cn8": "85118000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "4902900000",
+        "normalized_cn8": "49029000",
+        "expected_cn8": "49029000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8530800000",
+        "normalized_cn8": "85308000",
+        "expected_cn8": "85308000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8462619000",
+        "normalized_cn8": "84626190",
+        "expected_cn8": "84626190",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "7318169290",
+        "normalized_cn8": "73181692",
+        "expected_cn8": "73181692",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "7318240090",
+        "normalized_cn8": "73182400",
+        "expected_cn8": "73182400",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8433900000",
+        "normalized_cn8": "84339000",
+        "expected_cn8": "84339000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8421310090",
+        "normalized_cn8": "84213100",
+        "expected_cn8": "84213100",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "4016999790",
+        "normalized_cn8": "40169997",
+        "expected_cn8": "40169997",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "7606129386",
+        "normalized_cn8": "76061293",
+        "expected_cn8": "76061293",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8708959990",
+        "normalized_cn8": "87089599",
+        "expected_cn8": "87089599",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "4016930090",
+        "normalized_cn8": "40169300",
+        "expected_cn8": "40169300",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "7318169990",
+        "normalized_cn8": "73181699",
+        "expected_cn8": "73181699",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "3920300090",
+        "normalized_cn8": "39203000",
+        "expected_cn8": "39203000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "1512199010",
+        "normalized_cn8": "15121990",
+        "expected_cn8": "15121990",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "0901210000",
+        "normalized_cn8": "09012100",
+        "expected_cn8": "09012100",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8425110000",
+        "normalized_cn8": "84251100",
+        "expected_cn8": "84251100",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8609009000",
+        "normalized_cn8": "86090090",
+        "expected_cn8": "86090090",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "3922200000",
+        "normalized_cn8": "39222000",
+        "expected_cn8": "39222000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "4016995790",
+        "normalized_cn8": "40169957",
+        "expected_cn8": "40169957",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8409910090",
+        "normalized_cn8": "84099100",
+        "expected_cn8": "84099100",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "3405901000",
+        "normalized_cn8": "34059010",
+        "expected_cn8": "34059010",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8708999790",
+        "normalized_cn8": "87089997",
+        "expected_cn8": "87089997",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8479820000",
+        "normalized_cn8": "84798200",
+        "expected_cn8": "84798200",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8482400000",
+        "normalized_cn8": "84824000",
+        "expected_cn8": "84824000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8483908190",
+        "normalized_cn8": "84839081",
+        "expected_cn8": "84839081",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "3920999000",
+        "normalized_cn8": "39209990",
+        "expected_cn8": "39209990",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "3301299100",
+        "normalized_cn8": "33012991",
+        "expected_cn8": "33012991",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "7308909890",
+        "normalized_cn8": "73089098",
+        "expected_cn8": "73089098",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "4911990000",
+        "normalized_cn8": "49119900",
+        "expected_cn8": "49119900",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8514907000",
+        "normalized_cn8": "85149070",
+        "expected_cn8": "85149070",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8424908080",
+        "normalized_cn8": "84249080",
+        "expected_cn8": "84249080",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8531804090",
+        "normalized_cn8": "85318040",
+        "expected_cn8": "85318040",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "6301201000",
+        "normalized_cn8": "63012010",
+        "expected_cn8": "63012010",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8536699099",
+        "normalized_cn8": "85366990",
+        "expected_cn8": "85366990",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "3923301000",
+        "normalized_cn8": "39233010",
+        "expected_cn8": "39233010",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "3004900000",
+        "normalized_cn8": "30049000",
+        "expected_cn8": "30049000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "9029100090",
+        "normalized_cn8": "90291000",
+        "expected_cn8": "90291000",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "8467910000",
+        "normalized_cn8": "84679100",
+        "expected_cn8": "84679100",
+        "matches_expected": true
+      },
+      {
+        "original_tariff": "2007993980",
+        "normalized_cn8": "20079939",
+        "expected_cn8": "20079939",
+        "matches_expected": true
+      }
+    ],
+    "known_normalization_checks": [
+      {
+        "original_tariff": "7318159090",
+        "expected_cn8": "73181590",
+        "found": false,
+        "stored_cn8": null,
+        "count": 0,
+        "correct": null
+      },
+      {
+        "original_tariff": "3920102190",
+        "expected_cn8": "39201021",
+        "found": false,
+        "stored_cn8": null,
+        "count": 0,
+        "correct": null
+      },
+      {
+        "original_tariff": "8302420090",
+        "expected_cn8": "83024200",
+        "found": true,
+        "stored_cn8": "83024200",
+        "count": 74,
+        "correct": true
+      }
+    ],
+    "random_sample_failures": 0
+  },
+  "coverage": {
+    "total_records": 80209,
+    "unique_cn8": 2884,
+    "top_100_cn8": [
+      {
+        "cn8": "39203000",
+        "count": 1563
+      },
+      {
+        "cn8": "83024200",
+        "count": 1177
+      },
+      {
+        "cn8": "94039910",
+        "count": 1009
+      },
+      {
+        "cn8": "39269097",
+        "count": 935
+      },
+      {
+        "cn8": "59031090",
+        "count": 844
+      },
+      {
+        "cn8": "58013600",
+        "count": 835
+      },
+      {
+        "cn8": "86090090",
+        "count": 660
+      },
+      {
+        "cn8": "58013300",
+        "count": 650
+      },
+      {
+        "cn8": "58013700",
+        "count": 616
+      },
+      {
+        "cn8": "44089015",
+        "count": 613
+      },
+      {
+        "cn8": "73269098",
+        "count": 585
+      },
+      {
+        "cn8": "54079300",
+        "count": 571
+      },
+      {
+        "cn8": "39263000",
+        "count": 545
+      },
+      {
+        "cn8": "63079098",
+        "count": 536
+      },
+      {
+        "cn8": "40169300",
+        "count": 525
+      },
+      {
+        "cn8": "54077300",
+        "count": 524
+      },
+      {
+        "cn8": "41071291",
+        "count": 501
+      },
+      {
+        "cn8": "72249018",
+        "count": 501
+      },
+      {
+        "cn8": "54075200",
+        "count": 500
+      },
+      {
+        "cn8": "54075300",
+        "count": 495
+      },
+      {
+        "cn8": "39219055",
+        "count": 492
+      },
+      {
+        "cn8": "54076130",
+        "count": 466
+      },
+      {
+        "cn8": "94039990",
+        "count": 459
+      },
+      {
+        "cn8": "72249014",
+        "count": 454
+      },
+      {
+        "cn8": "21069098",
+        "count": 442
+      },
+      {
+        "cn8": "83021000",
+        "count": 426
+      },
+      {
+        "cn8": "72285020",
+        "count": 419
+      },
+      {
+        "cn8": "72072032",
+        "count": 414
+      },
+      {
+        "cn8": "54077200",
+        "count": 381
+      },
+      {
+        "cn8": "54079200",
+        "count": 375
+      },
+      {
+        "cn8": "48191000",
+        "count": 374
+      },
+      {
+        "cn8": "54076150",
+        "count": 371
+      },
+      {
+        "cn8": "22030001",
+        "count": 358
+      },
+      {
+        "cn8": "34029090",
+        "count": 353
+      },
+      {
+        "cn8": "44152020",
+        "count": 321
+      },
+      {
+        "cn8": "34031980",
+        "count": 321
+      },
+      {
+        "cn8": "48115100",
+        "count": 321
+      },
+      {
+        "cn8": "55151290",
+        "count": 299
+      },
+      {
+        "cn8": "54071000",
+        "count": 298
+      },
+      {
+        "cn8": "58013100",
+        "count": 293
+      },
+      {
+        "cn8": "40169997",
+        "count": 293
+      },
+      {
+        "cn8": "60019200",
+        "count": 292
+      },
+      {
+        "cn8": "60053500",
+        "count": 283
+      },
+      {
+        "cn8": "34039900",
+        "count": 283
+      },
+      {
+        "cn8": "27101999",
+        "count": 278
+      },
+      {
+        "cn8": "84818099",
+        "count": 276
+      },
+      {
+        "cn8": "85371091",
+        "count": 272
+      },
+      {
+        "cn8": "84099100",
+        "count": 272
+      },
+      {
+        "cn8": "54078300",
+        "count": 269
+      },
+      {
+        "cn8": "58110000",
+        "count": 266
+      },
+      {
+        "cn8": "87141090",
+        "count": 266
+      },
+      {
+        "cn8": "94042910",
+        "count": 255
+      },
+      {
+        "cn8": "30021500",
+        "count": 250
+      },
+      {
+        "cn8": "84212300",
+        "count": 247
+      },
+      {
+        "cn8": "94039100",
+        "count": 243
+      },
+      {
+        "cn8": "72199080",
+        "count": 243
+      },
+      {
+        "cn8": "38140090",
+        "count": 242
+      },
+      {
+        "cn8": "90183900",
+        "count": 237
+      },
+      {
+        "cn8": "73089098",
+        "count": 236
+      },
+      {
+        "cn8": "76061191",
+        "count": 236
+      },
+      {
+        "cn8": "59070000",
+        "count": 234
+      },
+      {
+        "cn8": "84031090",
+        "count": 233
+      },
+      {
+        "cn8": "19059070",
+        "count": 231
+      },
+      {
+        "cn8": "94035000",
+        "count": 228
+      },
+      {
+        "cn8": "55142300",
+        "count": 223
+      },
+      {
+        "cn8": "84213100",
+        "count": 221
+      },
+      {
+        "cn8": "48211010",
+        "count": 221
+      },
+      {
+        "cn8": "35069190",
+        "count": 220
+      },
+      {
+        "cn8": "85444290",
+        "count": 219
+      },
+      {
+        "cn8": "39233010",
+        "count": 215
+      },
+      {
+        "cn8": "61091000",
+        "count": 214
+      },
+      {
+        "cn8": "83016000",
+        "count": 213
+      },
+      {
+        "cn8": "82055980",
+        "count": 213
+      },
+      {
+        "cn8": "44219999",
+        "count": 212
+      },
+      {
+        "cn8": "83014011",
+        "count": 212
+      },
+      {
+        "cn8": "49111090",
+        "count": 206
+      },
+      {
+        "cn8": "76042990",
+        "count": 205
+      },
+      {
+        "cn8": "84039090",
+        "count": 203
+      },
+      {
+        "cn8": "84099900",
+        "count": 202
+      },
+      {
+        "cn8": "30049000",
+        "count": 197
+      },
+      {
+        "cn8": "94016100",
+        "count": 193
+      },
+      {
+        "cn8": "85365019",
+        "count": 193
+      },
+      {
+        "cn8": "94032080",
+        "count": 193
+      },
+      {
+        "cn8": "55151990",
+        "count": 189
+      },
+      {
+        "cn8": "52114910",
+        "count": 187
+      },
+      {
+        "cn8": "54076990",
+        "count": 186
+      },
+      {
+        "cn8": "21069059",
+        "count": 184
+      },
+      {
+        "cn8": "48203000",
+        "count": 183
+      },
+      {
+        "cn8": "83011000",
+        "count": 181
+      },
+      {
+        "cn8": "84219990",
+        "count": 174
+      },
+      {
+        "cn8": "84834029",
+        "count": 172
+      },
+      {
+        "cn8": "38249996",
+        "count": 171
+      },
+      {
+        "cn8": "76061193",
+        "count": 167
+      },
+      {
+        "cn8": "32089091",
+        "count": 166
+      },
+      {
+        "cn8": "73182200",
+        "count": 164
+      },
+      {
+        "cn8": "87141050",
+        "count": 160
+      },
+      {
+        "cn8": "85118000",
+        "count": 158
+      },
+      {
+        "cn8": "72111400",
+        "count": 157
+      },
+      {
+        "cn8": "55143050",
+        "count": 157
+      },
+      {
+        "cn8": "90303100",
+        "count": 156
+      }
+    ],
+    "top_100_brands": [
+      {
+        "brand": "sika",
+        "count": 17
+      },
+      {
+        "brand": "bosch",
+        "count": 7
+      },
+      {
+        "brand": "hilti",
+        "count": 3
+      },
+      {
+        "brand": "makita",
+        "count": 1
+      }
+    ],
+    "top_100_descriptions": [
+      {
+        "description": "1 KOM     KOLEKCIJE",
+        "count": 36
+      },
+      {
+        "description": "2 KOM     KOLEKCIJE",
+        "count": 22
+      },
+      {
+        "description": "5 KOM     KOLEKCIJE",
+        "count": 14
+      },
+      {
+        "description": "3 KOM     KOLEKCIJE",
+        "count": 13
+      },
+      {
+        "description": "8 KOM     KOLEKCIJE",
+        "count": 13
+      },
+      {
+        "description": "4 KOM     KOLEKCIJE",
+        "count": 13
+      },
+      {
+        "description": "7 KOM     KOLEKCIJE",
+        "count": 10
+      },
+      {
+        "description": "LESENI PLOŠČATI PALETI;2 KOSA",
+        "count": 9
+      },
+      {
+        "description": "LESENE PLOŠČATE PALETE;3 KOSI",
+        "count": 9
+      },
+      {
+        "description": "120 KOS    BUTANON - METIL ETIL KETON",
+        "count": 9
+      },
+      {
+        "description": "9 KOM     KOLEKCIJE",
+        "count": 9
+      },
+      {
+        "description": "RABLJEN PRAZEN 20´ DV ASIS KONTEJNER, S POŠKODBAMI, ZA SHRANJEVANJE BLAGA.  ;1 KOS",
+        "count": 9
+      },
+      {
+        "description": "LESENA PLOŠČATA PALETA;1 KOS",
+        "count": 8
+      },
+      {
+        "description": "10 KOM     KOLEKCIJE",
+        "count": 8
+      },
+      {
+        "description": "RABLJEN, POŠKODOVAN, PRAZEN 20´ DV DAMAGE  KONTEJNER, ZA PREVOZ BLAGA. ;1 KOS",
+        "count": 8
+      },
+      {
+        "description": "400 KOS      POHIŠTVENI TEČAJI",
+        "count": 7
+      },
+      {
+        "description": "200 KOS    PRIBOR ZA POHIŠTVO IZ PLASTIČNIH MAS",
+        "count": 7
+      },
+      {
+        "description": "2 KOM    ORODNE PLOŠČE",
+        "count": 7
+      },
+      {
+        "description": "1 KOM VARNOSTNI VENTILI",
+        "count": 7
+      },
+      {
+        "description": "2 KOM    LESENO POHIŠTVO ZA SPALNICE",
+        "count": 7
+      },
+      {
+        "description": "2000,00 TM    ROBNI TRAKOVI FURNIR",
+        "count": 7
+      },
+      {
+        "description": "1 KOM ODMIČNA GRED",
+        "count": 7
+      },
+      {
+        "description": "2400,00 TM     ABS ROBNI TRAKOVI",
+        "count": 7
+      },
+      {
+        "description": "FILTER GORIVA ZA MOPED;1 KOS",
+        "count": 7
+      },
+      {
+        "description": "1 KOM ELEKTROMAGNET",
+        "count": 7
+      },
+      {
+        "description": "1 x RABLJEN, PRAZEN 20´ DC KONTEJNER, ZA PREVOZ BLAGA.  ;1 KOS",
+        "count": 7
+      },
+      {
+        "description": "RABLJEN PRAZEN 40´ HC CARGO WORTHY KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 7
+      },
+      {
+        "description": "VŽIGALNA TULJAVA ZA MOPED;1 KOS",
+        "count": 7
+      },
+      {
+        "description": "4 KOM TESNILA IZ KOVINSKIH LISTOV",
+        "count": 6
+      },
+      {
+        "description": "200 KOS      POHIŠTVENI KOLEŠČKI",
+        "count": 6
+      },
+      {
+        "description": "12 KOM     KOLEKCIJE",
+        "count": 6
+      },
+      {
+        "description": "200 KOS    POHIŠTVENI TEČAJI",
+        "count": 6
+      },
+      {
+        "description": "100 KOS     PRIBOR ZA POHIŠTVO IZ PLASTIČNIH MAS",
+        "count": 6
+      },
+      {
+        "description": "1 KOS       ZAGANJAČ",
+        "count": 6
+      },
+      {
+        "description": "13 KOM     KOLEKCIJE",
+        "count": 6
+      },
+      {
+        "description": "1000,00 TM    ROBNI TRAKOVI FURNIR",
+        "count": 6
+      },
+      {
+        "description": "5000,00 TM    ABS ROBNI TRAKOVI",
+        "count": 6
+      },
+      {
+        "description": "1 KOM VARNOSTNI VENTIL",
+        "count": 6
+      },
+      {
+        "description": "ORODNI PLOŠČI, DEBELINE 4,75 mm IN VEČ;2 KOSA",
+        "count": 6
+      },
+      {
+        "description": "RABLJENA PRAZNA 20˝ KONTEJNERJA ZA PREVOZ BLAGA;2 KOSA",
+        "count": 6
+      },
+      {
+        "description": "3 KOS       LESENO POHIŠTVO ZA SPALNICE",
+        "count": 6
+      },
+      {
+        "description": "ZOBNIK ZA MOPED;1 KOS",
+        "count": 6
+      },
+      {
+        "description": "1,00 M     TKANINE",
+        "count": 6
+      },
+      {
+        "description": "1 KOS        VEČFAZNI MOTORJI NA IZMENIČNI TOK Z IZHODNO MOČJO NAD 7,5 kW DO VKLJUČNO 37 kW - MOTOR DVIGALA",
+        "count": 6
+      },
+      {
+        "description": "100 KOS      POHIŠTVENO OKOVJE",
+        "count": 6
+      },
+      {
+        "description": "1 KOM ALTERNATOR",
+        "count": 6
+      },
+      {
+        "description": "RABLJEN, POŠKODOVAN PRAZEN 20´ DV DAMAGE KONTEJNER ZA PREVOZ BLAGA. ;1 KOS",
+        "count": 6
+      },
+      {
+        "description": "RABLJEN, PRAZEN 40´ HC ASIS KONTEJNER, S POŠKODBAMI, ZA SHRANJEVANJE BLAGA BLAGA.  ;1 KOS",
+        "count": 6
+      },
+      {
+        "description": "1 X RABLJEN PRAZEN 40´ HC KONTEJNER ZA PREVOZ BLAGA, L. 2024.;1 KOS",
+        "count": 6
+      },
+      {
+        "description": "RABLJEN PRAZEN 40´ HC DAMAGE KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 6
+      },
+      {
+        "description": "RABLJEN PRAZEN 20´ DV DAMAGE KONTEJNER ZA PREVOZ BLAGA.;1 KOS",
+        "count": 6
+      },
+      {
+        "description": "FILTER GORIVA ZA MOPED;2 KOSA",
+        "count": 6
+      },
+      {
+        "description": "GRED ZA MOPED;1 KOS",
+        "count": 6
+      },
+      {
+        "description": "1000 KOS    POHIŠTVENI VIJAKI",
+        "count": 5
+      },
+      {
+        "description": "2 PAK    SAMOVREZNI VIJAKI",
+        "count": 5
+      },
+      {
+        "description": "5 KOM    PRECIZNA PODLOŽNA PLOČEVINA",
+        "count": 5
+      },
+      {
+        "description": "1 KOS       VARNOSTNI VENTIL",
+        "count": 5
+      },
+      {
+        "description": "18 KOM    PLINSKI CILINDRI",
+        "count": 5
+      },
+      {
+        "description": "7 PAK        MOZNIKI",
+        "count": 5
+      },
+      {
+        "description": "100 KOS      PRIBOR ZA POHIŠTVO IZ PLASTIČNIH MAS",
+        "count": 5
+      },
+      {
+        "description": "2 KPL      ALU VODILA ZGORNJA IN SPODNJA, PREČNE LETVE IN ROČAJI",
+        "count": 5
+      },
+      {
+        "description": "1 KPL      POHIŠTVENI KOLEŠČKI",
+        "count": 5
+      },
+      {
+        "description": "1 KOM    POLIURETANSKE PLOŠČE",
+        "count": 5
+      },
+      {
+        "description": "4 KOS    ORODNE PLOŠČE",
+        "count": 5
+      },
+      {
+        "description": "2 KOM    DRUGO KOVINSKO POHIŠTVO",
+        "count": 5
+      },
+      {
+        "description": "2 KOM    PRECIZNA PODLOŽNA PLOČEVINA",
+        "count": 5
+      },
+      {
+        "description": "1000 KOS    POHIŠTVENO OKOVJE",
+        "count": 5
+      },
+      {
+        "description": "3100,00 TM    ABS ROBNI TRAKOVI",
+        "count": 5
+      },
+      {
+        "description": "2000 KOS      POHIŠTVENI VIJAKI",
+        "count": 5
+      },
+      {
+        "description": "2 KOM TESNILA IZ KOVINSKIH LISTOV",
+        "count": 5
+      },
+      {
+        "description": "20 KPL ČISTILNA VOLNA JEKLENA",
+        "count": 5
+      },
+      {
+        "description": "100 KOS    DELI IN PRIBOR ZA DIHALNE APARATE",
+        "count": 5
+      },
+      {
+        "description": "4 KOM    DRSNI LEŽAJI",
+        "count": 5
+      },
+      {
+        "description": "5000 KOS    FILM IZ POLIETILEN TEREFTALATA, DEBELINE 36 MIKROMETROV",
+        "count": 5
+      },
+      {
+        "description": "4 KPL.    LESENI MODELI ZA KALUPE S PRIPADAJOČIMI JEDROVNIKI - ZAČASNI IZVOZ",
+        "count": 5
+      },
+      {
+        "description": "100,00 TM    ALU ABS ROBNI TRAKOVI",
+        "count": 5
+      },
+      {
+        "description": "2200,00 TM    ABS ROBNI TRAKOVI",
+        "count": 5
+      },
+      {
+        "description": "1 KOS        DRUGO KOVINSKO POHIŠTVO",
+        "count": 5
+      },
+      {
+        "description": "350 KOM    PRIBOR ZA POHIŠTVO IZ PLASTIČNIH MAS",
+        "count": 5
+      },
+      {
+        "description": "3 KOS        MERILNI PRIBOR",
+        "count": 5
+      },
+      {
+        "description": "5 KOM TESNILA IZ KOVINSKIH LISTOV",
+        "count": 5
+      },
+      {
+        "description": "1 KOM ZAGANJAČ",
+        "count": 5
+      },
+      {
+        "description": "500,00 TM    ROBNI TRAKOVI FURNIR",
+        "count": 5
+      },
+      {
+        "description": "IZOLACIJSKI PLOŠČI;2 KOSA",
+        "count": 5
+      },
+      {
+        "description": "16 KOM     KOLEKCIJE",
+        "count": 5
+      },
+      {
+        "description": "IZOLACIJSKE PLOŠČE;3 KOSI",
+        "count": 5
+      },
+      {
+        "description": "3 KOM FILTRI ZA VSESANI ZRAK ZA MOTORJE Z NOTRANJIM IZGOREVANJEM",
+        "count": 5
+      },
+      {
+        "description": "300,00 TM     ROBNI TRAKOVI FURNIR",
+        "count": 5
+      },
+      {
+        "description": "5 KOM    INDUSTRIJSKI MONITORJI ZA VGRADITEV V IGRALNE AVTOMATE - MONITORJI NA DOTIK (TOUCH MONITORJI) 23\"",
+        "count": 5
+      },
+      {
+        "description": "3,00 M     TKANINE",
+        "count": 5
+      },
+      {
+        "description": "200 KOS     POHIŠTVENO OKOVJE",
+        "count": 5
+      },
+      {
+        "description": "ORODNE PLOŠČE, DEBELINE 4,75 mm IN VEČ;9 KOSOV",
+        "count": 5
+      },
+      {
+        "description": "18 KOM     KOLEKCIJE",
+        "count": 5
+      },
+      {
+        "description": "1 KOS       HLADILNIK OLJA",
+        "count": 5
+      },
+      {
+        "description": "10 KOM    POHIŠTVENE KLJUČAVNICE",
+        "count": 5
+      },
+      {
+        "description": "10 PAK        SAMOVREZNI VIJAKI",
+        "count": 5
+      },
+      {
+        "description": "41,00 M2      PLOŠČE IZ POLIMETILMETAKRILATA (PMMA)",
+        "count": 5
+      },
+      {
+        "description": "GUMI TESNILA;3 KOSI",
+        "count": 5
+      },
+      {
+        "description": "10 KOM OPORA ZA LONČNICE",
+        "count": 5
+      },
+      {
+        "description": "2 KOM    POLIURETANSKE PLOŠČE",
+        "count": 5
+      }
+    ]
+  },
+  "expected_vs_actual": {
+    "exports": {
+      "expected": 62891,
+      "actual": 62888,
+      "variance_pct": 0.0,
+      "within_5pct": true,
+      "explanation": null
+    },
+    "imports": {
+      "expected_minimum": 50000,
+      "actual": 17321,
+      "variance_pct": 0.6536,
+      "within_5pct": false,
+      "explanation": "Imports count (17,321) is 65.4% below expected (50,000). Likely causes: deduplication during import, skipped invalid tariffs/countries/descriptions, or import not yet run from full XLSX."
+    }
+  }
+}

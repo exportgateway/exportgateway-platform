@@ -1,0 +1,193 @@
+{
+  "databases": [
+    {
+      "path": "C:\\Users\\bla\u017eso\\Documents\\CURSOR\\export-compliance-wizard-main\\app\\data\\classification_audit.db",
+      "size_bytes": 446464,
+      "size_mb": 0.43
+    },
+    {
+      "path": "C:\\Users\\bla\u017eso\\Documents\\CURSOR\\export-compliance-wizard-main\\app\\data\\cn_nomenclature.db",
+      "size_bytes": 16338944,
+      "size_mb": 15.58
+    },
+    {
+      "path": "C:\\Users\\bla\u017eso\\Documents\\CURSOR\\backup\\export-compliance-wizard\\app\\data\\classification_audit.db",
+      "size_bytes": 1425408,
+      "size_mb": 1.36
+    },
+    {
+      "path": "C:\\Users\\bla\u017eso\\Documents\\CURSOR\\backup\\export-compliance-wizard\\app\\data\\cn_nomenclature.db",
+      "size_bytes": 16338944,
+      "size_mb": 15.58
+    },
+    {
+      "path": "C:\\Users\\bla\u017eso\\Documents\\CURSOR\\backup\\export-compliance-wizard\\app\\data\\historical_classifications.db",
+      "size_bytes": 26943488,
+      "size_mb": 25.7
+    },
+    {
+      "path": "C:\\Users\\bla\u017eso\\Documents\\CURSOR\\export-compliance-wizard-main\\app\\data\\classification_audit.db",
+      "size_bytes": 446464,
+      "size_mb": 0.43
+    },
+    {
+      "path": "C:\\Users\\bla\u017eso\\Documents\\CURSOR\\export-compliance-wizard-main\\app\\data\\cn_nomenclature.db",
+      "size_bytes": 16338944,
+      "size_mb": 15.58
+    },
+    {
+      "path": "C:\\Users\\bla\u017eso\\Documents\\CURSOR\\export-compliance-wizard-main\\app\\data\\classification_audit.db",
+      "size_bytes": 446464,
+      "size_mb": 0.43
+    },
+    {
+      "path": "C:\\Users\\bla\u017eso\\Documents\\CURSOR\\export-compliance-wizard-main\\app\\data\\cn_nomenclature.db",
+      "size_bytes": 16338944,
+      "size_mb": 15.58
+    }
+  ],
+  "xlsx": [
+    {
+      "path": "C:\\Users\\bla\u017eso\\Documents\\CURSOR\\export-compliance-wizard-main\\AES_EXPORTS.xlsx",
+      "size_bytes": 3111199,
+      "size_mb": 2.97
+    },
+    {
+      "path": "C:\\Users\\bla\u017eso\\Documents\\CURSOR\\export-compliance-wizard-main\\AES_IMPORTS.xlsx",
+      "size_bytes": 984147,
+      "size_mb": 0.94
+    },
+    {
+      "path": "C:\\Users\\bla\u017eso\\Documents\\CURSOR\\export-compliance-wizard-main\\AES_EXPORTS.xlsx",
+      "size_bytes": 3111199,
+      "size_mb": 2.97
+    },
+    {
+      "path": "C:\\Users\\bla\u017eso\\Documents\\CURSOR\\export-compliance-wizard-main\\AES_IMPORTS.xlsx",
+      "size_bytes": 984147,
+      "size_mb": 0.94
+    },
+    {
+      "path": "C:\\Users\\bla\u017eso\\Documents\\CURSOR\\export-compliance-wizard-main\\AES_EXPORTS.xlsx",
+      "size_bytes": 3111199,
+      "size_mb": 2.97
+    },
+    {
+      "path": "C:\\Users\\bla\u017eso\\Documents\\CURSOR\\export-compliance-wizard-main\\AES_IMPORTS.xlsx",
+      "size_bytes": 984147,
+      "size_mb": 0.94
+    }
+  ],
+  "data_dir_listing": [
+    {
+      "name": "classification_audit.db",
+      "size_bytes": 446464,
+      "is_dir": false
+    },
+    {
+      "name": "cn_commercial_products.json",
+      "size_bytes": 6007,
+      "is_dir": false
+    },
+    {
+      "name": "cn_industrial_entities.json",
+      "size_bytes": 7309,
+      "is_dir": false
+    },
+    {
+      "name": "cn_nomenclature.db",
+      "size_bytes": 16338944,
+      "is_dir": false
+    },
+    {
+      "name": "cn_nomenclature.db-shm",
+      "size_bytes": 32768,
+      "is_dir": false
+    },
+    {
+      "name": "cn_nomenclature.db-wal",
+      "size_bytes": 0,
+      "is_dir": false
+    },
+    {
+      "name": "cn_polysemy_rules.json",
+      "size_bytes": 5618,
+      "is_dir": false
+    },
+    {
+      "name": "cn_synonyms.json",
+      "size_bytes": 3201,
+      "is_dir": false
+    },
+    {
+      "name": "cn_taxonomy_v1.json",
+      "size_bytes": 28634,
+      "is_dir": false
+    },
+    {
+      "name": "cn_vehicle_entities.json",
+      "size_bytes": 1733,
+      "is_dir": false
+    },
+    {
+      "name": "customs_lexicon.json",
+      "size_bytes": 5198,
+      "is_dir": false
+    },
+    {
+      "name": "eu_supported_languages.json",
+      "size_bytes": 444,
+      "is_dir": false
+    },
+    {
+      "name": "freight",
+      "size_bytes": null,
+      "is_dir": true
+    },
+    {
+      "name": "generated_industrial_lexicon.json",
+      "size_bytes": 58618,
+      "is_dir": false
+    },
+    {
+      "name": "golden_benchmark_v1.json",
+      "size_bytes": 3287,
+      "is_dir": false
+    },
+    {
+      "name": "historical_brand_map.json",
+      "size_bytes": 1227,
+      "is_dir": false
+    },
+    {
+      "name": "multilingual_phrases.json",
+      "size_bytes": 9222,
+      "is_dir": false
+    },
+    {
+      "name": "multilingual_words.json",
+      "size_bytes": 2146,
+      "is_dir": false
+    },
+    {
+      "name": "PHASE_A22_BENCHMARK.json",
+      "size_bytes": 3958,
+      "is_dir": false
+    },
+    {
+      "name": "regression_suite_v1.json",
+      "size_bytes": 27672,
+      "is_dir": false
+    },
+    {
+      "name": "sources",
+      "size_bytes": null,
+      "is_dir": true
+    },
+    {
+      "name": "universal_family_ranking.json",
+      "size_bytes": 6652,
+      "is_dir": false
+    }
+  ]
+}

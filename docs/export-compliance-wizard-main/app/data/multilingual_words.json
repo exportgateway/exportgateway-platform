@@ -1,0 +1,101 @@
+{
+  "sl": {
+    "kroglasti ležaj": "ball bearing",
+    "kroglasti lezaj": "ball bearing",
+    "kroglični ležaj": "ball bearing",
+    "kroglicni lezaj": "ball bearing",
+    "ležaj": "bearing",
+    "lezaj": "bearing",
+    "ležaji": "bearings",
+    "kroglasti": "ball",
+    "hidravlični": "hydraulic",
+    "hidravlicni": "hydraulic",
+    "ventil": "valve",
+    "vijak": "screw",
+    "vijaki": "screws",
+    "tablet": "tablet",
+    "tablete": "tablets",
+    "računalnik": "computer",
+    "racunalnik": "computer",
+    "senzor": "sensor",
+    "senzorji": "sensors",
+    "temperaturni": "temperature",
+    "industrijski": "industrial",
+    "tlaka": "pressure",
+    "induktivni": "inductive",
+    "modul": "module"
+  },
+  "hr": {
+    "kuglični ležaj": "ball bearing",
+    "kuglicni lezaj": "ball bearing",
+    "ležaj": "bearing",
+    "lezaj": "bearing",
+    "ventil": "valve",
+    "vijak": "screw"
+  },
+  "cs": {
+    "ložisko": "bearing",
+    "lozisko": "bearing",
+    "kulové": "ball",
+    "kulove": "ball",
+    "ventil": "valve"
+  },
+  "sk": {
+    "ložisko": "bearing",
+    "lozisko": "bearing",
+    "guľôčkové": "ball",
+    "ventil": "valve"
+  },
+  "de": {
+    "lager": "bearing",
+    "kugellager": "ball bearings",
+    "ventil": "valve",
+    "schraube": "screw",
+    "schrauben": "screws"
+  },
+  "pl": {
+    "łożysko": "bearing",
+    "lozysko": "bearing",
+    "łozyska": "bearings",
+    "zawór": "valve",
+    "zawor": "valve"
+  },
+  "hu": {
+    "csapágy": "bearing",
+    "csapagy": "bearing",
+    "görgő": "roller",
+    "szelep": "valve"
+  },
+  "ro": {
+    "rulment": "bearing",
+    "rulmenti": "bearings",
+    "supapă": "valve",
+    "supapa": "valve"
+  },
+  "et": {
+    "laager": "bearing",
+    "laagri": "bearings",
+    "kuullaager": "ball bearing"
+  },
+  "lv": {
+    "gultnis": "bearing",
+    "gultņi": "bearings"
+  },
+  "lt": {
+    "guolis": "bearing",
+    "guoliai": "bearings"
+  },
+  "bg": {
+    "лож": "bearing",
+    "лощ": "bearing"
+  },
+  "el": {
+    "ρουλεμάν": "bearing",
+    "ρουλεμαν": "bearing"
+  },
+  "sr": {
+    "ležaj": "bearing",
+    "lezaj": "bearing",
+    "ventil": "valve"
+  }
+}
