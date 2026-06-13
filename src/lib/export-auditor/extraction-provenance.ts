@@ -8,7 +8,8 @@ export type ExtractionSource =
   | "heuristic_recovery"
   | "regex_rescue"
   | "consignee_parser"
-  | "preferential_origin_engine";
+  | "preferential_origin_engine"
+  | "multilingual_field_extractor";
 
 export interface ExtractionProvenanceEntry {
   field: string;

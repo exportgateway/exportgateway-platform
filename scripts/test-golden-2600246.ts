@@ -48,7 +48,6 @@ these products are of EU preferential origin`,
       quantity: "100",
       unit_price: "49.3293",
       line_total: "4932.93",
-      preferential_origin: "YES",
     },
   ],
 };

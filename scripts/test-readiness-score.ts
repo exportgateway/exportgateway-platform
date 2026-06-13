@@ -39,6 +39,7 @@ const resolvedPreferenceOrigin: PreferenceOriginAnalysis = {
   preferenceWorkflowActive: true,
   preferentialOriginStatus: "CONFIRMED",
   invoiceDeclarationSufficient: true,
+  evidenceStatus: "DECLARED",
   eur1Recommended: false,
   originDeclarationFound: true,
   authorisedExporterDetected: true,
@@ -69,6 +70,7 @@ const resolvedPreferenceOrigin: PreferenceOriginAnalysis = {
   preferentialOriginSummary: "All lines preferential.",
   mixedOrigin: false,
   mixedOriginTotals: null,
+  preferentialAllocation: null,
 };
 
 console.log("MISSING_VAT_ARTICLE penalty capped at 5 points");
@@ -179,6 +181,7 @@ const invoice: NormalizedInvoice = {
     net_weight_total: 65,
     net_weight_unit: "kg",
     pallet_dimensions: null,
+    pallet_count: null,
   },
   origin_declaration_text:
     "The exporter of the products covered by this document declares that these products are of EU preferential origin. Customs authorization no FR006130/0032",

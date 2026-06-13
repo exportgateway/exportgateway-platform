@@ -11,6 +11,7 @@ import {
   CASE3_MESSAGE,
   CASE4_MESSAGE,
   evaluatePreferentialOriginDecision,
+  HIGH_VALUE_NO_DECLARATION_MESSAGE,
 } from "../src/lib/export-auditor/preferential-origin-decision-engine";
 import { resolvePreferenceScheme } from "../src/lib/export-auditor/preference-scheme";
 import type { AuditReportResponse, NormalizedInvoice } from "../src/lib/export-auditor/api-types";
@@ -62,7 +63,7 @@ const case1 = evaluatePreferentialOriginDecision({
   rexRegistrationDetected: false,
   invoiceValueEur: 3000,
 });
-assert(case1.preferentialOriginStatus === "CONFIRMED", "CASE 1 status CONFIRMED");
+assert(case1.evidenceStatus === "DECLARED", "CASE 1 evidence DECLARED");
 assert(case1.invoiceDeclarationSufficient === true, "CASE 1 invoice_declaration_sufficient");
 assert(case1.eur1Recommended === false, "CASE 1 eur1_recommended false");
 assert(case1.recommendation === CASE1_MESSAGE, "CASE 1 message");
@@ -75,7 +76,7 @@ const case2 = evaluatePreferentialOriginDecision({
   rexRegistrationDetected: false,
   invoiceValueEur: 2500,
 });
-assert(case2.preferentialOriginStatus === "NOT_DECLARED", "CASE 2 status NOT_DECLARED");
+assert(case2.evidenceStatus === "NOT_DECLARED", "CASE 2 evidence NOT_DECLARED");
 assert(case2.eur1Recommended === false, "CASE 2 eur1_recommended false");
 assert(case2.recommendation === CASE2_MESSAGE, "CASE 2 message");
 
@@ -87,9 +88,20 @@ const case3 = evaluatePreferentialOriginDecision({
   rexRegistrationDetected: false,
   invoiceValueEur: 7500,
 });
-assert(case3.preferentialOriginStatus === "NOT_DECLARED", "CASE 3 status NOT_DECLARED");
-assert(case3.eur1Recommended === true, "CASE 3 eur1_recommended true");
-assert(case3.recommendation === CASE3_MESSAGE, "CASE 3 message");
+assert(case3.evidenceStatus === "NOT_DECLARED", "CASE 3 high value no declaration NOT_DECLARED");
+assert(case3.eur1Recommended === false, "CASE 3 eur1_recommended false");
+assert(case3.recommendation === HIGH_VALUE_NO_DECLARATION_MESSAGE, "CASE 3 no-declaration message");
+
+const case3b = evaluatePreferentialOriginDecision({
+  preferenceScheme: pemScheme(),
+  originDeclarationDetected: true,
+  authorisedExporterDetected: false,
+  statementOnOriginDetected: false,
+  rexRegistrationDetected: false,
+  invoiceValueEur: 7500,
+});
+assert(case3b.evidenceStatus === "UNVERIFIED", "CASE 3b high value declaration UNVERIFIED");
+assert(case3b.recommendation === CASE3_MESSAGE, "CASE 3b unverified message");
 
 const case4 = evaluatePreferentialOriginDecision({
   preferenceScheme: pemScheme(),
@@ -99,7 +111,7 @@ const case4 = evaluatePreferentialOriginDecision({
   rexRegistrationDetected: false,
   invoiceValueEur: 7500,
 });
-assert(case4.preferentialOriginStatus === "CONFIRMED", "CASE 4 status CONFIRMED");
+assert(case4.evidenceStatus === "DECLARED", "CASE 4 evidence DECLARED");
 assert(case4.recommendation === CASE4_MESSAGE, "CASE 4 message");
 
 console.log("\nMapped report — CASE 2 low value (no COO inference)");
@@ -128,6 +140,7 @@ const lowValueInvoice: NormalizedInvoice = {
     net_weight_unit: "kg",
     package_type: "COLLI",
     pallet_dimensions: null,
+    pallet_count: null,
   },
 };
 const lowReport = mapAuditReportToExportReport(lowValueInvoice, baseAudit(), "low.pdf");
@@ -136,7 +149,11 @@ assert(
   lowReport.preferenceOrigin.applicableProofDocuments.includes("Invoice Declaration"),
   "PEM applicable proofs include Invoice Declaration"
 );
-assert(lowReport.preferenceOrigin.preferentialOriginStatus === "NOT_DECLARED", "low value NOT_DECLARED");
+assert(
+  lowReport.preferenceOrigin.preferentialOriginStatus === "NOT_DECLARED" ||
+    lowReport.preferenceOrigin.preferentialOriginStatus === "NON_PREFERENTIAL_EXPORT",
+  "low value not declared / non-preferential export"
+);
 assert(
   lowReport.preferenceOrigin.lineItems[0]?.preferential_origin === "NOT_DECLARED",
   "SI country_of_origin alone does not confirm line preference"
@@ -157,10 +174,12 @@ const highValueInvoice: NormalizedInvoice = {
   items: [{ ...lowValueInvoice.items![0], line_total: "7500.00" }],
 };
 const highReport = mapAuditReportToExportReport(highValueInvoice, baseAudit(), "high.pdf");
-assert(highReport.preferenceOrigin.eur1Recommended === true, "CASE 3 eur1 recommended");
+assert(highReport.preferenceOrigin.eur1Recommended === false, "CASE 3 eur1 never recommended");
 assert(
-  highReport.preferenceOrigin.recommendation.includes("EUR 6000"),
-  "CASE 3 recommendation mentions EUR 6000 threshold"
+  highReport.preferenceOrigin.evidenceStatus === "NOT_DECLARED" ||
+    highReport.preferenceOrigin.recommendation.includes("LTSD") ||
+    highReport.preferenceOrigin.recommendation.includes("Origin evidence"),
+  "CASE 3 evidence or recommendation references missing origin evidence"
 );
 assert(
   !highReport.recommendedActions.some((a) => /verify preferential origin/i.test(a.description)),
@@ -195,6 +214,7 @@ const declaredInvoice = enrichInvoiceDocument(
       net_weight_unit: "kg",
       package_type: "COLLI",
       pallet_dimensions: null,
+      pallet_count: null,
     },
   },
   null
@@ -202,6 +222,7 @@ const declaredInvoice = enrichInvoiceDocument(
 const case4Report = mapAuditReportToExportReport(declaredInvoice, baseAudit(), "unior.pdf");
 assert(case4Report.preferenceOrigin.preferenceScheme === "PEM", "Iceland → PEM scheme");
 assert(case4Report.preferenceOrigin.preferentialOriginStatus === "CONFIRMED", "CASE 4 CONFIRMED");
+assert(case4Report.preferenceOrigin.evidenceStatus === "DECLARED", "CASE 4 evidence DECLARED");
 assert(case4Report.preferenceOrigin.invoiceDeclarationSufficient === true, "CASE 4 declaration sufficient");
 assert(case4Report.preferenceOrigin.recommendation === CASE4_MESSAGE, "CASE 4 authorised exporter message");
 

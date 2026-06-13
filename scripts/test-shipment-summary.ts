@@ -99,7 +99,7 @@ assert(enriched.shipment_summary?.gross_weight_unit === "kg", "enriched gross un
 assert(enriched.shipment_summary?.net_weight_total === 95, "enriched net weight");
 assert(enriched.shipment_summary?.pallet_dimensions === "80x62x62 cm", "enriched pallet dims (extracted, not shown in UI)");
 assert(enriched.delivery_address?.country_code === "RS", "enriched delivery RS");
-assert(enriched.consignee?.includes("Berlin"), "consignee not overwritten");
+assert(enriched.consignee?.includes("Berlin") === true, "consignee not overwritten");
 
 console.log("\nreadiness warnings");
 const complete = enrichInvoiceShipmentData({ ocr_text: reniCorpus });

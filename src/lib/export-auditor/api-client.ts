@@ -1,5 +1,6 @@
 import {
-  runFullExportAuditAction,
+  postExportAuditorOcrAction,
+  runExportAuditAnalysisAction,
 } from "@/lib/export-auditor/server-actions";
 import type {
   AuditProgressStep,
@@ -9,6 +10,7 @@ import type {
 import { AUDIT_PROGRESS_STEPS } from "@/lib/export-auditor/types";
 
 export type ProgressCallback = (steps: AuditProgressStep[]) => void;
+export type TimelineIndexCallback = (index: number) => void;
 
 function initialSteps(): AuditProgressStep[] {
   return AUDIT_PROGRESS_STEPS.map((s, i) => ({
@@ -40,29 +42,40 @@ function advanceStep(
 }
 
 /**
- * Export auditor pipeline — single server action runs OCR, enrichment, analysis, and mapping.
+ * Export auditor pipeline — OCR and analysis run as separate server actions so
+ * progress steps match actual pipeline stages.
  */
 export async function runFullExportAudit(
   file: File,
-  onProgress?: ProgressCallback
+  onProgress?: ProgressCallback,
+  onTimelineIndex?: TimelineIndexCallback
 ): Promise<ExportAuditReport> {
   let steps = initialSteps();
   onProgress?.(steps);
+  onTimelineIndex?.(0);
 
   try {
     steps = advanceStep(steps, "upload", "ocr");
     onProgress?.(steps);
+    onTimelineIndex?.(0);
 
     const formData = new FormData();
     formData.append("file", file, file.name);
 
+    const ocrResult = await postExportAuditorOcrAction(formData);
+    if (!ocrResult.ok) {
+      throw ocrResult.error;
+    }
+
     steps = advanceStep(steps, "ocr", "analysis");
     onProgress?.(steps);
+    onTimelineIndex?.(2);
 
-    const result = await runFullExportAuditAction(formData);
+    const result = await runExportAuditAnalysisAction(ocrResult.invoice, ocrResult.fileName);
 
     steps = advanceStep(steps, "analysis", "report");
     onProgress?.(steps);
+    onTimelineIndex?.(4);
 
     if (!result.ok) {
       throw result.error;
@@ -77,6 +90,7 @@ export async function runFullExportAudit(
     steps = advanceStep(steps, "report", "complete");
     steps = setStepStatus(steps, "complete", "complete");
     onProgress?.(steps);
+    onTimelineIndex?.(5);
 
     return result.report;
   } catch (err) {

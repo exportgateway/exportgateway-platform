@@ -120,6 +120,7 @@ export function buildOcrObservability(
   const metrics = countItemMetrics(invoice.items);
   const normalizedPageCount = pageCount > 0 ? pageCount : 1;
   const ocrTextLength = invoice.ocr_text?.length ?? 0;
+  const completenessScore = computeOcrQualityScore(metrics);
 
   return {
     ocrProvider: MISTRAL_OCR_PROVIDER,
@@ -130,7 +131,8 @@ export function buildOcrObservability(
     itemsWithHsCode: metrics.itemsWithHsCode,
     itemsWithCountryOfOrigin: metrics.itemsWithCountryOfOrigin,
     itemsWithLineTotal: metrics.itemsWithLineTotal,
-    ocrQualityScore: computeOcrQualityScore(metrics),
+    ocrQualityScore: completenessScore,
+    dataExtractionCompleteness: completenessScore,
     estimatedOcrCostUsd: computeEstimatedOcrCost(normalizedPageCount, costPerPage),
     costPerPageUsd: costPerPage ?? getMistralOcrCostPerPageUsd(),
     shipmentFieldsDetected: invoice.ocr_metadata?.shipment_fields_detected,

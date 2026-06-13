@@ -53,7 +53,7 @@ function minimalAudit(): AuditReportResponse {
       {
         severity: "warning",
         message: "Destination is within the EU customs territory.",
-        field: "EU_DESTINATION",
+        code: "EU_DESTINATION",
       },
     ],
     recommended_actions: [],

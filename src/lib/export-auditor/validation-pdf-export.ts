@@ -128,8 +128,14 @@ function buildValidationReportHtml(report: ExportAuditReport, generatedAt: Date)
       value: display(ocr?.ocrProvider ?? MISTRAL_OCR_PROVIDER),
     },
     {
-      label: "OCR Quality",
-      value: ocr ? `${ocr.ocrQualityScore}%` : "—",
+      label: "Data Extraction Completeness",
+      value: ocr
+        ? `${ocr.dataExtractionCompleteness ?? ocr.ocrQualityScore}%`
+        : "—",
+    },
+    {
+      label: "Customs Readiness",
+      value: display(report.customsReadiness?.label),
     },
     {
       label: "OCR Cost",
@@ -229,13 +235,10 @@ function buildValidationReportHtml(report: ExportAuditReport, generatedAt: Date)
     { label: "Document Status", value: display(preferenceOrigin.preferentialOriginStatus) },
     { label: "Status", value: display(preferenceOrigin.status) },
     { label: "Recommendation", value: display(preferenceOrigin.recommendation) },
+    { label: "Evidence Status", value: display(preferenceOrigin.evidenceStatus) },
     {
       label: "Origin Declaration Found",
       value: preferenceOrigin.originDeclarationFound ? "Yes" : "No",
-    },
-    {
-      label: "EUR.1 Recommended",
-      value: preferenceOrigin.eur1Recommended ? "Yes" : "No",
     },
     {
       label: "Authorised Exporter",
@@ -252,8 +255,19 @@ function buildValidationReportHtml(report: ExportAuditReport, generatedAt: Date)
   ];
 
   const confidenceRows = [
-    { label: "OCR Quality (confidence)", value: `${report.confidence.ocrQuality}%` },
-    { label: "Data Completeness", value: `${report.confidence.dataCompleteness}%` },
+    { label: "OCR Confidence", value: `${report.confidence.ocrQuality}%` },
+    {
+      label: "Data Extraction Completeness",
+      value: `${
+        report.ocrObservability?.dataExtractionCompleteness ??
+        report.ocrObservability?.ocrQualityScore ??
+        report.confidence.dataCompleteness
+      }%`,
+    },
+    {
+      label: "Customs Readiness",
+      value: display(report.customsReadiness?.label),
+    },
     { label: "Overall Confidence", value: `${report.confidence.overallConfidence}%` },
   ];
 
@@ -261,7 +275,7 @@ function buildValidationReportHtml(report: ExportAuditReport, generatedAt: Date)
     ? [
         { label: "OCR Provider", value: display(ocr.ocrProvider) },
         { label: "OCR Pages", value: display(ocr.pageCount) },
-        { label: "OCR Quality Score", value: `${ocr.ocrQualityScore}%` },
+        { label: "Data Extraction Completeness", value: `${ocr.dataExtractionCompleteness ?? ocr.ocrQualityScore}%` },
         { label: "OCR Cost", value: formatUsd(ocr.estimatedOcrCostUsd) },
         { label: "Cost Per Page", value: formatUsd(ocr.costPerPageUsd) },
         { label: "Extraction Source", value: display(ocr.extractionSource) },

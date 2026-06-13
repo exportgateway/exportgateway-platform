@@ -19,6 +19,30 @@ function getExportAuditorBaseUrl(): string {
   return getExportAuditorApiUrl();
 }
 
+const EXPORT_AUDITOR_TIMEOUT_MS = {
+  ocr: 120_000,
+  json: 90_000,
+} as const;
+
+async function fetchWithTimeout(
+  url: string,
+  init: RequestInit,
+  timeoutMs: number
+): Promise<Response> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...init, signal: controller.signal });
+  } catch (err) {
+    if (err instanceof Error && err.name === "AbortError") {
+      throw new Error(`Export auditor request timed out after ${Math.round(timeoutMs / 1000)}s`);
+    }
+    throw err;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
 async function parseApiError(res: Response): Promise<string> {
   try {
     const data = await res.json();
@@ -47,12 +71,16 @@ async function postExportAuditorJson<T>(
   const url = `${getExportAuditorBaseUrl()}${path}`;
 
   try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(sanitizeInvoiceForBackendApi(invoice)),
-      cache: "no-store",
-    });
+    const res = await fetchWithTimeout(
+      url,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(sanitizeInvoiceForBackendApi(invoice)),
+        cache: "no-store",
+      },
+      EXPORT_AUDITOR_TIMEOUT_MS.json
+    );
 
     if (!res.ok) {
       const code =
@@ -122,11 +150,15 @@ export async function postExportAuditorOcrAction(
   upstream.append("file", new Blob([pdfBuffer], { type: fileEntry.type || "application/pdf" }), fileName);
 
   try {
-    const res = await fetch(url, {
-      method: "POST",
-      body: upstream,
-      cache: "no-store",
-    });
+    const res = await fetchWithTimeout(
+      url,
+      {
+        method: "POST",
+        body: upstream,
+        cache: "no-store",
+      },
+      EXPORT_AUDITOR_TIMEOUT_MS.ocr
+    );
 
     if (!res.ok) {
       return apiError("OCR_FAILED", await parseApiError(res));
@@ -195,19 +227,13 @@ export async function postExportAuditorAuditReportAction(
 }
 
 /**
- * Full export audit on the server — keeps enriched invoice on server through mapping.
- * Fixes live UI when client-side mapAuditReportToExportReport received a stripped invoice.
+ * Analysis + mapping on the server — keeps enriched invoice on server through mapping.
+ * Called after OCR so the client can advance progress between pipeline stages.
  */
-export async function runFullExportAuditAction(
-  formData: FormData
+export async function runExportAuditAnalysisAction(
+  invoice: NormalizedInvoice,
+  fileName: string
 ): Promise<FullAuditActionResult> {
-  const ocrResult = await postExportAuditorOcrAction(formData);
-  if (!ocrResult.ok) {
-    return ocrResult;
-  }
-
-  const { invoice, fileName } = ocrResult;
-
   const [readinessResult, dispositionResult, preferenceOriginResult, auditReportResult] =
     await Promise.all([
       postExportAuditorReadinessAction(invoice),
@@ -251,4 +277,19 @@ export async function runFullExportAuditAction(
   });
 
   return { ok: true, report };
+}
+
+/**
+ * Full export audit on the server — keeps enriched invoice on server through mapping.
+ * Fixes live UI when client-side mapAuditReportToExportReport received a stripped invoice.
+ */
+export async function runFullExportAuditAction(
+  formData: FormData
+): Promise<FullAuditActionResult> {
+  const ocrResult = await postExportAuditorOcrAction(formData);
+  if (!ocrResult.ok) {
+    return ocrResult;
+  }
+
+  return runExportAuditAnalysisAction(ocrResult.invoice, ocrResult.fileName);
 }

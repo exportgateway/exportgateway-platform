@@ -18,6 +18,7 @@ import {
   LTSD_REFERENCED,
   inferSupportingDocumentCodeFromMessage,
 } from "@/lib/export-auditor/supporting-documents-detect";
+import type { IssueSeverity } from "@/lib/export-auditor/types";
 
 export {
   DELIVERY_NOTE_DETECTED,
@@ -36,11 +37,54 @@ export const DESCRIPTION_REVIEW_RECOMMENDED_MESSAGE =
   "Declaration description may not match the invoice line. Review before filing.";
 export { PARSER_MAPPING_FAILURE } from "@/lib/export-auditor/parser-ocr-crosscheck";
 
-export const HS_CODE_NOT_ON_INVOICE_MESSAGE =
-  "HS codes not present on invoice. Manual customs classification required.";
+export const PROFORMA_DETECTED = "PROFORMA_DETECTED";
 
 export const NO_ORIGIN_DECLARATION = "NO_ORIGIN_DECLARATION";
 export const MISSING_COUNTRY_OF_ORIGIN = "MISSING_COUNTRY_OF_ORIGIN";
+
+/** Issue codes classified as CRITICAL customs blockers. */
+export const CRITICAL_SEVERITY_CODES = new Set([
+  "MISSING_EXPORTER",
+  "MISSING_CONSIGNEE",
+  "MISSING_INVOICE_NUMBER",
+  "MISSING_INVOICE_VALUE",
+  "MISSING_DESTINATION",
+  "MISSING_DESTINATION_COUNTRY",
+  EU_DESTINATION,
+  "PARSER_MAPPING_FAILURE",
+  INVOICE_DATE_IN_FUTURE,
+  "INCONSISTENT_TOTALS",
+  "INCONSISTENT_INVOICE_TOTAL",
+  "INCONSISTENT_LINE_TOTALS",
+]);
+
+/** Issue codes classified as WARNING — review before filing. */
+export const WARNING_SEVERITY_CODES = new Set([
+  "MISSING_HS_CODE",
+  "NO_HS_CODE",
+  "NO_HS_CODES",
+  "NO_HS_CODES_DETECTED",
+  HS_CODE_NOT_ON_INVOICE,
+  MISSING_GROSS_WEIGHT,
+  MISSING_PACKAGE_COUNT,
+  "MISSING_INCOTERMS",
+  "NO_INCOTERMS",
+]);
+
+/** Issue codes classified as INFO — informational only. */
+export const INFO_SEVERITY_CODES = new Set([
+  NO_ORIGIN_DECLARATION,
+  "ORIGIN_DECLARATION_MISSING",
+  "ORIGIN_DECLARATION_NOT_FOUND",
+  "ORIGIN_DECLARATION_REQUIRED",
+  "MISSING_ORIGIN_DECLARATION",
+  LTSD_REFERENCED,
+  PROFORMA_DETECTED,
+  DELIVERY_NOTE_DETECTED,
+]);
+
+export const HS_CODE_NOT_ON_INVOICE_MESSAGE =
+  "HS codes not present on invoice. Manual customs classification required.";
 
 export const NO_ORIGIN_DECLARATION_INFO_MESSAGE = "Preferential origin not claimed.";
 export const MISSING_COUNTRY_OF_ORIGIN_INFO_MESSAGE =
@@ -150,19 +194,21 @@ export function shouldUpgradeOriginDeclarationToWarning(
     return true;
   }
 
-  if (preferenceOrigin.authorisedExporterDetected && !preferenceOrigin.originDeclarationFound) {
-    return true;
-  }
-
-  if (linesClaimPreferential && !preferenceOrigin.originDeclarationFound) {
+  if (
+    preferenceOrigin.authorisedExporterDetected &&
+    !preferenceOrigin.originDeclarationFound
+  ) {
     return true;
   }
 
   if (
-    preferenceOrigin.eur1Recommended &&
-    preferenceOrigin.authorisedExporterDetected &&
+    preferenceOrigin.evidenceStatus === "UNVERIFIED" &&
     !preferenceOrigin.originDeclarationFound
   ) {
+    return true;
+  }
+
+  if (linesClaimPreferential && !preferenceOrigin.originDeclarationFound) {
     return true;
   }
 
@@ -175,6 +221,34 @@ export function shouldUpgradeOriginDeclarationToWarning(
   }
 
   return false;
+}
+
+export function resolveIssueSeverity(issue: AuditIssue): IssueSeverity {
+  const code = resolveIssueCode(issue);
+
+  if (CRITICAL_SEVERITY_CODES.has(code)) {
+    return "CRITICAL";
+  }
+  if (WARNING_SEVERITY_CODES.has(code) || code === MISSING_NET_WEIGHT) {
+    return "WARNING";
+  }
+  if (INFO_SEVERITY_CODES.has(code) || issue.type === "info") {
+    return "INFO";
+  }
+  if (issue.type === "error") {
+    return "CRITICAL";
+  }
+  if (issue.type === "warning") {
+    return "WARNING";
+  }
+  return "INFO";
+}
+
+export function applyIssueSeverity(issue: AuditIssue): AuditIssue {
+  return {
+    ...issue,
+    severity: resolveIssueSeverity(issue),
+  };
 }
 
 export function inferIssueCodeFromMessage(message: string): string | undefined {
@@ -195,6 +269,18 @@ export function inferIssueCodeFromMessage(message: string): string | undefined {
   }
   if (/invoice value.*missing|missing.*invoice value/i.test(message)) {
     return "MISSING_INVOICE_VALUE";
+  }
+  if (/missing exporter|exporter.*missing/i.test(message)) {
+    return "MISSING_EXPORTER";
+  }
+  if (/missing consignee|consignee.*missing/i.test(message)) {
+    return "MISSING_CONSIGNEE";
+  }
+  if (/missing invoice number|invoice number.*missing/i.test(message)) {
+    return "MISSING_INVOICE_NUMBER";
+  }
+  if (/proforma/i.test(message)) {
+    return PROFORMA_DETECTED;
   }
   if (/inconsistent total|total.*inconsistent/i.test(message)) {
     return "INCONSISTENT_TOTALS";
@@ -361,10 +447,10 @@ export function mapReadinessWarningToIssue(message: string, index: number): Audi
     message,
     field,
   };
-  return {
+  return applyIssueSeverity({
     ...issue,
     message: canonicalIssueMessage(issue),
-  };
+  });
 }
 
 export function getIssuePenalty(issue: AuditIssue, code: string): number {

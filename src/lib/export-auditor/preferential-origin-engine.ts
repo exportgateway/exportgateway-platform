@@ -26,6 +26,7 @@ export interface DetectedDeclaration {
     | "all_products_preferential"
     | "eur1_except_positions"
     | "except_where_otherwise_indicated"
+    | "asterisk_preferential_marker"
     | "supplier_declaration"
     | "manufacturer_declaration"
     | "authorised_exporter";

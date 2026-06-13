@@ -86,6 +86,7 @@ const mixedOriginInvoice: NormalizedInvoice = enrichInvoiceShipmentData({
     net_weight_total: null,
     net_weight_unit: null,
     pallet_dimensions: null,
+    pallet_count: null,
   },
 });
 
@@ -152,6 +153,7 @@ const proformaInvoice: NormalizedInvoice = enrichInvoiceShipmentData({
     net_weight_total: null,
     net_weight_unit: null,
     pallet_dimensions: null,
+    pallet_count: null,
   },
 });
 
@@ -211,6 +213,7 @@ const undeclaredInvoice: NormalizedInvoice = enrichInvoiceShipmentData({
     net_weight_total: 48,
     net_weight_unit: "kg",
     pallet_dimensions: null,
+    pallet_count: null,
   },
 });
 

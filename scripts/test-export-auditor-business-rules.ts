@@ -157,11 +157,12 @@ const prefLines = runPreferentialOriginEngine(siCnInvoice).lines;
 assert(isAllNotDeclaredLines(prefLines), "SI+CN invoice → all NOT_DECLARED");
 const hsEngine = runHsAggregationEngine(siCnInvoice);
 assert(hsEngine.non_preferential_export_summary != null, "non-preferential export bucket created");
+const nonPref = hsEngine.non_preferential_export_summary!;
 assert(
-  hsEngine.non_preferential_export_summary.display_label === NON_PREFERENTIAL_EXPORT_LABEL,
+  nonPref.display_label === NON_PREFERENTIAL_EXPORT_LABEL,
   "bucket label Non-Preferential Export Goods"
 );
-assert(hsEngine.non_preferential_export_summary.source_positions.length === 15, "15 source positions");
+assert(nonPref.source_positions.length === 15, "15 source positions");
 assert(hsEngine.unknown_preference_summary.length === 0, "NOT_DECLARED not in unknown bucket");
 assert(
   hsEngine.origin_countries_detected?.includes("SI (10 lines)") ?? false,
@@ -231,6 +232,7 @@ const hsPendingReport: ExportAuditReport = {
     declarationPackageCount: 1,
     declarationPackageType: "COLLI",
     requiresManualPackageReview: false,
+    packageVerificationNote: null,
   },
   deliveryAddress: {
     company: null,
@@ -267,6 +269,7 @@ const hsPendingReport: ExportAuditReport = {
     preferenceWorkflowActive: true,
     preferentialOriginStatus: "CONFIRMED",
     invoiceDeclarationSufficient: true,
+    evidenceStatus: "DECLARED",
     eur1Recommended: false,
     originDeclarationFound: true,
     authorisedExporterDetected: true,

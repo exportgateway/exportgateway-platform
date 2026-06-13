@@ -61,6 +61,7 @@ const baseInvoice: NormalizedInvoice = {
     net_weight_total: 80,
     net_weight_unit: "kg",
     pallet_dimensions: null,
+    pallet_count: null,
   },
   items: [{ description: "Goods", hs_code: "84713000", quantity: 1, line_total: 1000 }],
 };

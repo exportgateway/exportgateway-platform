@@ -41,7 +41,10 @@ const reniInvoice: NormalizedInvoice = {
     package_type: "COLLI",
     gross_weight_total: 120,
     gross_weight_unit: "kg",
+    net_weight_total: null,
+    net_weight_unit: null,
     pallet_dimensions: "80x62x62 cm",
+    pallet_count: null,
   },
   items: [
     { description: "Valve assembly A", hs_code: "84818073", quantity: 13, line_total: 1200.5, country_of_origin: "DE", net_weight: 12.5 },
@@ -165,6 +168,7 @@ const allPrefInvoice: NormalizedInvoice = {
     net_weight_total: 65,
     net_weight_unit: "kg",
     pallet_dimensions: null,
+    pallet_count: null,
   },
   items: [
     { position_number: 1, description: "Item A", hs_code: "8438809900", quantity: 1, line_total: 1123.5, country_of_origin: "FR" },
@@ -223,6 +227,7 @@ const mixedInvoice: NormalizedInvoice = {
     net_weight_total: 30,
     net_weight_unit: "kg",
     pallet_dimensions: null,
+    pallet_count: null,
   },
   items: [
     { position_number: 1, description: "Pref item", hs_code: "84818073", quantity: 1, line_total: 100, country_of_origin: "FR" },

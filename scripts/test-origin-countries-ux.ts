@@ -52,6 +52,7 @@ const declaredContext: PreferenceOriginAnalysis = {
   preferenceWorkflowActive: true,
   preferentialOriginStatus: "CONFIRMED",
   invoiceDeclarationSufficient: true,
+  evidenceStatus: "DECLARED",
   eur1Recommended: false,
   originDeclarationFound: true,
   authorisedExporterDetected: true,
@@ -75,6 +76,7 @@ const declaredContext: PreferenceOriginAnalysis = {
   preferentialOriginSummary: "Preferential.",
   mixedOrigin: false,
   mixedOriginTotals: null,
+  preferentialAllocation: null,
 };
 
 console.log("Case A: Origin Declaration YES, COO missing → EU (Declared)");

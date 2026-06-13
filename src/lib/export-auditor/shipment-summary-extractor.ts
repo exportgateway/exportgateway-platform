@@ -12,6 +12,7 @@ import {
 } from "@/lib/export-auditor/multilingual-field-extractor";
 import { DELIVERY_SECTION_LABELS } from "@/lib/export-auditor/multilingual-invoice-labels";
 import { appendProvenance, type ExtractionProvenanceEntry } from "@/lib/export-auditor/extraction-provenance";
+import { applyWeightHierarchyToShipmentSummary } from "@/lib/export-auditor/weight-extraction-hierarchy";
 
 const EMPTY_SHIPMENT_SUMMARY: ShipmentSummary = {
   package_count: null,
@@ -303,11 +304,11 @@ export function extractFooterShipmentMetrics(corpus: string): Pick<
     pallet_count,
     gross_weight_total: grossTotal ?? tabular.gross_weight_total,
     gross_weight_unit:
-      resolveCapturedWeightUnit(grossMatch ?? [], 2, grossTotal != null) ??
+      (grossMatch ? resolveCapturedWeightUnit(grossMatch, 2, grossTotal != null) : null) ??
       tabular.gross_weight_unit,
     net_weight_total: netTotal ?? tabular.net_weight_total,
     net_weight_unit:
-      resolveCapturedWeightUnit(netMatch ?? [], 2, netTotal != null) ??
+      (netMatch ? resolveCapturedWeightUnit(netMatch, 2, netTotal != null) : null) ??
       tabular.net_weight_unit,
     pallet_dimensions: null,
   };
@@ -442,16 +443,10 @@ export function extractLineItemNetWeightTotal(
   return { net_weight_total: total, net_weight_unit: "kg" };
 }
 
-/** Extract shipment-level net weight — line items first, then labelled totals. */
-export function extractNetWeight(
-  corpus: string,
-  items?: ApiInvoiceItem[]
+/** Extract document-level net weight from labelled totals — never from line items. */
+export function extractNetWeightFromDocument(
+  corpus: string
 ): Pick<ShipmentSummary, "net_weight_total" | "net_weight_unit"> {
-  const fromLines = extractLineItemNetWeightTotal(items);
-  if (fromLines.net_weight_total != null) {
-    return fromLines;
-  }
-
   const labelPatterns = [
     new RegExp(`\\bntto\\s*:?\\s*([\\d.,]+)${WEIGHT_UNIT_SUFFIX}`, "i"),
     new RegExp(`\\bnetto\\s*:?\\s*([\\d.,]+)${WEIGHT_UNIT_SUFFIX}`, "i"),
@@ -479,6 +474,24 @@ export function extractNetWeight(
       net_weight_total: footer.net_weight_total,
       net_weight_unit: footer.net_weight_unit,
     };
+  }
+
+  return { net_weight_total: null, net_weight_unit: null };
+}
+
+/** Extract shipment-level net weight — document labels first, line items as fallback only. */
+export function extractNetWeight(
+  corpus: string,
+  items?: ApiInvoiceItem[]
+): Pick<ShipmentSummary, "net_weight_total" | "net_weight_unit"> {
+  const fromDocument = extractNetWeightFromDocument(corpus);
+  if (fromDocument.net_weight_total != null) {
+    return fromDocument;
+  }
+
+  const fromLines = extractLineItemNetWeightTotal(items);
+  if (fromLines.net_weight_total != null) {
+    return fromLines;
   }
 
   return { net_weight_total: null, net_weight_unit: null };
@@ -778,14 +791,19 @@ export function enrichInvoiceShipmentData(invoice: NormalizedInvoice): Normalize
   const extractedSummary = extractShipmentSummary(corpus, invoice.items);
   const extractedDelivery = extractDeliveryAddress(corpus);
   const mergedSummary = mergeShipmentSummary(invoice.shipment_summary, extractedSummary);
+  const hierarchySummary = applyWeightHierarchyToShipmentSummary(mergedSummary, {
+    documentNet: extractNetWeightFromDocument(corpus),
+    documentGross: extractGrossWeight(corpus),
+    calculatedNet: extractLineItemNetWeightTotal(invoice.items),
+  });
 
   let enriched: NormalizedInvoice = {
     ...invoice,
-    shipment_summary: mergedSummary,
+    shipment_summary: hierarchySummary,
     delivery_address: mergeDeliveryAddress(invoice.delivery_address, extractedDelivery),
   };
 
-  for (const entry of provenanceForFilledShipmentFields(invoice.shipment_summary, mergedSummary)) {
+  for (const entry of provenanceForFilledShipmentFields(invoice.shipment_summary, hierarchySummary)) {
     enriched = appendProvenance(enriched, entry);
   }
 

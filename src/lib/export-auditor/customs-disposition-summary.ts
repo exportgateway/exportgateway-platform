@@ -111,10 +111,7 @@ export function deriveDispositionOriginSummary(
     return {
       countryOfOriginLine: null,
       originStatusLine: "Origin Status: EU Preferential Origin",
-      preferentialOriginLine:
-        preferenceOrigin.preferentialOriginStatus === "CONFIRMED"
-          ? "Preferential Origin: Confirmed"
-          : null,
+      preferentialOriginLine: null,
     };
   }
 

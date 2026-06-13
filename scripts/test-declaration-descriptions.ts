@@ -404,17 +404,10 @@ async function main() {
   assert(prepHeaderIndex >= 0, "preparation HS header row");
   assert(
     prepRows[prepHeaderIndex]?.[1] === MRN_EXPORT_COLUMNS[1],
-    "Original Description column present"
+    "Description column present"
   );
-  assert(
-    prepRows[prepHeaderIndex]?.[2] === "Declaration Description",
-    "Declaration Description column present"
-  );
-  assert(String(prepRows[prepHeaderIndex]?.[9]) === "Description Source", "Description Source column");
-  assert(
-    prepRows[prepHeaderIndex]?.[10] === "Review Recommended",
-    "Review Recommended column on preparation sheet"
-  );
+  assert(prepRows[prepHeaderIndex]?.[2] === "Quantity", "Quantity column present");
+  assert(String(prepRows[prepHeaderIndex]?.[5]) === "Source Positions", "Source Positions column");
   const footerRows = prepRows.filter(
     (row) => typeof row[0] === "string" && String(row[0]).includes("declarant assistance")
   );

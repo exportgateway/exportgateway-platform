@@ -138,7 +138,8 @@ async function main() {
     `PDF Amount EUR = ${EXPECTED.value.toFixed(2)}`
   );
   assert(
-    pdfFlags.byPosition.size > 0 || invoice.items?.some((i) => /^\*/.test(i.description ?? "")),
+    pdfFlags.byPosition.size > 0 ||
+      (invoice.items?.some((i) => /^\*/.test(i.description ?? "")) ?? false),
     "PDF or enriched OCR has preferential line markers"
   );
 
@@ -197,8 +198,9 @@ async function main() {
   assert(deliveryIssue == null, "delivery note not listed in issues");
   const deliveryDoc = report.supportingDocumentsDetected.find((d) => d.kind === "delivery_note");
   assert(deliveryDoc != null, "delivery note in supportingDocumentsDetected");
+  const deliveryNoteDoc = deliveryDoc!;
   assert(
-    deliveryDoc?.label === "Delivery Note Referenced",
+    deliveryNoteDoc.label === "Delivery Note Referenced",
     "delivery note label is Delivery Note Referenced"
   );
 

@@ -56,10 +56,39 @@ export interface InvoiceSummary {
 }
 
 export interface ConfidenceScores {
+  /** OCR engine confidence — whether OCR extraction succeeded. */
   ocrQuality: number;
   dataCompleteness: number;
   overallConfidence: number;
 }
+
+export type CustomsReadinessStatus = "CUSTOMS_READY" | "CUSTOMS_REVIEW" | "CUSTOMS_BLOCKED";
+
+export interface CustomsReadinessResult {
+  status: CustomsReadinessStatus;
+  label: string;
+  reasons: string[];
+}
+
+export type DeclarationReadinessStatus = "READY FOR DECLARATION" | "REVIEW REQUIRED";
+
+export interface DeclarationReadinessField {
+  box: string;
+  label: string;
+  fieldKey: string;
+}
+
+export interface DeclarationReadinessResult {
+  status: DeclarationReadinessStatus;
+  missingFields: DeclarationReadinessField[];
+  ready: boolean;
+}
+
+export type WeightExtractionSource = "DOCUMENT" | "CALCULATED" | "OCR_TABLE" | "OCR_TEXT";
+
+export type PreferentialOriginEvidenceStatus = "DECLARED" | "NOT_DECLARED" | "UNVERIFIED";
+
+export type IssueSeverity = "CRITICAL" | "WARNING" | "INFO";
 
 export interface OcrObservability {
   ocrProvider: string;
@@ -70,8 +99,10 @@ export interface OcrObservability {
   itemsWithHsCode: number;
   itemsWithCountryOfOrigin: number;
   itemsWithLineTotal: number;
-  /** Extraction-coverage quality score 0–100 (distinct from confidence.ocrQuality). */
+  /** Data extraction completeness 0–100 (field coverage — not OCR engine failure). */
   ocrQualityScore: number;
+  /** Alias for UI — same as ocrQualityScore. */
+  dataExtractionCompleteness?: number;
   estimatedOcrCostUsd: number;
   costPerPageUsd: number;
   /** Shipment fields populated by OCR backend (gross_weight_total, package_count, etc.). */
@@ -130,6 +161,9 @@ export interface PreferenceOriginAnalysis {
   preferentialOriginStatus: PreferentialOriginDocumentStatus;
   /** True only when a valid PEM preferential origin statement is on the invoice. */
   invoiceDeclarationSufficient: boolean;
+  /** Document-level preferential evidence status from decision engine. */
+  evidenceStatus: PreferentialOriginEvidenceStatus;
+  /** @deprecated Always false — EUR.1 is never auto-recommended from invoice data alone. */
   eur1Recommended: boolean;
   originDeclarationFound: boolean;
   authorisedExporterDetected: boolean;
@@ -153,6 +187,8 @@ export interface PreferenceOriginAnalysis {
 export interface AuditIssue {
   id: string;
   type: "error" | "warning" | "info";
+  /** Normalized severity — maps from type and issue code. */
+  severity?: IssueSeverity;
   message: string;
   field?: string;
 }
@@ -176,7 +212,7 @@ export interface RecommendedAction {
   priority: "high" | "medium" | "low";
 }
 
-export type DeclarationPackageType = "PAL" | "COLLI";
+export type DeclarationPackageType = "PAL" | "COLLI" | "CT";
 
 export type DeclarationPackageCount = number | "MANUAL REVIEW REQUIRED";
 
@@ -196,8 +232,10 @@ export interface ShipmentSummary {
   packageType: string | null;
   grossWeightTotal: number | null;
   grossWeightUnit: string | null;
+  grossWeightSource?: WeightExtractionSource | null;
   netWeightTotal: number | null;
   netWeightUnit: string | null;
+  netWeightSource?: WeightExtractionSource | null;
   palletCount: number | null;
   /** Customs declaration package count — pallet priority when both Colli and Pallets exist. */
   declarationPackageCount: DeclarationPackageCount | null;
@@ -325,6 +363,8 @@ export interface ExportAuditReport {
   ocrObservability?: OcrObservability;
   ocrSessionMetrics?: OcrSessionMetrics;
   shipmentExtractionDiagnostics?: import("@/lib/export-auditor/shipment-extraction-diagnostics").ShipmentExtractionDiagnostics;
+  customsReadiness?: CustomsReadinessResult;
+  declarationReadiness?: DeclarationReadinessResult;
 }
 
 export interface OcrExtractionResult {

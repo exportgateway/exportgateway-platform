@@ -34,6 +34,7 @@ export function ExportAuditorWorkspace() {
   const [progressSteps, setProgressSteps] = useState<AuditProgressStep[]>(
     AUDIT_PROGRESS_STEPS.map((s) => ({ ...s, status: "pending" as const }))
   );
+  const [timelineIndexOverride, setTimelineIndexOverride] = useState<number | null>(null);
   const [report, setReport] = useState<ExportAuditReport | null>(null);
   const [error, setError] = useState<ExportAuditorApiError | null>(null);
 
@@ -42,6 +43,9 @@ export function ExportAuditorWorkspace() {
   const isProcessing = phase === "processing";
 
   const activeTimelineIndex = (() => {
+    if (timelineIndexOverride !== null) {
+      return timelineIndexOverride;
+    }
     const active = progressSteps.find((s) => s.status === "active");
     if (!active) {
       return phase === "complete" ? 5 : 0;
@@ -62,6 +66,7 @@ export function ExportAuditorWorkspace() {
     setProgressSteps(
       AUDIT_PROGRESS_STEPS.map((s) => ({ ...s, status: "pending" as const }))
     );
+    setTimelineIndexOverride(null);
   }, []);
 
   const handleFileSelect = useCallback(
@@ -89,6 +94,7 @@ export function ExportAuditorWorkspace() {
     setError(null);
     setReport(null);
     setPhase("processing");
+    setTimelineIndexOverride(0);
     setProgressSteps(
       AUDIT_PROGRESS_STEPS.map((s, i) => ({
         ...s,
@@ -97,7 +103,7 @@ export function ExportAuditorWorkspace() {
     );
 
     try {
-      const result = await runFullExportAudit(file, setProgressSteps);
+      const result = await runFullExportAudit(file, setProgressSteps, setTimelineIndexOverride);
       setReport(result);
       setPhase("complete");
     } catch (err) {

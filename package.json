@@ -88,6 +88,8 @@
 
     "test:golden-denkirs-2026-156": "npx tsx scripts/test-golden-denkirs-2026-156.ts",
 
+    "test:golden-customs-workflow": "npx tsx scripts/test-golden-customs-workflow.ts",
+
     "test:multilingual-extraction": "npx tsx scripts/test-multilingual-extraction.ts",
 
     "test:origin-issue-reclassification": "npx tsx scripts/test-origin-issue-reclassification.ts",

@@ -12,13 +12,17 @@ export interface ApiInvoiceItem {
   net_weight?: number | string | null;
 }
 
+export type WeightExtractionSource = "DOCUMENT" | "CALCULATED" | "OCR_TABLE" | "OCR_TEXT";
+
 export interface ShipmentSummary {
   package_count: number | null;
   package_type: string | null;
   gross_weight_total: number | null;
   gross_weight_unit: string | null;
+  gross_weight_source?: WeightExtractionSource | null;
   net_weight_total: number | null;
   net_weight_unit: string | null;
+  net_weight_source?: WeightExtractionSource | null;
   pallet_dimensions: string | null;
   pallet_count: number | null;
 }

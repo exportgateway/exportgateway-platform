@@ -1,12 +1,11 @@
 /**
- * Preferential Origin Decision Engine — document-level status from invoice evidence only.
- * Country of origin alone never confirms preferential origin.
+ * Preferential Origin Decision Engine — document-level evidence status from invoice data only.
+ * Country of origin alone never confirms preferential origin. EUR.1 is never auto-recommended.
  */
 
 import type { PreferenceScheme, PreferenceSchemeInfo } from "@/lib/export-auditor/preference-scheme";
 import { resolvePreferenceScheme } from "@/lib/export-auditor/preference-scheme";
-
-export type PreferentialOriginDocumentStatus = "CONFIRMED" | "NOT_DECLARED";
+import type { PreferentialOriginEvidenceStatus } from "@/lib/export-auditor/types";
 
 /** EU invoice-declaration value threshold (EUR) for low-value consignments. */
 export const INVOICE_DECLARATION_VALUE_THRESHOLD_EUR = 6000;
@@ -22,8 +21,11 @@ export interface PreferentialOriginDecisionInput {
 }
 
 export interface PreferentialOriginDecision {
-  preferentialOriginStatus: PreferentialOriginDocumentStatus;
+  /** @deprecated Use evidenceStatus — kept for line-derived status mapping. */
+  preferentialOriginStatus: "CONFIRMED" | "NOT_DECLARED";
+  evidenceStatus: PreferentialOriginEvidenceStatus;
   invoiceDeclarationSufficient: boolean;
+  /** @deprecated Always false — EUR.1 is never auto-recommended from invoice data alone. */
   eur1Recommended: boolean;
   statusLabel: string;
   recommendation: string;
@@ -34,8 +36,10 @@ export const CASE1_MESSAGE = "Preferential origin declared on invoice.";
 export const CASE2_MESSAGE =
   "Preferential origin not claimed. For consignments up to EUR 6000, preferential treatment requires an invoice declaration if preference is intended.";
 export const CASE3_MESSAGE =
-  "Preferential origin not claimed. Invoice value exceeds EUR 6000. EUR.1 may be required if preferential treatment is intended.";
+  "Verify authorised exporter approval and EUR.1 requirements.";
 export const CASE4_MESSAGE = "Authorised exporter declaration detected.";
+export const HIGH_VALUE_NO_DECLARATION_MESSAGE =
+  "Origin evidence not found on invoice. Verify LTSD, supplier declarations, EUR.1 requirements and importer instructions.";
 export const NO_PREFERENCE_MESSAGE =
   "No preferential trade agreement workflow applies for this destination country.";
 export const UK_UNDECLARED_MESSAGE =
@@ -47,68 +51,73 @@ export const REX_CONFIRMED_MESSAGE = "Statement on Origin detected on invoice.";
 export const REX_CONFIRMED_WITH_REG_MESSAGE =
   "Statement on Origin with REX registration detected on invoice.";
 
+function declaredDecision(
+  recommendation: string,
+  invoiceDeclarationSufficient: boolean,
+  caseId: PreferentialOriginDecision["caseId"]
+): PreferentialOriginDecision {
+  return {
+    preferentialOriginStatus: "CONFIRMED",
+    evidenceStatus: "DECLARED",
+    invoiceDeclarationSufficient,
+    eur1Recommended: false,
+    statusLabel: "Declared",
+    recommendation,
+    caseId,
+  };
+}
+
+function notDeclaredDecision(
+  recommendation: string,
+  caseId: PreferentialOriginDecision["caseId"]
+): PreferentialOriginDecision {
+  return {
+    preferentialOriginStatus: "NOT_DECLARED",
+    evidenceStatus: "NOT_DECLARED",
+    invoiceDeclarationSufficient: false,
+    eur1Recommended: false,
+    statusLabel: "Not declared",
+    recommendation,
+    caseId,
+  };
+}
+
+function unverifiedDecision(recommendation: string): PreferentialOriginDecision {
+  return {
+    preferentialOriginStatus: "NOT_DECLARED",
+    evidenceStatus: "UNVERIFIED",
+    invoiceDeclarationSufficient: false,
+    eur1Recommended: false,
+    statusLabel: "Unverified",
+    recommendation,
+    caseId: 3,
+  };
+}
+
 function evaluatePemDecision(input: PreferentialOriginDecisionInput): PreferentialOriginDecision {
   const {
     originDeclarationDetected,
     authorisedExporterDetected,
     invoiceValueEur,
-    preferenceScheme,
   } = input;
 
   if (originDeclarationDetected && authorisedExporterDetected) {
-    return {
-      preferentialOriginStatus: "CONFIRMED",
-      invoiceDeclarationSufficient: true,
-      eur1Recommended: false,
-      statusLabel: "Confirmed",
-      recommendation: CASE4_MESSAGE,
-      caseId: 4,
-    };
+    return declaredDecision(CASE4_MESSAGE, true, 4);
   }
 
-  if (originDeclarationDetected) {
-    return {
-      preferentialOriginStatus: "CONFIRMED",
-      invoiceDeclarationSufficient: true,
-      eur1Recommended: false,
-      statusLabel: "Confirmed",
-      recommendation: CASE1_MESSAGE,
-      caseId: 1,
-    };
+  if (originDeclarationDetected && invoiceValueEur <= INVOICE_DECLARATION_VALUE_THRESHOLD_EUR) {
+    return declaredDecision(CASE1_MESSAGE, true, 1);
+  }
+
+  if (originDeclarationDetected && invoiceValueEur > INVOICE_DECLARATION_VALUE_THRESHOLD_EUR) {
+    return unverifiedDecision(CASE3_MESSAGE);
   }
 
   if (invoiceValueEur <= INVOICE_DECLARATION_VALUE_THRESHOLD_EUR) {
-    return {
-      preferentialOriginStatus: "NOT_DECLARED",
-      invoiceDeclarationSufficient: false,
-      eur1Recommended: false,
-      statusLabel: "Not declared",
-      recommendation: CASE2_MESSAGE,
-      caseId: 2,
-    };
+    return notDeclaredDecision(CASE2_MESSAGE, 2);
   }
 
-  if (!authorisedExporterDetected) {
-    const eur1Recommended = preferenceScheme.workflowActive;
-    return {
-      preferentialOriginStatus: "NOT_DECLARED",
-      invoiceDeclarationSufficient: false,
-      eur1Recommended,
-      statusLabel: "Not declared",
-      recommendation: eur1Recommended ? CASE3_MESSAGE : CASE2_MESSAGE,
-      caseId: 3,
-    };
-  }
-
-  return {
-    preferentialOriginStatus: "NOT_DECLARED",
-    invoiceDeclarationSufficient: false,
-    eur1Recommended: false,
-    statusLabel: "Not declared",
-    recommendation:
-      "Customs authorization reference detected without a preferential origin declaration. Country of origin alone does not establish preference.",
-    caseId: 2,
-  };
+  return notDeclaredDecision(HIGH_VALUE_NO_DECLARATION_MESSAGE, 3);
 }
 
 function evaluateStatementOnOriginDecision(
@@ -125,27 +134,16 @@ function evaluateStatementOnOriginDecision(
           ? REX_CONFIRMED_MESSAGE
           : UK_CONFIRMED_MESSAGE;
 
-    return {
-      preferentialOriginStatus: "CONFIRMED",
-      invoiceDeclarationSufficient: false,
-      eur1Recommended: false,
-      statusLabel: "Confirmed",
-      recommendation,
-      caseId: 1,
-    };
+    return declaredDecision(recommendation, false, 1);
   }
 
-  return {
-    preferentialOriginStatus: "NOT_DECLARED",
-    invoiceDeclarationSufficient: false,
-    eur1Recommended: false,
-    statusLabel: "Not declared",
-    recommendation: scheme === "REX" ? REX_UNDECLARED_MESSAGE : UK_UNDECLARED_MESSAGE,
-    caseId: 2,
-  };
+  return notDeclaredDecision(
+    scheme === "REX" ? REX_UNDECLARED_MESSAGE : UK_UNDECLARED_MESSAGE,
+    2
+  );
 }
 
-/** Evaluate document-level preferential origin status from submitted invoice evidence. */
+/** Evaluate document-level preferential origin evidence from submitted invoice data. */
 export function evaluatePreferentialOriginDecision(
   input: PreferentialOriginDecisionInput
 ): PreferentialOriginDecision {
@@ -153,12 +151,8 @@ export function evaluatePreferentialOriginDecision(
 
   if (!preferenceScheme.workflowActive || preferenceScheme.scheme === "NO_PREFERENCE") {
     return {
-      preferentialOriginStatus: "NOT_DECLARED",
-      invoiceDeclarationSufficient: false,
-      eur1Recommended: false,
+      ...notDeclaredDecision(NO_PREFERENCE_MESSAGE, 0),
       statusLabel: "Not applicable",
-      recommendation: NO_PREFERENCE_MESSAGE,
-      caseId: 0,
     };
   }
 

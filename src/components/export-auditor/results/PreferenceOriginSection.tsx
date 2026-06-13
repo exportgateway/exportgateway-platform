@@ -25,6 +25,16 @@ function BoolRow({ label, value }: { label: string; value: boolean }) {
   );
 }
 
+function evidenceBadge(status: PreferenceOriginAnalysis["evidenceStatus"]) {
+  if (status === "DECLARED") {
+    return "bg-emerald-50 text-emerald-800 border-emerald-200";
+  }
+  if (status === "UNVERIFIED") {
+    return "bg-amber-50 text-amber-900 border-amber-200";
+  }
+  return "bg-slate-100 text-slate-700 border-slate-300";
+}
+
 function preferenceBadge(status: "YES" | "NO" | "UNKNOWN" | "NOT_DECLARED") {
   if (status === "YES") {
     return "bg-emerald-50 text-emerald-800 border-emerald-200";
@@ -46,9 +56,7 @@ function sourceLabel(source: string): string {
 
 export function PreferenceOriginSection({ analysis }: PreferenceOriginSectionProps) {
   const statusTone =
-    analysis.preferenceWorkflowActive &&
-    analysis.eur1Recommended &&
-    !analysis.originDeclarationFound
+    analysis.evidenceStatus === "UNVERIFIED"
       ? "border-amber-200 bg-amber-50/40"
       : "border-surface-border bg-white";
 
@@ -80,10 +88,20 @@ export function PreferenceOriginSection({ analysis }: PreferenceOriginSectionPro
 
       {analysis.preferenceWorkflowActive && (
         <div className="mt-4">
+          <div className="flex items-center justify-between gap-3 py-2 border-b border-surface-border">
+            <span className="text-sm text-slate-700">Preferential origin evidence</span>
+            <span
+              className={cn(
+                "inline-flex rounded-md border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide",
+                evidenceBadge(analysis.evidenceStatus)
+              )}
+            >
+              {analysis.evidenceStatus.replace(/_/g, " ")}
+            </span>
+          </div>
           <BoolRow label="Destination outside EU" value={analysis.destinationOutsideEu} />
           {showPemFields && (
             <>
-              <BoolRow label="EUR.1 recommended" value={analysis.eur1Recommended} />
               <BoolRow
                 label="Authorised Exporter detected"
                 value={analysis.authorisedExporterDetected}

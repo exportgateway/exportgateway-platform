@@ -40,6 +40,7 @@ function basePreferenceOrigin(
     preferenceWorkflowActive: true,
     preferentialOriginStatus: "NOT_DECLARED",
     invoiceDeclarationSufficient: false,
+    evidenceStatus: "NOT_DECLARED",
     eur1Recommended: false,
     originDeclarationFound: false,
     authorisedExporterDetected: false,

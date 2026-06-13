@@ -95,6 +95,7 @@ const footerOnlyInvoice: NormalizedInvoice = {
     net_weight_unit: "kg",
     package_type: "COLLI",
     pallet_dimensions: null,
+    pallet_count: null,
   },
 };
 assert(hasInvoiceGrossWeight(footerOnlyInvoice), "footer gross detected via resolver");
@@ -176,6 +177,7 @@ const mixedPrefInvoice: NormalizedInvoice = {
     net_weight_unit: "kg",
     package_type: "COLLI",
     pallet_dimensions: null,
+    pallet_count: null,
   },
 };
 const mixedReport = mapAuditReportToExportReport(mixedPrefInvoice, baseAudit({ issues: [] }), "mixed-pref.pdf");

@@ -133,7 +133,7 @@ const enriched = enrichInvoiceDocument(INVOICE, null);
 assert(enriched.shipment_summary?.package_count === 1, "enriched package_count=1");
 assert(enriched.shipment_summary?.net_weight_total === 770, "enriched net=770");
 assert(enriched.shipment_summary?.gross_weight_total === 850, "enriched gross=850");
-assert(enriched.items?.every((item) => item.hs_code === "731210810080"), "items hs_code backfilled");
+assert(enriched.items?.every((item) => item.hs_code === "731210810080") === true, "items hs_code backfilled");
 assert(enriched.document_flags?.[PARSER_MAPPING_FAILURE] === true, "PARSER_MAPPING_FAILURE signal set");
 
 const hsCodes = extractHsCodes(enriched);

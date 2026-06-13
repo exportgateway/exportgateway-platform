@@ -205,7 +205,7 @@ async function main() {
     shipment_summary: auditReport.shipment_summary ?? null,
     shipment_summary_type: auditReport.shipment_summary === undefined ? "undefined" : typeof auditReport.shipment_summary,
   });
-  snap("LIVE Step 5c: preference-origin API", preferenceOrigin.preference_analysis ?? {});
+  snap("LIVE Step 5c: preference-origin API", { ...(preferenceOrigin.preference_analysis ?? {}) });
 
   // --- Live path step 6: engine on invoice client holds ---
   const engineLive = runPreferentialOriginEngine(enrichedAfterRoundTrip);

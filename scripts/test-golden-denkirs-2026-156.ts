@@ -54,7 +54,7 @@ function minimalAudit(): AuditReportResponse {
       {
         severity: "warning",
         message: "Destination is within the EU customs territory.",
-        field: "EU_DESTINATION",
+        code: "EU_DESTINATION",
       },
       { severity: "warning", message: "Missing gross weight", code: "MISSING_GROSS_WEIGHT" },
       { severity: "warning", message: "Missing package count", code: "MISSING_PACKAGE_COUNT" },
@@ -81,7 +81,7 @@ assert(
   enriched.country_code === "RS",
   `destination stays RS after enrichment (got ${enriched.country_code})`
 );
-assert(enriched.country?.toLowerCase().includes("serbia"), "destination country name remains Serbia");
+assert(enriched.country?.toLowerCase().includes("serbia") === true, "destination country name remains Serbia");
 
 assert(
   enriched.shipment_summary?.gross_weight_total == null,

@@ -37,6 +37,16 @@ export const LEGACY_TRACEABILITY_WORKSHEET_NAME = "Line Traceability";
 
 export const MRN_EXPORT_COLUMNS = [
   "HS Code",
+  "Description",
+  "Quantity",
+  "Value",
+  "Country of Origin",
+  "Source Positions",
+] as const;
+
+/** @deprecated Extended columns retained for legacy consumers — prefer MRN_EXPORT_COLUMNS. */
+export const MRN_EXPORT_EXTENDED_COLUMNS = [
+  "HS Code",
   "Original Description",
   "Declaration Description",
   "Quantity",
@@ -300,16 +310,11 @@ function escapeCsvCell(value: string): string {
 function rowToCsvCells(row: MrnExportRow): string[] {
   return [
     row.hsCode,
-    row.originalDescription,
-    row.declarationDescription,
+    row.declarationDescription || row.originalDescription,
     formatQuantity(row.quantity),
-    row.netWeight != null ? formatDecimal(row.netWeight, 3) : "",
     formatMoney(row.valueEur),
     row.countryOfOrigin,
-    row.preferentialOrigin,
     row.sourcePositions,
-    row.descriptionSource,
-    row.reviewRecommended,
   ];
 }
 
@@ -381,16 +386,11 @@ function buildExcelAoA(dataset: MrnExportDataset): (string | number)[][] {
   for (const row of rows) {
     aoa.push([
       row.hsCode,
-      row.originalDescription,
-      row.declarationDescription,
+      row.declarationDescription || row.originalDescription,
       row.quantity,
-      row.netWeight ?? "",
       row.valueEur,
       row.countryOfOrigin,
-      row.preferentialOrigin,
       row.sourcePositions,
-      row.descriptionSource,
-      row.reviewRecommended,
     ]);
   }
 

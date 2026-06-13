@@ -145,13 +145,14 @@ async function main() {
   );
   assert(pref.mixedOrigin === true, "mixed origin = YES");
   assert(pref.mixedOriginTotals != null, "mixed origin totals generated");
+  const mixedOriginTotals = pref.mixedOriginTotals!;
   assert(
-    pref.mixedOriginTotals!.preferentialQuantity === EXPECTED_PREFERENTIAL_YES,
-    `preferential quantity = ${EXPECTED_PREFERENTIAL_YES} (got ${pref.mixedOriginTotals!.preferentialQuantity})`
+    mixedOriginTotals.preferentialQuantity === EXPECTED_PREFERENTIAL_YES,
+    `preferential quantity = ${EXPECTED_PREFERENTIAL_YES} (got ${mixedOriginTotals.preferentialQuantity})`
   );
   assert(
-    pref.mixedOriginTotals!.nonPreferentialQuantity === EXPECTED_PREFERENTIAL_NO,
-    `non-preferential quantity = ${EXPECTED_PREFERENTIAL_NO} (got ${pref.mixedOriginTotals!.nonPreferentialQuantity})`
+    mixedOriginTotals.nonPreferentialQuantity === EXPECTED_PREFERENTIAL_NO,
+    `non-preferential quantity = ${EXPECTED_PREFERENTIAL_NO} (got ${mixedOriginTotals.nonPreferentialQuantity})`
   );
 
   console.log("\nGoods lines & enterprise summary");

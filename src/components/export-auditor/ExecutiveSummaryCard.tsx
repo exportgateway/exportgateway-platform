@@ -45,6 +45,11 @@ export function ExecutiveSummaryCard({ report }: ExecutiveSummaryCardProps) {
               .join(" · "),
     },
     {
+      label: "Customs Readiness",
+      value: report.customsReadiness?.label ?? "—",
+      highlight: true,
+    },
+    {
       label: "Export Status",
       value: verdict.exportStatus,
       highlight: true,

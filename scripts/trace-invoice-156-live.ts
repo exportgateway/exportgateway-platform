@@ -86,7 +86,7 @@ async function main() {
 
   console.log("\nStep 3: enrichInvoiceDocument(raw, pdfText) — same as server-actions.ts");
   const enriched = enrichInvoiceDocument(raw, pdfText);
-  const diag = resolveDestinationWithDiagnostics(enriched);
+  const diagResult = resolveDestinationWithDiagnostics(enriched);
 
   console.log("\n=== 3. AFTER enrichInvoiceDocument ===");
   console.log(
@@ -95,9 +95,9 @@ async function main() {
         consignee: enriched.consignee,
         destination_country: enriched.country,
         destination_country_code: enriched.country_code,
-        destination_source: diag.destinationCountrySource,
-        exporter_country: diag.exporterCountry,
-        is_eu_destination: diag.isEuDestination,
+        destination_source: diagResult.diagnostics.destinationCountrySource,
+        exporter_country: diagResult.diagnostics.exporterCountry,
+        is_eu_destination: diagResult.diagnostics.isEuDestination,
         gross_weight: enriched.shipment_summary?.gross_weight_total ?? null,
         net_weight: enriched.shipment_summary?.net_weight_total ?? null,
         package_count: enriched.shipment_summary?.package_count ?? null,
@@ -124,7 +124,7 @@ async function main() {
         {
           severity: "warning",
           message: "Destination is within the EU customs territory.",
-          field: "EU_DESTINATION",
+          code: "EU_DESTINATION",
         },
       ],
       recommended_actions: [],

@@ -148,6 +148,7 @@ export {
   postExportAuditorDispositionAction,
   postExportAuditorPreferenceOriginAction,
   postExportAuditorAuditReportAction,
+  runExportAuditAnalysisAction,
   runFullExportAuditAction,
 } from "@/lib/export-auditor/server-actions";
 export {
@@ -266,7 +267,6 @@ export {
 export {
   formatDeclarationDescriptionSource,
   resolveLineDeclarationDescription,
-  normalizeDeclarationDescriptionSource,
   MAX_DECLARATION_DESCRIPTION_LENGTH,
 } from "@/lib/export-auditor/declaration-description-display";
 export {
@@ -321,12 +321,14 @@ export {
   repairPdfExtractedText,
   extractPdfText,
   extractPdfPageCount,
+  type PdfFontRepairContext,
+} from "@/lib/export-auditor/pdf-text-extract";
+export {
   BALKAN_PLACE_DICTIONARY,
   SUPPLIER_ENCODING_PROFILES,
   UNKNOWN_PDF_ENCODING_CHARACTER,
-  type PdfFontRepairContext,
   type PdfFontRepairResult,
-} from "@/lib/export-auditor/pdf-text-extract";
+} from "@/lib/export-auditor/balkan-pdf-text-repair";
 export {
   exportValidationPdf,
   buildValidationReportHtmlForTest,

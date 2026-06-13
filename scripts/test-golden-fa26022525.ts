@@ -112,6 +112,8 @@ function buildUpstreamExtras(): {
       status: "WARNING",
       warnings: [VAT_ARTICLE_LONG],
       errors: [],
+      checks_passed: 5,
+      checks_total: 8,
     },
     disposition: {
       status: "REVIEW REQUIRED BEFORE EXPORT DECLARATION",
@@ -201,10 +203,11 @@ async function main() {
   console.log("\nHS aggregation & MRN summary");
   const hsRow = aggregation.hs_aggregation.find((row) => row.hs_code === EXPECTED_HS);
   assert(hsRow != null, `HS ${EXPECTED_HS} aggregated`);
-  assert(hsRow?.item_count === 6, `HS ${EXPECTED_HS} covers 6 positions`);
+  const hsAggregationRow = hsRow!;
+  assert(hsAggregationRow.item_count === 6, `HS ${EXPECTED_HS} covers 6 positions`);
   assert(
-    hsRow != null && Math.abs(hsRow.total_value - EXPECTED_INVOICE_VALUE) < 0.01,
-    `HS ${EXPECTED_HS} total_value = ${EXPECTED_INVOICE_VALUE} (got ${hsRow?.total_value})`
+    Math.abs(hsAggregationRow.total_value - EXPECTED_INVOICE_VALUE) < 0.01,
+    `HS ${EXPECTED_HS} total_value = ${EXPECTED_INVOICE_VALUE} (got ${hsAggregationRow.total_value})`
   );
   assert(
     Math.abs(aggregation.mrn_summary.total_invoice_value - EXPECTED_INVOICE_VALUE) < 0.01,
@@ -241,16 +244,17 @@ async function main() {
     (row) => row.hsCode === EXPECTED_HS
   );
   assert(prefYes != null, "preferential summary row for HS 8438809900");
+  const prefYesRow = prefYes!;
   assert(
-    prefYes != null && Math.abs(prefYes.totalValue - EXPECTED_INVOICE_VALUE) < 0.01,
-    `preferential summary value = ${EXPECTED_INVOICE_VALUE} EUR (got ${prefYes?.totalValue})`
+    Math.abs(prefYesRow.totalValue - EXPECTED_INVOICE_VALUE) < 0.01,
+    `preferential summary value = ${EXPECTED_INVOICE_VALUE} EUR (got ${prefYesRow.totalValue})`
   );
   assert(
-    prefYes != null && prefYes.totalNetWeight === 65,
-    `preferential summary weight = 65 kg (got ${prefYes?.totalNetWeight})`
+    prefYesRow.totalNetWeight === 65,
+    `preferential summary weight = 65 kg (got ${prefYesRow.totalNetWeight})`
   );
   assert(
-    prefYes != null && prefYes.weightAllocationUnavailable !== true,
+    prefYesRow.weightAllocationUnavailable !== true,
     "preferential summary weight allocated from shipment net weight"
   );
   assert(
@@ -262,8 +266,7 @@ async function main() {
     `MRN net weight = 65 kg (got ${report.hsAggregationReport.mrnSummary.totalNetWeight})`
   );
   assert(
-    prefYes != null &&
-      report.hsAggregationReport.mrnSummary.totalNetWeight === prefYes.totalNetWeight,
+    report.hsAggregationReport.mrnSummary.totalNetWeight === prefYesRow.totalNetWeight,
     "preferential summary and MRN use the same net weight source"
   );
   assert(

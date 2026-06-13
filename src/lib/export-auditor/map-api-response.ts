@@ -71,6 +71,7 @@ import {
   isOriginDeclarationMissingCode,
   isOriginDeclarationMissingMessage,
   resolveIssueCode,
+  applyIssueSeverity,
 } from "@/lib/export-auditor/issue-readiness";
 import {
   detectSupportingDocuments,
@@ -108,6 +109,8 @@ import {
 } from "@/lib/export-auditor/destination-country";
 import { buildOcrObservability } from "@/lib/export-auditor/ocr-observability";
 import { aggregateOcrSessionMetrics } from "@/lib/export-auditor/ocr-session-metrics";
+import { evaluateCustomsReadiness } from "@/lib/export-auditor/customs-readiness-engine";
+import { evaluateDeclarationReadiness } from "@/lib/export-auditor/declaration-readiness-check";
 import type {
   HsAggregationReport,
 } from "@/lib/export-auditor/types";
@@ -166,11 +169,11 @@ function issueRootCode(issue: AuditIssue): string {
 
 function normalizeIssue(issue: AuditIssue): AuditIssue {
   const field = issue.field ?? inferIssueCodeFromMessage(issue.message);
-  return {
+  return applyIssueSeverity({
     ...issue,
     field,
     message: canonicalIssueMessage({ ...issue, field }),
-  };
+  });
 }
 
 function shouldPreferIssue(candidate: AuditIssue, existing: AuditIssue): boolean {
@@ -483,8 +486,10 @@ function mapShipmentSummary(
             : source?.package_type ?? null,
     grossWeightTotal: resolvedGross.gross_weight_total ?? source?.gross_weight_total ?? null,
     grossWeightUnit: resolvedGross.gross_weight_unit ?? source?.gross_weight_unit ?? null,
+    grossWeightSource: invoiceShip?.gross_weight_source ?? null,
     netWeightTotal: source?.net_weight_total ?? null,
     netWeightUnit: source?.net_weight_unit ?? null,
+    netWeightSource: invoiceShip?.net_weight_source ?? null,
     palletCount: packageDecision.palletCount ?? palletCount,
     declarationPackageCount: packageDecision.declarationPackageCount,
     declarationPackageType: packageDecision.declarationPackageType,
@@ -804,8 +809,7 @@ function mapPreferenceOrigin(
     invoiceValueEur: invoiceValue,
   });
 
-  const requiredDocuments =
-    decision.eur1Recommended && schemeInfo.scheme === "PEM" ? ["EUR.1"] : [];
+  const requiredDocuments: string[] = [];
 
   const lineDerived = applyLineDerivedOriginStatus(decision, engine.lines, {
     originDeclarationFound,
@@ -822,7 +826,8 @@ function mapPreferenceOrigin(
     preferenceWorkflowActive: schemeInfo.workflowActive,
     preferentialOriginStatus: lineDerived.preferentialOriginStatus,
     invoiceDeclarationSufficient: lineDerived.invoiceDeclarationSufficient,
-    eur1Recommended: decision.eur1Recommended,
+    evidenceStatus: decision.evidenceStatus,
+    eur1Recommended: false,
     originDeclarationFound,
     authorisedExporterDetected,
     statementOnOriginDetected,
@@ -1084,6 +1089,9 @@ export function mapAuditReportToExportReport(
     report.ocrObservability ? [report.ocrObservability] : []
   );
   report.shipmentExtractionDiagnostics = buildShipmentExtractionDiagnostics(invoice);
+
+  report.customsReadiness = evaluateCustomsReadiness(report, invoice);
+  report.declarationReadiness = evaluateDeclarationReadiness(report, invoice);
 
   return applyEnterpriseCommercialSummary(
     report,

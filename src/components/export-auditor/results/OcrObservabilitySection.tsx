@@ -33,7 +33,10 @@ export function OcrObservabilitySection({ auditReport }: OcrObservabilitySection
           {[
             { label: "OCR Provider", value: observability.ocrProvider },
             { label: "OCR Pages", value: String(observability.pageCount) },
-            { label: "OCR Quality", value: `${observability.ocrQualityScore}%` },
+            {
+              label: "Data Extraction Completeness",
+              value: `${observability.dataExtractionCompleteness ?? observability.ocrQualityScore}%`,
+            },
             { label: "OCR Cost", value: formatUsd(observability.estimatedOcrCostUsd) },
           ].map((row) => (
             <div key={row.label}>
@@ -100,7 +103,7 @@ export function OcrObservabilitySection({ auditReport }: OcrObservabilitySection
                 label: "Avg Cost Per Invoice",
                 value: formatUsd(session.averageOcrCostPerInvoiceUsd),
               },
-              { label: "Average OCR Quality", value: `${session.averageOcrQuality}%` },
+              { label: "Average Extraction Completeness", value: `${session.averageOcrQuality}%` },
             ].map((row) => (
               <div key={row.label}>
                 <dt className="text-[11px] font-medium uppercase tracking-wider text-slate-400">
@@ -134,7 +137,7 @@ export function OcrObservabilitySummary({ observability }: OcrObservabilitySumma
       <dl className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
         {[
           { label: "Pages", value: String(observability.pageCount) },
-          { label: "Quality", value: `${observability.ocrQualityScore}%` },
+          { label: "Completeness", value: `${observability.dataExtractionCompleteness ?? observability.ocrQualityScore}%` },
           { label: "Est. Cost", value: formatUsd(observability.estimatedOcrCostUsd) },
           { label: "Provider", value: observability.ocrProvider },
         ].map((item) => (

@@ -83,7 +83,20 @@ export function applyParserOcrCrosscheck(invoice: NormalizedInvoice): ParserOcrC
   }
 
   if (shipmentChanged) {
-    updated = { ...updated, shipment_summary: summary };
+    updated = {
+      ...updated,
+      shipment_summary: {
+        package_count: null,
+        package_type: null,
+        gross_weight_total: null,
+        gross_weight_unit: null,
+        net_weight_total: null,
+        net_weight_unit: null,
+        pallet_dimensions: null,
+        pallet_count: null,
+        ...summary,
+      },
+    };
   }
 
   const structuredHsCount = extractHsCodes(updated).length;

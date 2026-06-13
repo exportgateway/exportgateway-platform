@@ -64,6 +64,7 @@ function mixedAsteriskInvoice(): NormalizedInvoice {
       net_weight_total: 8,
       net_weight_unit: "kg",
       pallet_count: null,
+      pallet_dimensions: null,
     },
     items: [
       { position_number: 1, description: "Tool A *", quantity: 2, line_total: "200.00" },

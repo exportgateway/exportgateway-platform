@@ -30,6 +30,7 @@ import {
   OcrObservabilitySection,
   OcrObservabilitySummary,
 } from "@/components/export-auditor/results/OcrObservabilitySection";
+import { DeclarationReadinessSection } from "@/components/export-auditor/results/DeclarationReadinessSection";
 import { ExportValidationPdfButton } from "@/components/export-auditor/ExportValidationPdfButton";
 
 interface ExportAuditorResultsDashboardProps {
@@ -75,7 +76,15 @@ export function ExportAuditorResultsDashboard({ report }: ExportAuditorResultsDa
                 auditStatus={verdict.auditStatus}
                 exportStatus={verdict.exportStatus}
               />
-              <ConfidenceScoreSection scores={report.confidence} />
+              <ConfidenceScoreSection
+                scores={report.confidence}
+                dataExtractionCompleteness={
+                  report.ocrObservability?.dataExtractionCompleteness ??
+                  report.ocrObservability?.ocrQualityScore
+                }
+                customsReadiness={report.customsReadiness}
+              />
+              <DeclarationReadinessSection readiness={report.declarationReadiness} />
               <OcrObservabilitySummary observability={report.ocrObservability} />
               <PreferenceOriginSection analysis={report.preferenceOrigin} />
               <SupportingDocumentsSection documents={report.supportingDocumentsDetected} />
@@ -104,6 +113,7 @@ export function ExportAuditorResultsDashboard({ report }: ExportAuditorResultsDa
 
           {tab === "enterprise" && (
             <>
+              <DeclarationReadinessSection readiness={report.declarationReadiness} />
               <OcrObservabilitySection auditReport={report} />
               <HsAggregationReportSections
                 report={report.hsAggregationReport}

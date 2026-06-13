@@ -75,7 +75,7 @@ export function buildProcessingTimeline(
   });
 }
 
-/** Map upload progress step index to timeline active index */
+/** Map upload progress step id to timeline active index */
 export function timelineIndexFromProgress(stepId: string): number {
   switch (stepId) {
     case "upload":
