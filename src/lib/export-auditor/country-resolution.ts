@@ -19,6 +19,11 @@ export const POSTAL_PREFIX_COUNTRIES: Record<string, { code: string; name: strin
   PL: { code: "PL", name: "Poland" },
   HU: { code: "HU", name: "Hungary" },
   GB: { code: "GB", name: "United Kingdom" },
+  PT: { code: "PT", name: "Portugal" },
+  BG: { code: "BG", name: "Bulgaria" },
+  TR: { code: "TR", name: "Turkey" },
+  NL: { code: "NL", name: "Netherlands" },
+  CN: { code: "CN", name: "China" },
 };
 
 export const COUNTRY_NAME_TO_CODE: Record<string, string> = {
@@ -36,6 +41,8 @@ export const COUNTRY_NAME_TO_CODE: Record<string, string> = {
   montenegro: "ME",
   "crna gora": "ME",
   kosovo: "XK",
+  china: "CN",
+  switzerland: "CH",
   austria: "AT",
   österreich: "AT",
   germany: "DE",
@@ -59,6 +66,13 @@ export const COUNTRY_NAME_TO_CODE: Record<string, string> = {
   hungary: "HU",
   magyarország: "HU",
   magyarorszag: "HU",
+  portugal: "PT",
+  bulgaria: "BG",
+  turkey: "TR",
+  türkiye: "TR",
+  turkiye: "TR",
+  netherlands: "NL",
+  holland: "NL",
   "united kingdom": "GB",
   uk: "GB",
   england: "GB",
@@ -121,6 +135,27 @@ export function resolveCountryFromLine(line: string): {
   }
 
   return { country: null, country_code: null };
+}
+
+/** Map free-text or ISO2 token to ISO2 — never truncate country names (China ≠ CH). */
+export function resolveIso2CountryCode(raw: string | null | undefined): string | null {
+  const trimmed = raw?.trim();
+  if (!trimmed) return null;
+
+  if (/^[A-Za-z]{2}$/.test(trimmed)) {
+    return trimmed.toUpperCase();
+  }
+
+  const paren = trimmed.match(/\(([A-Z]{2})\)\s*$/);
+  if (paren) return paren[1];
+
+  const fromLine = resolveCountryFromLine(trimmed);
+  if (fromLine.country_code) return fromLine.country_code;
+
+  const fromText = resolveCountryFromText(trimmed);
+  if (fromText.country_code) return fromText.country_code;
+
+  return null;
 }
 
 function escapeRegExp(value: string): string {

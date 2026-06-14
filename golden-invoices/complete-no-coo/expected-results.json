@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "complete-no-coo",
+  "label": "Complete invoice without COO",
+  "capturedAt": "2026-06-14",
+  "source": {
+    "invoicePdf": "invoice.pdf",
+    "validationReportPdf": "validation-report.pdf",
+    "invoiceSource": "invoice-source.json"
+  },
+  "expected": {
+    "exporter": "Exporter GmbH",
+    "consignee": "Buyer RS",
+    "destinationCountry": "Serbia (RS)",
+    "destinationCountryCode": "RS",
+    "invoiceNumber": "CMP-001",
+    "invoiceValue": 3200,
+    "currency": "EUR",
+    "incoterms": "DAP",
+    "hsCodes": [
+      "84818073",
+      "84819000"
+    ],
+    "origin": {
+      "evidenceStatus": "NOT_DECLARED",
+      "preferentialOriginStatus": "NOT_DECLARED",
+      "mixedOrigin": false
+    },
+    "packageCount": 1,
+    "grossWeight": 120,
+    "netWeight": null,
+    "customsReadiness": "CUSTOMS_READY",
+    "declarationReadiness": "REVIEW REQUIRED",
+    "dataExtractionCompleteness": 94,
+    "lineCount": 2
+  },
+  "allowedAnomalies": [],
+  "notes": "Completeness calibration — missing COO should not collapse score"
+}

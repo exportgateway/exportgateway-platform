@@ -1,0 +1,66 @@
+{
+  "invoice_number": "FA26022525",
+  "exporter": "robot coupe",
+  "consignee": "OSA TERMOSISTEM",
+  "country": "KOSOVO",
+  "country_code": "XK",
+  "incoterms": "EXW",
+  "currency": "EUR",
+  "total_value": "158.624,01",
+  "items": [
+    {
+      "position_number": 1,
+      "description": "J80 230/50/1",
+      "quantity": 1,
+      "unit_price": "1,123.50",
+      "line_total": "1,123.50",
+      "hs_code": "8438809900",
+      "country_of_origin": "FR"
+    },
+    {
+      "position_number": 2,
+      "description": "CL50E ULTRA 230/50/1",
+      "quantity": 2,
+      "unit_price": "1,442.00",
+      "line_total": "2,884.00",
+      "hs_code": "8438809900",
+      "country_of_origin": "FR"
+    },
+    {
+      "position_number": 3,
+      "description": "PACK-5D-HUN-EXPERT Mineral+",
+      "quantity": 2,
+      "unit_price": "476.70",
+      "line_total": "953.40",
+      "hs_code": "8438809900",
+      "country_of_origin": "FR"
+    },
+    {
+      "position_number": 4,
+      "description": "S-5MM-SLICER DISC-EXPERT Mineral+",
+      "quantity": 2,
+      "unit_price": "95.90",
+      "line_total": "191.80",
+      "hs_code": "8438809900",
+      "country_of_origin": "FR"
+    },
+    {
+      "position_number": 5,
+      "description": "S-10MM-SLICER DISC-EXPERT Mineral+",
+      "quantity": 2,
+      "unit_price": "95.90",
+      "line_total": "191.80",
+      "hs_code": "8438809900",
+      "country_of_origin": "FR"
+    },
+    {
+      "position_number": 6,
+      "description": "J-3X3MM-JULIENNE DISC-EXPERT Mineral+",
+      "quantity": 2,
+      "unit_price": "124.60",
+      "line_total": "249.20",
+      "hs_code": "8438809900",
+      "country_of_origin": "FR"
+    }
+  ]
+}

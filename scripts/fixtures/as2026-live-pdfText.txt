@@ -1,0 +1,34 @@
+Buyer:
+Z.T.R. "Braca Maric" Apecs.S d.o.o.
+Dragiše Mišovića 169, 32000 Čačak, Srbija Grška ulica 13, 1000 Ljubljana
+Tel.: +386 40 762 309
+Email: prodaja@apecs.si
+VAT number: 101112842 VAT number: SI49796712
+Invoice #: AS2026-1069
+Recipient:
+QR for payment
+ Date: 21.05.2026
+Dragiše Mišovića 169, 32000 Čačak,
+Srbija
+Due date: 05.06.2026
+Contract:
+Delivery date: 21.05.2026
+Payment method: Bank transfer
+Pos Description Barcode Quantity MU Price
+w/o VAT
+%
+disc.
+Price
+with disc.
+w/o VAT
+VAT Amount
+with VAT
+1 Ventil 88001234 1 400 pcs 4,29 6.000,00 22,00 1.320,00 7.320,00
+2 Prirubnica 88005678 100 pcs 85,50 8.550,00 22,00 1.881,00 10.431,00
+3 Tesnilo 88009901 2 000 pcs 0,38 760,32 22,00 167,27 927,59
+Total w/o VAT 17.861,24
+VAT 22% 3.929,06
+Total invoice amount: 21.790,30 EUR
+Amount to be paid: 21.790,30 EUR
+Scan QR code for payment
+QR for payment

@@ -30,8 +30,16 @@ import {
   OcrObservabilitySection,
   OcrObservabilitySummary,
 } from "@/components/export-auditor/results/OcrObservabilitySection";
+import {
+  DataRecoveryDiagnosticsSection,
+  DataRecoverySummary,
+} from "@/components/export-auditor/results/DataRecoveryDiagnosticsSection";
 import { DeclarationReadinessSection } from "@/components/export-auditor/results/DeclarationReadinessSection";
+import { CustomsReadinessSection } from "@/components/export-auditor/results/CustomsReadinessSection";
+import { HsVerificationSection } from "@/components/export-auditor/results/HsVerificationSection";
 import { ExportValidationPdfButton } from "@/components/export-auditor/ExportValidationPdfButton";
+import { AdminOnly } from "@/components/admin/AdminOnly";
+import { FEATURE_FLAGS } from "@/config/feature-flags";
 
 interface ExportAuditorResultsDashboardProps {
   report: ExportAuditReport;
@@ -44,11 +52,15 @@ export function ExportAuditorResultsDashboard({ report }: ExportAuditorResultsDa
   const totalIssues =
     issueCounts.critical + issueCounts.warning + issueCounts.information;
 
+  const showExtractionDiagnostics = FEATURE_FLAGS.extractionTraceLogs;
+
   return (
     <div className="space-y-5" data-screenshot="export-auditor-result">
-      <div className="flex justify-end">
-        <ExportValidationPdfButton report={report} />
-      </div>
+      <AdminOnly flag="validationPdfExport">
+        <div className="flex justify-end">
+          <ExportValidationPdfButton report={report} />
+        </div>
+      </AdminOnly>
       <ExecutiveSummaryCard report={report} />
       <ExportReadinessScoreCard report={report} />
       <ExportAuditorQuickActions />
@@ -69,23 +81,35 @@ export function ExportAuditorResultsDashboard({ report }: ExportAuditorResultsDa
               <InvoiceSummarySection summary={report.invoiceSummary} />
               <ShipmentSummarySection
                 summary={report.shipmentSummary}
-                extractionDiagnostics={report.shipmentExtractionDiagnostics}
+                extractionDiagnostics={
+                  showExtractionDiagnostics ? report.shipmentExtractionDiagnostics : undefined
+                }
               />
               <DeliveryAddressSection address={report.deliveryAddress} />
               <AuditStatusSection
                 auditStatus={verdict.auditStatus}
                 exportStatus={verdict.exportStatus}
               />
-              <ConfidenceScoreSection
-                scores={report.confidence}
-                dataExtractionCompleteness={
-                  report.ocrObservability?.dataExtractionCompleteness ??
-                  report.ocrObservability?.ocrQualityScore
-                }
-                customsReadiness={report.customsReadiness}
-              />
+              <AdminOnly flag="ocrDebugPanels">
+                <ConfidenceScoreSection
+                  scores={report.confidence}
+                  dataExtractionCompleteness={
+                    report.ocrObservability?.dataExtractionCompleteness ??
+                    report.ocrObservability?.ocrQualityScore
+                  }
+                  customsReadiness={report.customsReadiness}
+                />
+              </AdminOnly>
+              {!FEATURE_FLAGS.ocrDebugPanels && (
+                <CustomsReadinessSection readiness={report.customsReadiness} />
+              )}
               <DeclarationReadinessSection readiness={report.declarationReadiness} />
-              <OcrObservabilitySummary observability={report.ocrObservability} />
+              <AdminOnly flag="ocrDebugPanels">
+                <OcrObservabilitySummary observability={report.ocrObservability} />
+              </AdminOnly>
+              <AdminOnly flag="forensicDiagnostics">
+                <DataRecoverySummary auditReport={report} />
+              </AdminOnly>
               <PreferenceOriginSection analysis={report.preferenceOrigin} />
               <SupportingDocumentsSection documents={report.supportingDocumentsDetected} />
               <HsCodesSection codes={report.hsCodesDetected} />
@@ -107,6 +131,7 @@ export function ExportAuditorResultsDashboard({ report }: ExportAuditorResultsDa
           {tab === "classification" && (
             <>
               <HsCodesSection codes={report.hsCodesDetected} />
+              <HsVerificationSection summary={report.hsVerificationSummary} />
               <PreferenceOriginSection analysis={report.preferenceOrigin} />
             </>
           )}
@@ -114,7 +139,13 @@ export function ExportAuditorResultsDashboard({ report }: ExportAuditorResultsDa
           {tab === "enterprise" && (
             <>
               <DeclarationReadinessSection readiness={report.declarationReadiness} />
-              <OcrObservabilitySection auditReport={report} />
+              <HsVerificationSection summary={report.hsVerificationSummary} />
+              <AdminOnly flag="ocrDebugPanels">
+                <OcrObservabilitySection auditReport={report} />
+              </AdminOnly>
+              <AdminOnly flag="forensicDiagnostics">
+                <DataRecoveryDiagnosticsSection auditReport={report} />
+              </AdminOnly>
               <HsAggregationReportSections
                 report={report.hsAggregationReport}
                 currency={report.invoiceSummary.currency}
@@ -127,7 +158,9 @@ export function ExportAuditorResultsDashboard({ report }: ExportAuditorResultsDa
             <>
               <ShipmentSummarySection
                 summary={report.shipmentSummary}
-                extractionDiagnostics={report.shipmentExtractionDiagnostics}
+                extractionDiagnostics={
+                  showExtractionDiagnostics ? report.shipmentExtractionDiagnostics : undefined
+                }
               />
               <DeliveryAddressSection address={report.deliveryAddress} />
               <CustomsDispositionSection disposition={report.customsDisposition} />

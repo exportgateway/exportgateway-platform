@@ -1,5 +1,7 @@
 /** Types aligned with export-auditor backend (https://export-auditor.onrender.com) */
 
+export type HsSource = "INVOICE" | "WIZARD" | "USER" | "IMPORTED";
+
 export interface ApiInvoiceItem {
   item_code?: string;
   description?: string | null;
@@ -7,12 +9,24 @@ export interface ApiInvoiceItem {
   unit_price?: number | string | null;
   line_total?: number | string | null;
   hs_code?: string | null;
+  /** HS as printed on invoice before wizard/user/import override. */
+  invoice_hs_code?: string | null;
+  /** Declaration HS after wizard/user/import — takes precedence over hs_code. */
+  final_hs_code?: string | null;
+  hs_source?: HsSource | null;
+  /** Wizard-suggested HS for verification — never auto-applied as final HS. */
+  wizard_hs_code?: string | null;
+  /** Wizard classification confidence (0–100). */
+  wizard_confidence?: number | null;
+  /** Description-to-classification similarity (0–100) from wizard. */
+  similarity_score?: number | null;
   country_of_origin?: string;
   position_number?: number | null;
   net_weight?: number | string | null;
 }
 
 export type WeightExtractionSource = "DOCUMENT" | "CALCULATED" | "OCR_TABLE" | "OCR_TEXT";
+export type WeightType = "UNIT" | "LINE" | "SHIPMENT";
 
 export interface ShipmentSummary {
   package_count: number | null;
@@ -20,9 +34,11 @@ export interface ShipmentSummary {
   gross_weight_total: number | null;
   gross_weight_unit: string | null;
   gross_weight_source?: WeightExtractionSource | null;
+  gross_weight_type?: WeightType | null;
   net_weight_total: number | null;
   net_weight_unit: string | null;
   net_weight_source?: WeightExtractionSource | null;
+  net_weight_type?: WeightType | null;
   pallet_dimensions: string | null;
   pallet_count: number | null;
 }
@@ -54,6 +70,10 @@ export interface NormalizedInvoice {
   document_flags?: Record<string, boolean | string | number>;
   /** Per-field extraction source tracking for confidence scoring. */
   extraction_provenance?: import("@/lib/export-auditor/extraction-provenance").ExtractionProvenanceEntry[];
+  /** Parser OCR output snapshot — captured before platform enrichment (not sent to backend). */
+  parser_input_snapshot?: import("@/lib/export-auditor/parser-recovery-provenance").ParserInputSnapshot;
+  /** Fields recovered when parser output was missing or invalid. */
+  parser_recovery_provenance?: import("@/lib/export-auditor/parser-recovery-provenance").ParserRecoveryEntry[];
   /** Optional OCR-extracted origin / preference declaration block (footer legal text). */
   origin_declaration_text?: string | null;
   preference_declarations?: string[];
@@ -72,6 +92,8 @@ export interface NormalizedInvoice {
     pdf_text_length?: number;
     ocr_text_length?: number;
     extraction_source?: string;
+    /** Cached pdf-parse text for re-enrichment after client round-trip. */
+    extracted_pdf_text?: string;
     shipment_fields_detected?: string[];
     shipment_fields_missing?: string[];
     raw_ocr_has_shipment_summary?: boolean;

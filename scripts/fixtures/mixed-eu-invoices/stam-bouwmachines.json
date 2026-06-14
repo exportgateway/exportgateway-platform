@@ -1,0 +1,42 @@
+{
+  "id": "STAM_BOUWMACHINES",
+  "invoice": {
+    "invoice_number": "SB-2026-441",
+    "exporter": "Stam Bouwmachines BV",
+    "consignee": "Gradnja DOO Beograd",
+    "country_code": "RS",
+    "country": "Serbia",
+    "currency": "EUR",
+    "total_value_numeric": 4850,
+    "origin_declaration_text": "The exporter of the products covered by this document declares that, except where otherwise clearly indicated, these products are of EU preferential origin.",
+    "items": [
+      {
+        "position_number": 1,
+        "description": "Concrete mixer drum",
+        "quantity": 1,
+        "line_total": 2200
+      },
+      {
+        "position_number": 2,
+        "description": "Hydraulic pump unit",
+        "quantity": 2,
+        "line_total": 2650
+      }
+    ],
+    "ocr_text": "Stam Bouwmachines BV\nInvoice SB-2026-441\n-- 1 of 2 --\nPos Description Customs Tariff Origin Of Goods Qty Amount\n1 Concrete mixer drum 84381090 Origin - Netherlands 1 2200.00\n-- 2 of 2 --\nPos Description Customs Tariff Origin Of Goods Qty Amount\n2 Hydraulic pump unit 84251900 Made in Netherlands 2 2650.00\nGross weight 850 kg\nNet weight 780 kg\nPackages 2\nTotal invoice amount 4 850,00 EUR"
+  },
+  "expect": {
+    "hsCodesMin": 2,
+    "hsOnLinesMin": 2,
+    "aggregationMin": 2,
+    "traceabilityMin": 2,
+    "originOnLinesMin": 2,
+    "preferentialOrigin": true,
+    "shipmentFields": {
+      "grossWeight": true,
+      "netWeight": true,
+      "packageCount": true
+    },
+    "noLineCountMismatch": true
+  }
+}

@@ -407,7 +407,7 @@ async function main() {
     "Description column present"
   );
   assert(prepRows[prepHeaderIndex]?.[2] === "Quantity", "Quantity column present");
-  assert(String(prepRows[prepHeaderIndex]?.[5]) === "Source Positions", "Source Positions column");
+  assert(String(prepRows[prepHeaderIndex]?.[7]) === "Source Positions", "Source Positions column");
   const footerRows = prepRows.filter(
     (row) => typeof row[0] === "string" && String(row[0]).includes("declarant assistance")
   );

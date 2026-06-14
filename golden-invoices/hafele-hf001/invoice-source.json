@@ -1,0 +1,159 @@
+{
+  "invoice_number": "HF-001",
+  "exporter": "Häfele",
+  "consignee": "Buyer BA",
+  "country": "Bosnia and Herzegovina",
+  "country_code": "BA",
+  "currency": "EUR",
+  "total_value_numeric": 5000,
+  "incoterms": "DAP",
+  "vat_article": "Positions 5, 6, 8, 11, 12 and 16 are of preferential origin.",
+  "items": [
+    {
+      "position_number": 1,
+      "description": "Item 1",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "DE",
+      "hs_code": "83024200"
+    },
+    {
+      "position_number": 2,
+      "description": "Item 2",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "DE",
+      "hs_code": "83024200"
+    },
+    {
+      "position_number": 3,
+      "description": "Item 3",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "DE",
+      "hs_code": "83024200"
+    },
+    {
+      "position_number": 4,
+      "description": "Item 4",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "DE",
+      "hs_code": "83024200"
+    },
+    {
+      "position_number": 5,
+      "description": "Item 5",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "DE",
+      "hs_code": "83024200"
+    },
+    {
+      "position_number": 6,
+      "description": "Item 6",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "DE",
+      "hs_code": "83024200"
+    },
+    {
+      "position_number": 7,
+      "description": "Item 7",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "DE",
+      "hs_code": "83024200"
+    },
+    {
+      "position_number": 8,
+      "description": "Item 8",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "DE",
+      "hs_code": "83024200"
+    },
+    {
+      "position_number": 9,
+      "description": "Item 9",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "CN",
+      "hs_code": "83024200"
+    },
+    {
+      "position_number": 10,
+      "description": "Item 10",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "CN",
+      "hs_code": "83024200"
+    },
+    {
+      "position_number": 11,
+      "description": "Item 11",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "CN",
+      "hs_code": "83024200"
+    },
+    {
+      "position_number": 12,
+      "description": "Item 12",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "CN",
+      "hs_code": "83024200"
+    },
+    {
+      "position_number": 13,
+      "description": "Item 13",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "CN",
+      "hs_code": "83024200"
+    },
+    {
+      "position_number": 14,
+      "description": "Item 14",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "CN",
+      "hs_code": "83024200"
+    },
+    {
+      "position_number": 15,
+      "description": "Item 15",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "CN",
+      "hs_code": "83024200"
+    },
+    {
+      "position_number": 16,
+      "description": "Item 16",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "CN",
+      "hs_code": "83024200"
+    },
+    {
+      "position_number": 17,
+      "description": "Item 17",
+      "quantity": 1,
+      "line_total": 100,
+      "country_of_origin": "CN",
+      "hs_code": "83024200"
+    }
+  ],
+  "shipment_summary": {
+    "package_count": 2,
+    "gross_weight_total": 120,
+    "gross_weight_unit": "kg",
+    "net_weight_total": 100,
+    "net_weight_unit": "kg",
+    "package_type": "COLLI",
+    "pallet_dimensions": null,
+    "pallet_count": null
+  }
+}

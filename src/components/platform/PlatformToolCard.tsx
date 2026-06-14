@@ -34,7 +34,7 @@ export function PlatformToolCard({ tool, variant = "default" }: PlatformToolCard
       <p className="mt-1 text-sm font-medium text-brand-600">{tool.name}</p>
       <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{tool.description}</p>
 
-      {variant === "default" && (
+      {variant === "default" && tool.status !== "coming-soon" && (
         <ul className="mt-4 space-y-1.5">
           {tool.features.slice(0, 3).map((feature) => (
             <li key={feature} className="flex items-start gap-2 text-xs text-slate-500">
@@ -45,13 +45,23 @@ export function PlatformToolCard({ tool, variant = "default" }: PlatformToolCard
         </ul>
       )}
 
-      <Link
-        href={tool.href}
-        className="btn-primary mt-6 w-full justify-center group-hover:shadow-md"
-      >
-        Launch Tool
-        <ArrowRight className="h-4 w-4" />
-      </Link>
+      {tool.status === "coming-soon" ? (
+        <Link
+          href={tool.href}
+          className="btn-secondary mt-6 w-full justify-center group-hover:shadow-md"
+        >
+          Coming Soon — Learn more
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      ) : (
+        <Link
+          href={tool.href}
+          className="btn-primary mt-6 w-full justify-center group-hover:shadow-md"
+        >
+          Launch Tool
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      )}
     </div>
   );
 }

@@ -1,0 +1,41 @@
+{
+  "id": "MAMIYE",
+  "invoice": {
+    "invoice_number": "6124746",
+    "exporter": "Mamiye Trading SRL",
+    "consignee": "Retail Partner DOO",
+    "country_code": "RS",
+    "country": "Serbia",
+    "currency": "EUR",
+    "total_value_numeric": 1000,
+    "items": [
+      {
+        "position_number": 1,
+        "description": "Electronics module",
+        "quantity": 10,
+        "line_total": 500
+      },
+      {
+        "position_number": 2,
+        "description": "Furniture component",
+        "quantity": 5,
+        "line_total": 300
+      },
+      {
+        "position_number": 3,
+        "description": "Telecom accessory",
+        "quantity": 2,
+        "line_total": 200
+      }
+    ],
+    "ocr_text": "MAMIYE Trading SRL\nInvoice 6124746\n1 Electronics module HS 85235110 Origin - China 10 500.00\n2 Furniture component Commodity code 9403.60.90 Made in Italy 5 300.00\n3 Telecom accessory 85171200 COO TR 2 200.00\nTotal 1 000,00 EUR"
+  },
+  "expect": {
+    "hsCodesMin": 3,
+    "hsOnLinesMin": 3,
+    "aggregationMin": 3,
+    "traceabilityMin": 3,
+    "originOnLinesMin": 3,
+    "totalMismatch": false
+  }
+}

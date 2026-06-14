@@ -1,0 +1,15 @@
+{
+  "_captureNote": "Simulated live runtime — parser OCR API response (ocr_text_len ~2319 pattern). Fields: QR consignee, total 22, empty items. ocr_text is upstream parser corpus before pdfText merge.",
+  "invoice_number": "AS2026-1069",
+  "invoice_date": "21.05.2026",
+  "exporter": "Apecs.S d.o.o.",
+  "consignee": "QR for payment",
+  "country": null,
+  "country_code": null,
+  "incoterms": "DAP",
+  "currency": "EUR",
+  "total_value": "22",
+  "total_value_numeric": 22,
+  "items": [],
+  "ocr_text": "PLACEHOLDER_OCR_TEXT"
+}

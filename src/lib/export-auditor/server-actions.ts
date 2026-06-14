@@ -9,8 +9,14 @@ import type {
   ReadinessResponse,
 } from "@/lib/export-auditor/api-types";
 import { sanitizeInvoiceForBackendApi } from "@/lib/export-auditor/backend-invoice-sanitize";
+import fs from "fs";
+import path from "path";
 import { enrichInvoiceDocument } from "@/lib/export-auditor/document-enrichment";
 import { extractPdfPageCount, extractPdfText } from "@/lib/export-auditor/pdf-text-extract";
+import {
+  enableForensicTraceForInvoice,
+  logBeforeMap,
+} from "@/lib/export-auditor/as2026-forensic-trace";
 import { attachRawOcrShipmentMetadata } from "@/lib/export-auditor/shipment-extraction-diagnostics";
 import { mapAuditReportToExportReport } from "@/lib/export-auditor/map-api-response";
 import type { ExportAuditorApiError, ExportAuditReport } from "@/lib/export-auditor/types";
@@ -48,7 +54,13 @@ async function parseApiError(res: Response): Promise<string> {
     const data = await res.json();
     if (typeof data.detail === "string") return data.detail;
     if (Array.isArray(data.detail)) {
-      return data.detail.map((d: { msg?: string }) => d.msg || JSON.stringify(d)).join("; ");
+      return data.detail
+        .map((d: { msg?: string; loc?: (string | number)[] }) => {
+          const path = Array.isArray(d.loc) ? d.loc.filter((p) => p !== "body").join(".") : "";
+          const msg = d.msg || JSON.stringify(d);
+          return path ? `${path}: ${msg}` : msg;
+        })
+        .join("; ");
     }
     if (typeof data.message === "string") return data.message;
     return `Request failed (${res.status})`;
@@ -165,6 +177,13 @@ export async function postExportAuditorOcrAction(
     }
 
     const rawInvoice = (await res.json()) as NormalizedInvoice;
+    if (enableForensicTraceForInvoice(rawInvoice)) {
+      const captureDir = path.join(process.cwd(), "scripts/fixtures/as2026-live-capture");
+      fs.mkdirSync(captureDir, { recursive: true });
+      fs.writeFileSync(path.join(captureDir, "raw-ocr.json"), JSON.stringify(rawInvoice, null, 2));
+      fs.writeFileSync(path.join(captureDir, "pdfText.txt"), pdfText);
+      console.log("[AS2026-FORENSIC] captured raw OCR + pdfText to scripts/fixtures/as2026-live-capture/");
+    }
     logEnrichmentCheckpoint("BEFORE enrichInvoiceDocument", rawInvoice, {
       pdfTextLength: pdfText.length,
       pageCount,
@@ -176,6 +195,7 @@ export async function postExportAuditorOcrAction(
           ocr_metadata: {
             ...rawInvoice.ocr_metadata,
             page_count: pageCount,
+            extracted_pdf_text: pdfText || undefined,
           },
         },
         pdfText.length
@@ -234,6 +254,14 @@ export async function runExportAuditAnalysisAction(
   invoice: NormalizedInvoice,
   fileName: string
 ): Promise<FullAuditActionResult> {
+  // Re-enrich after client round-trip — OCR action enriches on server but analysis
+  // receives invoice serialized through the browser; recovery fields may be stale.
+  const cachedPdfText =
+    typeof invoice.ocr_metadata?.extracted_pdf_text === "string"
+      ? invoice.ocr_metadata.extracted_pdf_text
+      : null;
+  invoice = enrichInvoiceDocument(invoice, cachedPdfText);
+
   const [readinessResult, dispositionResult, preferenceOriginResult, auditReportResult] =
     await Promise.all([
       postExportAuditorReadinessAction(invoice),
@@ -256,6 +284,7 @@ export async function runExportAuditAnalysisAction(
   }
 
   logEnrichmentCheckpoint("before mapAuditReportToExportReport", invoice);
+  logBeforeMap(invoice);
 
   const report = mapAuditReportToExportReport(invoice, auditReportResult.auditReport, fileName, {
     readiness: readinessResult.data,
@@ -273,6 +302,7 @@ export async function runExportAuditAnalysisAction(
     grossWeight: report.hsAggregationReport.mrnSummary.totalGrossWeight,
     linePrefs: report.preferenceOrigin.lineItems.map((l) => l.preferential_origin),
     invoiceValue: report.invoiceSummary.invoiceValue,
+    invoiceRecoveryVersion: "discount-vat-v2",
     mrnExportReady: report.mrnExportReady,
   });
 

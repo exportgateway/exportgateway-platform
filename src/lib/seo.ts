@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/lib/constants";
+import { IS_PRELAUNCH, PRELAUNCH_ROBOTS } from "@/config/prelaunch";
 
 const OG_IMAGE_PATH = "/opengraph-image";
 
@@ -20,8 +21,16 @@ export function buildPageMetadata({
   path: string;
   noIndex?: boolean;
 }): Metadata {
+  if (IS_PRELAUNCH) {
+    return {
+      title,
+      robots: PRELAUNCH_ROBOTS,
+    };
+  }
+
   const url = absoluteUrl(path);
   const ogImage = absoluteUrl(OG_IMAGE_PATH);
+  const blockIndex = noIndex;
 
   return {
     title,
@@ -49,6 +58,6 @@ export function buildPageMetadata({
       description,
       images: [ogImage],
     },
-    robots: noIndex ? { index: false, follow: false } : { index: true, follow: true },
+    robots: blockIndex ? { index: false, follow: false } : { index: true, follow: true },
   };
 }

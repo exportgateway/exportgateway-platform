@@ -1,0 +1,35 @@
+{
+  "id": "MADO_BAKERY",
+  "invoice": {
+    "invoice_number": "MB-7781",
+    "exporter": "Mado Bakery GmbH",
+    "consignee": "Distribucija hrane DOO",
+    "country_code": "RS",
+    "country": "Serbia",
+    "currency": "EUR",
+    "total_value_numeric": 1680,
+    "items": [
+      {
+        "position_number": 1,
+        "description": "Frozen croissants 80g",
+        "quantity": 400,
+        "line_total": 960
+      },
+      {
+        "position_number": 2,
+        "description": "Pre-baked bread rolls",
+        "quantity": 300,
+        "line_total": 720
+      }
+    ],
+    "ocr_text": "Mado Bakery GmbH\nInvoice MB-7781\n1 Frozen croissants 80g HS Code 19059055 Origin - Germany 400 960.00\n2 Pre-baked bread rolls Commodity Code 19059070 COO DE 300 720.00\nTotal 1 680,00 EUR"
+  },
+  "expect": {
+    "hsCodesMin": 2,
+    "hsOnLinesMin": 2,
+    "aggregationMin": 2,
+    "traceabilityMin": 2,
+    "originOnLinesMin": 2,
+    "noLineCountMismatch": true
+  }
+}

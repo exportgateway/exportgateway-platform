@@ -1,0 +1,21 @@
+{
+  "invoice_number": "I26.0515",
+  "invoice_date": "2026-01-15",
+  "exporter": "gomLINE d.o.o., Cesta v Gorice 42, 1000 Ljubljana, Slovenija",
+  "consignee": "GOMLINE 81 d.o.o.\nJEGRIČKA 9\n21000 NOVI SAD\nSERBIA",
+  "country": "Slovenia",
+  "country_code": "SI",
+  "incoterms": "DAP NOVI SAD",
+  "currency": "EUR",
+  "total_value": "4771.55",
+  "items": [
+    {
+      "description": "Goods line 1",
+      "hs_code": "38121000",
+      "quantity": "1",
+      "unit_price": "4771.55",
+      "line_total": "4771.55",
+      "country_of_origin": ""
+    }
+  ]
+}

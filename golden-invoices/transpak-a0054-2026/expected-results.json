@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "transpak-a0054-2026",
+  "label": "TRANSPAK A0054/2026 → Serbia",
+  "capturedAt": "2026-06-14",
+  "source": {
+    "invoicePdf": "invoice.pdf",
+    "validationReportPdf": "validation-report.pdf",
+    "invoiceSource": "invoice-source.json"
+  },
+  "expected": {
+    "exporter": "TRANSPAK d.o.o.",
+    "consignee": "KNJAZ MILOŠ A.D.",
+    "destinationCountry": "Serbia (RS)",
+    "destinationCountryCode": "RS",
+    "invoiceNumber": "A0054/2026",
+    "invoiceValue": 1227.03,
+    "currency": "EUR",
+    "incoterms": "DDP Aranđelovac",
+    "hsCodes": [
+      "39269097",
+      "73181575",
+      "73181639",
+      "73269098",
+      "74192100",
+      "84229090"
+    ],
+    "origin": {
+      "evidenceStatus": "NOT_DECLARED",
+      "preferentialOriginStatus": "NON_PREFERENTIAL_EXPORT",
+      "mixedOrigin": false
+    },
+    "packageCount": 1,
+    "grossWeight": 450,
+    "netWeight": 400,
+    "customsReadiness": "CUSTOMS_READY",
+    "declarationReadiness": "REVIEW REQUIRED",
+    "dataExtractionCompleteness": 96,
+    "lineCount": 15
+  },
+  "allowedAnomalies": [],
+  "notes": "Mixed SI/CN origin, pallet weights in footer"
+}

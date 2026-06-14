@@ -17,7 +17,7 @@ export function WhyExportGateway() {
           />
         </AnimatedSection>
 
-        <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {whyExportGateway.map((item) => (
             <StaggerItem key={item.title}>
               <div className="rounded-2xl border border-surface-border bg-surface-muted/30 p-6 h-full card-hover">

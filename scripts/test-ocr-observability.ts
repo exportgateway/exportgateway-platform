@@ -49,18 +49,24 @@ const fullItems: ApiInvoiceItem[] = [
     hs_code: "84713000",
     country_of_origin: "DE",
     line_total: 100,
+    quantity: 1,
+    unit_price: 100,
   },
   {
     description: "Widget B",
     hs_code: "39269097",
     country_of_origin: "SI",
     line_total: 50,
+    quantity: 1,
+    unit_price: 50,
   },
   {
     description: "Widget C",
     hs_code: "73089059",
     country_of_origin: "IT",
     line_total: 25,
+    quantity: 1,
+    unit_price: 25,
   },
 ];
 const partialItems: ApiInvoiceItem[] = [
@@ -85,8 +91,8 @@ console.log("\n=== computeOcrQualityScore ===");
 assert(computeOcrQualityScore(fullMetrics) === 100, "full coverage invoice — 100% quality");
 const partialQuality = computeOcrQualityScore(partialMetrics);
 assert(
-  partialQuality === 43,
-  `partial coverage invoice — 43% quality (got ${partialQuality})`
+  partialQuality === 37,
+  `partial coverage invoice — 37% quality (got ${partialQuality})`
 );
 assert(computeOcrQualityScore(countItemMetrics([])) === 0, "empty items — 0% quality");
 
@@ -119,7 +125,25 @@ assert(
 );
 
 console.log("\n=== buildOcrObservability ===");
-const observability = buildOcrObservability(sampleInvoice(fullItems), 4, 0.002);
+const completeInvoice: NormalizedInvoice = {
+  ...sampleInvoice(fullItems),
+  exporter: "ACME GmbH",
+  consignee: "Buyer RS",
+  country: "Serbia",
+  country_code: "RS",
+  total_value_numeric: 175,
+  shipment_summary: {
+    package_count: 1,
+    gross_weight_total: 10,
+    gross_weight_unit: "kg",
+    net_weight_total: null,
+    net_weight_unit: null,
+    package_type: "COLLI",
+    pallet_dimensions: null,
+    pallet_count: null,
+  },
+};
+const observability = buildOcrObservability(completeInvoice, 4, 0.002);
 assert(observability.ocrProvider === MISTRAL_OCR_PROVIDER, "provider is Mistral");
 assert(observability.pageCount === 4, "page count preserved");
 assert(observability.extractionSource === "ocr_primary", "extraction source from provenance");
@@ -149,16 +173,16 @@ assert(
 );
 
 console.log("\n=== aggregateOcrSessionMetrics ===");
-const session = aggregateOcrSessionMetrics([
-  buildOcrObservability(sampleInvoice(fullItems), 2, 0.002),
-  buildOcrObservability(sampleInvoice(partialItems), 3, 0.002),
-]);
+const obsFull = buildOcrObservability(completeInvoice, 2, 0.002);
+const obsPartial = buildOcrObservability(sampleInvoice(partialItems), 3, 0.002);
+const session = aggregateOcrSessionMetrics([obsFull, obsPartial]);
 assert(session.invoiceCount === 2, "session — 2 invoices");
 assert(session.totalOcrPages === 5, "session — 5 total pages");
 assert(session.totalOcrCostUsd === 0.01, "session — $0.01 total cost");
 assert(session.averageOcrCostPerInvoiceUsd === 0.005, "session — $0.005 avg cost");
 assert(
-  session.averageOcrQuality === Math.round((100 + partialQuality) / 2),
+  session.averageOcrQuality ===
+    Math.round((obsFull.ocrQualityScore + obsPartial.ocrQualityScore) / 2),
   "session — average quality"
 );
 

@@ -130,7 +130,8 @@ templates = Jinja2Templates(directory="app/templates")
 
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    # Starlette >=0.29 / 1.0 requires `request` as the first TemplateResponse argument.
+    return templates.TemplateResponse(request=request, name="index.html")
 
 
 from app.api.freight.router import router as freight_router  # noqa: E402

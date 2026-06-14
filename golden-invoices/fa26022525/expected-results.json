@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "fa26022525",
+  "label": "Robot Coupe FA26022525 → Kosovo",
+  "capturedAt": "2026-06-14",
+  "source": {
+    "invoicePdf": "invoice.pdf",
+    "validationReportPdf": "validation-report.pdf",
+    "invoiceSource": "invoice-source.json"
+  },
+  "expected": {
+    "exporter": "robot coupe",
+    "consignee": "OSA TERMOSISTEM",
+    "destinationCountry": "KOSOVO (XK)",
+    "destinationCountryCode": "XK",
+    "invoiceNumber": "FA26022525",
+    "invoiceValue": 5593.7,
+    "currency": "EUR",
+    "incoterms": "EXW",
+    "hsCodes": [
+      "8438809900"
+    ],
+    "origin": {
+      "evidenceStatus": "NOT_DECLARED",
+      "preferentialOriginStatus": "NON_PREFERENTIAL_EXPORT",
+      "mixedOrigin": false
+    },
+    "packageCount": null,
+    "grossWeight": null,
+    "netWeight": null,
+    "customsReadiness": "CUSTOMS_REVIEW",
+    "declarationReadiness": "REVIEW REQUIRED",
+    "dataExtractionCompleteness": 90,
+    "lineCount": 6
+  },
+  "allowedAnomalies": [],
+  "notes": "European number parsing, HS 8438809900, EXW Kosovo"
+}

@@ -195,6 +195,33 @@ export {
   hasInvoiceGrossWeight,
 } from "@/lib/export-auditor/shipment-summary-extractor";
 export {
+  resolveWeightHierarchy,
+  applyWeightHierarchyToShipmentSummary,
+  type WeightType,
+  type WeightExtractionSource,
+  type ResolvedWeightHierarchy,
+} from "@/lib/export-auditor/weight-extraction-hierarchy";
+export {
+  aggregateLineNetWeightsForShipment,
+  type LineNetAggregation,
+} from "@/lib/export-auditor/weight-line-aggregation";
+export {
+  evaluateWeightValidation,
+  evaluateReportWeightValidation,
+  NET_EXCEEDS_GROSS,
+  UNIT_WEIGHT_MISUSE,
+  NET_EXCEEDS_GROSS_MESSAGE,
+  UNIT_WEIGHT_MISUSE_MESSAGE,
+} from "@/lib/export-auditor/weight-validation";
+export {
+  enrichEnglishInvoiceFieldsFromOcr,
+  extractEnglishInvoiceNumber,
+  extractEnglishConsignee,
+  extractEnglishExporter,
+  extractEnglishLineItems,
+} from "@/lib/export-auditor/english-invoice-field-extractor";
+export { filterSupersededPreferentialAuditIssues } from "@/lib/export-auditor/issue-readiness";
+export {
   extractTabularShipmentMetrics,
 } from "@/lib/export-auditor/tabular-shipment-extractor";
 export {
@@ -237,10 +264,19 @@ export {
 } from "@/lib/export-auditor/invoice-date-readiness";
 export {
   runHsAggregationEngine,
+  buildAggregationKey,
   isServiceOrTransportLine,
   normalizeAggregationItems,
   filterGoodsLines,
 } from "@/lib/export-auditor/hs-aggregation-engine";
+export {
+  isPlaceholderServiceHsCode,
+  shouldSkipHsValidationForLine,
+  LINE_TYPE_GOODS,
+  LINE_TYPE_SERVICE,
+  resolveInvoiceLineType,
+  type InvoiceLineType,
+} from "@/lib/export-auditor/service-line-detection";
 export {
   buildPositionTraceability,
   getSourcePositionsForHs,
@@ -249,6 +285,35 @@ export {
   formatSourcePositions,
   resolveItemUnit,
 } from "@/lib/export-auditor/position-traceability";
+export {
+  classifyLineHs,
+  buildLineHsClassifications,
+  buildHsWorkflowSummary,
+  deriveAggregationHsMetadata,
+  evaluateDocumentHsStatus,
+  hasHsForCustomsReady,
+  resolveFinalHsCodeForItem,
+  resolveInvoiceHsCodeForItem,
+  formatHsStatusLabel,
+  formatHsSourceLabel,
+  collectFinalHsCodes,
+  collectInvalidHsCodeIssues,
+  collectUnknownHsCodeIssues,
+} from "@/lib/export-auditor/hs-classification-workflow";
+export {
+  buildHsVerificationSummary,
+  buildLineHsVerificationResults,
+  evaluateLineHsVerification,
+  enrichTraceabilityWithVerification,
+  deriveAggregationHsVerification,
+  hasHighConfidenceHsDiscrepancy,
+  computeHsSimilarity,
+  formatHsVerificationStatusLabel,
+} from "@/lib/export-auditor/hs-verification-engine";
+export {
+  HS_VERIFICATION_CONFIDENCE_THRESHOLD,
+  HS_VERIFICATION_SIMILARITY_THRESHOLD,
+} from "@/lib/export-auditor/hs-verification-config";
 export {
   buildMrnExportDataset,
   generateMrnCsv,
@@ -334,3 +399,23 @@ export {
   buildValidationReportHtmlForTest,
   EXPORT_AUDITOR_VERSION,
 } from "@/lib/export-auditor/validation-pdf-export";
+export {
+  detectGoldenAnomalies,
+  compareGoldenResults,
+  extractGoldenCapturedFields,
+  processGoldenInvoiceSource,
+  buildExpectedResultsFromCapture,
+  generateGoldenDatasetReviewMarkdown,
+  buildDatasetSummary,
+  formatFieldDifferences,
+  GOLDEN_COMPARE_FIELDS,
+} from "@/lib/export-auditor/golden-dataset";
+export type {
+  GoldenExpectedResults,
+  GoldenCapturedFields,
+  GoldenAnomaly,
+  GoldenAnomalyCode,
+  GoldenInvoiceCompareResult,
+  GoldenDatasetSummary,
+  GoldenFieldDifference,
+} from "@/lib/export-auditor/golden-dataset";

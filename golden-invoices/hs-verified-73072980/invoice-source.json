@@ -1,0 +1,33 @@
+{
+  "invoice_number": "HS-VERIFIED",
+  "exporter": "EU Maker d.o.o.",
+  "consignee": "Buyer RS",
+  "country": "Serbia",
+  "country_code": "RS",
+  "incoterms": "DAP",
+  "currency": "EUR",
+  "total_value": "2500.00",
+  "items": [
+    {
+      "position_number": 1,
+      "description": "Steel tube",
+      "quantity": 1,
+      "line_total": "2500.00",
+      "hs_code": "73072980",
+      "wizard_hs_code": "73072980",
+      "wizard_confidence": 92,
+      "country_of_origin": "DE",
+      "net_weight": 5
+    }
+  ],
+  "shipment_summary": {
+    "package_count": 1,
+    "gross_weight_total": 10,
+    "gross_weight_unit": "kg",
+    "net_weight_total": 8,
+    "net_weight_unit": "kg",
+    "package_type": "COLLI",
+    "pallet_dimensions": null,
+    "pallet_count": null
+  }
+}

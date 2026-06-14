@@ -1,0 +1,17 @@
+{
+  "id": "ORSA_DRINKS",
+  "invoice": {
+    "invoice_number": "ORSA-901",
+    "exporter": "Orsa Drinks SRL",
+    "consignee": "Distribucija DOO",
+    "country_code": "RS",
+    "currency": "EUR",
+    "total_value_numeric": 2100,
+    "items": [
+      { "position_number": 1, "description": "Soft drink 0.5L", "quantity": 500, "line_total": 1200 },
+      { "position_number": 2, "description": "Mineral water 1L", "quantity": 300, "line_total": 900 }
+    ],
+    "ocr_text": "Orsa Drinks\n1 Soft drink 0.5L Nomenclature 22021000 COO BG 500 1200.00\n2 Mineral water 1L 22011011 Origin - Bulgaria 300 900.00\nTotal 2 100,00 EUR"
+  },
+  "expect": { "hsCodesMin": 2, "hsOnLinesMin": 2, "aggregationMin": 2, "traceabilityMin": 2, "originOnLinesMin": 2 }
+}

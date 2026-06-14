@@ -1,6 +1,5 @@
 import {
-  postExportAuditorOcrAction,
-  runExportAuditAnalysisAction,
+  runFullExportAuditAction,
 } from "@/lib/export-auditor/server-actions";
 import type {
   AuditProgressStep,
@@ -42,8 +41,8 @@ function advanceStep(
 }
 
 /**
- * Export auditor pipeline — OCR and analysis run as separate server actions so
- * progress steps match actual pipeline stages.
+ * Export auditor pipeline — single server action keeps enriched invoice on server
+ * through mapping (no client round-trip of NormalizedInvoice).
  */
 export async function runFullExportAudit(
   file: File,
@@ -62,16 +61,11 @@ export async function runFullExportAudit(
     const formData = new FormData();
     formData.append("file", file, file.name);
 
-    const ocrResult = await postExportAuditorOcrAction(formData);
-    if (!ocrResult.ok) {
-      throw ocrResult.error;
-    }
-
     steps = advanceStep(steps, "ocr", "analysis");
     onProgress?.(steps);
     onTimelineIndex?.(2);
 
-    const result = await runExportAuditAnalysisAction(ocrResult.invoice, ocrResult.fileName);
+    const result = await runFullExportAuditAction(formData);
 
     steps = advanceStep(steps, "analysis", "report");
     onProgress?.(steps);

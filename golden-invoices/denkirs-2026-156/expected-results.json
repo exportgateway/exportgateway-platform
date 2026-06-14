@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "denkirs-2026-156",
+  "label": "DENKIRS 2026-156 → Serbia",
+  "capturedAt": "2026-06-14",
+  "source": {
+    "invoicePdf": "invoice.pdf",
+    "validationReportPdf": "validation-report.pdf",
+    "invoiceSource": "invoice-source.json"
+  },
+  "expected": {
+    "exporter": "DENKIRS EU, TRGOVINA S SVETILI, D.O.O.",
+    "consignee": "DOO Shagara",
+    "destinationCountry": "Serbia (RS)",
+    "destinationCountryCode": "RS",
+    "invoiceNumber": "2026-156",
+    "invoiceValue": 4507.22,
+    "currency": "EUR",
+    "incoterms": "FCA Ljubljana",
+    "hsCodes": [],
+    "origin": {
+      "evidenceStatus": "NOT_DECLARED",
+      "preferentialOriginStatus": "NOT_DECLARED",
+      "mixedOrigin": false
+    },
+    "packageCount": null,
+    "grossWeight": null,
+    "netWeight": null,
+    "customsReadiness": "CUSTOMS_REVIEW",
+    "declarationReadiness": "REVIEW REQUIRED",
+    "dataExtractionCompleteness": 78,
+    "lineCount": 1
+  },
+  "allowedAnomalies": [
+    "PHYSICAL_WEIGHT_CONTRADICTION"
+  ],
+  "notes": "Live OCR payload — no shipment weights in OCR"
+}

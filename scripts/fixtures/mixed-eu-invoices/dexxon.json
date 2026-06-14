@@ -1,0 +1,35 @@
+{
+  "id": "DEXXON",
+  "invoice": {
+    "invoice_number": "261000177",
+    "exporter": "Dexxon Electronics GmbH",
+    "consignee": "Import DOO Beograd",
+    "country_code": "RS",
+    "country": "Serbia",
+    "currency": "EUR",
+    "total_value_numeric": 1500,
+    "items": [
+      {
+        "position_number": 1,
+        "description": "USB flash drive 64GB",
+        "quantity": 100,
+        "line_total": 1000
+      },
+      {
+        "position_number": 2,
+        "description": "USB flash drive 128GB",
+        "quantity": 50,
+        "line_total": 500
+      }
+    ],
+    "ocr_text": "DEXXON Electronics GmbH\nInvoice 261000177\nConsignee Import DOO Beograd\nDestination RS\nPos Description HS COO Qty Price Amount\n1 USB flash drive 64GB 85235110 COO CN 100 10.00 1000.00\n2 USB flash drive 128GB 85235110 COO CN 50 10.00 500.00\nTotal invoice amount 1 500,00 EUR"
+  },
+  "expect": {
+    "hsCodesMin": 1,
+    "hsOnLinesMin": 2,
+    "aggregationMin": 1,
+    "traceabilityMin": 2,
+    "originOnLinesMin": 2,
+    "totalMismatch": false
+  }
+}

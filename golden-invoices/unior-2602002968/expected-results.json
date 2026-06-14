@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "unior-2602002968",
+  "label": "UNIOR 2602002968 → Iceland",
+  "capturedAt": "2026-06-14",
+  "source": {
+    "invoicePdf": "invoice.pdf",
+    "validationReportPdf": "validation-report.pdf",
+    "invoiceSource": "invoice-source.json"
+  },
+  "expected": {
+    "exporter": "UNIOR d.d. Kovaška cesta 10, SI-3214 ZREČE",
+    "consignee": "FAGKAUP EHF, KLETTAGARDAR 25, 104 REYKJAVIK, Iceland",
+    "destinationCountry": "Iceland (IS)",
+    "destinationCountryCode": "IS",
+    "invoiceNumber": "2602002968",
+    "invoiceValue": 1610.7,
+    "currency": "EUR",
+    "incoterms": "EXW Zreče",
+    "hsCodes": [],
+    "origin": {
+      "evidenceStatus": "DECLARED",
+      "preferentialOriginStatus": "NOT_DECLARED",
+      "mixedOrigin": false
+    },
+    "packageCount": 1,
+    "grossWeight": 78,
+    "netWeight": 62,
+    "customsReadiness": "CUSTOMS_REVIEW",
+    "declarationReadiness": "REVIEW REQUIRED",
+    "dataExtractionCompleteness": 92,
+    "lineCount": 38
+  },
+  "allowedAnomalies": [],
+  "notes": "Mixed preferential origin, SI auth exporter, 38 lines"
+}

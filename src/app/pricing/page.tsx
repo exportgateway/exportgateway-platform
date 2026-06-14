@@ -25,6 +25,7 @@ const comparisonFeatures = [
   { name: "Preference Origin Analysis", free: false, pro: true, enterprise: true },
   { name: "EUR.1 Eligibility Check", free: false, pro: true, enterprise: true },
   { name: "Customs Disposition Generator", free: false, pro: true, enterprise: true },
+  { name: "Intrastat AI Auditor", free: false, pro: false, enterprise: "soon" as const },
   { name: "AI Validation", free: false, pro: false, enterprise: true },
   { name: "AI Customs Reasoning", free: false, pro: false, enterprise: true },
   { name: "AI Tariff Wizard", free: false, pro: false, enterprise: true },
@@ -162,7 +163,11 @@ export default function PricingPage() {
                     <td className="px-6 py-3.5 text-slate-700">{feature.name}</td>
                     {[feature.free, feature.pro, feature.enterprise].map((included, i) => (
                       <td key={i} className="px-6 py-3.5 text-center">
-                        {included ? (
+                        {included === "soon" ? (
+                          <span className="text-xs font-semibold text-amber-700 bg-amber-50 border border-amber-100 rounded-full px-2 py-0.5">
+                            Coming Soon
+                          </span>
+                        ) : included ? (
                           <Check className="h-4 w-4 text-brand-600 mx-auto" />
                         ) : (
                           <span className="text-slate-300">—</span>

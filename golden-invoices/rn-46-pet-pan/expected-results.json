@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "rn-46-pet-pan",
+  "label": "RN-46 PET PAN IVECO EUROCARGO — single vehicle line",
+  "capturedAt": "2026-06-14T00:00:00.000Z",
+  "source": {
+    "invoicePdf": "RN-46.pdf",
+    "invoiceSource": "golden-invoices/rn-46-pet-pan/invoice-source.json"
+  },
+  "expected": {
+    "destinationCountryCode": "RS",
+    "invoiceNumber": "RN-46",
+    "customsReadiness": "CUSTOMS_REVIEW",
+    "hsCodes": ["87042290"]
+  },
+  "notes": "Single commercial vehicle line — must not explode HS from chassis/engine/corpus metadata"
+}

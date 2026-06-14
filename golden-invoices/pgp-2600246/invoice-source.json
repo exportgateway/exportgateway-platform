@@ -1,0 +1,24 @@
+{
+  "invoice_number": "26/00246",
+  "invoice_date": "2026-02-05",
+  "exporter": "PGP INDE, d.o.o., Tržič, Slovenija",
+  "consignee": "GEPARD, Produzeče za proizvodnju sportske i namenske obuće\nNovi Sad\nSerbia",
+  "country": "Serbia",
+  "country_code": "RS",
+  "incoterms": "EXW place: Tržič",
+  "currency": "EUR",
+  "total_value": "4932.93",
+  "ocr_text": "\nInvoice No.: 26/00246\nPGP INDE, d.o.o., Tržič\nGEPARD, Novi Sad, Serbia\nPACKING: 35 CARTONS (1 PALLETE)\nBTTO: 538 KG\nNTTO: 500 KG\nEXW place: Tržič\nTotal: 4.932,93 EUR\n",
+  "packing_info": "PACKING: 35 CARTONS (1 PALLETE)\nBTTO: 538 KG\nNTTO: 500 KG",
+  "origin_declaration_text": "The exporter of products covered by this document\n(customs authorisation No SI/239/10)\ndeclares that, except where otherwise clearly indicated,\nthese products are of EU preferential origin",
+  "items": [
+    {
+      "description": "Footwear",
+      "hs_code": "64062010",
+      "quantity": "100",
+      "unit_price": "49.3293",
+      "line_total": "4932.93",
+      "country_of_origin": "SI"
+    }
+  ]
+}

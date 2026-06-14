@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "wizard-hs-wiz001",
+  "label": "Wizard HS only — no invoice HS",
+  "capturedAt": "2026-06-14",
+  "source": {
+    "invoicePdf": "invoice.pdf",
+    "validationReportPdf": "validation-report.pdf",
+    "invoiceSource": "invoice-source.json"
+  },
+  "expected": {
+    "exporter": "EU Maker d.o.o.",
+    "consignee": "Buyer RS",
+    "destinationCountry": "Serbia (RS)",
+    "destinationCountryCode": "RS",
+    "invoiceNumber": "WIZ-001",
+    "invoiceValue": 2500,
+    "currency": "EUR",
+    "incoterms": "DAP",
+    "hsCodes": [
+      "76169990"
+    ],
+    "origin": {
+      "evidenceStatus": "NOT_DECLARED",
+      "preferentialOriginStatus": "NON_PREFERENTIAL_EXPORT",
+      "mixedOrigin": false
+    },
+    "packageCount": 1,
+    "grossWeight": 10,
+    "netWeight": null,
+    "customsReadiness": "CUSTOMS_READY",
+    "declarationReadiness": "REVIEW REQUIRED",
+    "dataExtractionCompleteness": 90,
+    "lineCount": 1
+  },
+  "allowedAnomalies": [],
+  "notes": "HS Wizard GENERATED path — customs ready without invoice HS"
+}

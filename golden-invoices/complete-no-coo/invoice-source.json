@@ -1,0 +1,36 @@
+{
+  "invoice_number": "CMP-001",
+  "exporter": "Exporter GmbH",
+  "consignee": "Buyer RS",
+  "country": "Serbia",
+  "country_code": "RS",
+  "total_value_numeric": 3200,
+  "incoterms": "DAP",
+  "currency": "EUR",
+  "items": [
+    {
+      "position_number": 1,
+      "description": "Part",
+      "quantity": 2,
+      "line_total": 1600,
+      "hs_code": "84818073"
+    },
+    {
+      "position_number": 2,
+      "description": "Part B",
+      "quantity": 1,
+      "line_total": 1600,
+      "hs_code": "84819000"
+    }
+  ],
+  "shipment_summary": {
+    "package_count": 1,
+    "gross_weight_total": 120,
+    "gross_weight_unit": "kg",
+    "net_weight_total": null,
+    "net_weight_unit": null,
+    "package_type": "COLLI",
+    "pallet_dimensions": null,
+    "pallet_count": null
+  }
+}

@@ -40,7 +40,7 @@ export default function OpenGraphImage() {
           {siteConfig.tagline}
         </div>
         <div style={{ fontSize: 22, marginTop: 40, opacity: 0.75 }}>
-          Customs intelligence · Freight pricing · Intrastat allocation
+          Customs intelligence · Export auditing · Intrastat AI
         </div>
       </div>
     ),

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "hafele-hf001",
+  "label": "Häfele position-specific origin → BA",
+  "capturedAt": "2026-06-14",
+  "source": {
+    "invoicePdf": "invoice.pdf",
+    "validationReportPdf": "validation-report.pdf",
+    "invoiceSource": "invoice-source.json"
+  },
+  "expected": {
+    "exporter": "Häfele",
+    "consignee": "Buyer BA",
+    "destinationCountry": "Bosnia and Herzegovina (BA)",
+    "destinationCountryCode": "BA",
+    "invoiceNumber": "HF-001",
+    "invoiceValue": 1700,
+    "currency": "EUR",
+    "incoterms": "DAP",
+    "hsCodes": [
+      "83024200"
+    ],
+    "origin": {
+      "evidenceStatus": "NOT_DECLARED",
+      "preferentialOriginStatus": "CONFIRMED",
+      "mixedOrigin": false
+    },
+    "packageCount": 2,
+    "grossWeight": 120,
+    "netWeight": 100,
+    "customsReadiness": "CUSTOMS_READY",
+    "declarationReadiness": "READY FOR DECLARATION",
+    "dataExtractionCompleteness": 96,
+    "lineCount": 17
+  },
+  "allowedAnomalies": [
+    "ORIGIN_DECLARATION_CONTRADICTION"
+  ],
+  "notes": "Only positions 5,6,8,11,12,16 preferential YES"
+}

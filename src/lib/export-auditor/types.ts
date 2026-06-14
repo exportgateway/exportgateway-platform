@@ -85,10 +85,69 @@ export interface DeclarationReadinessResult {
 }
 
 export type WeightExtractionSource = "DOCUMENT" | "CALCULATED" | "OCR_TABLE" | "OCR_TEXT";
+export type WeightType = "UNIT" | "LINE" | "SHIPMENT";
+
+export type HsStatus = "VALID" | "REPAIRED" | "INVALID_FORMAT" | "UNKNOWN_HS" | "MISSING";
+export type HsSource = "INVOICE" | "WIZARD" | "USER" | "IMPORTED";
+export type HsValidationSource = "local_nomenclature" | "ocr_repair" | "format_check" | "none";
+
+export interface LineHsClassification {
+  positionNumber: number;
+  /** Raw HS as printed on the invoice. */
+  invoiceHsCode: string | null;
+  /** Normalized numeric HS after separator removal and OCR repair. */
+  normalizedHsCode: string | null;
+  finalHsCode: string | null;
+  hsStatus: HsStatus;
+  hsSource: HsSource | null;
+  repairApplied: boolean;
+  validationSource: HsValidationSource;
+  hsConfidence: number;
+}
+
+export interface HsWorkflowSummary {
+  documentHsStatus: HsStatus;
+  linesWithFinalHs: number;
+  totalGoodsLines: number;
+  finalHsCodes: string[];
+  lineClassifications: LineHsClassification[];
+}
+
+export type HsVerificationStatus =
+  | "VERIFIED"
+  | "REVIEW_REQUIRED"
+  | "REVIEW_REQUIRED_LOW_CONFIDENCE"
+  | "GENERATED"
+  | "MISSING";
+
+export interface HsVerificationResult {
+  positionNumber: number;
+  invoiceHsCode: string | null;
+  wizardHsCode: string | null;
+  verificationStatus: HsVerificationStatus;
+  wizardConfidence: number | null;
+  similarityScore: number | null;
+  verificationReason: string;
+}
+
+export interface HsVerificationSummary {
+  lineResults: HsVerificationResult[];
+  documentHasHighConfidenceDiscrepancy: boolean;
+  linesVerified: number;
+  linesReviewRequired: number;
+  linesGenerated: number;
+  linesMissing: number;
+}
 
 export type PreferentialOriginEvidenceStatus = "DECLARED" | "NOT_DECLARED" | "UNVERIFIED";
 
 export type IssueSeverity = "CRITICAL" | "WARNING" | "INFO";
+
+export interface OcrRecoveryApplied {
+  consigneeRecovery: boolean;
+  totalRecovery: boolean;
+  lineRecovery: boolean;
+}
 
 export interface OcrObservability {
   ocrProvider: string;
@@ -103,6 +162,10 @@ export interface OcrObservability {
   ocrQualityScore: number;
   /** Alias for UI — same as ocrQualityScore. */
   dataExtractionCompleteness?: number;
+  /** OCR fallback recoveries applied during enrichment. */
+  recoveryApplied?: OcrRecoveryApplied;
+  /** Confidence in recovered data 0–100 (higher when recovery succeeded). */
+  recoveryConfidence?: number;
   estimatedOcrCostUsd: number;
   costPerPageUsd: number;
   /** Shipment fields populated by OCR backend (gross_weight_total, package_count, etc.). */
@@ -130,6 +193,7 @@ export interface LinePreferentialOrigin {
     | "manufacturer_declaration_reference"
     | "authorised_exporter_statement"
     | "excluded_positions_list"
+    | "explicit_non_preferential_declaration"
     | "none";
 }
 
@@ -178,6 +242,11 @@ export interface PreferenceOriginAnalysis {
   declarationsDetected: DetectedPreferenceDeclaration[];
   preferentialOriginSummary: string;
   authorisedExporterNumber: string | null;
+  /** Traceability from authorised-exporter-detection-engine */
+  authorisationCountry: string | null;
+  authorisedExporterDetectionRule: string | null;
+  authorisedExporterConfidence: number | null;
+  authorisedExporterCountryMatch: boolean | null;
   mixedOrigin: boolean;
   mixedOriginTotals: MixedOriginTotals | null;
   /** Preferential / non-preferential allocation for MRN preparation (line-marker driven). */
@@ -233,9 +302,11 @@ export interface ShipmentSummary {
   grossWeightTotal: number | null;
   grossWeightUnit: string | null;
   grossWeightSource?: WeightExtractionSource | null;
+  grossWeightType?: WeightType | null;
   netWeightTotal: number | null;
   netWeightUnit: string | null;
   netWeightSource?: WeightExtractionSource | null;
+  netWeightType?: WeightType | null;
   palletCount: number | null;
   /** Customs declaration package count — pallet priority when both Colli and Pallets exist. */
   declarationPackageCount: DeclarationPackageCount | null;
@@ -255,6 +326,21 @@ export interface DeliveryAddress {
 
 export interface HsAggregationRow {
   hsCode: string;
+  /** Comma-separated ISO2 countries contributing to this bucket. */
+  countryOfOrigin: string;
+  /** Preferential status for this bucket — not merged across YES/NO/UNKNOWN. */
+  preferentialOrigin: "YES" | "NO" | "UNKNOWN" | "NOT_DECLARED";
+  hsStatus: HsStatus;
+  hsSource: HsSource | null;
+  invoiceHsCode: string | null;
+  normalizedHsCode: string | null;
+  wizardHsCode: string | null;
+  repairApplied: boolean;
+  validationSource: HsValidationSource;
+  hsConfidence: number;
+  verificationStatus: HsVerificationStatus;
+  wizardConfidence: number | null;
+  verificationReason: string;
   totalQuantity: number;
   totalValue: number;
   totalNetWeight: number | null;
@@ -290,7 +376,24 @@ export interface PositionTraceabilityLine {
   netWeight: number | null;
   countryOfOrigin: string;
   preferentialOrigin: "YES" | "NO" | "UNKNOWN" | "NOT_DECLARED";
+  /** Final declaration HS (invoice, wizard, user, or import). */
   hsCode: string;
+  /** HS as extracted from invoice before override. */
+  invoiceHsCode: string | null;
+  /** Normalized numeric HS after separator removal and OCR repair. */
+  normalizedHsCode: string | null;
+  finalHsCode: string | null;
+  hsStatus: HsStatus;
+  hsSource: HsSource | null;
+  repairApplied: boolean;
+  validationSource: HsValidationSource;
+  hsConfidence: number;
+  /** Wizard-suggested HS for verification display only. */
+  wizardHsCode: string | null;
+  verificationStatus: HsVerificationStatus;
+  wizardConfidence: number | null;
+  similarityScore: number | null;
+  verificationReason: string;
   unit?: string | null;
   customsDescription?: string;
   declarationDescription?: string;
@@ -362,9 +465,12 @@ export interface ExportAuditReport {
   declarationDescriptions?: DeclarationDescriptionEntry[];
   ocrObservability?: OcrObservability;
   ocrSessionMetrics?: OcrSessionMetrics;
+  dataRecoveryDiagnostics?: import("@/lib/export-auditor/data-recovery-diagnostics").DataRecoveryDiagnostics;
   shipmentExtractionDiagnostics?: import("@/lib/export-auditor/shipment-extraction-diagnostics").ShipmentExtractionDiagnostics;
   customsReadiness?: CustomsReadinessResult;
   declarationReadiness?: DeclarationReadinessResult;
+  hsWorkflowSummary?: HsWorkflowSummary;
+  hsVerificationSummary?: HsVerificationSummary;
 }
 
 export interface OcrExtractionResult {

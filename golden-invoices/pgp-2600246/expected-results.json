@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "pgp-2600246",
+  "label": "PGP 26/00246 → Serbia",
+  "capturedAt": "2026-06-14",
+  "source": {
+    "invoicePdf": "invoice.pdf",
+    "validationReportPdf": "validation-report.pdf",
+    "invoiceSource": "invoice-source.json"
+  },
+  "expected": {
+    "exporter": "PGP INDE, d.o.o., Tržič, Slovenija",
+    "consignee": "GEPARD, Produzeče za proizvodnju sportske i namenske obuće\nNovi Sad\nSerbia",
+    "destinationCountry": "Serbia (RS)",
+    "destinationCountryCode": "RS",
+    "invoiceNumber": "26/00246",
+    "invoiceValue": 4932.93,
+    "currency": "EUR",
+    "incoterms": "EXW place: Tržič",
+    "hsCodes": [
+      "64062010"
+    ],
+    "origin": {
+      "evidenceStatus": "DECLARED",
+      "preferentialOriginStatus": "CONFIRMED",
+      "mixedOrigin": false
+    },
+    "packageCount": 35,
+    "grossWeight": 538,
+    "netWeight": 500,
+    "customsReadiness": "CUSTOMS_READY",
+    "declarationReadiness": "READY FOR DECLARATION",
+    "dataExtractionCompleteness": 100,
+    "lineCount": 1
+  },
+  "allowedAnomalies": []
+}

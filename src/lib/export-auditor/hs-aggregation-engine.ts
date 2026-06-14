@@ -1,4 +1,5 @@
 import type { ApiInvoiceItem, NormalizedInvoice } from "@/lib/export-auditor/api-types";
+import { resolveFinalHsCodeForItem } from "@/lib/export-auditor/hs-classification-workflow";
 import { normalizeHsToken } from "@/lib/export-auditor/invoice-fields";
 import { parseLocaleNumber, roundMoney } from "@/lib/export-auditor/parse-locale-number";
 import {
@@ -6,21 +7,34 @@ import {
   type LinePreferentialOrigin,
   type PreferentialOriginStatus,
 } from "@/lib/export-auditor/preferential-origin-engine";
-import { formatOriginCountriesDetected, resolveOriginCountriesDetectedText, type OriginCountriesPreferentialContext } from "@/lib/export-auditor/origin-countries-summary";
+import {
+  formatOriginCountriesDetected,
+  resolveOriginCountriesDetectedText,
+  type OriginCountriesPreferentialContext,
+} from "@/lib/export-auditor/origin-countries-summary";
+import { resolveIso2CountryCode } from "@/lib/export-auditor/country-resolution";
+import { isServiceOrTransportLine } from "@/lib/export-auditor/service-line-detection";
+import { isInvoiceMetadataLine } from "@/lib/export-auditor/commercial-line-detector";
+import { rebuildHsAggregationOrigins } from "@/lib/export-auditor/hs-origin-aggregation-rebuilder";
+
+export {
+  isServiceOrTransportLine,
+  LINE_TYPE_GOODS,
+  LINE_TYPE_SERVICE,
+  resolveInvoiceLineType,
+  type InvoiceLineType,
+} from "@/lib/export-auditor/service-line-detection";
 
 export const NON_PREFERENTIAL_EXPORT_HS_CODE = "NON_PREFERENTIAL_EXPORT";
 export const NON_PREFERENTIAL_EXPORT_LABEL = "Non-Preferential Export Goods";
 
-/** Service / transport lines excluded from customs goods aggregation. */
-const SERVICE_LINE_PATTERNS: RegExp[] = [
-  /^\s*transport\s*$/i,
-  /\bfreight\b/i,
-  /\bshipping\b/i,
-  /\bexport\s+costs\b/i,
-  /stroški\s+izvoza/i,
-  /\bprevoz\b/i,
-  /\bcarriage\b/i,
-];
+function normalizeCountryCode(raw: string | undefined | null): string {
+  return resolveIso2CountryCode(raw) ?? "";
+}
+
+function resolveHsCode(item: ApiInvoiceItem): string | null {
+  return resolveFinalHsCodeForItem(item);
+}
 
 export interface NormalizedAggregationItem {
   position_number: number;
@@ -35,12 +49,23 @@ export interface NormalizedAggregationItem {
 
 export interface HsAggregationRow {
   hs_code: string;
+  /** Display label — comma-separated ISO2 countries in bucket. */
+  country_of_origin: string;
+  /** Preferential status for this bucket — never merged across YES/NO/UNKNOWN. */
+  preferential_origin: PreferentialOriginStatus;
   total_quantity: number;
   total_value: number;
   total_net_weight: number | null;
   item_count: number;
   countries_of_origin: string[];
   source_positions: number[];
+}
+
+/** Customs declarant aggregation key — HS + preferential origin (COO merged in row). */
+export function buildAggregationKey(
+  item: Pick<NormalizedAggregationItem, "hs_code" | "preferential_origin">
+): string {
+  return `${item.hs_code}|${item.preferential_origin}`;
 }
 
 export interface PreferenceAggregationRow {
@@ -85,31 +110,6 @@ function roundWeight(n: number): number {
   return Math.round(n * 1000) / 1000;
 }
 
-function normalizeCountryCode(raw: string | undefined | null): string {
-  const text = raw?.trim() ?? "";
-  if (!text) return "";
-  if (/^[A-Za-z]{2}$/.test(text)) return text.toUpperCase();
-  const match = text.match(/\(([A-Z]{2})\)/);
-  if (match) return match[1];
-  return text.slice(0, 2).toUpperCase();
-}
-
-/** True when a line is a service/transport charge — excluded from goods aggregation. */
-export function isServiceOrTransportLine(description: string | null | undefined): boolean {
-  const text = description?.trim() ?? "";
-  if (!text) return false;
-  return SERVICE_LINE_PATTERNS.some((re) => re.test(text));
-}
-
-function resolveHsCode(item: ApiInvoiceItem): string | null {
-  const raw = item.hs_code?.trim() ?? "";
-  if (raw) {
-    const code = normalizeHsToken(raw);
-    if (code) return code;
-  }
-  return null;
-}
-
 function buildPreferenceMap(
   invoice: NormalizedInvoice,
   preferenceLines?: LinePreferentialOrigin[]
@@ -149,23 +149,31 @@ export function normalizeAggregationItems(
   });
 }
 
-/** Filter to billable goods lines with valid HS codes — excludes transport/service lines. */
+/** Filter to billable goods lines with valid HS codes — excludes transport/service and metadata rows. */
 export function filterGoodsLines(items: NormalizedAggregationItem[]): NormalizedAggregationItem[] {
   return items.filter(
-    (item) => !isServiceOrTransportLine(item.description) && item.hs_code.length > 0
+    (item) =>
+      !isServiceOrTransportLine(item.description) &&
+      !isInvoiceMetadataLine(item.description) &&
+      item.hs_code.length > 0
   );
 }
 
-function aggregateByHs(goods: NormalizedAggregationItem[]): Map<string, HsAggregationRow> {
+function aggregateByHsOriginPreferential(
+  goods: NormalizedAggregationItem[]
+): Map<string, HsAggregationRow> {
   const groups = new Map<string, HsAggregationRow>();
 
   for (const item of goods) {
-    const existing = groups.get(item.hs_code);
+    const key = buildAggregationKey(item);
+    const existing = groups.get(key);
     const origin = item.country_of_origin;
 
     if (!existing) {
-      groups.set(item.hs_code, {
+      groups.set(key, {
         hs_code: item.hs_code,
+        country_of_origin: origin,
+        preferential_origin: item.preferential_origin,
         total_quantity: item.quantity,
         total_value: item.line_total,
         total_net_weight: item.net_weight,
@@ -180,21 +188,24 @@ function aggregateByHs(goods: NormalizedAggregationItem[]): Map<string, HsAggreg
     existing.total_value += item.line_total;
     existing.item_count += 1;
     existing.source_positions.push(item.position_number);
-    if (item.net_weight != null) {
-      existing.total_net_weight = (existing.total_net_weight ?? 0) + item.net_weight;
-    }
     if (origin && !existing.countries_of_origin.includes(origin)) {
       existing.countries_of_origin.push(origin);
+    }
+    if (item.net_weight != null) {
+      existing.total_net_weight = (existing.total_net_weight ?? 0) + item.net_weight;
     }
   }
 
   for (const row of groups.values()) {
     row.total_quantity = roundValue(row.total_quantity);
     row.total_value = roundValue(row.total_value);
-    if (row.total_net_weight != null) {
+    if (row.total_net_weight != null && row.total_net_weight <= 0) {
+      row.total_net_weight = null;
+    } else if (row.total_net_weight != null) {
       row.total_net_weight = roundWeight(row.total_net_weight);
     }
-    row.countries_of_origin.sort();
+    row.countries_of_origin = [...new Set(row.countries_of_origin.filter(Boolean))].sort();
+    row.country_of_origin = row.countries_of_origin.join(", ");
     row.source_positions.sort((a, b) => a - b);
   }
 
@@ -424,8 +435,9 @@ export function runHsAggregationEngine(
   const parsedGoodsLineCount = allItems.filter(
     (item) => !isServiceOrTransportLine(item.description)
   ).length;
-  const hsMap = aggregateByHs(goods);
-  const hs_aggregation = [...hsMap.values()].sort((a, b) => a.hs_code.localeCompare(b.hs_code));
+  const hsMap = aggregateByHsOriginPreferential(goods);
+  let hs_aggregation = [...hsMap.values()].sort((a, b) => a.hs_code.localeCompare(b.hs_code));
+  hs_aggregation = rebuildHsAggregationOrigins(hs_aggregation, goods);
 
   const grossWeight =
     options.grossWeight ?? invoice.shipment_summary?.gross_weight_total ?? null;

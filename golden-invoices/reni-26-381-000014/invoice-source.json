@@ -1,0 +1,101 @@
+{
+  "invoice_number": "26-381-000014",
+  "exporter": "RENI d.o.o.",
+  "consignee": "Buyer GmbH",
+  "country": "Serbia",
+  "country_code": "RS",
+  "incoterms": "DAP",
+  "currency": "EUR",
+  "total_value_numeric": 12372.78,
+  "vat_article": "EUR.1 enclosed except positions 3 and 8",
+  "shipment_summary": {
+    "package_count": 1,
+    "package_type": "COLLI",
+    "gross_weight_total": 120,
+    "gross_weight_unit": "kg",
+    "net_weight_total": null,
+    "net_weight_unit": null,
+    "pallet_dimensions": "80x62x62 cm",
+    "pallet_count": null
+  },
+  "items": [
+    {
+      "description": "Valve A",
+      "hs_code": "84818073",
+      "quantity": 13,
+      "line_total": 1200.5,
+      "country_of_origin": "DE",
+      "net_weight": 12.5
+    },
+    {
+      "description": "Valve B",
+      "hs_code": "84818073",
+      "quantity": 13,
+      "line_total": 1180.2,
+      "country_of_origin": "DE",
+      "net_weight": 12.486
+    },
+    {
+      "description": "Seal A",
+      "hs_code": "84819000",
+      "quantity": 13,
+      "line_total": 890.1,
+      "country_of_origin": "DE",
+      "net_weight": 8.2
+    },
+    {
+      "description": "Seal B",
+      "hs_code": "84819000",
+      "quantity": 13,
+      "line_total": 910.4,
+      "country_of_origin": "DE",
+      "net_weight": 8.1
+    },
+    {
+      "description": "Bolt CN",
+      "hs_code": "73072390",
+      "quantity": 26,
+      "line_total": 2100,
+      "country_of_origin": "CN",
+      "net_weight": 18.5
+    },
+    {
+      "description": "Bolt IT",
+      "hs_code": "73072390",
+      "quantity": 26,
+      "line_total": 2050,
+      "country_of_origin": "IT",
+      "net_weight": 18.2
+    },
+    {
+      "description": "Bracket A",
+      "hs_code": "73269098",
+      "quantity": 13,
+      "line_total": 760,
+      "country_of_origin": "DE",
+      "net_weight": 6.1
+    },
+    {
+      "description": "Bracket B",
+      "hs_code": "73269098",
+      "quantity": 13,
+      "line_total": 740,
+      "country_of_origin": "CN",
+      "net_weight": 6.05
+    },
+    {
+      "description": "Rubber gasket",
+      "hs_code": "40169300",
+      "quantity": 32,
+      "line_total": 1420,
+      "country_of_origin": "DE",
+      "net_weight": 15.81
+    },
+    {
+      "description": "Stroški izvoza",
+      "quantity": 1,
+      "line_total": 120,
+      "country_of_origin": "SI"
+    }
+  ]
+}

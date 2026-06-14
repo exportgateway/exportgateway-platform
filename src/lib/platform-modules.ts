@@ -242,9 +242,9 @@ export const whyExportGateway = [
     icon: "Shield",
   },
   {
-    title: "One trade operating system",
+    title: "One trade compliance platform",
     description:
-      "Customs, freight, documents, and AI share the same product understanding and shipment context — replacing fragmented spreadsheets and point tools.",
+      "Customs, freight, export auditing, and Intrastat prep share the same product understanding — replacing fragmented spreadsheets and point tools.",
     icon: "Globe",
   },
   {
@@ -252,12 +252,6 @@ export const whyExportGateway = [
     description:
       "EU CN8 nomenclature, standard VAT rates, intra-EU route logic, and multilingual input optimised for Slovenian, German, Croatian, and Central European trade.",
     icon: "Package",
-  },
-  {
-    title: "Honest by design",
-    description:
-      "Every module is status-labelled. Beta and in-development features show their limitations — because trust matters more than hype in customs compliance.",
-    icon: "Lock",
   },
 ];
 
@@ -284,6 +278,7 @@ export const roadmap: Record<RoadmapCategory, { label: string; description: stri
     label: "Available Today",
     description: "Live modules you can use now via the Compliance Wizard and platform APIs.",
     items: [
+      { name: "Export Auditor", pillar: "documents", description: "OCR invoice audit, HS detection, and customs readiness" },
       { name: "Compliance Wizard", pillar: "customs", description: "4-step export compliance estimation workflow" },
       { name: "CN / HS Classification", pillar: "customs", description: "AI-assisted EU nomenclature search" },
       { name: "Historical Customs Evidence", pillar: "customs", description: "AES declaration-backed CN ranking" },
@@ -297,9 +292,13 @@ export const roadmap: Record<RoadmapCategory, { label: string; description: stri
     label: "In Development",
     description: "Active engineering — partial backend exists, public deployment pending.",
     items: [
+      {
+        name: "Intrastat AI Auditor",
+        pillar: "documents",
+        description: "OCR extraction, AI tariff suggestions, validation engine, transport allocation, XML generation, ERP import",
+      },
       { name: "Live TARIC Integration", pillar: "customs", description: "Official duty rates and measures" },
       { name: "Freight Intelligence (Public)", pillar: "freight", description: "Full freight engine wired into wizard and dashboard" },
-      { name: "Invoice Analysis", pillar: "ai", description: "Upload and OCR commercial invoices" },
       { name: "ExportGateway Dashboard", pillar: "customs", description: "Unified workspace with saved projects" },
       { name: "Trade Guidance Assistant", pillar: "ai", description: "Conversational customs and trade Q&A" },
       { name: "Early Access Platform", pillar: "customs", description: "User accounts and saved shipment workflows" },

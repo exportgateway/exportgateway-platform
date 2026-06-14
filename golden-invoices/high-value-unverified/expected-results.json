@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "high-value-unverified",
+  "label": "High value declaration without auth → UNVERIFIED",
+  "capturedAt": "2026-06-14",
+  "source": {
+    "invoicePdf": "invoice.pdf",
+    "validationReportPdf": "validation-report.pdf",
+    "invoiceSource": "invoice-source.json"
+  },
+  "expected": {
+    "exporter": "SI Exporter d.o.o.",
+    "consignee": "RS Buyer",
+    "destinationCountry": "Serbia (RS)",
+    "destinationCountryCode": "RS",
+    "invoiceNumber": "HIGH-6000",
+    "invoiceValue": 12000,
+    "currency": "EUR",
+    "incoterms": "DAP",
+    "hsCodes": [
+      "84818073"
+    ],
+    "origin": {
+      "evidenceStatus": "UNVERIFIED",
+      "preferentialOriginStatus": "CONFIRMED",
+      "mixedOrigin": false
+    },
+    "packageCount": 1,
+    "grossWeight": 50,
+    "netWeight": 45,
+    "customsReadiness": "CUSTOMS_REVIEW",
+    "declarationReadiness": "READY FOR DECLARATION",
+    "dataExtractionCompleteness": 96,
+    "lineCount": 1
+  },
+  "allowedAnomalies": []
+}

@@ -17,7 +17,7 @@ export interface InvoiceDateReadinessIssue {
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 const MAX_AGE_DAYS = 180;
 
-/** Parse invoice date — ISO (YYYY-MM-DD) or European DD/MM/YYYY, DD.MM.YYYY. */
+/** Parse invoice date — ISO (YYYY-MM-DD), European DD/MM/YYYY, or US MM/DD/YYYY when unambiguous. */
 export function parseInvoiceDate(raw: string | null | undefined): Date | null {
   if (!raw?.trim()) return null;
   const s = raw.trim();
@@ -28,9 +28,26 @@ export function parseInvoiceDate(raw: string | null | undefined): Date | null {
     return Number.isNaN(date.getTime()) ? null : date;
   }
 
-  const eu = s.match(/^(\d{1,2})[./](\d{1,2})[./](\d{4})$/);
-  if (eu) {
-    const date = new Date(Date.UTC(Number(eu[3]), Number(eu[2]) - 1, Number(eu[1])));
+  const slash = s.match(/^(\d{1,2})[./](\d{1,2})[./](\d{4})$/);
+  if (slash) {
+    const first = Number(slash[1]);
+    const second = Number(slash[2]);
+    const year = Number(slash[3]);
+    let day: number;
+    let month: number;
+
+    if (first > 12 && second <= 12) {
+      day = first;
+      month = second;
+    } else if (second > 12 && first <= 12) {
+      month = first;
+      day = second;
+    } else {
+      day = first;
+      month = second;
+    }
+
+    const date = new Date(Date.UTC(year, month - 1, day));
     return Number.isNaN(date.getTime()) ? null : date;
   }
 

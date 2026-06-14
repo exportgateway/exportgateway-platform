@@ -1,0 +1,17 @@
+{
+  "id": "DELTA",
+  "invoice": {
+    "invoice_number": "DLT-550",
+    "exporter": "Delta Tools d.o.o.",
+    "consignee": "Importer RS",
+    "country_code": "RS",
+    "currency": "EUR",
+    "total_value_numeric": 1200,
+    "items": [
+      { "position_number": 1, "description": "Power drill", "quantity": 2, "line_total": 600 },
+      { "position_number": 2, "description": "Saw blade set", "quantity": 3, "line_total": 600 }
+    ],
+    "ocr_text": "Delta Tools\nPos Tariff code COO Description Qty Total\n1 84672920 CN Power drill 2 600.00\n2 82029980 CN Saw blade set 3 600.00\nTotal invoice amount 1 200,00"
+  },
+  "expect": { "hsCodesMin": 2, "hsOnLinesMin": 2, "aggregationMin": 2, "traceabilityMin": 2, "originOnLinesMin": 2 }
+}

@@ -1,4 +1,14 @@
 import type { ApiInvoiceItem, NormalizedInvoice } from "@/lib/export-auditor/api-types";
+import {
+  extractLabeledInvoiceTotal,
+  isTruncatedThousandsFragment,
+} from "@/lib/export-auditor/money-token-extract";
+import {
+  extractInvoiceDiscountContext,
+  isPreDiscountInvoiceAmount,
+  resolvePostDiscountInvoiceTotal,
+} from "@/lib/export-auditor/invoice-discount-context";
+import { buildInvoiceTextCorpus } from "@/lib/export-auditor/invoice-corpus";
 
 /** Relative divergence above which header vs line-sum sources are reconciled. */
 export const INVOICE_VALUE_DIVERGENCE_RATIO = 1.5;
@@ -22,8 +32,10 @@ export function parseLocaleNumber(value: number | string | null | undefined): nu
     const lastComma = s.lastIndexOf(",");
     const lastDot = s.lastIndexOf(".");
     if (lastComma > lastDot) {
+      // European: 21.790,30 → 21790.30
       s = s.replace(/\./g, "").replace(",", ".");
     } else {
+      // US: 21,790.30 → 21790.30
       s = s.replace(/,/g, "");
     }
   } else if (hasComma) {
@@ -36,7 +48,10 @@ export function parseLocaleNumber(value: number | string | null | undefined): nu
   } else if (hasDot) {
     const parts = s.split(".");
     if (parts.length === 2 && parts[1].length > 0 && parts[1].length <= 2) {
-      // US decimal: 1123.50, 953.40
+      // US decimal: 1123.50
+    } else if (parts.length > 2 || (parts.length === 2 && parts[1].length === 3)) {
+      // European thousands: 21.790 or 1.234.567
+      s = s.replace(/\./g, "");
     } else {
       s = s.replace(/\./g, "");
     }
@@ -63,16 +78,17 @@ export function formatInvoiceValueDisplay(
   return `${currency} ${formatted}`;
 }
 
-function invoiceTextCorpus(invoice: NormalizedInvoice): string {
-  return [
-    invoice.ocr_text,
-    invoice.footer_text,
-    invoice.vat_article,
-    invoice.shipment_notes,
-    invoice.packing_info,
-  ]
-    .filter((part): part is string => typeof part === "string" && part.trim().length > 0)
-    .join("\n");
+/** Format declaration export numeric value — de-DE locale, no currency suffix. */
+export function formatDeclarationNumericValue(value: number): string {
+  return value.toLocaleString("de-DE", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
+/** @deprecated Prefer formatDeclarationNumericValue — currency belongs in Currency column. */
+export function formatDeclarationExportValue(value: number): string {
+  return formatDeclarationNumericValue(value);
 }
 
 /** Extract "Amount EUR" total from invoice totals page / footer text. */
@@ -80,12 +96,12 @@ export function resolveAmountEurFromText(corpus: string): number | null {
   if (!corpus.trim()) return null;
 
   const patterns = [
-    /amount\s+eur\s*[:\s]*([\d.,\s]+)/i,
-    /total\s+amount\s+eur\s*[:\s]*([\d.,\s]+)/i,
-    /amount\s*eur\s*[:\s]*([\d.,\s]+)/i,
-    /eur\s+amount\s*[:\s]*([\d.,\s]+)/i,
-    /gesamt\s*eur\s*[:\s]*([\d.,\s]+)/i,
-    /total\s+eur\s*[:\s]*([\d.,\s]+)/i,
+    /amount\s+eur\s*[:\s]*(?:EUR|€)?\s*([\d.,\s]+)/i,
+    /total\s+amount\s+eur\s*[:\s]*(?:EUR|€)?\s*([\d.,\s]+)/i,
+    /amount\s*eur\s*[:\s]*(?:EUR|€)?\s*([\d.,\s]+)/i,
+    /eur\s+amount\s*[:\s]*(?:EUR|€)?\s*([\d.,\s]+)/i,
+    /gesamt\s*eur\s*[:\s]*(?:EUR|€)?\s*([\d.,\s]+)/i,
+    /total\s+eur\s*[:\s]*(?:EUR|€)?\s*([\d.,\s]+)/i,
   ];
 
   for (const pattern of patterns) {
@@ -139,31 +155,59 @@ function reconcileHeaderAndLineSum(headerValue: number, lineSum: number): number
 
 /**
  * Canonical invoice total — single source of truth for all UI sections.
- * Priority: Amount EUR field → Amount EUR text → header total → reconciled line sum.
+ * Priority: labeled final total → post-discount arithmetic → Amount EUR field → Amount EUR text → header → line sum.
  */
 export function resolveInvoiceValue(invoice: NormalizedInvoice): number {
   const extended = invoice as NormalizedInvoice & { amount_eur?: number | string | null };
-
-  const explicitAmountEur = parseLocaleNumber(extended.amount_eur);
-  if (explicitAmountEur > 0) {
-    return roundMoney(explicitAmountEur);
-  }
-
-  const amountFromText = resolveAmountEurFromText(invoiceTextCorpus(invoice));
-  if (amountFromText != null && amountFromText > 0) {
-    return amountFromText;
-  }
 
   const headerValue = roundMoney(
     parseLocaleNumber(invoice.total_value_numeric ?? invoice.total_value)
   );
   const lineSum = sumLineTotals(invoice.items);
+  const corpus = buildInvoiceTextCorpus(invoice);
+  const discountCtx = extractInvoiceDiscountContext(corpus);
+  const postDiscountTotal = resolvePostDiscountInvoiceTotal(corpus);
 
-  if (headerValue > 0 && lineSum != null && lineSum > 0) {
-    return roundMoney(reconcileHeaderAndLineSum(headerValue, lineSum));
+  if (postDiscountTotal != null && postDiscountTotal > 0) {
+    return roundMoney(postDiscountTotal);
   }
 
-  if (headerValue > 0) {
+  const labeledTotal = extractLabeledInvoiceTotal(corpus, {
+    skipPreDiscount: true,
+    preDiscountAmount: discountCtx.preDiscountAmount,
+    discountAmount: discountCtx.discountAmount,
+  });
+  if (
+    labeledTotal != null &&
+    labeledTotal > 0 &&
+    !isPreDiscountInvoiceAmount(labeledTotal, corpus, discountCtx)
+  ) {
+    return roundMoney(labeledTotal);
+  }
+
+  const explicitAmountEur = parseLocaleNumber(extended.amount_eur);
+  if (explicitAmountEur > 0) {
+    if (!isPreDiscountInvoiceAmount(explicitAmountEur, corpus, discountCtx)) {
+      const reference = lineSum ?? headerValue ?? 0;
+      const fragment =
+        reference > 0 && isTruncatedThousandsFragment(explicitAmountEur, reference);
+      if (!fragment) {
+        return roundMoney(explicitAmountEur);
+      }
+    }
+  }
+
+  const amountFromText = resolveAmountEurFromText(corpus);
+  if (amountFromText != null && amountFromText > 0) {
+    if (!isPreDiscountInvoiceAmount(amountFromText, corpus, discountCtx)) {
+      return amountFromText;
+    }
+  }
+
+  if (headerValue > 0 && !isPreDiscountInvoiceAmount(headerValue, corpus, discountCtx)) {
+    if (lineSum != null && lineSum > 0) {
+      return roundMoney(reconcileHeaderAndLineSum(headerValue, lineSum));
+    }
     return headerValue;
   }
 

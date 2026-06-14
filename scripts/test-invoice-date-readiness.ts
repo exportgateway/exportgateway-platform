@@ -114,6 +114,15 @@ const recent = evaluateInvoiceDateReadiness(
 );
 assert(recent.length === 0, `${RECENT_DATE} → PASS`);
 
+const usJan20 = evaluateInvoiceDateReadiness(
+  { ...baseInvoice, invoice_date: "01/20/2026" },
+  startOfUtcDay(new Date("2026-06-14T12:00:00.000Z"))
+);
+assert(
+  !usJan20.some((i) => i.code === INVOICE_DATE_IN_FUTURE),
+  "01/20/2026 (US MM/DD) → no INVOICE_DATE_IN_FUTURE"
+);
+
 console.log("\nreadiness score penalties (base 100)");
 const futureIssues = [
   {

@@ -21,6 +21,7 @@ import {
 } from "@/lib/export-auditor/mrn-export";
 import { formatDeclarationDescriptionSource } from "@/lib/export-auditor/declaration-description-display";
 import { AiDescriptionHealthSection } from "@/components/export-auditor/results/AiDescriptionHealthSection";
+import { AdminOnly } from "@/components/admin/AdminOnly";
 import { Button } from "@/components/ui/Button";
 
 const EXPORT_DESCRIPTION_TOOLTIP =
@@ -258,7 +259,9 @@ export function EnterpriseAggregationSections({ auditReport }: EnterpriseAggrega
 
   return (
     <div className="space-y-6">
-      <AiDescriptionHealthSection auditReport={auditReport} exportLanguage={exportLanguage} />
+      <AdminOnly flag="testUtilities">
+        <AiDescriptionHealthSection auditReport={auditReport} exportLanguage={exportLanguage} />
+      </AdminOnly>
       {showNonPreferentialExport && nonPreferentialExportSummary ? (
         <NonPreferentialExportSection
           row={nonPreferentialExportSummary}

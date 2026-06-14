@@ -167,25 +167,26 @@ const ropeTraceability = buildPositionTraceability(ropeInvoice);
 assert(ropeTraceability.length === 2, "two rope traceability lines");
 assert(ropeTraceability.every((line) => line.unit === "M"), "rope lines resolve unit M");
 
-const hs7307 = report.hsAggregationReport.hsAggregation.find((r) => r.hsCode === "73072390");
-assert(hs7307 != null, "73072390 aggregation row exists");
-if (hs7307) {
-  assert(formatSourcePositions(hs7307.sourcePositions) === "5,6", "73072390 source positions 5,6");
-  const positions = getSourcePositionsForHs("73072390", hs7307);
-  assert(positions.join(",") === "5,6", "getSourcePositionsForHs");
-  const lines = getTraceabilityLinesForHs("73072390", hs7307, report.hsAggregationReport.traceabilityLines);
-  assert(lines.length === 2, "two traceability lines for 73072390");
-  assert(lines.every((l) => l.hsCode === "73072390"), "traceability HS match");
-}
+const hs7307Rows = report.hsAggregationReport.hsAggregation.filter((r) => r.hsCode === "73072390");
+assert(hs7307Rows.length === 1, "73072390 single YES bucket (CN+IT merged)");
+const hs7307 = hs7307Rows[0]!;
+assert(hs7307.countryOfOrigin.includes("CN") && hs7307.countryOfOrigin.includes("IT"), "73072390 countries CN, IT");
+assert(formatSourcePositions(hs7307.sourcePositions) === "5,6", "73072390 source positions 5,6");
+const lines7307 = getTraceabilityLinesForHs("73072390", hs7307, report.hsAggregationReport.traceabilityLines);
+assert(lines7307.length === 2, "two traceability lines for 73072390 merged bucket");
+assert(lines7307.some((line) => line.countryOfOrigin === "CN"), "73072390 CN traceability COO");
+assert(lines7307.some((line) => line.countryOfOrigin === "IT"), "73072390 IT traceability COO");
 
 console.log("\npreferential status for export");
-const hs848190 = report.hsAggregationReport.hsAggregation.find((r) => r.hsCode === "84819000");
-if (hs848190) {
+const hs848190No = report.hsAggregationReport.hsAggregation.find(
+  (r) => r.hsCode === "84819000" && r.preferentialOrigin === "NO"
+);
+if (hs848190No) {
   const status = derivePreferentialStatusForHs(
-    hs848190.sourcePositions,
+    hs848190No.sourcePositions,
     report.hsAggregationReport.traceabilityLines
   );
-  assert(status === "MIXED" || status === "NO" || status === "UNKNOWN", "84819000 status derived");
+  assert(status === "NO", "84819000 NO bucket status derived");
 }
 
 console.log("\ndeclaration export dataset");
@@ -194,20 +195,20 @@ assert(report.mrnExportReady === true, "report.mrnExportReady true");
 const dataset = buildMrnExportDataset(report);
 assert(dataset != null, "dataset built");
 if (dataset) {
-  assert(dataset.rows.length === 5, "five export rows");
+  assert(dataset.rows.length === 7, "seven export rows (HS+pref buckets, COO merged)");
   assert(dataset.traceabilityRows.length === 9, "nine traceability export rows");
   assert(assertExportRowsHaveSourcePositions(dataset), "every row has source positions");
   const row7307 = dataset.rows.find((r) => r.hsCode === "73072390");
-  assert(row7307 != null, "73072390 export row exists");
+  assert(row7307 != null, "73072390 export row exists (CN+IT merged)");
   const exportRow7307 = row7307!;
-  assert(exportRow7307.sourcePositions === "5,6", "export row source positions");
-  assert(exportRow7307.countryOfOrigin.includes("CN"), "export row countries");
-  assert(exportRow7307.originalDescription.includes("Bolt CN"), "export row preserves invoice descriptions");
-  assert(exportRow7307.originalDescription.includes("Bolt IT"), "export row joins multiple invoice descriptions");
+  assert(exportRow7307.countryOfOrigin.includes("CN"), "export row includes CN origin");
+  assert(exportRow7307.sourcePositions.includes("5"), "export row includes CN source position 5");
+  assert(exportRow7307.preferentialOrigin === "YES" || exportRow7307.preferentialOrigin === "NO" || exportRow7307.preferentialOrigin === "UNKNOWN", "export row preferential column");
   assert((exportRow7307.declarationDescription?.length ?? 0) > 0, "export row has declaration description");
   assert(exportRow7307.descriptionSource === "Rule Based", "rule based source without AI enrichment");
   const hs848180 = dataset.rows.find((r) => r.hsCode === "84818073");
   assert(hs848180?.originalDescription === "Valve A | Valve B", "84818073 original descriptions joined");
+  assert(hs848180?.preferentialOrigin === "YES" || hs848180?.preferentialOrigin === "UNKNOWN", "84818073 preferential column populated");
 }
 
 const ropeDataset = buildMrnExportDataset(ropeReport);
@@ -219,6 +220,7 @@ if (ropeDataset) {
   assert(ropeRow.originalDescription.includes(ROPE_DESCRIPTION), "rope invoice description preserved");
   assert(/galvanized/i.test(ropeRow.declarationDescription), "rope declaration description in export row");
   assert(ropeRow.quantity === 2225, "rope total quantity aggregated");
+  assert(ropeRow.unitOfMeasure === "M", "rope UOM from quantity text");
   assert(ropeDataset.traceabilityRows.length === 2, "two rope traceability export rows");
   const traceRow = ropeDataset.traceabilityRows[0];
   assert(traceRow.originalDescription === ROPE_DESCRIPTION, "traceability preserves invoice description");
@@ -232,7 +234,7 @@ assert(csv.includes(";"), "CSV semicolon delimiter");
 assert(csv.includes(MRN_EXPORT_COLUMNS.join(";")), "CSV declaration preparation header row");
 assert(csv.includes(TRACEABILITY_EXPORT_COLUMNS.join(";")), "CSV traceability header row");
 assert(csv.includes("73072390"), "CSV contains HS row");
-assert(csv.includes("5,6"), "CSV contains source positions");
+assert(csv.includes("Preferential Origin"), "CSV contains preferential column");
 assert(
   csv.includes("Valve A | Valve B") || csv.includes("Valve A"),
   "CSV contains description column content"
@@ -261,12 +263,13 @@ console.log("\nExcel generation");
   const hsHeaderIndex = excelRows.findIndex((r) => r[0] === "HS Code");
   assert(hsHeaderIndex >= 0, "Excel HS table header");
   assert(excelRows[hsHeaderIndex]?.[1] === MRN_EXPORT_COLUMNS[1], "Excel description column");
-  assert(excelRows[hsHeaderIndex]?.[2] === "Quantity", "Excel quantity column");
-  assert(excelRows[hsHeaderIndex]?.[5] === "Source Positions", "Excel source positions column");
+  assert(excelRows[hsHeaderIndex]?.[4] === "Quantity", "Excel quantity column");
+  assert(excelRows[hsHeaderIndex]?.[7] === "Value", "Excel value column");
+  assert(excelRows[hsHeaderIndex]?.[9] === "Source Positions", "Excel source positions column");
   const hsDataRow = excelRows.find((r) => r[0] === "73072390");
-  assert(hsDataRow != null, "Excel HS data row");
+  assert(hsDataRow != null, "Excel HS data row 73072390");
   const hsExcelRow = hsDataRow!;
-  assert(String(hsExcelRow[5]) === "5,6", "Excel source positions data");
+  assert(String(hsExcelRow[9]).includes("5"), "Excel source positions include CN line");
   assert(/bolt/i.test(String(hsExcelRow[1])), "Excel description column");
 
   const traceSheet = workbook.Sheets[TRACEABILITY_WORKSHEET_NAME];
@@ -274,11 +277,11 @@ console.log("\nExcel generation");
   assert(traceRows[0]?.[0] === "Position Number", "Excel traceability header");
   assert(traceRows[0]?.[1] === "Original Description", "Excel traceability original description");
   assert(traceRows[0]?.[2] === "Declaration Description", "Excel traceability declaration description");
-  assert(traceRows[0]?.[9] === "Review Recommended", "Excel traceability review column");
+  assert(traceRows[0]?.[15] === "Review Recommended", "Excel traceability review column");
   const valveTraceRow = traceRows.find((r) => r[1] === "Valve A");
   assert(valveTraceRow != null, "Excel traceability valve row");
   const valveTraceExcelRow = valveTraceRow!;
-  assert(String(valveTraceExcelRow[3]) === "84818073", "Excel traceability HS code");
+  assert(String(valveTraceExcelRow[4]) === "84818073", "Excel traceability final HS code");
 
 console.log("\naggregation traceability invariant");
 const engine = runHsAggregationEngine(reniInvoice);

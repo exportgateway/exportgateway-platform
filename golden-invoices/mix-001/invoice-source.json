@@ -1,0 +1,38 @@
+{
+  "invoice_number": "MIX-001",
+  "exporter": "EU Supplier GmbH",
+  "consignee": "Importer d.o.o.",
+  "country": "Serbia",
+  "country_code": "RS",
+  "incoterms": "DAP",
+  "currency": "EUR",
+  "total_value": "2500.00",
+  "items": [
+    {
+      "position_number": 1,
+      "description": "EU component",
+      "quantity": 10,
+      "line_total": "1500.00",
+      "hs_code": "84713000",
+      "country_of_origin": "DE"
+    },
+    {
+      "position_number": 2,
+      "description": "CN component",
+      "quantity": 5,
+      "line_total": "1000.00",
+      "hs_code": "84713000",
+      "country_of_origin": "CN"
+    }
+  ],
+  "shipment_summary": {
+    "package_count": 2,
+    "package_type": "COLLI",
+    "gross_weight_total": 120,
+    "gross_weight_unit": "kg",
+    "net_weight_total": null,
+    "net_weight_unit": null,
+    "pallet_dimensions": null,
+    "pallet_count": null
+  }
+}

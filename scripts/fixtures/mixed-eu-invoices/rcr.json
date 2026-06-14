@@ -1,0 +1,30 @@
+{
+  "id": "RCR",
+  "invoice": {
+    "invoice_number": "RCR-9912",
+    "exporter": "RCR Components SpA",
+    "consignee": "Buyer DOO",
+    "country_code": "RS",
+    "country": "Serbia",
+    "currency": "EUR",
+    "total_value_numeric": 2,
+    "items": [
+      {
+        "position_number": 1,
+        "description": "Industrial parts batch",
+        "quantity": 1,
+        "line_total": 4202.45
+      }
+    ],
+    "ocr_text": "RCR Components SpA\nInvoice RCR-9912\n1 Industrial parts batch 4202.45\nTotal invoice amount 2,00 EUR"
+  },
+  "disposition": {
+    "total_value_numeric": 4202.45,
+    "currency": "EUR"
+  },
+  "expect": {
+    "hsCodesMin": 0,
+    "totalMismatch": true,
+    "customsBlocked": true
+  }
+}

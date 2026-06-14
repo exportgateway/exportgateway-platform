@@ -1,5 +1,17 @@
 import type { ApiInvoiceItem, NormalizedInvoice } from "@/lib/export-auditor/api-types";
-import { extractTabularHsCodes } from "@/lib/export-auditor/tabular-hs-extractor";
+import {
+  normalizeHsToken,
+  normalizeAndValidateHsToken,
+  isInvalidHsToken,
+  INVALID_HS_CODE,
+} from "@/lib/export-auditor/hs-code-normalize";
+import { extractGenericHsCodes } from "@/lib/export-auditor/hs-code-extraction-engine";
+import { buildInvoiceTextCorpus } from "@/lib/export-auditor/invoice-corpus";
+import { buildCommercialHsCorpus } from "@/lib/export-auditor/commercial-line-detector";
+import {
+  collectSanitizedHsCodes,
+  shouldSkipCorpusHsSweep,
+} from "@/lib/export-auditor/hs-classification-sanity";
 
 const EU_COUNTRY_CODES = new Set([
   "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT",
@@ -37,13 +49,12 @@ const HS_ITEM_KEYS = [
   "hs_tariff_code",
 ] as const;
 
-export function normalizeHsToken(raw: string): string | null {
-  const token = raw.trim().replace(/\s+/g, "");
-  if (!token) return null;
-  const digits = token.replace(/[^\d]/g, "");
-  if (digits.length >= 4 && digits.length <= 12) return digits;
-  return null;
-}
+export {
+  normalizeHsToken,
+  normalizeAndValidateHsToken,
+  isInvalidHsToken,
+  INVALID_HS_CODE,
+} from "@/lib/export-auditor/hs-code-normalize";
 
 function hsFromUnknownItem(item: ApiInvoiceItem | Record<string, unknown>): string[] {
   const found: string[] = [];
@@ -80,7 +91,10 @@ export function extractHsCodes(
   }
 
   const flags = invoice.document_flags ?? {};
-  for (const value of Object.values(flags)) {
+  for (const [key, value] of Object.entries(flags)) {
+    if (key === "corpus_hs_detected" && shouldSkipCorpusHsSweep(invoice)) {
+      continue;
+    }
     if (typeof value === "string") {
       for (const part of value.split(/[,;/|]+/)) {
         const code = normalizeHsToken(part);
@@ -89,10 +103,17 @@ export function extractHsCodes(
     }
   }
 
-  const ocrText = invoice.ocr_text?.trim();
-  if (ocrText) {
-    for (const code of extractTabularHsCodes(ocrText)) {
-      codes.add(code);
+  for (const code of collectSanitizedHsCodes(invoice)) {
+    codes.add(code);
+  }
+
+  if (codes.size === 0) {
+    const corpus = buildInvoiceTextCorpus(invoice);
+    if (corpus && !shouldSkipCorpusHsSweep(invoice)) {
+      const hsCorpus = buildCommercialHsCorpus(invoice, corpus);
+      for (const code of extractGenericHsCodes(hsCorpus)) {
+        codes.add(code);
+      }
     }
   }
 

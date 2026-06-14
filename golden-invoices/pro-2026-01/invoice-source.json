@@ -1,0 +1,31 @@
+{
+  "invoice_number": "PRO-2026-01",
+  "exporter": "Exporter d.o.o.",
+  "consignee": "Buyer BA",
+  "country": "Bosnia and Herzegovina",
+  "country_code": "BA",
+  "incoterms": "DAP",
+  "currency": "EUR",
+  "total_value": "890.00",
+  "vat_article": "Proforma invoice — not subject to VAT",
+  "items": [
+    {
+      "position_number": 1,
+      "description": "Sample goods",
+      "quantity": 1,
+      "line_total": "890.00",
+      "hs_code": "39269097",
+      "country_of_origin": "SI"
+    }
+  ],
+  "shipment_summary": {
+    "package_count": 1,
+    "gross_weight_total": 5,
+    "gross_weight_unit": "kg",
+    "net_weight_total": 4,
+    "net_weight_unit": "kg",
+    "package_type": "COLLI",
+    "pallet_dimensions": null,
+    "pallet_count": null
+  }
+}

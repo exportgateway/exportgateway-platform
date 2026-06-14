@@ -1,7 +1,9 @@
 import type { ApiInvoiceItem, NormalizedInvoice } from "@/lib/export-auditor/api-types";
 import { generateCustomsDescription } from "@/lib/export-auditor/customs-description";
+import { classifyLineHs } from "@/lib/export-auditor/hs-classification-workflow";
 import {
   filterGoodsLines,
+  isServiceOrTransportLine,
   normalizeAggregationItems,
   type NormalizedAggregationItem,
 } from "@/lib/export-auditor/hs-aggregation-engine";
@@ -44,9 +46,15 @@ function findRawItemForPosition(
   }) as ItemWithUnit | undefined;
 }
 
+function filterTraceabilityLines(items: NormalizedAggregationItem[]): NormalizedAggregationItem[] {
+  return items.filter((item) => !isServiceOrTransportLine(item.description));
+}
+
 /** Build auditable goods-line traceability from normalized invoice items. */
 export function buildPositionTraceability(invoice: NormalizedInvoice): PositionTraceabilityLine[] {
-  const items = filterGoodsLines(normalizeAggregationItems(invoice));
+  const normalized = normalizeAggregationItems(invoice);
+  const withHs = filterGoodsLines(normalized);
+  const items = withHs.length > 0 ? withHs : filterTraceabilityLines(normalized);
   return items.map((item) => mapItemToTraceabilityLine(item, findRawItemForPosition(invoice, item.position_number)));
 }
 
@@ -55,6 +63,9 @@ function mapItemToTraceabilityLine(
   rawItem?: ItemWithUnit
 ): PositionTraceabilityLine {
   const description = item.description;
+  const hsMeta = rawItem ? classifyLineHs(rawItem, item.position_number) : null;
+  const finalHsCode = hsMeta?.finalHsCode ?? item.hs_code;
+
   return {
     positionNumber: item.position_number,
     description,
@@ -63,7 +74,20 @@ function mapItemToTraceabilityLine(
     netWeight: item.net_weight,
     countryOfOrigin: formatCountryOfOriginField(item.country_of_origin),
     preferentialOrigin: item.preferential_origin,
-    hsCode: item.hs_code,
+    hsCode: finalHsCode ?? "",
+    invoiceHsCode: hsMeta?.invoiceHsCode ?? null,
+    normalizedHsCode: hsMeta?.normalizedHsCode ?? finalHsCode,
+    finalHsCode: hsMeta?.finalHsCode ?? finalHsCode,
+    hsStatus: hsMeta?.hsStatus ?? (finalHsCode ? "VALID" : "MISSING"),
+    hsSource: hsMeta?.hsSource ?? (finalHsCode ? "INVOICE" : null),
+    repairApplied: hsMeta?.repairApplied ?? false,
+    validationSource: hsMeta?.validationSource ?? "none",
+    hsConfidence: hsMeta?.hsConfidence ?? (finalHsCode ? 100 : 0),
+    wizardHsCode: null,
+    verificationStatus: "MISSING",
+    wizardConfidence: null,
+    similarityScore: null,
+    verificationReason: "",
     unit: rawItem ? resolveItemUnit(rawItem) : null,
     customsDescription: generateCustomsDescription(description),
   };
@@ -81,12 +105,21 @@ export function getSourcePositionsForHs(
 /** Filter traceability lines that contributed to an HS aggregation row. */
 export function getTraceabilityLinesForHs(
   hsCode: string,
-  aggregationRow: Pick<HsAggregationRow, "hsCode" | "sourcePositions">,
+  aggregationRow: Pick<
+    HsAggregationRow,
+    "hsCode" | "sourcePositions" | "countryOfOrigin" | "preferentialOrigin" | "countriesOfOrigin"
+  >,
   traceabilityLines: PositionTraceabilityLine[]
 ): PositionTraceabilityLine[] {
   const positions = new Set(getSourcePositionsForHs(hsCode, aggregationRow));
+  const bucketPref = aggregationRow.preferentialOrigin;
+
   return traceabilityLines
-    .filter((line) => line.hsCode === hsCode && positions.has(line.positionNumber))
+    .filter((line) => {
+      if (line.hsCode !== hsCode || !positions.has(line.positionNumber)) return false;
+      if (bucketPref && line.preferentialOrigin !== bucketPref) return false;
+      return true;
+    })
     .sort((a, b) => a.positionNumber - b.positionNumber);
 }
 
@@ -108,4 +141,19 @@ export function derivePreferentialStatusForHs(
 
 export function formatSourcePositions(positions: number[]): string {
   return positions.length > 0 ? positions.join(",") : "";
+}
+
+/** Resolve UOM for an aggregation bucket — unanimous unit, else majority, else PCS. */
+export function resolveAggregationUnit(lines: PositionTraceabilityLine[]): string {
+  const units = lines
+    .map((line) => line.unit?.trim().toUpperCase())
+    .filter((unit): unit is string => Boolean(unit));
+  if (units.length === 0) return "PCS";
+
+  const unique = new Set(units);
+  if (unique.size === 1) return [...unique][0]!;
+
+  const counts = new Map<string, number>();
+  for (const unit of units) counts.set(unit, (counts.get(unit) ?? 0) + 1);
+  return [...counts.entries()].sort((a, b) => b[1] - a[1])[0]![0];
 }

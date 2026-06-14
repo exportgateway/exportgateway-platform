@@ -1,0 +1,15 @@
+{
+  "ocr_text": "Buyer:\nZ.T.R. \"Braca Maric\"\nApecs.S d.o.o.\nGrška ulica 13, 1000 Ljubljana\nVAT number: SI49796712\nInvoice Number: AS2026-1069\nRecipient:\nDragiše Mišovića 169, 32000 Čačak\nSrbija\nDate: 21.05.2026\nTotal invoice amount: 21,790.30 EUR\nAmount to be paid: 21,790.30 EUR\nPos Description Barcode Quantity MU Price Amount\n1 Industrial valve 88001234 50 pcs 120.00 6000.00\n2 Steel flange 88005678 100 pcs 85.50 8550.00\n3 Gasket set 88009901 24 pcs 31.68 760.30\n",
+  "items": [],
+  "incoterms": "DAP",
+  "shipment_summary": {
+    "package_count": 1,
+    "gross_weight_total": 10,
+    "gross_weight_unit": "kg",
+    "net_weight_total": null,
+    "net_weight_unit": null,
+    "package_type": "COLLI",
+    "pallet_dimensions": null,
+    "pallet_count": null
+  }
+}

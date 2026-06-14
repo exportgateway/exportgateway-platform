@@ -24,9 +24,9 @@ export function Footer() {
 
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-500">
 
-              The trade operating system for customs intelligence, freight pricing, export
+              AI-powered trade compliance — customs intelligence, export auditing, freight pricing,
 
-              documentation, and AI trade assistance.
+              and Intrastat preparation for exporters and customs professionals.
 
             </p>
 

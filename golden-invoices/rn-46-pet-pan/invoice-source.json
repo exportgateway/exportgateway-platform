@@ -1,0 +1,39 @@
+{
+  "invoice_number": "RN-46",
+  "invoice_date": "2026-02-10",
+  "exporter": "PET PAN d.o.o.\nSI-1230 Domžale\nSlovenia",
+  "consignee": "Import DOO\nBeograd\nSerbia",
+  "country": "Serbia",
+  "country_code": "RS",
+  "currency": "EUR",
+  "total_value_numeric": 48500,
+  "items": [
+    {
+      "position_number": 1,
+      "description": "TOVORNO VOZILO IVECO EUROCARGO 180E28",
+      "quantity": 1,
+      "unit_price": 48500,
+      "line_total": 48500,
+      "hs_code": "87042290"
+    },
+    {
+      "position_number": 2,
+      "description": "Chassis number ZCFA680D020654321",
+      "quantity": 0,
+      "line_total": 0
+    },
+    {
+      "position_number": 3,
+      "description": "Engine power 206 kW",
+      "quantity": 0,
+      "line_total": 0
+    },
+    {
+      "position_number": 4,
+      "description": "Cubic capacity 6871 cm3",
+      "quantity": 0,
+      "line_total": 0
+    }
+  ],
+  "ocr_text": "Invoice RN-46\nPET PAN d.o.o.\nSI-1230 Domzale\nSlovenia\n\nCustomer / Consignee:\nImport DOO\nBeograd\nSerbia\n\nPos. Description Qty Unit price Amount\n1 TOVORNO VOZILO IVECO EUROCARGO 180E28 1 48.500,00 48.500,00\n\nChassis number ZCFA680D020654321\nEngine power 206 kW\nCubic capacity 6871 cm3\n\nTariff 8704.22.90\n87089980\n84099979\n84831095\n87071099\n\nTotal 48.500,00 EUR\nDDV ni obračunan po 1. točki 45. člena ZDDV-1"
+}

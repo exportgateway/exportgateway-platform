@@ -1,0 +1,28 @@
+{
+  "invoice_number": "70399",
+  "invoice_date": "2026-01-15",
+  "exporter": "S.C. EL-CAR S.R.L",
+  "consignee": "PROFI KOSOVA SH. P. K\nPrishtina\nKosovo",
+  "country": "Kosovo",
+  "country_code": "XK",
+  "incoterms": "CPT",
+  "currency": "EUR",
+  "total_value": "2595.25",
+  "ocr_text": "\nInvoice No. 70399\nS.C. EL-CAR S.R.L\nPROFI KOSOVA SH. P. K\nPrishtina\nKosovo\nIncoterms: CPT\nTotal invoice value: 2.595,25 EUR\n\nPos. HS Code UM Qty Unit price Amount\n1 731210810080 M 1225 1.17 1433.30\n2 731210810080 M 1000 0.93 930.00\n\nNumber of packages Net weight Gross weight\nNr. de colete Greut. neta Greut. bruta\n1 770 850\n",
+  "items": [
+    {
+      "description": "Steel wire products line 1",
+      "quantity": "1225",
+      "unit_price": "1.17",
+      "line_total": "1433.30",
+      "hs_code": "731210810080"
+    },
+    {
+      "description": "Steel wire products line 2",
+      "quantity": "1000",
+      "unit_price": "0.93",
+      "line_total": "930.00",
+      "hs_code": "731210810080"
+    }
+  ]
+}

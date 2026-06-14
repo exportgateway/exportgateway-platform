@@ -1,4 +1,10 @@
 import type { ApiInvoiceItem, NormalizedInvoice } from "@/lib/export-auditor/api-types";
+import { isServiceOrTransportLine } from "@/lib/export-auditor/service-line-detection";
+import { applyPreferentialOriginExceptions } from "@/lib/export-auditor/preferential-origin-exception-engine";
+import {
+  detectAuthorisedExporter,
+  type AuthorisedExporterDetectionResult,
+} from "@/lib/export-auditor/authorised-exporter-detection-engine";
 
 /** Preferential origin status — distinct from country of origin. */
 export type PreferentialOriginStatus = "YES" | "NO" | "UNKNOWN" | "NOT_DECLARED";
@@ -10,6 +16,7 @@ export type PreferenceSource =
   | "manufacturer_declaration_reference"
   | "authorised_exporter_statement"
   | "excluded_positions_list"
+  | "explicit_non_preferential_declaration"
   | "none";
 
 export interface LinePreferentialOrigin {
@@ -40,6 +47,7 @@ export interface PreferentialOriginEngineResult {
   declarations_detected: DetectedDeclaration[];
   authorised_exporter_detected: boolean;
   authorised_exporter_number: string | null;
+  authorised_exporter_detection: AuthorisedExporterDetectionResult | null;
   origin_declaration_found: boolean;
   has_explicit_preference_evidence: boolean;
   summary: string;
@@ -98,6 +106,16 @@ const DECLARATION_PATTERNS: Array<{
     extractExcluded: (m) => parsePositionNumbers(m[1]),
   },
   {
+    kind: "eur1_except_positions",
+    re: /preferential\s+origin\s+(?:declaration\s+)?applies\s+to\s+all\s+(?:positions|products|lines|goods)\s+except\s+(?:positions?\s+)?([\d,\sand]+)/gi,
+    extractExcluded: (m) => parsePositionNumbers(m[1]),
+  },
+  {
+    kind: "eur1_except_positions",
+    re: /(?:applies\s+to\s+all|all)\s+(?:positions|products|lines|goods)\s+except\s+(?:positions?\s+)?([\d,\sand]+)/gi,
+    extractExcluded: (m) => parsePositionNumbers(m[1]),
+  },
+  {
     kind: "except_where_otherwise_indicated",
     re: /except\s+where\s+otherwise\s+clearly\s+indicated/gi,
   },
@@ -140,30 +158,41 @@ const DECLARATION_PATTERNS: Array<{
 ];
 
 export function parsePositionNumbers(raw: string): number[] {
+  const nums = new Set<number>();
   const normalized = raw.replace(/\band\b/gi, ",");
-  const nums = normalized
-    .split(/[,;/\s]+/)
-    .map((part) => parseInt(part.trim(), 10))
-    .filter((n) => Number.isFinite(n) && n > 0);
-  return [...new Set(nums)].sort((a, b) => a - b);
-}
 
-const AUTHORISED_EXPORTER_NUMBER_RE = [
-  new RegExp(`${CUSTOMS_AUTH}\\s+${AUTH_NO}\\s*(${REF_SLASH})`, "i"),
-  new RegExp(`${CUSTOMS_AUTH}\\s+${AUTH_NO}\\s*(${REF_COMPACT})`, "i"),
-  new RegExp(`${AUTH_EXPORTER_SPELL}\\s+${AUTH_NO}\\s*(${REF_SLASH})`, "i"),
-  new RegExp(`${AUTH_EXPORTER_SPELL}\\s+${AUTH_NO}\\s*(${REF_COMPACT})`, "i"),
-  new RegExp(`${AUTH_EXPORTER_SPELL}\\s*[:\\s]*(${REF_COMPACT})`, "i"),
-  /\b(FR\d{6}\/\d{4})\b/,
-];
+  for (const segment of normalized.split(/[,;]+/)) {
+    const trimmed = segment.trim();
+    if (!trimmed) continue;
+
+    const rangeMatch = trimmed.match(/^(\d+)\s*[-–]\s*(\d+)$/);
+    if (rangeMatch) {
+      const start = parseInt(rangeMatch[1], 10);
+      const end = parseInt(rangeMatch[2], 10);
+      if (Number.isFinite(start) && Number.isFinite(end)) {
+        const lo = Math.min(start, end);
+        const hi = Math.max(start, end);
+        for (let i = lo; i <= hi; i += 1) {
+          nums.add(i);
+        }
+      }
+      continue;
+    }
+
+    for (const part of trimmed.split(/\s+/)) {
+      const n = parseInt(part.trim(), 10);
+      if (Number.isFinite(n) && n > 0) {
+        nums.add(n);
+      }
+    }
+  }
+
+  return [...nums].sort((a, b) => a - b);
+}
 
 /** Extract REX / authorised exporter registration number from invoice text. */
 export function extractAuthorisedExporterNumber(corpus: string): string | null {
-  for (const re of AUTHORISED_EXPORTER_NUMBER_RE) {
-    const match = corpus.match(re);
-    if (match?.[1]) return match[1].toUpperCase();
-  }
-  return null;
+  return detectAuthorisedExporter(corpus).authorisation_number;
 }
 
 /** Extract full EU preferential origin declaration block from document text. */
@@ -309,6 +338,8 @@ interface LineRuleState {
   asteriskMarkerRule: boolean;
   supplierRef: boolean;
   manufacturerRef: boolean;
+  originDeclarationPresent: boolean;
+  authorisedExporterPresent: boolean;
 }
 
 function buildRuleState(
@@ -325,6 +356,8 @@ function buildRuleState(
     asteriskMarkerRule: false,
     supplierRef: false,
     manufacturerRef: false,
+    originDeclarationPresent: false,
+    authorisedExporterPresent: false,
   };
 
   const eur1ExceptDecls = declarations.filter((d) => d.kind === "eur1_except_positions");
@@ -369,6 +402,13 @@ function buildRuleState(
   if (state.asteriskMarkerRule) {
     state.blanketAllYes = false;
   }
+
+  if (state.explicitYes.size > 0) {
+    state.blanketAllYes = false;
+  }
+
+  state.originDeclarationPresent = hasOriginDeclaration(corpus);
+  state.authorisedExporterPresent = declarations.some((d) => d.kind === "authorised_exporter");
 
   return state;
 }
@@ -479,6 +519,23 @@ function resolveLinePreference(
     };
   }
 
+  if (
+    rules.authorisedExporterPresent &&
+    rules.originDeclarationPresent &&
+    rules.explicitYes.size === 0
+  ) {
+    const decl = declarations.find(
+      (d) => d.kind === "authorised_exporter" || d.kind === "all_products_preferential"
+    );
+    return {
+      preferential_origin: "YES",
+      preference_reason: decl
+        ? `Authorised exporter origin declaration: "${decl.text.slice(0, 120)}".`
+        : "Authorised exporter origin declaration detected on invoice.",
+      preference_source: "authorised_exporter_statement",
+    };
+  }
+
   if (rules.exceptOtherwiseIndicated) {
     return {
       preferential_origin: "UNKNOWN",
@@ -506,8 +563,7 @@ function resolveLinePreference(
     };
   }
 
-  const hasAuthorised = declarations.some((d) => d.kind === "authorised_exporter");
-  if (hasAuthorised) {
+  if (rules.authorisedExporterPresent && !rules.originDeclarationPresent) {
     return undeclaredPreference(
       countryOfOrigin,
       "Authorised exporter (REX) reference detected — does not alone prove preferential origin for this line without an invoice declaration."
@@ -556,18 +612,32 @@ export function runPreferentialOriginEngine(
   const items: ApiInvoiceItem[] = invoice.items ?? [];
   const corpus = collectDeclarationCorpus(invoice);
   const declarations = detectDeclarations(corpus);
+  const authDetection = detectAuthorisedExporter(corpus, invoice);
   const authorised_exporter_number =
     invoice.authorised_exporter_number?.trim() ||
-    extractAuthorisedExporterNumber(corpus);
+    authDetection.authorisation_number;
   const authorised_exporter_detected =
+    authDetection.detected ||
     declarations.some((d) => d.kind === "authorised_exporter") ||
     Boolean(authorised_exporter_number);
   const origin_declaration_found = hasOriginDeclaration(corpus);
   const rules = buildRuleState(declarations, corpus);
 
-  const lines: LinePreferentialOrigin[] = items.map((item, index) => {
+  const rawLines: LinePreferentialOrigin[] = items.map((item, index) => {
     const position_number = index + 1;
     const country_of_origin = item.country_of_origin?.trim() || "—";
+    const description = item.description?.trim() ?? "";
+
+    if (isServiceOrTransportLine(description)) {
+      return {
+        position_number,
+        country_of_origin,
+        preferential_origin: "NOT_DECLARED",
+        preference_reason: "Service / freight line excluded from preferential origin analysis",
+        preference_source: "none",
+      };
+    }
+
     const resolved = resolveLinePreference(
       position_number,
       country_of_origin,
@@ -583,6 +653,8 @@ export function runPreferentialOriginEngine(
     };
   });
 
+  const lines = applyPreferentialOriginExceptions(invoice, rawLines);
+
   const has_explicit_preference_evidence = lines.some(
     (l) =>
       l.preferential_origin === "YES" ||
@@ -596,6 +668,7 @@ export function runPreferentialOriginEngine(
     declarations_detected: declarations,
     authorised_exporter_detected,
     authorised_exporter_number: authorised_exporter_number || null,
+    authorised_exporter_detection: authDetection,
     origin_declaration_found,
     has_explicit_preference_evidence,
     summary: buildSummary(lines, declarations, authorised_exporter_detected),

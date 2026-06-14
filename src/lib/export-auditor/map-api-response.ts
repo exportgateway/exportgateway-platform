@@ -7,6 +7,7 @@ import type {
   ShipmentSummary,
   DeliveryAddress,
 } from "@/lib/export-auditor/types";
+import { resolveCountryFromText } from "@/lib/export-auditor/country-resolution";
 import { evaluatePackageCountDecision, formatDeclarationPackageCount } from "@/lib/export-auditor/package-count-decision-engine";
 import { parseLocaleNumber, resolveInvoiceValue } from "@/lib/export-auditor/parse-locale-number";
 import type {
@@ -68,10 +69,17 @@ import {
   readinessWarningDedupeKey,
   reclassifyHsCodeIssues,
   reclassifyOriginIssues,
+  filterSupersededPreferentialAuditIssues,
   isOriginDeclarationMissingCode,
   isOriginDeclarationMissingMessage,
   resolveIssueCode,
   applyIssueSeverity,
+  PARSER_MAPPING_FAILURE,
+  TOTAL_VALUE_PARSING_ERROR,
+  TOTAL_VALUE_PARSING_ERROR_MESSAGE,
+  AUTHORIZATION_COUNTRY_MISMATCH,
+  AUTHORIZATION_COUNTRY_MISMATCH_MESSAGE,
+  MULTIPLE_HS_CANDIDATES_DETECTED,
 } from "@/lib/export-auditor/issue-readiness";
 import {
   detectSupportingDocuments,
@@ -97,6 +105,17 @@ import {
 } from "@/lib/export-auditor/origin-countries-summary";
 import { computeConfidenceScores } from "@/lib/export-auditor/confidence-score-engine";
 import {
+  validateCustomsExtractionIntegrity,
+  logExtractionIntegrityForensic,
+  HS_AGGREGATION_MISSING,
+  TRACEABILITY_MISSING,
+  EXTRACTION_INTEGRITY_ERROR,
+} from "@/lib/export-auditor/extraction-integrity-validator";
+import {
+  validateInvoiceTotalConsistency,
+  TOTAL_MISMATCH,
+} from "@/lib/export-auditor/invoice-total-consistency-validator";
+import {
   computePreferentialAllocation,
   computeMixedOriginTotals,
 } from "@/lib/export-auditor/preferential-allocation-engine";
@@ -110,7 +129,24 @@ import {
 import { buildOcrObservability } from "@/lib/export-auditor/ocr-observability";
 import { aggregateOcrSessionMetrics } from "@/lib/export-auditor/ocr-session-metrics";
 import { evaluateCustomsReadiness } from "@/lib/export-auditor/customs-readiness-engine";
+import { buildDataRecoveryDiagnostics, applyRecoveryReadinessDowngrade } from "@/lib/export-auditor/data-recovery-diagnostics";
 import { evaluateDeclarationReadiness } from "@/lib/export-auditor/declaration-readiness-check";
+import {
+  applyHsClassificationSanity,
+  MULTIPLE_HS_CANDIDATES_MESSAGE,
+} from "@/lib/export-auditor/hs-classification-sanity";
+import {
+  buildHsWorkflowSummary,
+  buildLineHsClassifications,
+  collectInvalidHsCodeIssues,
+  collectUnknownHsCodeIssues,
+  deriveAggregationHsMetadata,
+} from "@/lib/export-auditor/hs-classification-workflow";
+import {
+  buildHsVerificationSummary,
+  deriveAggregationHsVerification,
+  enrichTraceabilityWithVerification,
+} from "@/lib/export-auditor/hs-verification-engine";
 import type {
   HsAggregationReport,
 } from "@/lib/export-auditor/types";
@@ -418,6 +454,28 @@ function filterResolvedShipmentReadinessWarnings(
   });
 }
 
+function mapAuthorisationCountryIssues(
+  preferenceOrigin: PreferenceOriginAnalysis,
+  invoice: NormalizedInvoice
+): AuditIssue[] {
+  if (
+    !preferenceOrigin.authorisedExporterDetected ||
+    preferenceOrigin.authorisedExporterCountryMatch !== false
+  ) {
+    return [];
+  }
+  const exporterCode =
+    resolveCountryFromText(invoice.exporter).country_code ?? "?";
+  return [
+    applyIssueSeverity({
+      id: AUTHORIZATION_COUNTRY_MISMATCH,
+      type: "warning",
+      message: `${AUTHORIZATION_COUNTRY_MISMATCH_MESSAGE} (authorization ${preferenceOrigin.authorisationCountry ?? "?"} vs exporter ${exporterCode})`,
+      field: AUTHORIZATION_COUNTRY_MISMATCH,
+    }),
+  ];
+}
+
 function missingFieldsFromInvoice(invoice: NormalizedInvoice, audit?: AuditReportResponse): string[] {
   const missing: string[] = [];
   if (!invoice.invoice_number?.trim()) missing.push("Invoice number");
@@ -432,6 +490,79 @@ function missingFieldsFromInvoice(invoice: NormalizedInvoice, audit?: AuditRepor
     if (!missing.includes(err)) missing.push(err);
   }
   return missing;
+}
+
+function mapDocumentFlagIssues(invoice: NormalizedInvoice): AuditIssue[] {
+  const issues: AuditIssue[] = [];
+  const flags = invoice.document_flags ?? {};
+
+  if (flags[PARSER_MAPPING_FAILURE] === true) {
+    issues.push(
+      applyIssueSeverity({
+        id: PARSER_MAPPING_FAILURE,
+        type: "error",
+        message: "OCR parser failed to map invoice fields — manual review required",
+        field: PARSER_MAPPING_FAILURE,
+      })
+    );
+  }
+
+  if (flags[TOTAL_VALUE_PARSING_ERROR] === true) {
+    issues.push(
+      applyIssueSeverity({
+        id: TOTAL_VALUE_PARSING_ERROR,
+        type: "warning",
+        message: TOTAL_VALUE_PARSING_ERROR_MESSAGE,
+        field: TOTAL_VALUE_PARSING_ERROR,
+      })
+    );
+  }
+
+  if (flags[TOTAL_MISMATCH] === true) {
+    issues.push(
+      applyIssueSeverity({
+        id: TOTAL_MISMATCH,
+        type: "error",
+        message: "Invoice total inconsistent across document sources (TOTAL_MISMATCH)",
+        field: TOTAL_MISMATCH,
+      })
+    );
+  }
+
+  if (flags[HS_AGGREGATION_MISSING] === true) {
+    issues.push(
+      applyIssueSeverity({
+        id: HS_AGGREGATION_MISSING,
+        type: "error",
+        message: "HS codes detected on invoice but aggregation was not generated",
+        field: HS_AGGREGATION_MISSING,
+      })
+    );
+  }
+
+  if (flags[TRACEABILITY_MISSING] === true) {
+    issues.push(
+      applyIssueSeverity({
+        id: TRACEABILITY_MISSING,
+        type: "error",
+        message: "Line items extracted but position traceability table is empty",
+        field: TRACEABILITY_MISSING,
+      })
+    );
+  }
+
+  if (flags[EXTRACTION_INTEGRITY_ERROR] === true) {
+    issues.push(
+      applyIssueSeverity({
+        id: EXTRACTION_INTEGRITY_ERROR,
+        type: "error",
+        message: "Customs extraction integrity check failed",
+        field: EXTRACTION_INTEGRITY_ERROR,
+      })
+    );
+  }
+
+  return issues;
 }
 
 function mapIssues(
@@ -487,9 +618,14 @@ function mapShipmentSummary(
     grossWeightTotal: resolvedGross.gross_weight_total ?? source?.gross_weight_total ?? null,
     grossWeightUnit: resolvedGross.gross_weight_unit ?? source?.gross_weight_unit ?? null,
     grossWeightSource: invoiceShip?.gross_weight_source ?? null,
-    netWeightTotal: source?.net_weight_total ?? null,
-    netWeightUnit: source?.net_weight_unit ?? null,
+    grossWeightType: invoiceShip?.gross_weight_type ?? null,
+    netWeightTotal:
+      invoiceShip?.net_weight_total ??
+      source?.net_weight_total ??
+      null,
+    netWeightUnit: invoiceShip?.net_weight_unit ?? source?.net_weight_unit ?? null,
     netWeightSource: invoiceShip?.net_weight_source ?? null,
+    netWeightType: invoiceShip?.net_weight_type ?? null,
     palletCount: packageDecision.palletCount ?? palletCount,
     declarationPackageCount: packageDecision.declarationPackageCount,
     declarationPackageType: packageDecision.declarationPackageType,
@@ -563,20 +699,34 @@ function mapHsAggregationFromEngine(
     invoiceTotalValue: canonicalInvoiceValue,
     originCountriesContext,
   });
+  const lineClassifications = buildLineHsClassifications(invoice);
   const resolvedOriginCountries = resolveOriginCountriesDisplay(
     invoice.items,
     originCountriesContext
   );
   return {
-    hsAggregation: engine.hs_aggregation.map((row) => ({
-      hsCode: row.hs_code,
-      totalQuantity: row.total_quantity,
-      totalValue: row.total_value,
-      totalNetWeight: row.total_net_weight,
-      itemCount: row.item_count,
-      countriesOfOrigin: row.countries_of_origin,
-      sourcePositions: row.source_positions,
-    })),
+    hsAggregation: engine.hs_aggregation.map((row) => {
+      const mappedRow = {
+        hsCode: row.hs_code,
+        countryOfOrigin: row.country_of_origin,
+        preferentialOrigin: row.preferential_origin,
+        totalQuantity: row.total_quantity,
+        totalValue: row.total_value,
+        totalNetWeight: row.total_net_weight,
+        itemCount: row.item_count,
+        countriesOfOrigin: row.countries_of_origin,
+        sourcePositions: row.source_positions,
+      };
+      const hsMeta = deriveAggregationHsMetadata(mappedRow, lineClassifications);
+      return {
+        ...mappedRow,
+        ...hsMeta,
+        wizardHsCode: null,
+        verificationStatus: "MISSING" as const,
+        wizardConfidence: null,
+        verificationReason: "",
+      };
+    }),
     preferentialSummary: engine.preferential_summary.map((row) => ({
       hsCode: row.hs_code,
       totalValue: row.total_value,
@@ -817,6 +967,7 @@ function mapPreferenceOrigin(
   const mixedOrigin = lineDerived.mixedOrigin;
   const mixedOriginTotals = computeMixedOriginTotals(invoice, engine.lines);
   const preferentialAllocation = computePreferentialAllocation(invoice, engine.lines);
+  const authMeta = engine.authorised_exporter_detection;
 
   return {
     destinationOutsideEu,
@@ -835,6 +986,10 @@ function mapPreferenceOrigin(
     rexRegistrationNumber,
     authorisedExporterNumber:
       engine.authorised_exporter_number ?? invoice.authorised_exporter_number ?? null,
+    authorisationCountry: authMeta?.authorisation_country ?? null,
+    authorisedExporterDetectionRule: authMeta?.detection_rule ?? null,
+    authorisedExporterConfidence: authMeta?.confidence ?? null,
+    authorisedExporterCountryMatch: authMeta?.country_match ?? null,
     status: lineDerived.statusLabel,
     recommendation: lineDerived.recommendation,
     requiredDocuments,
@@ -956,7 +1111,14 @@ export function mapAuditReportToExportReport(
   invoice = resolvedInvoice;
 
   const extraHs = extras?.disposition?.tariff_codes ?? [];
-  const hsCodes = extractHsCodes(invoice, extraHs);
+  const hsSanity = applyHsClassificationSanity(invoice);
+  invoice = hsSanity.invoice;
+  const hsWorkflowSummary = buildHsWorkflowSummary(invoice);
+  const extractedHsCodes = extractHsCodes(invoice, extraHs);
+  const hsCodes =
+    hsWorkflowSummary.finalHsCodes.length > 0
+      ? hsWorkflowSummary.finalHsCodes
+      : extractedHsCodes;
   const readiness = extras?.readiness;
   const preferenceOrigin = mapPreferenceOrigin(audit, invoice, extras?.preferenceOrigin);
   const shipmentReadinessIssues = mapShipmentReadinessIssues(invoice);
@@ -979,6 +1141,18 @@ export function mapAuditReportToExportReport(
   let issues = mapIssues(audit.issues, readinessWarnings, [
     ...invoiceDateReadinessIssues,
     ...shipmentReadinessIssues,
+    ...mapDocumentFlagIssues(invoice),
+    ...collectInvalidHsCodeIssues(invoice).map((issue) => applyIssueSeverity(issue)),
+    ...collectUnknownHsCodeIssues(invoice).map((issue) => applyIssueSeverity(issue)),
+    ...mapAuthorisationCountryIssues(preferenceOrigin, invoice),
+    ...hsSanity.warnings.map((warning) =>
+      applyIssueSeverity({
+        id: MULTIPLE_HS_CANDIDATES_DETECTED,
+        type: "warning",
+        message: warning.message,
+        field: MULTIPLE_HS_CANDIDATES_DETECTED,
+      })
+    ),
   ]);
   issues = filterFalseValidationWarnings(issues, preferenceOrigin);
   issues = filterFalseEuDestinationWarnings(issues, destinationDiagnostics.destinationCountryCode);
@@ -989,10 +1163,38 @@ export function mapAuditReportToExportReport(
   const supportingDocumentsDetected = detectSupportingDocuments(invoice, preferenceOrigin, issues);
   issues = filterSupportingDocumentIssues(issues);
   issues = reclassifyHsCodeIssues(issues, hsCodes.length);
+  issues = filterSupersededPreferentialAuditIssues(issues, preferenceOrigin);
   issues = reclassifyOriginIssues(issues, preferenceOrigin);
   issues = deduplicateIssues(issues);
-  const errorCount = issues.filter((i) => i.type === "error").length;
   const hsAggregationReport = mapHsAggregationFromEngine(invoice, preferenceOrigin);
+
+  const integrity = validateCustomsExtractionIntegrity(invoice, {
+    invoiceTotalValue: resolveInvoiceValue(invoice),
+  });
+  logExtractionIntegrityForensic(invoice, integrity, fileName);
+  const dispositionTotal =
+    extras?.disposition?.total_value_numeric ??
+    parseLocaleNumber(extras?.disposition?.total_value);
+  const totalConsistency = validateInvoiceTotalConsistency(invoice, {
+    customsDispositionValue: dispositionTotal,
+  });
+  invoice = {
+    ...invoice,
+    document_flags: {
+      ...invoice.document_flags,
+      ...integrity.flags,
+      ...totalConsistency.flags,
+    },
+  };
+  issues = deduplicateIssues([
+    ...issues,
+    ...integrity.issues.map((issue) => applyIssueSeverity(issue)),
+    ...totalConsistency.issues.map((issue) => applyIssueSeverity(issue)),
+    ...mapDocumentFlagIssues(invoice),
+  ]);
+  issues = reclassifyHsCodeIssues(issues, hsCodes.length);
+  issues = deduplicateIssues(issues);
+  const errorCount = issues.filter((i) => i.type === "error").length;
   const invoiceFoundationComplete = isInvoiceFoundationComplete(invoice, preferenceOrigin);
   const apiScore = readiness?.score ?? audit.readiness.score;
   const readinessScore = adjustReadinessScore(apiScore, preferenceOrigin, issues, {
@@ -1090,7 +1292,27 @@ export function mapAuditReportToExportReport(
   );
   report.shipmentExtractionDiagnostics = buildShipmentExtractionDiagnostics(invoice);
 
-  report.customsReadiness = evaluateCustomsReadiness(report, invoice);
+  report.hsWorkflowSummary = hsWorkflowSummary;
+  const hsVerificationSummary = buildHsVerificationSummary(invoice);
+  report.hsVerificationSummary = hsVerificationSummary;
+  report.hsAggregationReport = {
+    ...report.hsAggregationReport,
+    traceabilityLines: enrichTraceabilityWithVerification(
+      report.hsAggregationReport.traceabilityLines,
+      hsVerificationSummary.lineResults
+    ),
+    hsAggregation: report.hsAggregationReport.hsAggregation.map((row) => ({
+      ...row,
+      ...deriveAggregationHsVerification(row, hsVerificationSummary.lineResults),
+    })),
+  };
+  report.dataRecoveryDiagnostics = buildDataRecoveryDiagnostics(invoice, {
+    hsWorkflowSummary: report.hsWorkflowSummary,
+  });
+  report.customsReadiness = applyRecoveryReadinessDowngrade(
+    evaluateCustomsReadiness(report, invoice),
+    report.dataRecoveryDiagnostics.recoveryPercentage
+  );
   report.declarationReadiness = evaluateDeclarationReadiness(report, invoice);
 
   return applyEnterpriseCommercialSummary(

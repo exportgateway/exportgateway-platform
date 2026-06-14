@@ -88,6 +88,44 @@ export function OcrObservabilitySection({ auditReport }: OcrObservabilitySection
             </div>
           ))}
         </dl>
+        {observability.recoveryApplied && (
+          <dl className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 border-t border-surface-border/60 pt-4">
+            <div className="sm:col-span-2 lg:col-span-4">
+              <dt className="text-[11px] font-medium uppercase tracking-wider text-slate-400">
+                Recovery Applied
+              </dt>
+              <dd className="mt-1 flex flex-wrap gap-2 text-sm font-medium text-slate-900">
+                {[
+                  { label: "Consignee Recovery", active: observability.recoveryApplied.consigneeRecovery },
+                  { label: "Total Recovery", active: observability.recoveryApplied.totalRecovery },
+                  { label: "Line Recovery", active: observability.recoveryApplied.lineRecovery },
+                ].map((item) => (
+                  <span
+                    key={item.label}
+                    className={
+                      item.active
+                        ? "rounded-full bg-emerald-50 px-2.5 py-0.5 text-emerald-800"
+                        : "rounded-full bg-slate-100 px-2.5 py-0.5 text-slate-500"
+                    }
+                  >
+                    {item.label}
+                    {item.active ? " ✓" : ""}
+                  </span>
+                ))}
+              </dd>
+            </div>
+            {observability.recoveryConfidence != null && (
+              <div>
+                <dt className="text-[11px] font-medium uppercase tracking-wider text-slate-400">
+                  Recovery Confidence
+                </dt>
+                <dd className="mt-0.5 text-sm font-semibold tabular-nums text-slate-900">
+                  {observability.recoveryConfidence}%
+                </dd>
+              </div>
+            )}
+          </dl>
+        )}
       </section>
 
       {session && (

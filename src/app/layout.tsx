@@ -8,6 +8,7 @@ import {
   SoftwareApplicationJsonLd,
   WebSiteJsonLd,
 } from "@/components/seo/JsonLd";
+import { IS_PRELAUNCH, PRELAUNCH_ROBOTS } from "@/config/prelaunch";
 import { absoluteUrl } from "@/lib/seo";
 
 const inter = Inter({
@@ -17,12 +18,8 @@ const inter = Inter({
   preload: true,
 });
 
-export const metadata: Metadata = {
+const productionMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-  title: {
-    default: `${siteConfig.name} — ${siteConfig.tagline}`,
-    template: `%s | ${siteConfig.name}`,
-  },
   description: siteConfig.description,
   keywords: [
     "international trade",
@@ -32,7 +29,8 @@ export const metadata: Metadata = {
     "HS code classification",
     "trade automation",
     "freight calculator",
-    "intrastat allocation",
+    "intrastat ai auditor",
+    "export auditor",
   ],
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
   openGraph: {
@@ -42,7 +40,9 @@ export const metadata: Metadata = {
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
     siteName: siteConfig.name,
-    images: [{ url: absoluteUrl("/opengraph-image"), width: 1200, height: 630, alt: siteConfig.name }],
+    images: [
+      { url: absoluteUrl("/opengraph-image"), width: 1200, height: 630, alt: siteConfig.name },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -56,6 +56,18 @@ export const metadata: Metadata = {
   },
 };
 
+export const metadata: Metadata = {
+  title: {
+    default: `${siteConfig.name} — ${siteConfig.tagline}`,
+    template: `%s | ${siteConfig.name}`,
+  },
+  ...(IS_PRELAUNCH
+    ? {
+        robots: PRELAUNCH_ROBOTS,
+      }
+    : productionMetadata),
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -64,9 +76,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="font-sans antialiased">
-        <OrganizationJsonLd />
-        <WebSiteJsonLd />
-        <SoftwareApplicationJsonLd />
+        {!IS_PRELAUNCH && (
+          <>
+            <OrganizationJsonLd />
+            <WebSiteJsonLd />
+            <SoftwareApplicationJsonLd />
+          </>
+        )}
         {children}
         <CookieConsent />
       </body>

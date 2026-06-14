@@ -32,6 +32,14 @@ function hsRow(result: ReturnType<typeof runHsAggregationEngine>, code: string) 
   return result.hs_aggregation.find((row) => row.hs_code === code);
 }
 
+function hsRowsForCode(result: ReturnType<typeof runHsAggregationEngine>, code: string) {
+  return result.hs_aggregation.filter((row) => row.hs_code === code);
+}
+
+function totalQtyForHs(result: ReturnType<typeof runHsAggregationEngine>, code: string): number {
+  return hsRowsForCode(result, code).reduce((sum, row) => sum + row.total_quantity, 0);
+}
+
 const reniInvoice: NormalizedInvoice = {
   invoice_number: "26-381-000014",
   total_value_numeric: 12372.78,
@@ -69,11 +77,13 @@ const reniResult = runHsAggregationEngine(reniInvoice);
 
 console.log("\nRENI HS aggregation — invoice 26-381-000014");
 assert(hsRow(reniResult, "84818073")?.total_quantity === 26, "84818073 qty 26");
-assert(hsRow(reniResult, "84819000")?.total_quantity === 26, "84819000 qty 26");
-assert(hsRow(reniResult, "73072390")?.total_quantity === 52, "73072390 qty 52");
-assert(hsRow(reniResult, "73269098")?.total_quantity === 26, "73269098 qty 26");
+assert(totalQtyForHs(reniResult, "84819000") === 26, "84819000 qty 26 across pref buckets");
+assert(totalQtyForHs(reniResult, "73072390") === 52, "73072390 qty 52 across COO buckets");
+assert(totalQtyForHs(reniResult, "73269098") === 26, "73269098 qty 26 across pref buckets");
 assert(hsRow(reniResult, "40169300")?.total_quantity === 32, "40169300 qty 32");
 assert(hsRow(reniResult, "84818073")?.item_count === 2, "84818073 item_count 2");
+assert(hsRowsForCode(reniResult, "84819000").length === 2, "84819000 split by preferential origin");
+assert(hsRowsForCode(reniResult, "73072390").length === 1, "73072390 CN+IT merged in one YES bucket");
 
 console.log("\nweight aggregation");
 const totalNet = reniResult.mrn_summary.total_net_weight ?? 0;
@@ -86,7 +96,7 @@ assert(
 console.log("\ntransport excluded from totals");
 assert(reniResult.mrn_summary.excluded_service_lines === 1, "one service line excluded");
 assert(reniResult.mrn_summary.total_goods_lines === 9, "nine goods lines");
-assert(reniResult.mrn_summary.unique_hs_codes === 5, "five unique HS codes");
+assert(reniResult.mrn_summary.unique_hs_codes === 7, "seven declarant aggregation rows (HS+pref, COO merged)");
 assert(
   !reniResult.hs_aggregation.some((row) => row.hs_code === ""),
   "no empty HS from transport"
@@ -152,7 +162,7 @@ const audit: AuditReportResponse = {
   summary: "Export audit completed.",
 };
 const report = mapAuditReportToExportReport(reniInvoice, audit, "reni.pdf");
-assert(report.hsAggregationReport.hsAggregation.length === 5, "report hsAggregation rows");
+assert(report.hsAggregationReport.hsAggregation.length === 7, "report hsAggregation rows");
 assert(report.hsAggregationReport.mrnSummary.totalGoodsLines >= 9, "report MRN goods lines");
 assert(report.hsAggregationReport.nonPreferentialSummary.length >= 2, "report non-preferential rows");
 
@@ -199,6 +209,54 @@ assert(
   `MRN net weight matches shipment fallback (got ${allPrefResult.mrn_summary.total_net_weight})`
 );
 assert(allPrefResult.non_preferential_summary.length === 0, "non-preferential summary empty");
+
+console.log("\nHS+preferential separation (COO merged)");
+const splitInvoice: NormalizedInvoice = {
+  invoice_number: "SPLIT-61099090",
+  vat_article: "Preferential origin except position 2",
+  items: [
+    {
+      position_number: 1,
+      description: "Garment A",
+      hs_code: "61099090",
+      quantity: 10,
+      line_total: 500,
+      country_of_origin: "PT",
+    },
+    {
+      position_number: 2,
+      description: "Garment B",
+      hs_code: "61099090",
+      quantity: 5,
+      line_total: 250,
+      country_of_origin: "PT",
+    },
+  ],
+};
+const splitResult = runHsAggregationEngine(splitInvoice, {
+  preferenceLines: [
+    {
+      position_number: 1,
+      country_of_origin: "PT",
+      preferential_origin: "YES",
+      preference_reason: "test",
+      preference_source: "invoice_declaration",
+    },
+    {
+      position_number: 2,
+      country_of_origin: "PT",
+      preferential_origin: "NO",
+      preference_reason: "test",
+      preference_source: "invoice_declaration",
+    },
+  ],
+});
+const split610 = splitResult.hs_aggregation.filter((row) => row.hs_code === "61099090");
+assert(split610.length === 2, "same HS different preferential → two aggregation rows");
+assert(
+  split610.every((row) => row.source_positions.length === 1),
+  "each preferential bucket contains one source position"
+);
 
 console.log("\nshipment net weight — mixed preferential/non-preferential, no line weights");
 const mixedLines: LinePreferentialOrigin[] = [

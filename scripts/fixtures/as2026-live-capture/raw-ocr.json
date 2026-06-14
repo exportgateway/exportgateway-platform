@@ -1,0 +1,77 @@
+{
+  "invoice_number": "AS2026-1069",
+  "invoice_date": "2023-09-20",
+  "exporter": "Apecs d.o.o.",
+  "consignee": "Apecs d.o.o.",
+  "country": "Serbia",
+  "country_code": "RS",
+  "incoterms": "DAP Beograd",
+  "currency": "EUR",
+  "total_value": "1.234,56",
+  "total_value_numeric": 1234.56,
+  "vat_article": "Article 52 item a) Paragraph 1...",
+  "items": [
+    {
+      "item_code": "HONMB-PN002",
+      "description": "Desk",
+      "quantity": "10",
+      "unit_price": "100,00",
+      "line_total": "1.000,00",
+      "hs_code": "94036000",
+      "country_of_origin": "Slovenia"
+    },
+    {
+      "item_code": "HON013730.10",
+      "description": "Chair",
+      "quantity": "20",
+      "unit_price": "50,00",
+      "line_total": "1.000,00",
+      "hs_code": "94016100",
+      "country_of_origin": "Slovenia"
+    }
+  ],
+  "document_flags": {
+    "commercial_invoice": true,
+    "packing_list_referenced": false,
+    "certificate_of_origin_referenced": false,
+    "proforma_invoice": false,
+    "delivery_note_referenced": false
+  },
+  "shipment_summary": {
+    "package_count": 2,
+    "package_type": "COLLI",
+    "pallet_count": null,
+    "gross_weight_total": 76.74,
+    "gross_weight_unit": "kg",
+    "net_weight_total": null,
+    "net_weight_unit": null,
+    "pallet_dimensions": null
+  },
+  "delivery_address": {
+    "company": "Apecs d.o.o.",
+    "address": "Bulevar oslobođenja 123",
+    "city": "Beograd",
+    "postal_code": "11000",
+    "country": "Serbia",
+    "country_code": "RS"
+  },
+  "ocr_text": "SHIPMENT SUMMARY\nKoli: 2\nBruto teža: 76,74 kg\n\nDELIVERY ADDRESS\nApecs d.o.o.\nBulevar oslobođenja 123\n11000 Beograd\nSerbia",
+  "ocr_metadata": {
+    "page_count": 1,
+    "ocr_text_length": 121,
+    "pdf_text_length": null,
+    "extraction_source": "document_annotation",
+    "shipment_fields_detected": [
+      "gross_weight_total",
+      "package_count",
+      "package_type"
+    ],
+    "shipment_fields_missing": [
+      "net_weight_total",
+      "pallet_count"
+    ],
+    "raw_ocr_has_shipment_summary": true,
+    "raw_ocr_has_ocr_text": true,
+    "raw_ocr_has_delivery_address": true
+  }
+}

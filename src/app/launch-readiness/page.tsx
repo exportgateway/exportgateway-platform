@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { CheckCircle2, XCircle } from "lucide-react";
 import { MarketingLayout } from "@/components/layout/MarketingLayout";
 import { buildPageMetadata } from "@/lib/seo";
+import { FEATURE_FLAGS } from "@/config/feature-flags";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -53,10 +55,10 @@ const checklist: ChecklistItem[] = [
     href: "/platform/freight",
   },
   {
-    area: "Intrastat",
+    area: "Intrastat AI Auditor",
     status: "pass",
-    notes: "Reporting country transport value hero is visually dominant.",
-    href: "/platform/intrastat",
+    notes: "Coming soon landing page — /intrastat-ai with noindex until launch.",
+    href: "/intrastat-ai",
   },
   {
     area: "Terms",
@@ -108,6 +110,10 @@ const checklist: ChecklistItem[] = [
 ];
 
 export default function LaunchReadinessPage() {
+  if (!FEATURE_FLAGS.adminMode) {
+    notFound();
+  }
+
   const passCount = checklist.filter((i) => i.status === "pass").length;
   const failCount = checklist.filter((i) => i.status === "fail").length;
 

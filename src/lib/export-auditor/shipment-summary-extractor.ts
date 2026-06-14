@@ -12,7 +12,9 @@ import {
 } from "@/lib/export-auditor/multilingual-field-extractor";
 import { DELIVERY_SECTION_LABELS } from "@/lib/export-auditor/multilingual-invoice-labels";
 import { appendProvenance, type ExtractionProvenanceEntry } from "@/lib/export-auditor/extraction-provenance";
+import { recordParserRecovery } from "@/lib/export-auditor/parser-recovery-provenance";
 import { applyWeightHierarchyToShipmentSummary } from "@/lib/export-auditor/weight-extraction-hierarchy";
+import { aggregateLineNetWeightsForShipment } from "@/lib/export-auditor/weight-line-aggregation";
 
 const EMPTY_SHIPMENT_SUMMARY: ShipmentSummary = {
   package_count: null,
@@ -417,8 +419,20 @@ export function extractGrossWeight(
   return { gross_weight_total: null, gross_weight_unit: null };
 }
 
-/** Sum line-item net weights when present on invoice rows. */
+/** Sum line-item net weights (line totals, not unit weights) when present on invoice rows. */
 export function extractLineItemNetWeightTotal(
+  items: ApiInvoiceItem[] | undefined,
+  documentGross?: number | null
+): Pick<ShipmentSummary, "net_weight_total" | "net_weight_unit"> {
+  const aggregation = aggregateLineNetWeightsForShipment(items, documentGross);
+  return {
+    net_weight_total: aggregation.net_weight_total,
+    net_weight_unit: aggregation.net_weight_unit,
+  };
+}
+
+/** @deprecated Use aggregateLineNetWeightsForShipment for unit-weight detection. */
+export function extractLineItemNetWeightTotalLegacy(
   items: ApiInvoiceItem[] | undefined
 ): Pick<ShipmentSummary, "net_weight_total" | "net_weight_unit"> {
   if (!items?.length) {
@@ -651,7 +665,7 @@ export function extractShipmentSummary(
   const footer = extractFooterShipmentMetrics(corpus);
   const pkg = extractPackageCount(corpus);
   const weight = extractGrossWeight(corpus);
-  const netWeight = extractNetWeight(corpus, items);
+  const netWeight = extractNetWeightFromDocument(corpus);
   const pallet_dimensions = extractPalletDimensions(corpus);
 
   let package_type = footer.package_type ?? pkg.package_type;
@@ -692,8 +706,12 @@ function mergeShipmentSummary(
     package_type: base.package_type ?? extracted.package_type,
     gross_weight_total: base.gross_weight_total ?? extracted.gross_weight_total,
     gross_weight_unit: base.gross_weight_unit ?? extracted.gross_weight_unit,
+    gross_weight_source: base.gross_weight_source ?? extracted.gross_weight_source,
+    gross_weight_type: base.gross_weight_type ?? extracted.gross_weight_type,
     net_weight_total: base.net_weight_total ?? extracted.net_weight_total,
     net_weight_unit: base.net_weight_unit ?? extracted.net_weight_unit,
+    net_weight_source: base.net_weight_source ?? extracted.net_weight_source,
+    net_weight_type: base.net_weight_type ?? extracted.net_weight_type,
     pallet_dimensions: base.pallet_dimensions ?? extracted.pallet_dimensions,
     pallet_count: base.pallet_count ?? extracted.pallet_count,
   };
@@ -791,10 +809,18 @@ export function enrichInvoiceShipmentData(invoice: NormalizedInvoice): Normalize
   const extractedSummary = extractShipmentSummary(corpus, invoice.items);
   const extractedDelivery = extractDeliveryAddress(corpus);
   const mergedSummary = mergeShipmentSummary(invoice.shipment_summary, extractedSummary);
+  const documentGross = extractGrossWeight(corpus);
+  const resolvedGross =
+    mergedSummary.gross_weight_total ?? documentGross.gross_weight_total ?? null;
+  const lineAggregation = aggregateLineNetWeightsForShipment(invoice.items, resolvedGross);
   const hierarchySummary = applyWeightHierarchyToShipmentSummary(mergedSummary, {
     documentNet: extractNetWeightFromDocument(corpus),
-    documentGross: extractGrossWeight(corpus),
-    calculatedNet: extractLineItemNetWeightTotal(invoice.items),
+    documentGross,
+    calculatedNet: {
+      net_weight_total: lineAggregation.net_weight_total,
+      net_weight_unit: lineAggregation.net_weight_unit,
+    },
+    unitWeightMisuseLikely: lineAggregation.unitWeightMisuseLikely,
   });
 
   let enriched: NormalizedInvoice = {
@@ -805,6 +831,36 @@ export function enrichInvoiceShipmentData(invoice: NormalizedInvoice): Normalize
 
   for (const entry of provenanceForFilledShipmentFields(invoice.shipment_summary, hierarchySummary)) {
     enriched = appendProvenance(enriched, entry);
+  }
+
+  const parserGross = enriched.parser_input_snapshot?.gross_weight_total ?? 0;
+  const finalGross = hierarchySummary.gross_weight_total ?? 0;
+  if (
+    parserGross <= 0 &&
+    finalGross > 0 &&
+    !enriched.parser_recovery_provenance?.some((entry) => entry.field === "gross_weight")
+  ) {
+    enriched = recordParserRecovery(enriched, {
+      field: "gross_weight",
+      original_value: null,
+      recovered_value: String(finalGross),
+      recovery_source: "WEIGHT_HIERARCHY_RECOVERY",
+    });
+  }
+
+  const parserNet = enriched.parser_input_snapshot?.net_weight_total ?? 0;
+  const finalNet = hierarchySummary.net_weight_total ?? 0;
+  if (
+    parserNet <= 0 &&
+    finalNet > 0 &&
+    !enriched.parser_recovery_provenance?.some((entry) => entry.field === "net_weight")
+  ) {
+    enriched = recordParserRecovery(enriched, {
+      field: "net_weight",
+      original_value: null,
+      recovered_value: String(finalNet),
+      recovery_source: "WEIGHT_HIERARCHY_RECOVERY",
+    });
   }
 
   return enriched;

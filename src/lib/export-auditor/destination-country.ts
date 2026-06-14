@@ -60,21 +60,7 @@ function collectConsigneeAddressTexts(invoice: NormalizedInvoice): string[] {
     texts.push(invoice.consignee.trim());
   }
 
-  const delivery = invoice.delivery_address;
-  if (delivery) {
-    const deliveryBlock = [
-      delivery.company,
-      delivery.address,
-      delivery.city,
-      delivery.postal_code,
-      delivery.country,
-    ]
-      .filter((part): part is string => typeof part === "string" && part.trim().length > 0)
-      .join("\n");
-    if (deliveryBlock.trim()) {
-      texts.push(deliveryBlock.trim());
-    }
-  }
+  /** Shipping / delivery address must never drive destination country — consignee only. */
 
   for (const corpus of [
     invoice.ocr_text,
@@ -263,8 +249,7 @@ export function resolveDestinationCandidates(
   const fromConsignee = pickConsigneeDestination(invoice);
   if (fromConsignee) candidates.push(fromConsignee);
 
-  const fromDelivery = extractDestinationFromDeliveryAddress(invoice.delivery_address);
-  if (fromDelivery) candidates.push(fromDelivery);
+  /** Delivery / shipping address is never used for customs destination country. */
 
   // Explicit OCR country fields are authoritative over incoterms loading places.
   const fromOcr = extractDestinationFromOcrFields(invoice, exporterCountryCode);

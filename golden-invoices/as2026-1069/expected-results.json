@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "as2026-1069",
+  "label": "Apecs AS2026-1069 → Serbia",
+  "capturedAt": "2026-06-14",
+  "source": {
+    "invoicePdf": "invoice.pdf",
+    "validationReportPdf": "validation-report.pdf",
+    "invoiceSource": "invoice-source.json"
+  },
+  "expected": {
+    "exporter": "Apecs.S d.o.o.",
+    "consignee": "Z.T.R. \"Braca Maric\nDragiše Mišovića 169, 32000 Čačak\nSrbija",
+    "destinationCountry": "Serbia (RS)",
+    "destinationCountryCode": "RS",
+    "invoiceNumber": "AS2026-1069",
+    "invoiceValue": 21790.3,
+    "currency": "EUR",
+    "incoterms": "DAP",
+    "hsCodes": [],
+    "origin": {
+      "evidenceStatus": "NOT_DECLARED",
+      "preferentialOriginStatus": "NOT_DECLARED",
+      "mixedOrigin": false
+    },
+    "packageCount": 1,
+    "grossWeight": 10,
+    "netWeight": null,
+    "customsReadiness": "CUSTOMS_REVIEW",
+    "declarationReadiness": "REVIEW REQUIRED",
+    "dataExtractionCompleteness": 92,
+    "lineCount": 3
+  },
+  "allowedAnomalies": [],
+  "notes": "English OCR recovery — parser mapping failure regression"
+}

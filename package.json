@@ -90,6 +90,37 @@
 
     "test:golden-customs-workflow": "npx tsx scripts/test-golden-customs-workflow.ts",
 
+    "test:hs-verification": "npx tsx scripts/test-hs-verification.ts",
+
+    "test:production-defect-fixes": "npx tsx scripts/test-production-defect-fixes.ts",
+    "test:as2026-1069": "npx tsx scripts/test-as2026-1069.ts",
+    "test:mixed-eu-invoices": "npx tsx scripts/test-mixed-eu-invoices.ts",
+    "test:dexxon-mamiye-forensic": "npx tsx scripts/test-dexxon-mamiye-forensic.ts",
+    "test:dexxon-mamiye-real-pdf": "npx tsx scripts/test-dexxon-mamiye-real-pdf.ts",
+    "test:mamiye-non-preferential-exception": "npx tsx scripts/test-mamiye-non-preferential-exception.ts",
+    "test:mamiye-real-pdf": "npx tsx scripts/test-mamiye-real-pdf.ts",
+    "test:maxx-group-real-pdf": "npx tsx scripts/test-maxx-group-real-pdf.ts",
+    "test:declaration-preparation": "npx tsx scripts/test-declaration-preparation.ts",
+    "test:declaration-preparation-certification": "npx tsx scripts/test-declaration-preparation-certification.ts",
+    "test:golden-position-integrity": "npx tsx scripts/test-golden-position-integrity.ts",
+    "test:authorised-exporter-detection": "npx tsx scripts/test-authorised-exporter-detection.ts",
+    "forensic:maxxgroup-authorised-exporter": "npx tsx scripts/forensic-maxxgroup-authorised-exporter-trace.ts",
+    "test:real-pdf-forensic-regression": "npx tsx scripts/test-real-pdf-forensic-regression.ts",
+    "forensic:trace-dexxon-mamiye": "npx tsx scripts/forensic-trace-dexxon-mamiye.ts",
+    "test:hs-code-normalize": "npx tsx scripts/test-hs-code-normalize.ts",
+    "test:ocr-recovery-hardening": "npx tsx scripts/test-ocr-recovery-hardening.ts",
+    "test:invoice-total-advance-payment": "npx tsx scripts/test-invoice-total-advance-payment.ts",
+    "test:inv-220726": "npx tsx scripts/test-inv-220726.ts",
+    "test:china-country-code": "npx tsx scripts/test-china-country-code.ts",
+    "test:rn-46-pet-pan": "npx tsx scripts/test-rn-46-pet-pan.ts",
+    "test:recovery-diagnostics": "npx tsx scripts/test-recovery-diagnostics.ts",
+
+    "golden-dataset:bootstrap": "npx tsx scripts/bootstrap-golden-dataset.ts",
+
+    "test:golden-dataset": "npx tsx scripts/run-golden-dataset.ts",
+
+    "test:golden-dataset-anomalies": "npx tsx scripts/test-golden-dataset-anomalies.ts",
+
     "test:multilingual-extraction": "npx tsx scripts/test-multilingual-extraction.ts",
 
     "test:origin-issue-reclassification": "npx tsx scripts/test-origin-issue-reclassification.ts",

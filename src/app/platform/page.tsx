@@ -11,7 +11,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "Platform — Trade Intelligence Tools",
   description:
-    "Launch ExportGateway tools: Export Auditor, Compliance Wizard, Freight Calculator, and Intrastat Allocation — live EU trade intelligence.",
+    "Launch ExportGateway tools: Export Auditor, Customs Intelligence, Freight Calculator, and Intrastat AI Auditor — AI-powered trade compliance.",
   path: "/platform",
 });
 
@@ -26,21 +26,20 @@ export default function PlatformHubPage() {
           <div className="mb-4 flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-2 rounded-full border border-brand-100 bg-brand-50/80 px-4 py-1.5 text-sm font-medium text-brand-700">
               <Zap className="h-3.5 w-3.5" />
-              Trade Intelligence Platform
+              AI-Powered Trade Compliance
             </span>
             <ModuleStatusBadge status="live" showDot />
             <span className="text-sm text-slate-500">{liveCount} tools live</span>
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-            Trade operations dashboard
+            Trade compliance platform
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-slate-600">
-            Audit export invoices, classify goods, price EU road freight, and allocate Intrastat
-            costs — professional tools for forwarders, coordinators, and exporters. No login required.
+            Audit export invoices, classify goods, price EU road freight, and prepare Intrastat
+            reporting — professional tools for forwarders, coordinators, and exporters. No login required.
           </p>
         </div>
 
-        {/* Flagship — Export Auditor */}
         <Link
           href={featuredTool.href}
           className="mt-10 group block overflow-hidden rounded-2xl border border-violet-200 bg-gradient-to-br from-violet-50 via-white to-purple-50 p-6 sm:p-8 shadow-sm transition-all hover:shadow-lg hover:shadow-violet-500/10"
@@ -54,7 +53,7 @@ export default function PlatformHubPage() {
               </div>
               <div>
                 <p className="text-xs font-bold uppercase tracking-wider text-violet-600">
-                  Flagship tool
+                  Primary tool
                 </p>
                 <h2 className="mt-1 text-2xl font-bold text-slate-900 group-hover:text-violet-700 transition-colors">
                   {featuredTool.name}
@@ -75,7 +74,7 @@ export default function PlatformHubPage() {
               </div>
             </div>
             <span className="btn-primary shrink-0 self-start sm:self-center">
-              Launch Export Auditor
+              Try Export Auditor
               <ArrowRight className="h-4 w-4" />
             </span>
           </div>
@@ -97,9 +96,10 @@ export default function PlatformHubPage() {
         <div className="mt-16 rounded-2xl border border-surface-border bg-surface-muted/30 p-6 sm:p-8">
           <h2 className="text-lg font-bold text-slate-900">How the tools connect</h2>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
-            Upload an invoice to the Export Auditor for readiness and disposition. Use the Compliance
-            Wizard to classify products and estimate landed cost. Price EU road freight with the Freight
-            Calculator. Allocate costs by country with Intrastat Allocation.
+            Upload an invoice to Export Auditor for OCR extraction and customs readiness. Use Customs
+            Intelligence to classify products and estimate landed cost. Price EU road freight with
+            Freight Calculator. Intrastat AI Auditor — coming soon — will prepare statistical reporting
+            from the same invoice data.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link href="/platform/export-auditor" className="btn-primary">
@@ -107,7 +107,10 @@ export default function PlatformHubPage() {
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link href="/platform/customs" className="btn-secondary">
-              Customs Wizard
+              Customs Intelligence
+            </Link>
+            <Link href="/intrastat-ai" className="btn-secondary">
+              Intrastat AI Auditor
             </Link>
             <Link href="/#roadmap" className="btn-secondary">
               View Roadmap

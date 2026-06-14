@@ -14,6 +14,11 @@ const ROOT = path.join(__dirname, "..");
 const DEV_WEBPACK_CACHE = path.join(ROOT, ".next", "cache", "webpack");
 const DEV_PORT = Number(process.env.PORT || 3000);
 
+/** Vercel/CI builds start fresh — never block remote production builds. */
+if (process.env.VERCEL === "1" || process.env.CI === "true") {
+  process.exit(0);
+}
+
 async function devServerResponding() {
   try {
     const res = await fetch(`http://127.0.0.1:${DEV_PORT}/`, {

@@ -1,0 +1,31 @@
+{
+  "invoice_number": "LOW-6000",
+  "exporter": "SI Exporter d.o.o.",
+  "consignee": "RS Buyer",
+  "country": "Serbia",
+  "country_code": "RS",
+  "incoterms": "DAP",
+  "currency": "EUR",
+  "total_value_numeric": 4500,
+  "origin_declaration_text": "The exporter of the products covered by this document declares that these products are of preferential origin.",
+  "items": [
+    {
+      "position_number": 1,
+      "description": "Goods",
+      "quantity": 1,
+      "line_total": 4500,
+      "hs_code": "84818073",
+      "country_of_origin": "SI"
+    }
+  ],
+  "shipment_summary": {
+    "package_count": 1,
+    "gross_weight_total": 20,
+    "gross_weight_unit": "kg",
+    "net_weight_total": 18,
+    "net_weight_unit": "kg",
+    "package_type": "COLLI",
+    "pallet_dimensions": null,
+    "pallet_count": null
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "inv-220726",
+  "label": "INV/220726 — Kosovo customer, SI shipping, China COO, Mainfreight service line",
+  "capturedAt": "2026-06-14T00:00:00.000Z",
+  "source": {
+    "invoicePdf": "INV_220726.pdf",
+    "invoiceSource": "golden-invoices/inv-220726/invoice-source.json"
+  },
+  "expected": {
+    "destinationCountryCode": "XK",
+    "destinationCountry": "Kosovo (XK)",
+    "invoiceNumber": "INV/220726",
+    "customsReadiness": "CUSTOMS_REVIEW",
+    "hsCodes": [
+      "82057000",
+      "73269098",
+      "84311000",
+      "73158200",
+      "82055980",
+      "63079098",
+      "84251900"
+    ]
+  },
+  "notes": "Regression: consignee Kosovo not SI shipping; China→CN; Mainfreight service line HS=0 excluded; no INVALID_HS_FORMAT/UNKNOWN_HS_CODE on service; no EU_DESTINATION; date 01/20/2026 not future"
+}

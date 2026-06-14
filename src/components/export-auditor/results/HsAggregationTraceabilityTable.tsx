@@ -5,10 +5,30 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import type { HsAggregationReport, HsAggregationRow, PositionTraceabilityLine } from "@/lib/export-auditor/types";
 import { getTraceabilityLinesForHs } from "@/lib/export-auditor/position-traceability";
 import {
+  formatHsSourceLabel,
+  formatHsStatusLabel,
+  formatHsValidationSource,
+} from "@/lib/export-auditor/hs-classification-workflow";
+import { formatHsVerificationStatusLabel } from "@/lib/export-auditor/hs-verification-engine";
+import {
   formatCountryOfOriginField,
   formatOriginCountriesList,
 } from "@/lib/export-auditor/origin-countries-summary";
 import { cn } from "@/lib/utils";
+import { AdminOnly } from "@/components/admin/AdminOnly";
+
+function formatHsCode(value: string | null | undefined): string {
+  return value?.trim() ? value : "—";
+}
+
+function formatRepairApplied(value: boolean): string {
+  return value ? "Yes" : "No";
+}
+
+function formatHsConfidence(value: number | null | undefined): string {
+  if (value == null) return "—";
+  return `${value}%`;
+}
 
 function formatNumber(value: number | null | undefined, decimals = 2): string {
   if (value == null) return "—";
@@ -56,12 +76,21 @@ export function HsAggregationTraceabilityTable({
         HS Aggregation
       </h3>
       <div className="mt-4 overflow-x-auto">
-        <table className="w-full min-w-[720px] text-sm">
+        <table className="w-full min-w-[1100px] text-sm">
           <thead>
             <tr className="border-b border-surface-border text-left">
               <th className="w-8 px-2 py-2" aria-hidden />
               {[
                 "HS Code",
+                "HS Status",
+                "HS Confidence",
+                "HS Source",
+                "Invoice HS",
+                "Normalized HS",
+                "Repair Applied",
+                "Validation Source",
+                "Wizard HS",
+                "Verification",
                 "Quantity",
                 "Value",
                 "Net Weight",
@@ -114,6 +143,25 @@ export function HsAggregationTraceabilityTable({
                     <td className="px-3 py-2.5 font-semibold text-slate-900 tabular-nums">
                       {row.hsCode}
                     </td>
+                    <td className="px-3 py-2.5 font-medium text-slate-800">
+                      {formatHsStatusLabel(row.hsStatus)}
+                    </td>
+                    <td className="px-3 py-2.5 tabular-nums font-medium text-slate-800">
+                      {formatHsConfidence(row.hsConfidence)}
+                    </td>
+                    <td className="px-3 py-2.5 font-medium text-slate-800">
+                      {formatHsSourceLabel(row.hsSource)}
+                    </td>
+                    <td className="px-3 py-2.5 tabular-nums">{formatHsCode(row.invoiceHsCode)}</td>
+                    <td className="px-3 py-2.5 tabular-nums">{formatHsCode(row.normalizedHsCode)}</td>
+                    <td className="px-3 py-2.5">{formatRepairApplied(row.repairApplied)}</td>
+                    <td className="px-3 py-2.5 text-slate-700">
+                      {formatHsValidationSource(row.validationSource)}
+                    </td>
+                    <td className="px-3 py-2.5 tabular-nums">{formatHsCode(row.wizardHsCode)}</td>
+                    <td className="px-3 py-2.5 font-medium text-slate-800">
+                      {formatHsVerificationStatusLabel(row.verificationStatus)}
+                    </td>
                     <td className="px-3 py-2.5 font-medium text-slate-800 tabular-nums">
                       {formatNumber(row.totalQuantity, 0)}
                     </td>
@@ -134,17 +182,25 @@ export function HsAggregationTraceabilityTable({
                   </tr>
                   {isExpanded && (
                     <tr className="border-b border-surface-border/60 bg-slate-50/60">
-                      <td colSpan={7} className="px-4 py-3">
+                      <td colSpan={16} className="px-4 py-3">
                         <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-2">
                           Source invoice positions
                         </p>
                         <div className="overflow-x-auto">
-                          <table className="w-full min-w-[640px] text-xs">
+                          <table className="w-full min-w-[760px] text-xs">
                             <thead>
                               <tr className="text-left text-slate-400">
                                 {[
                                   "Position",
                                   "Description",
+                                  "Invoice HS",
+                                  "Normalized HS",
+                                  "HS Status",
+                                  "Repair Applied",
+                                  "Validation Source",
+                                  "HS Confidence",
+                                  "Final HS",
+                                  "Wizard HS",
                                   "Quantity",
                                   "Value",
                                   "Net Weight",
@@ -162,6 +218,14 @@ export function HsAggregationTraceabilityTable({
                                 <tr key={line.positionNumber} className="border-t border-surface-border/40">
                                   <td className="px-2 py-2 font-semibold tabular-nums">{line.positionNumber}</td>
                                   <td className="px-2 py-2 text-slate-700">{line.description || "—"}</td>
+                                  <td className="px-2 py-2 tabular-nums">{formatHsCode(line.invoiceHsCode)}</td>
+                                  <td className="px-2 py-2 tabular-nums">{formatHsCode(line.normalizedHsCode)}</td>
+                                  <td className="px-2 py-2">{formatHsStatusLabel(line.hsStatus)}</td>
+                                  <td className="px-2 py-2">{formatRepairApplied(line.repairApplied)}</td>
+                                  <td className="px-2 py-2">{formatHsValidationSource(line.validationSource)}</td>
+                                  <td className="px-2 py-2 tabular-nums">{formatHsConfidence(line.hsConfidence)}</td>
+                                  <td className="px-2 py-2 tabular-nums">{formatHsCode(line.finalHsCode ?? line.hsCode)}</td>
+                                  <td className="px-2 py-2 tabular-nums">{formatHsCode(line.wizardHsCode)}</td>
                                   <td className="px-2 py-2 tabular-nums">{formatNumber(line.quantity, 0)}</td>
                                   <td className="px-2 py-2 tabular-nums">
                                     {currency} {formatNumber(line.value)}
@@ -227,12 +291,18 @@ export function AuditTraceabilityPanel({
             {selectedRow.sourcePositions.join(", ")})
           </p>
           <div className="mt-4 overflow-x-auto">
-            <table className="w-full min-w-[640px] text-sm">
+            <table className="w-full min-w-[920px] text-sm">
               <thead>
                 <tr className="border-b border-surface-border text-left">
                   {[
                     "Position Number",
                     "Description",
+                    "Invoice HS",
+                    "Final HS",
+                    "Wizard HS",
+                    "HS Source",
+                    "Verification",
+                    "Wizard Conf.",
                     "Quantity",
                     "Value",
                     "Net Weight",
@@ -253,6 +323,14 @@ export function AuditTraceabilityPanel({
                   <tr key={line.positionNumber} className="border-b border-surface-border/60 last:border-0">
                     <td className="px-3 py-2.5 font-semibold tabular-nums">{line.positionNumber}</td>
                     <td className="px-3 py-2.5 text-slate-700">{line.description || "—"}</td>
+                    <td className="px-3 py-2.5 tabular-nums">{formatHsCode(line.invoiceHsCode)}</td>
+                    <td className="px-3 py-2.5 tabular-nums">{formatHsCode(line.finalHsCode ?? line.hsCode)}</td>
+                    <td className="px-3 py-2.5 tabular-nums">{formatHsCode(line.wizardHsCode)}</td>
+                    <td className="px-3 py-2.5">{formatHsSourceLabel(line.hsSource)}</td>
+                    <td className="px-3 py-2.5">{formatHsVerificationStatusLabel(line.verificationStatus)}</td>
+                    <td className="px-3 py-2.5 tabular-nums">
+                      {line.wizardConfidence != null ? `${line.wizardConfidence}%` : "—"}
+                    </td>
                     <td className="px-3 py-2.5 tabular-nums">{formatNumber(line.quantity, 0)}</td>
                     <td className="px-3 py-2.5 tabular-nums">
                       {currency} {formatNumber(line.value)}
@@ -293,12 +371,14 @@ export function HsAggregationReportSections({
         selectedHsCode={selectedHsCode}
         onSelectHsCode={setSelectedHsCode}
       />
-      <AuditTraceabilityPanel
-        selectedHsCode={selectedHsCode}
-        rows={report.hsAggregation}
-        traceabilityLines={report.traceabilityLines}
-        currency={currency}
-      />
+      <AdminOnly flag="forensicDiagnostics">
+        <AuditTraceabilityPanel
+          selectedHsCode={selectedHsCode}
+          rows={report.hsAggregation}
+          traceabilityLines={report.traceabilityLines}
+          currency={currency}
+        />
+      </AdminOnly>
     </>
   );
 }

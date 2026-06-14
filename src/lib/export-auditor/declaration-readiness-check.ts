@@ -60,7 +60,11 @@ function evaluateFieldPresence(
         (hsAggregationReport.traceabilityLines?.length ?? 0) > 0
       );
     case "hs_code":
-      return (report.hsCodesDetected?.length ?? 0) > 0;
+      return (
+        report.hsWorkflowSummary?.documentHsStatus !== "MISSING" ||
+        (report.hsCodesDetected?.length ?? 0) > 0 ||
+        (hsAggregationReport.hsAggregation?.length ?? 0) > 0
+      );
     case "country_of_origin":
       return (
         invoiceSummary.countriesOfOrigin.length > 0 ||

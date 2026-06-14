@@ -1,0 +1,93 @@
+{
+  "invoice_number": "INV/220726",
+  "invoice_date": "01/20/2026",
+  "exporter": "Example Export d.o.o.\nSI-1000 Ljubljana\nSlovenia",
+  "consignee": "ABC Trading sh.p.k\nRr. Nëna Terezë 10\n10000 Pristina\nKosovo",
+  "country": "Slovenia",
+  "country_code": "SI",
+  "currency": "EUR",
+  "total_value_numeric": 5450,
+  "delivery_address": {
+    "company": "Example Logistics Hub",
+    "address": "Industrijska cesta 5",
+    "city": "Ljubljana",
+    "postal_code": "SI-1210",
+    "country": "Slovenia",
+    "country_code": "SI"
+  },
+  "items": [
+    {
+      "position_number": 1,
+      "description": "Drilling tools for metal working",
+      "quantity": 5,
+      "unit_price": 400,
+      "line_total": 2000,
+      "hs_code": "82057000",
+      "country_of_origin": "China"
+    },
+    {
+      "position_number": 2,
+      "description": "Articles of iron or steel, n.e.s.",
+      "quantity": 10,
+      "unit_price": 150,
+      "line_total": 1500,
+      "hs_code": "73269098",
+      "country_of_origin": "China"
+    },
+    {
+      "position_number": 3,
+      "description": "Parts for lifting/handling machinery",
+      "quantity": 2,
+      "unit_price": 300,
+      "line_total": 600,
+      "hs_code": "84311000",
+      "country_of_origin": "Germany"
+    },
+    {
+      "position_number": 4,
+      "description": "Threaded articles of iron or steel",
+      "quantity": 100,
+      "unit_price": 3,
+      "line_total": 300,
+      "hs_code": "73158200",
+      "country_of_origin": "China"
+    },
+    {
+      "position_number": 5,
+      "description": "Hand tools, other than drilling",
+      "quantity": 8,
+      "unit_price": 50,
+      "line_total": 400,
+      "hs_code": "82055980",
+      "country_of_origin": "China"
+    },
+    {
+      "position_number": 6,
+      "description": "Made-up textile articles, n.e.s.",
+      "quantity": 20,
+      "unit_price": 5,
+      "line_total": 100,
+      "hs_code": "63079098",
+      "country_of_origin": "China"
+    },
+    {
+      "position_number": 7,
+      "description": "Other lifting/handling equipment",
+      "quantity": 1,
+      "unit_price": 100,
+      "line_total": 100,
+      "hs_code": "84251900",
+      "country_of_origin": "China"
+    },
+    {
+      "position_number": 8,
+      "description": "Mainfreight: Freight",
+      "quantity": 1,
+      "unit_price": 450,
+      "line_total": 450,
+      "hs_code": "0",
+      "country_of_origin": ""
+    }
+  ],
+  "ocr_text": "Invoice No. INV/220726\nInvoice Date: 01/20/2026\n\nSeller / Exporter:\nExample Export d.o.o.\nSI-1000 Ljubljana\nSlovenia\n\nCustomer:\nABC Trading sh.p.k\nRr. Nëna Terezë 10\n10000 Pristina\nKosovo\n\nShipping Address:\nExample Logistics Hub\nIndustrijska cesta 5\nSI-1210 Ljubljana\nSlovenia\n\nPos Description HS COO Qty Unit Price Amount\n1 Drilling tools for metal working 82057000 China 5 400.00 2000.00\n2 Articles of iron or steel, n.e.s. 73269098 China 10 150.00 1500.00\n3 Parts for lifting/handling machinery 84311000 Germany 2 300.00 600.00\n4 Threaded articles of iron or steel 73158200 China 100 3.00 300.00\n5 Hand tools, other than drilling 82055980 China 8 50.00 400.00\n6 Made-up textile articles, n.e.s. 63079098 China 20 5.00 100.00\n7 Other lifting/handling equipment 84251900 China 1 100.00 100.00\n8 Mainfreight: Freight 0  1 450.00 450.00\n\nTotal invoice amount 5.450,00 EUR"
+}

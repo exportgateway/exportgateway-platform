@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "elcar-70399",
+  "label": "EL-CAR 70399 → Kosovo",
+  "capturedAt": "2026-06-14",
+  "source": {
+    "invoicePdf": "invoice.pdf",
+    "validationReportPdf": "validation-report.pdf",
+    "invoiceSource": "invoice-source.json"
+  },
+  "expected": {
+    "exporter": "S.C. EL-CAR S.R.L",
+    "consignee": "PROFI KOSOVA SH. P. K\nPrishtina\nKosovo",
+    "destinationCountry": "Kosovo (XK)",
+    "destinationCountryCode": "XK",
+    "invoiceNumber": "70399",
+    "invoiceValue": 2595.25,
+    "currency": "EUR",
+    "incoterms": "CPT",
+    "hsCodes": [
+      "731210810080"
+    ],
+    "origin": {
+      "evidenceStatus": "NOT_DECLARED",
+      "preferentialOriginStatus": "NOT_DECLARED",
+      "mixedOrigin": false
+    },
+    "packageCount": 1,
+    "grossWeight": 850,
+    "netWeight": 770,
+    "customsReadiness": "CUSTOMS_READY",
+    "declarationReadiness": "REVIEW REQUIRED",
+    "dataExtractionCompleteness": 98,
+    "lineCount": 2
+  },
+  "allowedAnomalies": []
+}

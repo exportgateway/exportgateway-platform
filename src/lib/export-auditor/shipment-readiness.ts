@@ -6,8 +6,17 @@ import {
   NO_OCR_SHIPMENT_DATA_MESSAGE,
 } from "@/lib/export-auditor/shipment-extraction-diagnostics";
 import { hasInvoiceGrossWeight } from "@/lib/export-auditor/shipment-summary-extractor";
+import {
+  evaluateWeightValidation,
+  NET_EXCEEDS_GROSS,
+  UNIT_WEIGHT_MISUSE,
+  UNIT_WEIGHT_MISUSE_MESSAGE,
+  NET_EXCEEDS_GROSS_MESSAGE,
+} from "@/lib/export-auditor/weight-validation";
+import { aggregateLineNetWeightsForShipment } from "@/lib/export-auditor/weight-line-aggregation";
 
 export { NO_OCR_SHIPMENT_DATA, NO_OCR_SHIPMENT_DATA_MESSAGE };
+export { NET_EXCEEDS_GROSS, UNIT_WEIGHT_MISUSE, UNIT_WEIGHT_MISUSE_MESSAGE, NET_EXCEEDS_GROSS_MESSAGE };
 
 export const MISSING_PACKAGE_COUNT = "MISSING_PACKAGE_COUNT";
 export const MISSING_GROSS_WEIGHT = "MISSING_GROSS_WEIGHT";
@@ -21,7 +30,9 @@ export interface ShipmentReadinessFinding {
     | typeof MISSING_PACKAGE_COUNT
     | typeof MISSING_GROSS_WEIGHT
     | typeof MISSING_NET_WEIGHT
-    | typeof NO_OCR_SHIPMENT_DATA;
+    | typeof NO_OCR_SHIPMENT_DATA
+    | typeof NET_EXCEEDS_GROSS
+    | typeof UNIT_WEIGHT_MISUSE;
   message: string;
   severity: "warning" | "info";
 }
@@ -69,6 +80,25 @@ export function evaluateShipmentReadiness(invoice: NormalizedInvoice): ShipmentR
       code: MISSING_NET_WEIGHT,
       severity: "info",
       message: MISSING_NET_WEIGHT_MESSAGE,
+    });
+  }
+
+  const lineAggregation = aggregateLineNetWeightsForShipment(
+    invoice.items,
+    summary?.gross_weight_total ?? null
+  );
+  for (const finding of evaluateWeightValidation({
+    netWeightTotal: summary?.net_weight_total ?? null,
+    grossWeightTotal: summary?.gross_weight_total ?? null,
+    netWeightSource: summary?.net_weight_source ?? null,
+    grossWeightSource: summary?.gross_weight_source ?? null,
+    calculatedLineNet: lineAggregation.rawLineSum ?? lineAggregation.unitAdjustedSum,
+    unitWeightMisuseDetected: lineAggregation.unitWeightMisuseLikely,
+  })) {
+    findings.push({
+      code: finding.code,
+      severity: finding.severity === "review" ? "warning" : "warning",
+      message: finding.message,
     });
   }
 

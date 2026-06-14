@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "reni-26-381-000014",
+  "label": "RENI 26-381-000014 → Serbia",
+  "capturedAt": "2026-06-14",
+  "source": {
+    "invoicePdf": "invoice.pdf",
+    "validationReportPdf": "validation-report.pdf",
+    "invoiceSource": "invoice-source.json"
+  },
+  "expected": {
+    "exporter": "RENI d.o.o.",
+    "consignee": "Buyer GmbH",
+    "destinationCountry": "Serbia (RS)",
+    "destinationCountryCode": "RS",
+    "invoiceNumber": "26-381-000014",
+    "invoiceValue": 12372.78,
+    "currency": "EUR",
+    "incoterms": "DAP",
+    "hsCodes": [
+      "40169300",
+      "73072390",
+      "73269098",
+      "84818073",
+      "84819000"
+    ],
+    "origin": {
+      "evidenceStatus": "NOT_DECLARED",
+      "preferentialOriginStatus": "NOT_DECLARED",
+      "mixedOrigin": false
+    },
+    "packageCount": 1,
+    "grossWeight": 120,
+    "netWeight": null,
+    "customsReadiness": "CUSTOMS_READY",
+    "declarationReadiness": "READY FOR DECLARATION",
+    "dataExtractionCompleteness": 96,
+    "lineCount": 10
+  },
+  "allowedAnomalies": [
+    "ORIGIN_DECLARATION_CONTRADICTION"
+  ],
+  "notes": "EUR.1 except positions 3 and 8 — mixed origin"
+}

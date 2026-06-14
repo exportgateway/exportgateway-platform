@@ -9,7 +9,9 @@ export type ExtractionSource =
   | "regex_rescue"
   | "consignee_parser"
   | "preferential_origin_engine"
-  | "multilingual_field_extractor";
+  | "multilingual_field_extractor"
+  | "authorised_exporter_detection_engine"
+  | "line_value_recovery_engine";
 
 export interface ExtractionProvenanceEntry {
   field: string;

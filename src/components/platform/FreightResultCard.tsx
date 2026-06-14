@@ -10,8 +10,6 @@ import {
 } from "lucide-react";
 import type { FreightPriceRequest, FreightPriceResponse } from "@/lib/platform-api";
 import { countryNameFromCode } from "@/lib/freight-presets";
-import { saveFreightForIntrastat } from "@/lib/intrastat-freight-bridge";
-import { buildIntrastatImportUrl } from "@/lib/intrastat-query-import";
 import { LazyMapboxRouteMap } from "@/components/platform/LazyMapboxRouteMap";
 import { FreightTrustBadge } from "@/components/platform/FreightTrustBadge";
 import type { ResolvedLocation } from "@/lib/location-types";
@@ -226,24 +224,11 @@ export function FreightResultCard({
 
         {origin && destination && result.price_eur != null && (
           <Link
-            href={
-              origin && destination && result.price_eur != null
-                ? buildIntrastatImportUrl(origin, destination, result.price_eur)
-                : "/platform/intrastat"
-            }
-            onClick={() => {
-              if (origin && destination && result.price_eur != null) {
-                saveFreightForIntrastat({
-                  origin,
-                  destination,
-                  freightCost: result.price_eur,
-                });
-              }
-            }}
+            href="/intrastat-ai"
             className="flex items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50/50 px-4 py-3 text-sm font-semibold text-emerald-800 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
           >
             <Globe className="h-4 w-4" aria-hidden />
-            Allocate for Intrastat reporting
+            Intrastat AI Auditor — Coming Soon
           </Link>
         )}
 

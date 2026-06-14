@@ -1,5 +1,16 @@
 # Changelog
 
+## [Unreleased] - 2026-06-14 — Fix wizard UI 500 (Starlette TemplateResponse)
+
+### Fixed
+
+- **GET `/` Internal Server Error** (`app/main.py`)
+  - Starlette ≥0.29 / 1.0 changed `Jinja2Templates.TemplateResponse` to require `request` as the first argument.
+  - Old call `TemplateResponse("index.html", {"request": request})` caused 500 while `/health` and `/static` remained OK.
+  - Updated to `TemplateResponse(request=request, name="index.html")`.
+
+- **Regression test** (`tests/test_index_route.py`) — asserts GET `/` returns HTML 200.
+
 ## [Unreleased] - 2026-06-02 — P0 compliance & transparency
 
 Implements Priority P0 items from `EXPORT_WIZARD_AUDIT.md`. No API endpoint changes, no TARIC integration, no UI redesign.

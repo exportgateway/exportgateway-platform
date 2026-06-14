@@ -8,9 +8,9 @@ import { legalEntity } from "@/lib/legal";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Contact",
+  title: "Book a Demo",
   description:
-    "Get in touch with the ExportGateway team. Sales inquiries, support, and partnership opportunities.",
+    "Book a demo with a trade compliance specialist. Export Auditor, customs workflows, freight intelligence, and upcoming Intrastat AI Auditor.",
   path: "/contact",
 });
 
@@ -21,8 +21,8 @@ export default function ContactPage() {
         <div className="container-narrow section-padding !pt-0">
           <SectionHeader
             badge="Contact"
-            title="Let's talk trade"
-            description="Whether you're exploring ExportGateway for your team or need help with an existing account, we're here to help."
+            title="Book a demo"
+            description="Talk to a trade compliance specialist about Export Auditor, customs workflows, and upcoming Intrastat AI Auditor — we'll show you how ExportGateway reduces filing risk and preparation time."
           />
 
           <div className="grid lg:grid-cols-5 gap-12 max-w-5xl mx-auto">

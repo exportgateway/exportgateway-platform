@@ -1,0 +1,40 @@
+{
+  "invoice_number": "HENN-001",
+  "exporter": "HENN GmbH",
+  "consignee": "Buyer RS",
+  "country": "Serbia",
+  "country_code": "RS",
+  "incoterms": "DAP",
+  "currency": "EUR",
+  "total_value_numeric": 12000,
+  "origin_declaration_text": "The exporter of the products covered by this document (customs authorization No. AT/920/038) declares that, except where otherwise clearly indicated, these products are of preferential origin.",
+  "authorised_exporter_number": "AT/920/038",
+  "items": [
+    {
+      "position_number": 1,
+      "description": "Part A",
+      "quantity": 1,
+      "line_total": 6000,
+      "country_of_origin": "AT",
+      "hs_code": "84818073"
+    },
+    {
+      "position_number": 2,
+      "description": "Part B",
+      "quantity": 1,
+      "line_total": 6000,
+      "country_of_origin": "AT",
+      "hs_code": "84819000"
+    }
+  ],
+  "shipment_summary": {
+    "package_count": 1,
+    "gross_weight_total": 100,
+    "gross_weight_unit": "kg",
+    "net_weight_total": 90,
+    "net_weight_unit": "kg",
+    "package_type": "COLLI",
+    "pallet_dimensions": null,
+    "pallet_count": null
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "invoice_number": "2026-156",
+  "exporter": "DENKIRS EU, TRGOVINA S SVETILI, D.O.O.",
+  "consignee": "DOO Shagara",
+  "country": "Serbia",
+  "country_code": "RS",
+  "incoterms": "FCA Ljubljana",
+  "currency": "EUR",
+  "total_value": "4507.22",
+  "items": [
+    {
+      "description": "Goods line (live OCR returned 26 lines — truncated for fixture)",
+      "quantity": "1",
+      "line_total": "4507.22"
+    }
+  ]
+}

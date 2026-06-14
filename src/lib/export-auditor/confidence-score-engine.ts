@@ -5,7 +5,23 @@ import {
   type ExtractionSource,
   provenanceBreakdown,
 } from "@/lib/export-auditor/extraction-provenance";
+import { extractGenericHsCodes } from "@/lib/export-auditor/hs-code-extraction-engine";
+import { buildInvoiceTextCorpus } from "@/lib/export-auditor/invoice-corpus";
 import type { ConfidenceScores } from "@/lib/export-auditor/types";
+import {
+  filterGoodsLines,
+  normalizeAggregationItems,
+  runHsAggregationEngine,
+} from "@/lib/export-auditor/hs-aggregation-engine";
+import { buildPositionTraceability } from "@/lib/export-auditor/position-traceability";
+import { resolveInvoiceValue } from "@/lib/export-auditor/parse-locale-number";
+import {
+  TOTAL_MISMATCH,
+} from "@/lib/export-auditor/invoice-total-consistency-validator";
+import {
+  HS_AGGREGATION_MISSING,
+  TRACEABILITY_MISSING,
+} from "@/lib/export-auditor/extraction-integrity-validator";
 
 const SOURCE_PENALTIES: Partial<Record<ExtractionSource, number>> = {
   ocr_fallback: 3,
@@ -16,6 +32,7 @@ const SOURCE_PENALTIES: Partial<Record<ExtractionSource, number>> = {
 const OCR_FALLBACK_CAP = 97;
 const HEURISTIC_CAP = 95;
 const MULTI_FALLBACK_CAP = 92;
+const CUSTOMS_CRITICAL_CAP = 90;
 
 const CRITICAL_FIELDS = [
   "invoice_number",
@@ -78,6 +95,46 @@ function applyFallbackCaps(score: number, sources: Set<ExtractionSource>): numbe
   return score;
 }
 
+function computeCustomsReadinessPenalties(invoice: NormalizedInvoice): number {
+  let penalty = 0;
+  const items = invoice.items ?? [];
+  const lineHsCount = items.filter((item) => item.hs_code?.trim()).length;
+  const lineCooCount = items.filter((item) => item.country_of_origin?.trim()).length;
+  const corpusHs = extractGenericHsCodes(buildInvoiceTextCorpus(invoice)).length;
+
+  if (items.length > 0 && lineHsCount === 0) {
+    penalty += corpusHs > 0 ? 25 : 15;
+  }
+
+  if (items.length > 0 && lineCooCount === 0) {
+    penalty += 5;
+  }
+
+  const aggregation = runHsAggregationEngine(invoice, {
+    invoiceTotalValue: resolveInvoiceValue(invoice),
+  });
+  const goodsWithHs = filterGoodsLines(normalizeAggregationItems(invoice)).length;
+  if (goodsWithHs > 0 && aggregation.hs_aggregation.length === 0) {
+    penalty += 20;
+  }
+
+  if (items.length > 0 && buildPositionTraceability(invoice).length === 0) {
+    penalty += 15;
+  }
+
+  if (invoice.document_flags?.[TOTAL_MISMATCH]) {
+    penalty += 20;
+  }
+  if (invoice.document_flags?.[HS_AGGREGATION_MISSING]) {
+    penalty += 20;
+  }
+  if (invoice.document_flags?.[TRACEABILITY_MISSING]) {
+    penalty += 15;
+  }
+
+  return penalty;
+}
+
 export function computeConfidenceScores(
   invoice: NormalizedInvoice,
   options: {
@@ -96,6 +153,7 @@ export function computeConfidenceScores(
   }
 
   overallConfidence -= countMissingNonCritical(invoice);
+  overallConfidence -= computeCustomsReadinessPenalties(invoice);
 
   overallConfidence = applyFallbackCaps(overallConfidence, sourcesUsed);
 
@@ -109,6 +167,11 @@ export function computeConfidenceScores(
     overallConfidence = Math.min(overallConfidence, 99);
   }
 
+  const customsPenalty = computeCustomsReadinessPenalties(invoice);
+  if (customsPenalty >= 20) {
+    overallConfidence = Math.min(overallConfidence, CUSTOMS_CRITICAL_CAP);
+  }
+
   overallConfidence = Math.max(0, Math.round(overallConfidence));
 
   const dataCompleteness = options.checksTotal
@@ -118,11 +181,15 @@ export function computeConfidenceScores(
   const ocrPenalty = extractionProvenance
     .filter((entry) => entry.source === "ocr_fallback")
     .reduce((sum, entry) => sum + (SOURCE_PENALTIES.ocr_fallback ?? 0), 0);
-  const ocrQuality = Math.min(
+  let ocrQuality = Math.min(
     98,
-    Math.max(0, 100 - ocrPenalty),
+    Math.max(0, 100 - ocrPenalty - Math.min(customsPenalty, 30)),
     usedFallback && sourcesUsed.has("ocr_fallback") ? OCR_FALLBACK_CAP : 98
   );
+
+  if (customsPenalty >= 20) {
+    ocrQuality = Math.min(ocrQuality, CUSTOMS_CRITICAL_CAP);
+  }
 
   return {
     overallConfidence,

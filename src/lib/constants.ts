@@ -14,13 +14,13 @@ export const footerLinks = {
     { label: "Export Auditor", href: "/platform/export-auditor" },
     { label: "Customs Intelligence", href: "/platform/customs" },
     { label: "Freight Calculator", href: "/platform/freight" },
-    { label: "Intrastat Allocation", href: "/platform/intrastat" },
+    { label: "Intrastat AI Auditor", href: "/intrastat-ai" },
     { label: "Pricing", href: "/pricing" },
     { label: "Roadmap", href: "/#roadmap" },
   ],
   company: [
     { label: "Early Access", href: "/early-access" },
-    { label: "Contact", href: "/contact" },
+    { label: "Book a Demo", href: "/contact" },
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms & Conditions", href: "/terms" },
   ],
@@ -34,9 +34,9 @@ export const footerLinks = {
 
 export const siteConfig = {
   name: "ExportGateway",
-  tagline: "The Trade Operating System",
+  tagline: "AI-Powered Trade Compliance Platform",
   description:
-    "ExportGateway connects customs intelligence, freight pricing, export documentation, and AI trade assistance — the central platform for exporters, freight forwarders, and customs professionals.",
+    "ExportGateway is an AI-powered trade compliance platform — customs intelligence, freight pricing, export auditing, and Intrastat preparation for exporters, forwarders, and customs professionals.",
   url: legalEntity.platformUrl,
   email: legalEntity.email,
   supportEmail: legalEntity.supportEmail,
@@ -56,7 +56,7 @@ export const pricingPlans = [
       "CN / HS Classification",
       "VAT Calculator",
       "Freight Calculator",
-      "Intrastat Allocation",
+      "Intrastat AI Auditor (Coming Soon)",
       "Export Auditor (basic)",
       "OCR invoice validation",
       "Missing export field detection",
@@ -88,6 +88,7 @@ export const pricingPlans = [
       "Packing List OCR",
       "Export compliance reports",
       "Historical audit history",
+      "Intrastat AI Auditor (Coming Soon)",
       "Priority support",
     ],
     limits: [
@@ -118,6 +119,7 @@ export const pricingPlans = [
       "Multi-Invoice Intelligence",
       "MRN Preparation Workspace",
       "HS Code Aggregation",
+      "Intrastat AI Auditor",
       "Team Accounts",
       "API Access",
       "Dedicated support",
@@ -138,7 +140,7 @@ export const faqItems = [
   {
     question: "What is ExportGateway?",
     answer:
-      "ExportGateway is a trade operating system for exporters, freight forwarders, and customs professionals. It connects AI-powered CN classification backed by historical customs declarations, EU freight pricing, Intrastat allocation, and export documentation in one platform.",
+      "ExportGateway is an AI-powered trade compliance platform for exporters, freight forwarders, and customs professionals. It connects AI-powered CN classification backed by historical customs declarations, EU freight pricing, export auditing, and Intrastat preparation.",
   },
   {
     question: "How does customs classification work?",

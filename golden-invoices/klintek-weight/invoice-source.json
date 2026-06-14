@@ -1,0 +1,43 @@
+{
+  "ocr_text": "Gross Weight: 1574 kg",
+  "items": [
+    {
+      "position_number": 1,
+      "description": "A",
+      "quantity": 40,
+      "line_total": 100,
+      "net_weight": 200,
+      "country_of_origin": "DE",
+      "hs_code": "84818073"
+    },
+    {
+      "position_number": 2,
+      "description": "B",
+      "quantity": 30,
+      "line_total": 100,
+      "net_weight": 300,
+      "country_of_origin": "DE",
+      "hs_code": "84819000"
+    }
+  ],
+  "exporter": "Klintek GmbH",
+  "consignee": "Buyer RS",
+  "country": "Serbia",
+  "country_code": "RS",
+  "incoterms": "DAP",
+  "currency": "EUR",
+  "total_value_numeric": 5000,
+  "invoice_number": "KLINTEK-001",
+  "shipment_summary": {
+    "package_count": 10,
+    "gross_weight_total": 1574,
+    "gross_weight_unit": "kg",
+    "gross_weight_source": "DOCUMENT",
+    "net_weight_total": 11060,
+    "net_weight_unit": "kg",
+    "net_weight_source": "CALCULATED",
+    "package_type": "PALLET",
+    "pallet_dimensions": null,
+    "pallet_count": 5
+  }
+}

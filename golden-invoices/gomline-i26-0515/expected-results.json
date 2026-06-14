@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "gomline-i26-0515",
+  "label": "GOMLINE I26.0515 destination regression",
+  "capturedAt": "2026-06-14",
+  "source": {
+    "invoicePdf": "invoice.pdf",
+    "validationReportPdf": "validation-report.pdf",
+    "invoiceSource": "invoice-source.json"
+  },
+  "expected": {
+    "exporter": "gomLINE d.o.o., Cesta v Gorice 42, 1000 Ljubljana, Slovenija",
+    "consignee": "GOMLINE 81 d.o.o.\nJEGRIČKA 9\n21000 NOVI SAD\nSERBIA",
+    "destinationCountry": "Serbia (RS)",
+    "destinationCountryCode": "RS",
+    "invoiceNumber": "I26.0515",
+    "invoiceValue": 4771.55,
+    "currency": "EUR",
+    "incoterms": "DAP NOVI SAD",
+    "hsCodes": [
+      "38121000"
+    ],
+    "origin": {
+      "evidenceStatus": "NOT_DECLARED",
+      "preferentialOriginStatus": "NOT_DECLARED",
+      "mixedOrigin": false
+    },
+    "packageCount": null,
+    "grossWeight": null,
+    "netWeight": null,
+    "customsReadiness": "CUSTOMS_REVIEW",
+    "declarationReadiness": "REVIEW REQUIRED",
+    "dataExtractionCompleteness": 88,
+    "lineCount": 1
+  },
+  "allowedAnomalies": [
+    "DESTINATION_COUNTRY_CONTRADICTION"
+  ],
+  "notes": "Header SI vs consignee Serbia — destination resolution regression"
+}

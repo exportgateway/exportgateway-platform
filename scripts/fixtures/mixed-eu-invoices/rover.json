@@ -1,0 +1,14 @@
+{
+  "id": "ROVER_POMPE",
+  "invoice": {
+    "invoice_number": "ROV-778",
+    "exporter": "Rover Automotive Parts",
+    "consignee": "Garage DOO",
+    "country_code": "RS",
+    "currency": "EUR",
+    "total_value_numeric": 950,
+    "items": [{ "position_number": 1, "description": "Brake pads", "quantity": 10, "line_total": 950 }],
+    "ocr_text": "Rover Automotive\n1 Brake pads 87083091 COO DE 10 950.00 EUR"
+  },
+  "expect": { "hsCodesMin": 1, "hsOnLinesMin": 1, "aggregationMin": 1, "traceabilityMin": 1, "originOnLinesMin": 1 }
+}

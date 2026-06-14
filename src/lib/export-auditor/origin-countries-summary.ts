@@ -1,4 +1,6 @@
 import type { ApiInvoiceItem } from "@/lib/export-auditor/api-types";
+import { isServiceOrTransportLine } from "@/lib/export-auditor/service-line-detection";
+import { resolveIso2CountryCode } from "@/lib/export-auditor/country-resolution";
 import type { PreferenceOriginAnalysis } from "@/lib/export-auditor/types";
 
 export const ORIGIN_COUNTRIES_NOT_PROVIDED = "NOT PROVIDED";
@@ -84,9 +86,10 @@ export function countLinesByOriginCountry(
 
   const counts = new Map<string, number>();
   for (const item of items) {
+    if (isServiceOrTransportLine(item.description)) continue;
     const raw = item.country_of_origin?.trim() ?? "";
     if (!raw) continue;
-    const code = /^[A-Za-z]{2}$/.test(raw) ? raw.toUpperCase() : raw.slice(0, 2).toUpperCase();
+    const code = resolveIso2CountryCode(raw) ?? raw.toUpperCase();
     counts.set(code, (counts.get(code) ?? 0) + 1);
   }
 

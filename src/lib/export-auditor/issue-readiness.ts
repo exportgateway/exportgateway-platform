@@ -20,6 +20,29 @@ import {
 } from "@/lib/export-auditor/supporting-documents-detect";
 import type { IssueSeverity } from "@/lib/export-auditor/types";
 
+import { PARSER_MAPPING_FAILURE } from "@/lib/export-auditor/parser-ocr-crosscheck";
+import {
+  TOTAL_VALUE_PARSING_ERROR,
+  TOTAL_VALUE_PARSING_ERROR_MESSAGE,
+} from "@/lib/export-auditor/invoice-total-validation";
+import {
+  TOTAL_MISMATCH,
+  TOTAL_MISMATCH_MESSAGE,
+} from "@/lib/export-auditor/invoice-total-consistency-validator";
+import {
+  INVALID_HS_FORMAT,
+  INVALID_HS_FORMAT_MESSAGE,
+  UNKNOWN_HS_CODE,
+  UNKNOWN_HS_CODE_MESSAGE,
+} from "@/lib/export-auditor/hs-validation-engine";
+import {
+  EXTRACTION_INTEGRITY_ERROR,
+  EXTRACTION_LINE_COUNT_MISMATCH,
+  HS_AGGREGATION_MISSING,
+  HS_EXTRACTION_FAILURE,
+  TRACEABILITY_MISSING,
+} from "@/lib/export-auditor/extraction-integrity-validator";
+
 export {
   DELIVERY_NOTE_DETECTED,
   CERTIFICATE_OF_ORIGIN_REFERENCED,
@@ -28,6 +51,54 @@ export {
   LTSD_REFERENCED,
 } from "@/lib/export-auditor/supporting-documents-detect";
 
+export { PARSER_MAPPING_FAILURE };
+export { TOTAL_VALUE_PARSING_ERROR, TOTAL_VALUE_PARSING_ERROR_MESSAGE };
+export { TOTAL_MISMATCH, TOTAL_MISMATCH_MESSAGE };
+export {
+  EXTRACTION_INTEGRITY_ERROR,
+  EXTRACTION_LINE_COUNT_MISMATCH,
+  HS_AGGREGATION_MISSING,
+  HS_EXTRACTION_FAILURE,
+  HS_EXTRACTION_FAILURE_MESSAGE,
+  TRACEABILITY_MISSING,
+} from "@/lib/export-auditor/extraction-integrity-validator";
+export {
+  INVALID_HS_FORMAT,
+  INVALID_HS_FORMAT_MESSAGE,
+  UNKNOWN_HS_CODE,
+  UNKNOWN_HS_CODE_MESSAGE,
+} from "@/lib/export-auditor/hs-validation-engine";
+export { INVALID_HS_CODE, INVALID_HS_CODE_MESSAGE } from "@/lib/export-auditor/hs-code-normalize";
+
+export const MULTIPLE_HS_CANDIDATES_DETECTED = "MULTIPLE_HS_CANDIDATES_DETECTED";
+
+export const AUTHORIZATION_COUNTRY_MISMATCH = "AUTHORIZATION_COUNTRY_MISMATCH";
+export const AUTHORIZATION_COUNTRY_MISMATCH_MESSAGE =
+  "Authorised exporter authorization country prefix differs from exporter country";
+
+export const POSITION_DATA_OVERWRITE_ATTEMPT = "POSITION_DATA_OVERWRITE_ATTEMPT";
+export const POSITION_QTY_MISMATCH = "POSITION_QTY_MISMATCH";
+export const POSITION_UNIT_PRICE_MISMATCH = "POSITION_UNIT_PRICE_MISMATCH";
+export const POSITION_VALUE_MISMATCH = "POSITION_VALUE_MISMATCH";
+export const DUPLICATE_POSITION_NUMBER = "DUPLICATE_POSITION_NUMBER";
+export const MISSING_POSITION_NUMBER = "MISSING_POSITION_NUMBER";
+export const POSITION_SEQUENCE_BREAK = "POSITION_SEQUENCE_BREAK";
+export const AGGREGATION_TRACEABILITY_FAILURE = "AGGREGATION_TRACEABILITY_FAILURE";
+
+export {
+  POSITION_FINGERPRINT_COLLISION,
+  HS_STYLE_MISMATCH,
+  COO_STYLE_MISMATCH,
+} from "@/lib/export-auditor/position-identity-lock";
+
+export const DESCRIPTION_ARTIFACT = "DESCRIPTION_ARTIFACT";
+export const DESCRIPTION_ARTIFACT_MESSAGE =
+  "Commercial description contains extraction artifacts (style code, HS, qty, or value)";
+
+export const DUPLICATE_LINE_EXTRACTION = "DUPLICATE_LINE_EXTRACTION";
+export const DUPLICATE_LINE_EXTRACTION_MESSAGE =
+  "Duplicate commercial line items detected during extraction (same style, HS, qty, and value)";
+
 export const EU_DESTINATION = "EU_DESTINATION";
 export const MISSING_VAT_ARTICLE = "MISSING_VAT_ARTICLE";
 export const HS_CODE_NOT_ON_INVOICE = "HS_CODE_NOT_ON_INVOICE";
@@ -35,7 +106,6 @@ export const HS_CODE_NOT_ON_INVOICE = "HS_CODE_NOT_ON_INVOICE";
 export const DESCRIPTION_REVIEW_RECOMMENDED = "DESCRIPTION_REVIEW_RECOMMENDED";
 export const DESCRIPTION_REVIEW_RECOMMENDED_MESSAGE =
   "Declaration description may not match the invoice line. Review before filing.";
-export { PARSER_MAPPING_FAILURE } from "@/lib/export-auditor/parser-ocr-crosscheck";
 
 export const PROFORMA_DETECTED = "PROFORMA_DETECTED";
 
@@ -55,7 +125,25 @@ export const CRITICAL_SEVERITY_CODES = new Set([
   INVOICE_DATE_IN_FUTURE,
   "INCONSISTENT_TOTALS",
   "INCONSISTENT_INVOICE_TOTAL",
+  TOTAL_MISMATCH,
+  HS_AGGREGATION_MISSING,
+  TRACEABILITY_MISSING,
+  EXTRACTION_INTEGRITY_ERROR,
+  INVALID_HS_FORMAT,
+  HS_EXTRACTION_FAILURE,
   "INCONSISTENT_LINE_TOTALS",
+  POSITION_DATA_OVERWRITE_ATTEMPT,
+  POSITION_QTY_MISMATCH,
+  POSITION_UNIT_PRICE_MISMATCH,
+  POSITION_VALUE_MISMATCH,
+  DUPLICATE_POSITION_NUMBER,
+  MISSING_POSITION_NUMBER,
+  POSITION_SEQUENCE_BREAK,
+  AGGREGATION_TRACEABILITY_FAILURE,
+  "POSITION_FINGERPRINT_COLLISION",
+  "HS_STYLE_MISMATCH",
+  "COO_STYLE_MISMATCH",
+  "DESCRIPTION_ARTIFACT",
 ]);
 
 /** Issue codes classified as WARNING — review before filing. */
@@ -65,10 +153,15 @@ export const WARNING_SEVERITY_CODES = new Set([
   "NO_HS_CODES",
   "NO_HS_CODES_DETECTED",
   HS_CODE_NOT_ON_INVOICE,
+  UNKNOWN_HS_CODE,
   MISSING_GROSS_WEIGHT,
   MISSING_PACKAGE_COUNT,
   "MISSING_INCOTERMS",
   "NO_INCOTERMS",
+  TOTAL_VALUE_PARSING_ERROR,
+  MULTIPLE_HS_CANDIDATES_DETECTED,
+  EXTRACTION_LINE_COUNT_MISMATCH,
+  DUPLICATE_LINE_EXTRACTION,
 ]);
 
 /** Issue codes classified as INFO — informational only. */
@@ -107,6 +200,7 @@ export const CRITICAL_BLOCKER_CODES = new Set([
   "INCONSISTENT_TOTALS",
   "INCONSISTENT_INVOICE_TOTAL",
   "INCONSISTENT_LINE_TOTALS",
+  INVALID_HS_FORMAT,
 ]);
 
 const HS_CODE_MISSING_CODES = new Set([
@@ -137,6 +231,7 @@ export const MINOR_ISSUE_PENALTIES: Record<string, number> = {
   [EUR1_REFERENCED]: 0,
   [LTSD_REFERENCED]: 0,
   [DESCRIPTION_REVIEW_RECOMMENDED]: 0,
+  [TOTAL_VALUE_PARSING_ERROR]: 8,
 };
 
 export const CRITICAL_ERROR_PENALTY = 18;
@@ -270,6 +365,60 @@ export function inferIssueCodeFromMessage(message: string): string | undefined {
   if (/invoice value.*missing|missing.*invoice value/i.test(message)) {
     return "MISSING_INVOICE_VALUE";
   }
+  if (/invoice total differs significantly|total_value_parsing_error/i.test(message)) {
+    return TOTAL_VALUE_PARSING_ERROR;
+  }
+  if (/total mismatch|total differs by more than 1%/i.test(message)) {
+    return TOTAL_MISMATCH;
+  }
+  if (/hs codes detected on invoice but aggregation/i.test(message)) {
+    return HS_AGGREGATION_MISSING;
+  }
+  if (/line items extracted but position traceability/i.test(message)) {
+    return TRACEABILITY_MISSING;
+  }
+  if (/line item count differs from position rows|extraction_line_count_mismatch/i.test(message)) {
+    return EXTRACTION_LINE_COUNT_MISMATCH;
+  }
+  if (/duplicate commercial line|duplicate_line_extraction/i.test(message)) {
+    return DUPLICATE_LINE_EXTRACTION;
+  }
+  if (/position.*overwrite|position_data_overwrite/i.test(message)) {
+    return POSITION_DATA_OVERWRITE_ATTEMPT;
+  }
+  if (/position.*qty mismatch|position_qty_mismatch/i.test(message)) {
+    return POSITION_QTY_MISMATCH;
+  }
+  if (/unit price mismatch|position_unit_price_mismatch/i.test(message)) {
+    return POSITION_UNIT_PRICE_MISMATCH;
+  }
+  if (/position.*value mismatch|position_value_mismatch/i.test(message)) {
+    return POSITION_VALUE_MISMATCH;
+  }
+  if (/duplicate position number|duplicate_position_number/i.test(message)) {
+    return DUPLICATE_POSITION_NUMBER;
+  }
+  if (/missing position number|missing_position_number/i.test(message)) {
+    return MISSING_POSITION_NUMBER;
+  }
+  if (/position sequence break|position_sequence_break/i.test(message)) {
+    return POSITION_SEQUENCE_BREAK;
+  }
+  if (/aggregation traceability|aggregation_traceability/i.test(message)) {
+    return AGGREGATION_TRACEABILITY_FAILURE;
+  }
+  if (/authorization country prefix differs|authorization_country_mismatch/i.test(message)) {
+    return AUTHORIZATION_COUNTRY_MISMATCH;
+  }
+  if (/hs\/tariff codes are visible|hs_extraction_failure/i.test(message)) {
+    return HS_EXTRACTION_FAILURE;
+  }
+  if (/invalid hs code/i.test(message)) {
+    return INVALID_HS_FORMAT;
+  }
+  if (/not found in nomenclature/i.test(message)) {
+    return UNKNOWN_HS_CODE;
+  }
   if (/missing exporter|exporter.*missing/i.test(message)) {
     return "MISSING_EXPORTER";
   }
@@ -312,7 +461,19 @@ export function resolveIssueCode(issue: AuditIssue): string {
 
 export function isCriticalBlocker(issue: AuditIssue): boolean {
   const code = resolveIssueCode(issue);
+  if (code === TOTAL_VALUE_PARSING_ERROR) {
+    return false;
+  }
+  if (code === HS_EXTRACTION_FAILURE) {
+    return false;
+  }
   if (HS_CODE_MISSING_CODES.has(code) || code === HS_CODE_NOT_ON_INVOICE) {
+    return false;
+  }
+  if (code === INVALID_HS_FORMAT) {
+    return true;
+  }
+  if (code === UNKNOWN_HS_CODE) {
     return false;
   }
   if (CRITICAL_BLOCKER_CODES.has(code)) {
@@ -352,6 +513,15 @@ export function canonicalIssueMessage(issue: AuditIssue): string {
   if (code === MISSING_COUNTRY_OF_ORIGIN) {
     return MISSING_COUNTRY_OF_ORIGIN_INFO_MESSAGE;
   }
+  if (code === TOTAL_VALUE_PARSING_ERROR) {
+    return TOTAL_VALUE_PARSING_ERROR_MESSAGE;
+  }
+  if (code === INVALID_HS_FORMAT) {
+    return INVALID_HS_FORMAT_MESSAGE;
+  }
+  if (code === UNKNOWN_HS_CODE) {
+    return UNKNOWN_HS_CODE_MESSAGE;
+  }
   return issue.message;
 }
 
@@ -359,6 +529,16 @@ export function reclassifyHsCodeIssues(
   issues: AuditIssue[],
   hsCodeCount: number
 ): AuditIssue[] {
+  const hasHsExtractionFailure = issues.some(
+    (issue) => resolveIssueCode(issue) === HS_EXTRACTION_FAILURE
+  );
+  if (hasHsExtractionFailure) {
+    return issues.filter((issue) => {
+      const code = resolveIssueCode(issue);
+      return !isHsCodeMissingCode(code) && code !== HS_CODE_NOT_ON_INVOICE;
+    });
+  }
+
   if (hsCodeCount > 0) {
     return issues;
   }
@@ -376,6 +556,64 @@ export function reclassifyHsCodeIssues(
       message: HS_CODE_NOT_ON_INVOICE_MESSAGE,
     };
   });
+}
+
+const SUPERSEDED_PREFERENTIAL_ISSUE_CODES = new Set([
+  "EUR1_RECOMMENDED",
+  "NO_AUTHORISED_EXPORTER",
+  "NO_AUTHORIZED_EXPORTER",
+  "RECOMMEND_EUR1",
+]);
+
+function isEur1RecommendationIssue(issue: AuditIssue): boolean {
+  const code = resolveIssueCode(issue);
+  if (code === "EUR1_RECOMMENDED" || code === "RECOMMEND_EUR1") return true;
+  return /recommend\s+eur\.?\s*1|eur\.?\s*1\s+recommended/i.test(issue.message);
+}
+
+function isNoAuthorisedExporterIssue(issue: AuditIssue): boolean {
+  const code = resolveIssueCode(issue);
+  if (code === "NO_AUTHORISED_EXPORTER" || code === "NO_AUTHORIZED_EXPORTER") return true;
+  return /no\s+authorised\s+exporter|no\s+authorized\s+exporter/i.test(issue.message);
+}
+
+function isSupersededPreferentialIssue(issue: AuditIssue): boolean {
+  const code = resolveIssueCode(issue);
+  if (code && SUPERSEDED_PREFERENTIAL_ISSUE_CODES.has(code)) {
+    return true;
+  }
+  return isEur1RecommendationIssue(issue) || isNoAuthorisedExporterIssue(issue);
+}
+
+/** Remove legacy API preferential warnings superseded by evidence-status workflow. */
+export function filterSupersededPreferentialAuditIssues(
+  issues: AuditIssue[],
+  preferenceOrigin: PreferenceOriginAnalysis
+): AuditIssue[] {
+  let filtered = issues;
+
+  if (preferenceOrigin.evidenceStatus !== "DECLARED") {
+    filtered = filtered.filter((issue) => !isEur1RecommendationIssue(issue));
+  }
+
+  const preferentialDeclarationPresent =
+    preferenceOrigin.originDeclarationFound ||
+    preferenceOrigin.statementOnOriginDetected ||
+    preferenceOrigin.evidenceStatus === "DECLARED";
+
+  if (!preferentialDeclarationPresent) {
+    filtered = filtered.filter((issue) => !isNoAuthorisedExporterIssue(issue));
+  }
+
+  const declaredByEvidence = preferenceOrigin.evidenceStatus === "DECLARED";
+  const declaredByAuth =
+    preferenceOrigin.authorisedExporterDetected && preferenceOrigin.originDeclarationFound;
+
+  if (declaredByEvidence || declaredByAuth) {
+    filtered = filtered.filter((issue) => !isSupersededPreferentialIssue(issue));
+  }
+
+  return filtered;
 }
 
 export function reclassifyOriginIssues(
