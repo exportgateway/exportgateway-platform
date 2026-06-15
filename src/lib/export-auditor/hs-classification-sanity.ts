@@ -14,6 +14,7 @@ import {
 } from "@/lib/export-auditor/commercial-line-detector";
 import { extractHsHitsFromCorpus } from "@/lib/export-auditor/hs-code-extraction-engine";
 import { normalizeAndValidateHsToken } from "@/lib/export-auditor/hs-code-normalize";
+import { isLikelyArticleBarcode } from "@/lib/export-auditor/hs-code-extraction-engine";
 import { validateHsCode } from "@/lib/export-auditor/hs-validation-engine";
 import { MULTIPLE_HS_CANDIDATES_DETECTED } from "@/lib/export-auditor/issue-readiness";
 
@@ -96,6 +97,7 @@ function collectItemHsCandidates(
   function add(raw: string | null | undefined, source: HsClassificationCandidate["source"], confidence: number) {
     const validation = validateHsCode(raw);
     if (!validation.normalizedHs || validation.hsStatus === "INVALID_FORMAT") return;
+    if (isLikelyArticleBarcode(validation.normalizedHs)) return;
     const code = validation.normalizedHs;
     if (seen.has(code)) return;
     seen.add(code);

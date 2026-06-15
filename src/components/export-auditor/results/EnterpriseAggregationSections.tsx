@@ -56,7 +56,7 @@ function AggregationTable({
   emptyMessage: string;
 }) {
   return (
-    <section className="rounded-xl border border-surface-border bg-white p-5">
+    <section className="rounded-xl border border-surface-border bg-white p-4">
       <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">{title}</h3>
       {rows.length === 0 ? (
         <p className="mt-3 text-sm text-slate-500">{emptyMessage}</p>
@@ -107,7 +107,7 @@ function NonPreferentialExportSection({
 }) {
   const label = row.displayLabel ?? NON_PREFERENTIAL_EXPORT_LABEL;
   return (
-    <section className="rounded-xl border border-surface-border bg-white p-5">
+    <section className="rounded-xl border border-surface-border bg-white p-4">
       <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">{label}</h3>
       {originCountriesDetected && (
         <p className="mt-2 text-xs text-slate-600">
@@ -166,7 +166,7 @@ function LineMarkerAllocationSection({
   currency: string;
 }) {
   return (
-    <section className="rounded-xl border border-surface-border bg-white p-5">
+    <section className="rounded-xl border border-surface-border bg-white p-4">
       <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">{title}</h3>
       <dl className="mt-4 grid gap-3 sm:grid-cols-3">
         <div>
@@ -194,9 +194,14 @@ function LineMarkerAllocationSection({
 
 interface EnterpriseAggregationSectionsProps {
   auditReport: ExportAuditReport;
+  /** When true, export buttons are rendered by DeclarationExportActions toolbar. */
+  hideExportActions?: boolean;
 }
 
-export function EnterpriseAggregationSections({ auditReport }: EnterpriseAggregationSectionsProps) {
+export function EnterpriseAggregationSections({
+  auditReport,
+  hideExportActions = false,
+}: EnterpriseAggregationSectionsProps) {
   const { hsAggregationReport, invoiceSummary, preferenceOrigin } = auditReport;
   const currency = invoiceSummary.currency;
   const { preferentialSummary, nonPreferentialSummary, mrnSummary, nonPreferentialExportSummary, originCountriesDetected } =
@@ -209,7 +214,9 @@ export function EnterpriseAggregationSections({ auditReport }: EnterpriseAggrega
     preferenceOrigin.preferentialOriginStatus === "NON_PREFERENTIAL_EXPORT" &&
     nonPreferentialExportSummary != null;
   const exportReady = isMrnExportReady(auditReport);
+  const lineCount = auditReport.hsAggregationReport?.traceabilityLines?.length ?? 0;
   const [exporting, setExporting] = useState<"csv" | "xlsx" | null>(null);
+  const [exportProgress, setExportProgress] = useState<string | null>(null);
   const [exportLanguage, setExportLanguage] = useState<DeclarationLanguage>("en");
 
   useEffect(() => {
@@ -231,8 +238,19 @@ export function EnterpriseAggregationSections({ auditReport }: EnterpriseAggrega
 
   const runExport = async (format: "csv" | "xlsx") => {
     setExporting(format);
+    setExportProgress("Preparing declaration export...");
     try {
+      if (lineCount >= 500) {
+        setExportProgress("Preparing declaration export... (large invoice, 500+ lines)");
+      } else if (lineCount >= 100) {
+        setExportProgress("Preparing declaration export... (100+ lines)");
+      } else if (lineCount >= 50) {
+        setExportProgress("Preparing declaration export... (50+ lines)");
+      }
       const enriched = await prepareReportForDeclarationExport(auditReport, exportLanguage);
+      setExportProgress(
+        format === "csv" ? "Generating CSV export..." : "Generating Excel export..."
+      );
       const options = { language: exportLanguage };
       if (format === "csv") {
         await downloadMrnCsv(enriched, options);
@@ -241,6 +259,7 @@ export function EnterpriseAggregationSections({ auditReport }: EnterpriseAggrega
       }
     } finally {
       setExporting(null);
+      setExportProgress(null);
     }
   };
 
@@ -355,12 +374,12 @@ export function EnterpriseAggregationSections({ auditReport }: EnterpriseAggrega
         </>
       )}
 
-      <section className="rounded-xl border border-surface-border bg-white p-5">
+      <section className="rounded-xl border border-surface-border bg-white p-4">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
             Declaration Preparation Summary
           </h3>
-          {exportReady && (
+          {exportReady && !hideExportActions && (
             <div className="flex flex-wrap items-center gap-2">
               <label className="inline-flex items-center gap-2 text-xs text-slate-600">
                 <span className="font-medium">Export Language</span>
@@ -411,6 +430,11 @@ export function EnterpriseAggregationSections({ auditReport }: EnterpriseAggrega
                 <Info className="h-4 w-4" aria-hidden />
                 <span className="sr-only">{EXPORT_DESCRIPTION_TOOLTIP}</span>
               </span>
+              {exportProgress && (
+                <p className="w-full text-xs font-medium text-slate-600" role="status" aria-live="polite">
+                  {exportProgress}
+                </p>
+              )}
             </div>
           )}
         </div>

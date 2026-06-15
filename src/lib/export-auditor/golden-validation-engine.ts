@@ -26,7 +26,8 @@ import {
   sumExtractedUnits,
 } from "@/lib/export-auditor/commercial-line-deduplication";
 import {
-  POSITION_DATA_OVERWRITE_ATTEMPT,
+  POSITION_DATA_OVERWRITE_CORRUPTION,
+  POSITION_OVERWRITE_CORRUPTION_FLAG,
 } from "@/lib/export-auditor/position-lock-engine";
 import {
   AGGREGATION_TRACEABILITY_FAILURE,
@@ -57,7 +58,7 @@ export type GoldenQualityFailureCode =
   | "POSITION_QTY_MISMATCH"
   | "POSITION_UNIT_PRICE_MISMATCH"
   | "POSITION_VALUE_MISMATCH"
-  | "POSITION_DATA_OVERWRITE_ATTEMPT"
+  | "POSITION_DATA_OVERWRITE_CORRUPTION"
   | "DUPLICATE_POSITION_NUMBER"
   | "MISSING_POSITION_NUMBER"
   | "POSITION_SEQUENCE_BREAK"
@@ -175,10 +176,10 @@ export function validateGoldenInvoiceQuality(
     }
   }
 
-  if (Number(invoice.document_flags?.position_overwrite_attempts ?? 0) > 0) {
+  if (Number(invoice.document_flags?.[POSITION_OVERWRITE_CORRUPTION_FLAG] ?? 0) > 0) {
     failures.push({
-      code: "POSITION_DATA_OVERWRITE_ATTEMPT",
-      message: "Locked position commercial fields were overwritten",
+      code: "POSITION_DATA_OVERWRITE_CORRUPTION",
+      message: "Locked position commercial fields were corrupted despite lock",
     });
   }
 
@@ -193,7 +194,7 @@ export function validateGoldenInvoiceQuality(
     POSITION_QTY_MISMATCH,
     POSITION_UNIT_PRICE_MISMATCH,
     POSITION_VALUE_MISMATCH,
-    POSITION_DATA_OVERWRITE_ATTEMPT,
+    POSITION_DATA_OVERWRITE_CORRUPTION,
     DUPLICATE_POSITION_NUMBER,
     MISSING_POSITION_NUMBER,
     POSITION_SEQUENCE_BREAK,

@@ -24,7 +24,7 @@ export function DeliveryAddressSection({ address }: DeliveryAddressSectionProps)
   ];
 
   return (
-    <section className="rounded-xl border border-surface-border bg-white p-5">
+    <section className="rounded-xl border border-surface-border bg-white p-4">
       <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
         Delivery Address
       </h3>

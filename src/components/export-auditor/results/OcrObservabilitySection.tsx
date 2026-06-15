@@ -25,7 +25,7 @@ export function OcrObservabilitySection({ auditReport }: OcrObservabilitySection
 
   return (
     <div className="space-y-6">
-      <section className="rounded-xl border border-surface-border bg-white p-5">
+      <section className="rounded-xl border border-surface-border bg-white p-4">
         <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
           OCR Diagnostics
         </h3>
@@ -129,7 +129,7 @@ export function OcrObservabilitySection({ auditReport }: OcrObservabilitySection
       </section>
 
       {session && (
-        <section className="rounded-xl border border-surface-border bg-white p-5">
+        <section className="rounded-xl border border-surface-border bg-white p-4">
           <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
             OCR Session Metrics
           </h3>
@@ -168,7 +168,7 @@ export function OcrObservabilitySummary({ observability }: OcrObservabilitySumma
   if (!observability) return null;
 
   return (
-    <section className="rounded-xl border border-surface-border bg-white p-5">
+    <section className="rounded-xl border border-surface-border bg-white p-4">
       <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
         OCR Summary
       </h3>

@@ -77,6 +77,12 @@ export const AUTHORIZATION_COUNTRY_MISMATCH_MESSAGE =
   "Authorised exporter authorization country prefix differs from exporter country";
 
 export const POSITION_DATA_OVERWRITE_ATTEMPT = "POSITION_DATA_OVERWRITE_ATTEMPT";
+export const POSITION_DATA_OVERWRITE_CORRUPTION = "POSITION_DATA_OVERWRITE_CORRUPTION";
+
+export const DUPLICATE_POSITION_NUMBER_ON_INVOICE = "DUPLICATE_POSITION_NUMBER_ON_INVOICE";
+export const MISSING_POSITION_NUMBER_ON_INVOICE = "MISSING_POSITION_NUMBER_ON_INVOICE";
+export const POSITION_SEQUENCE_GAP = "POSITION_SEQUENCE_GAP";
+export const POSITION_SEQUENCE_DUPLICATE = "POSITION_SEQUENCE_DUPLICATE";
 export const POSITION_QTY_MISMATCH = "POSITION_QTY_MISMATCH";
 export const POSITION_UNIT_PRICE_MISMATCH = "POSITION_UNIT_PRICE_MISMATCH";
 export const POSITION_VALUE_MISMATCH = "POSITION_VALUE_MISMATCH";
@@ -132,7 +138,7 @@ export const CRITICAL_SEVERITY_CODES = new Set([
   INVALID_HS_FORMAT,
   HS_EXTRACTION_FAILURE,
   "INCONSISTENT_LINE_TOTALS",
-  POSITION_DATA_OVERWRITE_ATTEMPT,
+  POSITION_DATA_OVERWRITE_CORRUPTION,
   POSITION_QTY_MISMATCH,
   POSITION_UNIT_PRICE_MISMATCH,
   POSITION_VALUE_MISMATCH,
@@ -162,6 +168,10 @@ export const WARNING_SEVERITY_CODES = new Set([
   MULTIPLE_HS_CANDIDATES_DETECTED,
   EXTRACTION_LINE_COUNT_MISMATCH,
   DUPLICATE_LINE_EXTRACTION,
+  DUPLICATE_POSITION_NUMBER_ON_INVOICE,
+  MISSING_POSITION_NUMBER_ON_INVOICE,
+  POSITION_SEQUENCE_GAP,
+  POSITION_SEQUENCE_DUPLICATE,
 ]);
 
 /** Issue codes classified as INFO — informational only. */
@@ -384,7 +394,19 @@ export function inferIssueCodeFromMessage(message: string): string | undefined {
     return DUPLICATE_LINE_EXTRACTION;
   }
   if (/position.*overwrite|position_data_overwrite/i.test(message)) {
-    return POSITION_DATA_OVERWRITE_ATTEMPT;
+    return POSITION_DATA_OVERWRITE_CORRUPTION;
+  }
+  if (/duplicate position number on invoice|duplicate_position_number_on_invoice/i.test(message)) {
+    return DUPLICATE_POSITION_NUMBER_ON_INVOICE;
+  }
+  if (/missing position number on invoice|missing_position_number_on_invoice/i.test(message)) {
+    return MISSING_POSITION_NUMBER_ON_INVOICE;
+  }
+  if (/position sequence gap|position_sequence_gap/i.test(message)) {
+    return POSITION_SEQUENCE_GAP;
+  }
+  if (/position sequence duplicate|position_sequence_duplicate/i.test(message)) {
+    return POSITION_SEQUENCE_DUPLICATE;
   }
   if (/position.*qty mismatch|position_qty_mismatch/i.test(message)) {
     return POSITION_QTY_MISMATCH;

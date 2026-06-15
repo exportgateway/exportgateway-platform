@@ -27,7 +27,7 @@ export function DataRecoveryDiagnosticsSection({
   if (!diagnostics) return null;
 
   return (
-    <section className="rounded-xl border border-surface-border bg-white p-5">
+    <section className="rounded-xl border border-surface-border bg-white p-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
@@ -117,7 +117,7 @@ export function DataRecoverySummary({
   if (!diagnostics) return null;
 
   return (
-    <section className="rounded-xl border border-surface-border bg-white p-5">
+    <section className="rounded-xl border border-surface-border bg-white p-4">
       <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
         Parser Recovery
       </h3>

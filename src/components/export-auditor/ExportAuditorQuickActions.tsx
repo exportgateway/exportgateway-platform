@@ -26,7 +26,7 @@ export function ExportAuditorQuickActions() {
   ];
 
   return (
-    <section className="rounded-xl border border-brand-100 bg-brand-50/40 p-5">
+    <section className="rounded-xl border border-brand-100 bg-brand-50/40 p-4">
       <h3 className="text-xs font-semibold uppercase tracking-wider text-brand-700">
         Next Actions
       </h3>

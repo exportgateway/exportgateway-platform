@@ -108,10 +108,31 @@ function isLikelyNonHsToken(raw: string, corpus: string, index: number): boolean
   if (/\d{1,2}[./]\d{1,2}[./]\d{2,4}$/.test(before + raw)) return true;
   if (/\binvoice\s*(?:no|number)?\s*[:\-]?\s*$/i.test(before)) return true;
   if (/\b(?:tel|phone|fax|vat|eori|iban)\b/i.test(before)) return true;
+  if (/\b(?:art(?:icle)?|sku|barcode|ean|gtin|product)\s*(?:no|number|code)?\s*[:\-]?\s*$/i.test(before)) {
+    return true;
+  }
   const value = normalizeHsToken(raw);
   if (!value) return true;
   if (value.length === 8 && /^20[0-9]{6}$/.test(value)) return true;
+  if (isLikelyArticleBarcode(value)) return true;
   return false;
+}
+
+/** True when a numeric token is a product/article barcode — not a customs HS code. */
+export function isLikelyArticleBarcode(digits: string): boolean {
+  const normalized = digits.replace(/\D/g, "");
+  if (!/^\d{7,9}$/.test(normalized)) return false;
+  if (/^88\d{6,7}$/.test(normalized)) return true;
+  if (/^4\d{12}$/.test(normalized) || /^5\d{12}$/.test(normalized)) return true;
+  return false;
+}
+
+/** True when token can be considered an HS nomenclature candidate (not article/SKU). */
+export function isHsNomenclatureCandidate(raw: string | null | undefined): boolean {
+  const result = normalizeAndValidateHsToken(raw);
+  if (!result.normalized || result.invalid) return false;
+  if (isLikelyArticleBarcode(result.normalized)) return false;
+  return /^[0-9]{6,12}$/.test(result.normalized);
 }
 
 function extractStandaloneHits(corpus: string): HsExtractionHit[] {

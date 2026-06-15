@@ -1,4 +1,9 @@
-import type { ExportAuditReport, PreferenceOriginAnalysis } from "@/lib/export-auditor/types";
+import { filterBusinessFindings } from "@/lib/export-auditor/broker-findings-filter";
+import type {
+  CustomsReadinessStatus,
+  ExportAuditReport,
+  PreferenceOriginAnalysis,
+} from "@/lib/export-auditor/types";
 import {
   getIssuePenalty,
   hasOnlyManualHsClassificationReview,
@@ -102,11 +107,18 @@ export function adjustReadinessScore(
   return Math.round(Math.max(0, Math.min(100, score)));
 }
 
-/** Display score — already adjusted during report mapping. */
+/** Display customs readiness score (never mixed with extraction accuracy). */
 export function calculateExportReadinessScore(
-  report: Pick<ExportAuditReport, "readinessScore">
+  report: Pick<ExportAuditReport, "readinessScore" | "customsReadinessScore">
 ): number {
-  return report.readinessScore;
+  return report.customsReadinessScore?.score ?? report.readinessScore;
+}
+
+/** Extraction accuracy score only. */
+export function calculateExtractionAccuracyScore(
+  report: Pick<ExportAuditReport, "extractionAccuracy">
+): number {
+  return report.extractionAccuracy?.score ?? 0;
 }
 
 function hasCriticalBlockers(report: ExportAuditReport): boolean {
@@ -240,4 +252,51 @@ export function countIssuesBySeverity(issues: ExportAuditReport["issues"]) {
     warning: issues.filter((i) => i.type === "warning").length,
     information: issues.filter((i) => i.type === "info").length,
   };
+}
+
+function resolveCustomsReadinessStatus(
+  report: ExportAuditReport
+): CustomsReadinessStatus | undefined {
+  return report.customsReadiness?.status ?? report.customsReadinessScore?.status;
+}
+
+/** True when review/blocking reasons should appear below readiness scores. */
+export function shouldShowReadinessReasons(report: ExportAuditReport): boolean {
+  const customsStatus = resolveCustomsReadinessStatus(report);
+  if (customsStatus === "CUSTOMS_REVIEW" || customsStatus === "CUSTOMS_BLOCKED") {
+    return true;
+  }
+  const verdict = getReadinessVerdict(report);
+  return verdict.exportStatus === "Ready With Review" || verdict.exportStatus === "Needs Review";
+}
+
+/** Top N customs readiness reasons from audit data (readiness engine, then business findings). */
+export function getTopCustomsReadinessReasons(
+  report: ExportAuditReport,
+  limit = 3
+): string[] {
+  const fromEngine = report.customsReadiness?.reasons ?? [];
+  const filtered = fromEngine.filter(
+    (reason) => reason.trim().length > 0 && reason !== "Required declaration data available"
+  );
+  if (filtered.length > 0) {
+    return filtered.slice(0, limit);
+  }
+
+  const fromIssues = filterBusinessFindings(report.issues)
+    .filter((issue) => issue.type === "error" || issue.type === "warning")
+    .map((issue) => issue.message.trim())
+    .filter(Boolean);
+
+  if (fromIssues.length > 0) {
+    return [...new Set(fromIssues)].slice(0, limit);
+  }
+
+  for (const field of report.missingFields) {
+    if (field.trim()) {
+      return [`Missing: ${field.trim()}`].slice(0, limit);
+    }
+  }
+
+  return [];
 }

@@ -1,5 +1,6 @@
 import { MarketingLayout } from "@/components/layout/MarketingLayout";
 import { PlatformSubNav } from "@/components/platform/PlatformSubNav";
+import { PlatformPlanShell } from "@/components/plan-simulator/PlatformPlanShell";
 
 export default function PlatformLayout({
   children,
@@ -8,8 +9,10 @@ export default function PlatformLayout({
 }) {
   return (
     <MarketingLayout>
-      <PlatformSubNav />
-      {children}
+      <PlatformPlanShell>
+        <PlatformSubNav />
+        {children}
+      </PlatformPlanShell>
     </MarketingLayout>
   );
 }

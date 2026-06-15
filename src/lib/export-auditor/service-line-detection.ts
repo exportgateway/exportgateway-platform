@@ -1,8 +1,13 @@
-/** Service / transport invoice lines — excluded from goods aggregation and origin analysis. */
+/** Invoice line types — goods, service/transport, and packaging. */
 
 export const LINE_TYPE_SERVICE = "SERVICE" as const;
 export const LINE_TYPE_GOODS = "GOODS" as const;
-export type InvoiceLineType = typeof LINE_TYPE_SERVICE | typeof LINE_TYPE_GOODS;
+export const LINE_TYPE_PACKAGING = "PACKAGING" as const;
+
+export type InvoiceLineType =
+  | typeof LINE_TYPE_SERVICE
+  | typeof LINE_TYPE_GOODS
+  | typeof LINE_TYPE_PACKAGING;
 
 const SERVICE_LINE_PATTERNS: RegExp[] = [
   /^\s*transport\s*$/i,
@@ -22,6 +27,20 @@ const SERVICE_LINE_PATTERNS: RegExp[] = [
   /\bcarriage\b/i,
 ];
 
+const PACKAGING_LINE_PATTERNS: RegExp[] = [
+  /\bpallet(?:s|te)?\b/i,
+  /\bpal\b/i,
+  /\bcarton(?:s)?\b/i,
+  /\bctn(?:s)?\b/i,
+  /\bbox(?:es)?\b/i,
+  /\bcrate(?:s)?\b/i,
+  /\bpackaging\b/i,
+  /\bpacking\s+material\b/i,
+  /\bwooden\s+case\b/i,
+  /\bwooden\s+box\b/i,
+  /^\s*(?:1\s+)?(?:pallet|carton|box|crate)\b/i,
+];
+
 /** True when a line is freight, transport, shipping, courier, or logistics — not customs goods. */
 export function isServiceOrTransportLine(description: string | null | undefined): boolean {
   const text = description?.trim() ?? "";
@@ -29,10 +48,25 @@ export function isServiceOrTransportLine(description: string | null | undefined)
   return SERVICE_LINE_PATTERNS.some((re) => re.test(text));
 }
 
+/** True when a line describes packaging materials (pallet, carton, box, crate). */
+export function isPackagingLine(description: string | null | undefined): boolean {
+  const text = description?.trim() ?? "";
+  if (!text) return false;
+  if (isServiceOrTransportLine(text)) return false;
+  return PACKAGING_LINE_PATTERNS.some((re) => re.test(text));
+}
+
+/** True for service/transport or packaging — excluded from HS and origin aggregation. */
+export function isNonGoodsLine(description: string | null | undefined): boolean {
+  return isServiceOrTransportLine(description) || isPackagingLine(description);
+}
+
 export function resolveInvoiceLineType(
   description: string | null | undefined
 ): InvoiceLineType {
-  return isServiceOrTransportLine(description) ? LINE_TYPE_SERVICE : LINE_TYPE_GOODS;
+  if (isServiceOrTransportLine(description)) return LINE_TYPE_SERVICE;
+  if (isPackagingLine(description)) return LINE_TYPE_PACKAGING;
+  return LINE_TYPE_GOODS;
 }
 
 /** True for empty, "0", "00000000", or other all-zero padded service HS placeholders. */
@@ -50,5 +84,6 @@ export function shouldSkipHsValidationForLine(
   hsRaw: string | null | undefined
 ): boolean {
   const isService = isServiceOrTransportLine(description);
-  return isService || (isService && isPlaceholderServiceHsCode(hsRaw));
+  const isPackaging = isPackagingLine(description);
+  return isService || isPackaging || (isService && isPlaceholderServiceHsCode(hsRaw));
 }

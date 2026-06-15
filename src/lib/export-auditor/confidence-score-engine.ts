@@ -95,40 +95,19 @@ function applyFallbackCaps(score: number, sources: Set<ExtractionSource>): numbe
   return score;
 }
 
-function computeCustomsReadinessPenalties(invoice: NormalizedInvoice): number {
+function computeExtractionPenalties(invoice: NormalizedInvoice): number {
   let penalty = 0;
   const items = invoice.items ?? [];
   const lineHsCount = items.filter((item) => item.hs_code?.trim()).length;
   const lineCooCount = items.filter((item) => item.country_of_origin?.trim()).length;
-  const corpusHs = extractGenericHsCodes(buildInvoiceTextCorpus(invoice)).length;
 
   if (items.length > 0 && lineHsCount === 0) {
-    penalty += corpusHs > 0 ? 25 : 15;
+    penalty += 10;
   }
-
   if (items.length > 0 && lineCooCount === 0) {
     penalty += 5;
   }
-
-  const aggregation = runHsAggregationEngine(invoice, {
-    invoiceTotalValue: resolveInvoiceValue(invoice),
-  });
-  const goodsWithHs = filterGoodsLines(normalizeAggregationItems(invoice)).length;
-  if (goodsWithHs > 0 && aggregation.hs_aggregation.length === 0) {
-    penalty += 20;
-  }
-
-  if (items.length > 0 && buildPositionTraceability(invoice).length === 0) {
-    penalty += 15;
-  }
-
   if (invoice.document_flags?.[TOTAL_MISMATCH]) {
-    penalty += 20;
-  }
-  if (invoice.document_flags?.[HS_AGGREGATION_MISSING]) {
-    penalty += 20;
-  }
-  if (invoice.document_flags?.[TRACEABILITY_MISSING]) {
     penalty += 15;
   }
 
@@ -153,7 +132,7 @@ export function computeConfidenceScores(
   }
 
   overallConfidence -= countMissingNonCritical(invoice);
-  overallConfidence -= computeCustomsReadinessPenalties(invoice);
+  overallConfidence -= computeExtractionPenalties(invoice);
 
   overallConfidence = applyFallbackCaps(overallConfidence, sourcesUsed);
 
@@ -167,29 +146,21 @@ export function computeConfidenceScores(
     overallConfidence = Math.min(overallConfidence, 99);
   }
 
-  const customsPenalty = computeCustomsReadinessPenalties(invoice);
-  if (customsPenalty >= 20) {
-    overallConfidence = Math.min(overallConfidence, CUSTOMS_CRITICAL_CAP);
-  }
-
   overallConfidence = Math.max(0, Math.round(overallConfidence));
 
   const dataCompleteness = options.checksTotal
     ? Math.round((options.checksPassed / options.checksTotal) * 100)
     : options.readinessScore;
 
+  const extractionPenalty = computeExtractionPenalties(invoice);
   const ocrPenalty = extractionProvenance
     .filter((entry) => entry.source === "ocr_fallback")
     .reduce((sum, entry) => sum + (SOURCE_PENALTIES.ocr_fallback ?? 0), 0);
   let ocrQuality = Math.min(
     98,
-    Math.max(0, 100 - ocrPenalty - Math.min(customsPenalty, 30)),
+    Math.max(0, 100 - ocrPenalty - Math.min(extractionPenalty, 20)),
     usedFallback && sourcesUsed.has("ocr_fallback") ? OCR_FALLBACK_CAP : 98
   );
-
-  if (customsPenalty >= 20) {
-    ocrQuality = Math.min(ocrQuality, CUSTOMS_CRITICAL_CAP);
-  }
 
   return {
     overallConfidence,

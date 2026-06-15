@@ -27,7 +27,13 @@ import {
   LINE_COUNT_OVERFLOW_THRESHOLD,
 } from "@/lib/export-auditor/commercial-line-deduplication";
 import { runPositionCertification } from "@/lib/export-auditor/position-reconciliation-engine";
-import { POSITION_DATA_OVERWRITE_ATTEMPT } from "@/lib/export-auditor/position-lock-engine";
+import {
+  POSITION_DATA_OVERWRITE_CORRUPTION,
+  POSITION_DATA_OVERWRITE_ATTEMPT,
+  POSITION_OVERWRITE_BLOCKED_FLAG,
+  POSITION_OVERWRITE_CORRUPTION_FLAG,
+} from "@/lib/export-auditor/position-lock-engine";
+import { runInvoiceConsistencyEngine } from "@/lib/export-auditor/invoice-consistency-engine";
 
 export const HS_AGGREGATION_MISSING = "HS_AGGREGATION_MISSING";
 export const TRACEABILITY_MISSING = "TRACEABILITY_MISSING";
@@ -229,13 +235,27 @@ export function validateCustomsExtractionIntegrity(
     });
   }
 
-  if (Number(invoice.document_flags?.position_overwrite_attempts ?? 0) > 0) {
+  const consistency = runInvoiceConsistencyEngine(invoice);
+  Object.assign(flags, consistency.flags);
+  issues.push(...consistency.issues);
+
+  const blockedOverwrites = Number(invoice.document_flags?.[POSITION_OVERWRITE_BLOCKED_FLAG] ?? 0);
+  if (blockedOverwrites > 0) {
+    flags[POSITION_OVERWRITE_BLOCKED_FLAG] = true;
+    flags.position_overwrite_blocked_internal = true;
+  }
+
+  const corruptionCount = Number(
+    invoice.document_flags?.[POSITION_OVERWRITE_CORRUPTION_FLAG] ?? 0
+  );
+  if (corruptionCount > 0) {
+    flags[POSITION_DATA_OVERWRITE_CORRUPTION] = true;
     flags[POSITION_DATA_OVERWRITE_ATTEMPT] = true;
     issues.push({
-      id: POSITION_DATA_OVERWRITE_ATTEMPT,
+      id: POSITION_DATA_OVERWRITE_CORRUPTION,
       type: "error",
-      message: `Locked position commercial fields overwrite attempted (${invoice.document_flags?.position_overwrite_attempts} attempt(s))`,
-      field: POSITION_DATA_OVERWRITE_ATTEMPT,
+      message: `Locked position commercial fields corrupted despite lock (${corruptionCount} field(s))`,
+      field: POSITION_DATA_OVERWRITE_CORRUPTION,
     });
   }
 

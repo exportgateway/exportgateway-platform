@@ -131,6 +131,8 @@ import { aggregateOcrSessionMetrics } from "@/lib/export-auditor/ocr-session-met
 import { evaluateCustomsReadiness } from "@/lib/export-auditor/customs-readiness-engine";
 import { buildDataRecoveryDiagnostics, applyRecoveryReadinessDowngrade } from "@/lib/export-auditor/data-recovery-diagnostics";
 import { evaluateDeclarationReadiness } from "@/lib/export-auditor/declaration-readiness-check";
+import { computeExtractionAccuracyScore } from "@/lib/export-auditor/extraction-accuracy-score-engine";
+import { computeCustomsReadinessScore } from "@/lib/export-auditor/customs-readiness-score-engine";
 import {
   applyHsClassificationSanity,
   MULTIPLE_HS_CANDIDATES_MESSAGE,
@@ -1314,6 +1316,14 @@ export function mapAuditReportToExportReport(
     report.dataRecoveryDiagnostics.recoveryPercentage
   );
   report.declarationReadiness = evaluateDeclarationReadiness(report, invoice);
+
+  report.extractionAccuracy = computeExtractionAccuracyScore(report, invoice);
+  report.customsReadinessScore = computeCustomsReadinessScore(report, invoice);
+  report.readinessScore = report.customsReadinessScore.score;
+  report.confidence = {
+    ...report.confidence,
+    overallConfidence: report.extractionAccuracy.score,
+  };
 
   return applyEnterpriseCommercialSummary(
     report,

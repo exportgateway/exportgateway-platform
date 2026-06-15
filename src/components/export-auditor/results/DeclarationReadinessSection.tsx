@@ -19,7 +19,7 @@ export function DeclarationReadinessSection({ readiness }: DeclarationReadinessS
   return (
     <section
       className={cn(
-        "rounded-xl border p-5",
+        "rounded-xl border p-4",
         ready ? "border-emerald-200 bg-emerald-50/40" : "border-amber-200 bg-amber-50/40"
       )}
     >

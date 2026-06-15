@@ -24,10 +24,21 @@ import type {
   ExportAuditorApiError,
 } from "@/lib/export-auditor/types";
 import { AUDIT_PROGRESS_STEPS } from "@/lib/export-auditor/types";
+import {
+  FreePlanUploadLimitNotice,
+  isFreePlanUploadBlocked,
+  recordFreePlanUploadSimulation,
+} from "@/components/plan-simulator/FreePlanUploadLimit";
+import { usePlanAccess } from "@/components/plan-simulator/PlanProvider";
 
 type WorkspacePhase = "idle" | "processing" | "complete" | "error";
 
 export function ExportAuditorWorkspace() {
+  return <ExportAuditorWorkspaceInner />;
+}
+
+function ExportAuditorWorkspaceInner() {
+  const { hasFeature } = usePlanAccess();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [phase, setPhase] = useState<WorkspacePhase>("idle");
@@ -91,6 +102,16 @@ export function ExportAuditorWorkspace() {
       return;
     }
 
+    if (hasFeature("uploadLimitSimulation") && isFreePlanUploadBlocked()) {
+      setError({
+        message:
+          "Free plan simulation: daily upload limit reached (3/day). Switch plan in the top-right simulator.",
+        code: "FREE_PLAN_UPLOAD_LIMIT",
+      });
+      setPhase("error");
+      return;
+    }
+
     setError(null);
     setReport(null);
     setPhase("processing");
@@ -104,13 +125,16 @@ export function ExportAuditorWorkspace() {
 
     try {
       const result = await runFullExportAudit(file, setProgressSteps, setTimelineIndexOverride);
+      if (hasFeature("uploadLimitSimulation")) {
+        recordFreePlanUploadSimulation();
+      }
       setReport(result);
       setPhase("complete");
     } catch (err) {
       setError(err as ExportAuditorApiError);
       setPhase("error");
     }
-  }, [file]);
+  }, [file, hasFeature]);
 
   return (
     <div className="grid gap-6 xl:grid-cols-12 xl:gap-8">
@@ -122,6 +146,8 @@ export function ExportAuditorWorkspace() {
             Upload and preview your export invoice.
           </p>
         </div>
+
+        <FreePlanUploadLimitNotice />
 
         <DocumentPreviewPanel
           fileName={file?.name ?? null}

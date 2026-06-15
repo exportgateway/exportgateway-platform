@@ -51,7 +51,7 @@ function formatConfidence(value: number | null | undefined): string {
 export function HsVerificationSection({ summary }: HsVerificationSectionProps) {
   if (!summary || summary.lineResults.length === 0) {
     return (
-      <section className="rounded-xl border border-surface-border bg-white p-5">
+      <section className="rounded-xl border border-surface-border bg-white p-4">
         <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
           HS Verification
         </h3>
@@ -63,7 +63,7 @@ export function HsVerificationSection({ summary }: HsVerificationSectionProps) {
   }
 
   return (
-    <section className="rounded-xl border border-surface-border bg-white p-5">
+    <section className="rounded-xl border border-surface-border bg-white p-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
           HS Verification

@@ -6,6 +6,7 @@ import type { ApiInvoiceItem, NormalizedInvoice } from "@/lib/export-auditor/api
 import { filterGoodsLines, normalizeAggregationItems } from "@/lib/export-auditor/hs-aggregation-engine";
 import { normalizeAndValidateHsToken } from "@/lib/export-auditor/hs-code-normalize";
 import {
+  isNonGoodsLine,
   isServiceOrTransportLine,
   shouldSkipHsValidationForLine,
 } from "@/lib/export-auditor/service-line-detection";
@@ -122,7 +123,7 @@ function buildSkippedServiceLineClassification(positionNumber: number): LineHsCl
 
 /** Classify a single goods line for HS status and source. */
 export function classifyLineHs(item: ApiInvoiceItem, positionNumber: number): LineHsClassification {
-  if (isServiceOrTransportLine(item.description)) {
+  if (isNonGoodsLine(item.description)) {
     return buildSkippedServiceLineClassification(positionNumber);
   }
 
@@ -306,7 +307,7 @@ export function collectInvalidHsCodeIssues(invoice: NormalizedInvoice): Array<{
   const seen = new Set<string>();
 
   for (const [index, item] of (invoice.items ?? []).entries()) {
-    if (isServiceOrTransportLine(item.description)) continue;
+    if (isNonGoodsLine(item.description)) continue;
 
     for (const raw of resolveRawHsCandidates(item)) {
       if (shouldSkipHsValidationForLine(item.description, raw)) continue;
@@ -343,7 +344,7 @@ export function collectUnknownHsCodeIssues(invoice: NormalizedInvoice): Array<{
   const seen = new Set<string>();
 
   for (const [index, item] of (invoice.items ?? []).entries()) {
-    if (isServiceOrTransportLine(item.description)) continue;
+    if (isNonGoodsLine(item.description)) continue;
 
     for (const raw of resolveRawHsCandidates(item)) {
       if (shouldSkipHsValidationForLine(item.description, raw)) continue;

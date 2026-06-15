@@ -7,14 +7,14 @@ interface HsCodesSectionProps {
 export function HsCodesSection({ codes }: HsCodesSectionProps) {
   if (codes.length === 0) {
     return (
-      <section className="rounded-xl border border-surface-border bg-slate-50/50 p-5 text-sm text-slate-500">
+      <section className="rounded-xl border border-surface-border bg-slate-50/50 p-4 text-sm text-slate-500">
         No HS / tariff codes detected on this document.
       </section>
     );
   }
 
   return (
-    <section className="rounded-xl border border-brand-100 bg-brand-50/40 p-5">
+    <section className="rounded-xl border border-brand-100 bg-brand-50/40 p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="text-xs font-semibold uppercase tracking-wider text-brand-700">
           HS / Tariff Codes Detected
@@ -62,7 +62,7 @@ export function ExportReportSection({ report }: ExportReportSectionProps) {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-xl border border-brand-100 bg-brand-50/40 p-5">
+      <section className="rounded-xl border border-brand-100 bg-brand-50/40 p-4">
         <h3 className="text-xs font-semibold uppercase tracking-wider text-brand-700">
           Customs Shipment Weights
         </h3>
@@ -90,14 +90,14 @@ export function ExportReportSection({ report }: ExportReportSectionProps) {
         </p>
       </section>
 
-      <section className="rounded-xl border border-surface-border bg-white p-5">
+      <section className="rounded-xl border border-surface-border bg-white p-4">
         <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
           Export Summary
         </h3>
         <p className="mt-3 text-sm leading-relaxed text-slate-700">{report.exportSummary}</p>
       </section>
 
-      <section className="rounded-xl border border-surface-border bg-white p-5">
+      <section className="rounded-xl border border-surface-border bg-white p-4">
         <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
           Filing Recommendations
         </h3>

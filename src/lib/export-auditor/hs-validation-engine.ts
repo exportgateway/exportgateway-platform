@@ -121,6 +121,19 @@ export function validateHsCode(raw: string | null | undefined): HsValidationResu
   }
 
   const nomenclature = lookupHsInNomenclature(normalization.normalized);
+  if (nomenclature.known) {
+    const hsStatus: HsStatus = normalization.repaired ? "REPAIRED" : "VALID";
+    return {
+      invoiceHs: trimmed,
+      normalizedHs: normalization.normalized,
+      hsStatus,
+      repairApplied: normalization.repaired,
+      validationSource: "local_nomenclature",
+      hsConfidence: HS_STATUS_CONFIDENCE[hsStatus],
+      nomenclatureMatch: nomenclature.matchLevel,
+    };
+  }
+
   if (!nomenclature.known) {
     return {
       invoiceHs: trimmed,

@@ -145,6 +145,8 @@ export function validateDeclarationExportCertification(
     "Net Weight (KG)",
     "Value",
     "Currency",
+    "Package Count",
+    "Package Type",
     "Source Positions",
   ];
   if (MRN_EXPORT_COLUMNS.join("|") !== expectedColumns.join("|")) {

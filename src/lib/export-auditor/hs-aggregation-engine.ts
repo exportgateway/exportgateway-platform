@@ -13,14 +13,17 @@ import {
   type OriginCountriesPreferentialContext,
 } from "@/lib/export-auditor/origin-countries-summary";
 import { resolveIso2CountryCode } from "@/lib/export-auditor/country-resolution";
-import { isServiceOrTransportLine } from "@/lib/export-auditor/service-line-detection";
+import { isNonGoodsLine, isServiceOrTransportLine } from "@/lib/export-auditor/service-line-detection";
 import { isInvoiceMetadataLine } from "@/lib/export-auditor/commercial-line-detector";
 import { rebuildHsAggregationOrigins } from "@/lib/export-auditor/hs-origin-aggregation-rebuilder";
 
 export {
   isServiceOrTransportLine,
+  isPackagingLine,
+  isNonGoodsLine,
   LINE_TYPE_GOODS,
   LINE_TYPE_SERVICE,
+  LINE_TYPE_PACKAGING,
   resolveInvoiceLineType,
   type InvoiceLineType,
 } from "@/lib/export-auditor/service-line-detection";
@@ -149,11 +152,11 @@ export function normalizeAggregationItems(
   });
 }
 
-/** Filter to billable goods lines with valid HS codes — excludes transport/service and metadata rows. */
+/** Filter to billable goods lines with valid HS codes — excludes transport/service, packaging, and metadata rows. */
 export function filterGoodsLines(items: NormalizedAggregationItem[]): NormalizedAggregationItem[] {
   return items.filter(
     (item) =>
-      !isServiceOrTransportLine(item.description) &&
+      !isNonGoodsLine(item.description) &&
       !isInvoiceMetadataLine(item.description) &&
       item.hs_code.length > 0
   );
@@ -429,11 +432,11 @@ export function runHsAggregationEngine(
 ): HsAggregationResult {
   const allItems = normalizeAggregationItems(invoice, options.preferenceLines);
   const excludedServiceLines = allItems.filter((item) =>
-    isServiceOrTransportLine(item.description)
+    isNonGoodsLine(item.description)
   ).length;
   const goods = filterGoodsLines(allItems);
   const parsedGoodsLineCount = allItems.filter(
-    (item) => !isServiceOrTransportLine(item.description)
+    (item) => !isNonGoodsLine(item.description)
   ).length;
   const hsMap = aggregateByHsOriginPreferential(goods);
   let hs_aggregation = [...hsMap.values()].sort((a, b) => a.hs_code.localeCompare(b.hs_code));

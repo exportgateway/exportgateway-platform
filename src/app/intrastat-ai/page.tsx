@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
-import { MarketingLayout } from "@/components/layout/MarketingLayout";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { ModuleStatusBadge } from "@/components/platform/ModuleStatusBadge";
 import { CTASection } from "@/components/home/CTASection";
+import { IntrastatPlanAccess } from "@/components/platform/IntrastatPlanAccess";
 import {
   intrastatAiFaq,
   intrastatAiFeatures,
@@ -24,7 +24,7 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default function IntrastatAiPage() {
   return (
-    <MarketingLayout>
+    <>
       <section className="pt-32 pb-16 sm:pt-40">
         <div className="container-narrow section-padding !pt-0">
           <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
@@ -33,6 +33,7 @@ export default function IntrastatAiPage() {
               Enterprise-ready
             </span>
           </div>
+          <IntrastatPlanAccess />
           <SectionHeader
             title="Intrastat AI Auditor"
             description="Upload invoices and ERP exports. AI extracts product data, validates Intrastat requirements, suggests tariff codes and prepares reporting files."
@@ -131,6 +132,6 @@ export default function IntrastatAiPage() {
       </section>
 
       <CTASection />
-    </MarketingLayout>
+    </>
   );
 }

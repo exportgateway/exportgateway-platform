@@ -44,6 +44,7 @@ import {
   logBeforeEnrich,
 } from "@/lib/export-auditor/as2026-forensic-trace";
 import { normalizeInvoiceCommercialDescriptions } from "@/lib/export-auditor/commercial-description-normalizer";
+import { enrichInvoicePackagingData } from "@/lib/export-auditor/packaging-extraction-engine";
 import {
   attachTraceabilityAuditToInvoice,
   buildPositionTraceabilityAudit,
@@ -180,6 +181,7 @@ export function enrichInvoiceDocument(
   const hadParserMappingFailure = mappingFailurePreview.signals.includes(PARSER_MAPPING_FAILURE);
 
   enriched = enrichInvoiceShipmentData(enriched);
+  enriched = enrichInvoicePackagingData(enriched);
   enriched = resolveDestinationCountry(enriched);
 
   const parserDestination = enriched.parser_input_snapshot?.country_code ?? enriched.parser_input_snapshot?.country;
@@ -210,17 +212,6 @@ export function enrichInvoiceDocument(
 
   const crosscheck = applyParserOcrCrosscheck(enriched);
   enriched = crosscheck.invoice;
-
-  if (multiPass.overwrites.length > 0) {
-    enriched = {
-      ...enriched,
-      document_flags: {
-        ...enriched.document_flags,
-        position_overwrite_attempts: multiPass.overwrites.length,
-        position_data_overwrite_attempt: true,
-      },
-    };
-  }
 
   if (hadParserMappingFailure || crosscheck.signals.includes(PARSER_MAPPING_FAILURE)) {
     const recovered =

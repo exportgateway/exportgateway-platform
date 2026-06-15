@@ -59,7 +59,32 @@ export interface ConfidenceScores {
   /** OCR engine confidence — whether OCR extraction succeeded. */
   ocrQuality: number;
   dataCompleteness: number;
+  /** @deprecated Use extractionAccuracy.score — kept for forensic/debug panels. */
   overallConfidence: number;
+}
+
+export interface ScoreDimension {
+  id: string;
+  label: string;
+  score: number;
+  weight: number;
+}
+
+/** Extraction Accuracy — how reliably invoice data was extracted (never mixed with customs readiness). */
+export interface ExtractionAccuracyScore {
+  score: number;
+  label: string;
+  message: string;
+  dimensions: ScoreDimension[];
+}
+
+/** Customs Readiness numeric score — filing completeness (never mixed with extraction accuracy). */
+export interface CustomsReadinessScore {
+  score: number;
+  label: string;
+  message: string;
+  dimensions: ScoreDimension[];
+  status: CustomsReadinessStatus;
 }
 
 export type CustomsReadinessStatus = "CUSTOMS_READY" | "CUSTOMS_REVIEW" | "CUSTOMS_BLOCKED";
@@ -443,7 +468,10 @@ export interface ExportAuditReport {
   fileName: string;
   processedAt: string;
   auditStatus: AuditStatusLevel;
+  /** @deprecated Alias for customsReadinessScore.score — use customsReadinessScore instead. */
   readinessScore: number;
+  extractionAccuracy?: ExtractionAccuracyScore;
+  customsReadinessScore?: CustomsReadinessScore;
   missingFields: string[];
   invoiceSummary: InvoiceSummary;
   shipmentSummary: ShipmentSummary;

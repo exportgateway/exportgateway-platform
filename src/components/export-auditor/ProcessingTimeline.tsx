@@ -24,7 +24,7 @@ export function ProcessingTimeline({ steps, compact }: ProcessingTimelineProps) 
     <div
       className={cn(
         "rounded-xl border border-surface-border bg-white",
-        compact ? "p-4" : "p-5"
+        compact ? "p-4" : "p-4"
       )}
     >
       <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">

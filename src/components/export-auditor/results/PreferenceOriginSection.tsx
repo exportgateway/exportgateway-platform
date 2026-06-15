@@ -65,7 +65,7 @@ export function PreferenceOriginSection({ analysis }: PreferenceOriginSectionPro
     analysis.preferenceScheme === "UK" || analysis.preferenceScheme === "REX";
 
   return (
-    <section className={cn("rounded-xl border p-5", statusTone)}>
+    <section className={cn("rounded-xl border p-4", statusTone)}>
       <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
         Preference Origin Analysis
       </h3>

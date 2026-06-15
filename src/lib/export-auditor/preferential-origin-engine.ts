@@ -1,5 +1,5 @@
 import type { ApiInvoiceItem, NormalizedInvoice } from "@/lib/export-auditor/api-types";
-import { isServiceOrTransportLine } from "@/lib/export-auditor/service-line-detection";
+import { isNonGoodsLine, isServiceOrTransportLine } from "@/lib/export-auditor/service-line-detection";
 import { applyPreferentialOriginExceptions } from "@/lib/export-auditor/preferential-origin-exception-engine";
 import {
   detectAuthorisedExporter,
@@ -98,7 +98,15 @@ const DECLARATION_PATTERNS: Array<{
   },
   {
     kind: "all_products_preferential",
-    re: /goods?\s+(?:on\s+this\s+invoice\s+)?are\s+of\s+(?:(?:EU|E\.U\.)\s+)?preferential\s+origin/gi,
+    re: /declare(?:s|d)?\s+that\s+the\s+products?\s+(?:on\s+this\s+invoice\s+)?(?:are|is)\s+of\s+(?:(?:EU|E\.U\.)\s+)?preferential\s+origin/gi,
+  },
+  {
+    kind: "all_products_preferential",
+    re: /all\s+(?:the\s+)?(?:products?|goods?|items?|lines?)\s+(?:on\s+this\s+(?:invoice|document))?\s+(?:are|is)\s+of\s+(?:(?:EU|E\.U\.)\s+)?preferential\s+origin/gi,
+  },
+  {
+    kind: "all_products_preferential",
+    re: /preferential\s+origin\s+(?:declaration\s+)?(?:applies\s+to\s+)?all\s+(?:products?|goods?|positions?|lines?)/gi,
   },
   {
     kind: "eur1_except_positions",
@@ -399,6 +407,9 @@ function buildRuleState(
     state.eur1CoversRemainingExplicit = eur1RemainingCoverageExplicit(corpus, eur1ExceptDecls);
   }
 
+  state.originDeclarationPresent = hasOriginDeclaration(corpus);
+  state.authorisedExporterPresent = declarations.some((d) => d.kind === "authorised_exporter");
+
   if (state.asteriskMarkerRule) {
     state.blanketAllYes = false;
   }
@@ -407,8 +418,30 @@ function buildRuleState(
     state.blanketAllYes = false;
   }
 
-  state.originDeclarationPresent = hasOriginDeclaration(corpus);
-  state.authorisedExporterPresent = declarations.some((d) => d.kind === "authorised_exporter");
+  const hasGlobalDeclaration = declarations.some(
+    (d) => d.kind === "all_products_preferential"
+  );
+  const hasPositionExclusions =
+    state.eur1Except.size > 0 || state.explicitNo.size > 0;
+
+  if (
+    hasGlobalDeclaration &&
+    !hasPositionExclusions &&
+    state.explicitYes.size === 0 &&
+    !state.asteriskMarkerRule
+  ) {
+    state.blanketAllYes = true;
+  }
+
+  if (
+    state.originDeclarationPresent &&
+    !hasPositionExclusions &&
+    state.explicitYes.size === 0 &&
+    !state.asteriskMarkerRule &&
+    !state.exceptOtherwiseIndicated
+  ) {
+    state.blanketAllYes = true;
+  }
 
   return state;
 }
@@ -628,12 +661,15 @@ export function runPreferentialOriginEngine(
     const country_of_origin = item.country_of_origin?.trim() || "—";
     const description = item.description?.trim() ?? "";
 
-    if (isServiceOrTransportLine(description)) {
+    if (isNonGoodsLine(description)) {
+      const isPackaging = !isServiceOrTransportLine(description);
       return {
         position_number,
         country_of_origin,
         preferential_origin: "NOT_DECLARED",
-        preference_reason: "Service / freight line excluded from preferential origin analysis",
+        preference_reason: isPackaging
+          ? "Packaging line excluded from preferential origin analysis"
+          : "Service / freight line excluded from preferential origin analysis",
         preference_source: "none",
       };
     }

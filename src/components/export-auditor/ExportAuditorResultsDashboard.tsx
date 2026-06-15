@@ -1,25 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { ExportAuditReport } from "@/lib/export-auditor/types";
-import { countIssuesBySeverity, getReadinessVerdict } from "@/lib/export-auditor/readiness-score";
+import { filterBusinessFindings } from "@/lib/export-auditor/broker-findings-filter";
+import { countIssuesBySeverity } from "@/lib/export-auditor/readiness-score";
 import {
   ExecutiveSummaryCard,
-  ExportReadinessScoreCard,
 } from "@/components/export-auditor/ExecutiveSummaryCard";
-import { ExportAuditorQuickActions } from "@/components/export-auditor/ExportAuditorQuickActions";
+import { DualScoreCards } from "@/components/export-auditor/DualScoreCards";
 import {
   ExportAuditorTabs,
+  getVisibleAuditorTabs,
+  isAuditorTabVisible,
   type AuditorResultTab,
 } from "@/components/export-auditor/ExportAuditorTabs";
-import { ProcessingTimeline, buildProcessingTimeline } from "@/components/export-auditor/ProcessingTimeline";
-import { InvoiceSummarySection } from "@/components/export-auditor/results/InvoiceSummarySection";
+import { AUDITOR_TAB_CONTENT } from "@/components/export-auditor/auditor-ui";
 import { ShipmentSummarySection } from "@/components/export-auditor/results/ShipmentSummarySection";
 import { DeliveryAddressSection } from "@/components/export-auditor/results/DeliveryAddressSection";
-import { AuditStatusSection } from "@/components/export-auditor/results/AuditStatusSection";
-import { ConfidenceScoreSection } from "@/components/export-auditor/results/ConfidenceScoreSection";
 import { PreferenceOriginSection } from "@/components/export-auditor/results/PreferenceOriginSection";
-import { IssuesDetectedSection } from "@/components/export-auditor/results/IssuesDetectedSection";
 import { SupportingDocumentsSection } from "@/components/export-auditor/results/SupportingDocumentsSection";
 import { RecommendedActionsSection } from "@/components/export-auditor/results/RecommendedActionsSection";
 import { CustomsDispositionSection } from "@/components/export-auditor/results/CustomsDispositionSection";
@@ -28,17 +26,19 @@ import { EnterpriseAggregationSections } from "@/components/export-auditor/resul
 import { HsAggregationReportSections } from "@/components/export-auditor/results/HsAggregationTraceabilityTable";
 import {
   OcrObservabilitySection,
-  OcrObservabilitySummary,
 } from "@/components/export-auditor/results/OcrObservabilitySection";
-import {
-  DataRecoveryDiagnosticsSection,
-  DataRecoverySummary,
-} from "@/components/export-auditor/results/DataRecoveryDiagnosticsSection";
+import { DataRecoveryDiagnosticsSection } from "@/components/export-auditor/results/DataRecoveryDiagnosticsSection";
 import { DeclarationReadinessSection } from "@/components/export-auditor/results/DeclarationReadinessSection";
 import { CustomsReadinessSection } from "@/components/export-auditor/results/CustomsReadinessSection";
 import { HsVerificationSection } from "@/components/export-auditor/results/HsVerificationSection";
+import { ConfidenceScoreSection } from "@/components/export-auditor/results/ConfidenceScoreSection";
 import { ExportValidationPdfButton } from "@/components/export-auditor/ExportValidationPdfButton";
-import { AdminOnly } from "@/components/admin/AdminOnly";
+import { ExportAuditorQuickActions } from "@/components/export-auditor/ExportAuditorQuickActions";
+import { DeclarationExportActions } from "@/components/export-auditor/results/DeclarationExportActions";
+import { HsOriginSummarySection } from "@/components/export-auditor/results/HsOriginSummarySection";
+import { DocumentSummarySection } from "@/components/export-auditor/results/DocumentSummarySection";
+import { BrokerFindingsSection } from "@/components/export-auditor/results/BrokerFindingsSection";
+import { PlanFeatureGate, usePlanAccess } from "@/components/plan-simulator/PlanProvider";
 import { FEATURE_FLAGS } from "@/config/feature-flags";
 
 interface ExportAuditorResultsDashboardProps {
@@ -46,28 +46,54 @@ interface ExportAuditorResultsDashboardProps {
 }
 
 export function ExportAuditorResultsDashboard({ report }: ExportAuditorResultsDashboardProps) {
-  const [tab, setTab] = useState<AuditorResultTab>("overview");
-  const issueCounts = countIssuesBySeverity(report.issues);
-  const verdict = getReadinessVerdict(report);
+  const { hasFeature, effectivePlan } = usePlanAccess();
+  const visibleTabs = useMemo(() => getVisibleAuditorTabs(hasFeature), [hasFeature]);
+  const [tab, setTab] = useState<AuditorResultTab>(() => visibleTabs[0] ?? "summary");
+
+  useEffect(() => {
+    if (!isAuditorTabVisible(tab, hasFeature)) {
+      setTab(visibleTabs[0] ?? "summary");
+    }
+  }, [tab, hasFeature, visibleTabs]);
+
+  const businessIssues = useMemo(() => filterBusinessFindings(report.issues), [report.issues]);
+  const issueCounts = countIssuesBySeverity(businessIssues);
   const totalIssues =
     issueCounts.critical + issueCounts.warning + issueCounts.information;
 
-  const showExtractionDiagnostics = FEATURE_FLAGS.extractionTraceLogs;
+  const showExportToolbar =
+    hasFeature("exportDeclarationExcel") ||
+    hasFeature("exportDeclarationCsv") ||
+    hasFeature("exportMrnDraft");
+
+  const exportFirst = effectivePlan === "ENTERPRISE" || effectivePlan === "ADMIN";
+
+  const showExtractionDiagnostics =
+    FEATURE_FLAGS.extractionTraceLogs && hasFeature("extractionSources");
+
+  const exportToolbar = showExportToolbar ? (
+    <DeclarationExportActions auditReport={report} variant="toolbar" />
+  ) : null;
 
   return (
-    <div className="space-y-5" data-screenshot="export-auditor-result">
-      <AdminOnly flag="validationPdfExport">
+    <div className="space-y-4" data-screenshot="export-auditor-result">
+      <PlanFeatureGate feature="validationPdf">
         <div className="flex justify-end">
           <ExportValidationPdfButton report={report} />
         </div>
-      </AdminOnly>
-      <ExecutiveSummaryCard report={report} />
-      <ExportReadinessScoreCard report={report} />
-      <ExportAuditorQuickActions />
-      <ProcessingTimeline steps={buildProcessingTimeline("complete")} compact />
+      </PlanFeatureGate>
+
+      {exportFirst && exportToolbar}
+
+      <PlanFeatureGate feature="executiveSummary">
+        <ExecutiveSummaryCard report={report} />
+        <DualScoreCards report={report} />
+      </PlanFeatureGate>
+
+      {!exportFirst && exportToolbar}
 
       <div className="rounded-2xl border border-surface-border bg-white shadow-sm overflow-hidden">
-        <div className="px-4 pt-2 sm:px-5">
+        <div className="px-4 pt-2 sm:px-4">
           <ExportAuditorTabs
             active={tab}
             onChange={setTab}
@@ -75,22 +101,81 @@ export function ExportAuditorResultsDashboard({ report }: ExportAuditorResultsDa
           />
         </div>
 
-        <div className="p-4 sm:p-5 space-y-6">
-          {tab === "overview" && (
+        <div className={AUDITOR_TAB_CONTENT}>
+          {tab === "summary" && isAuditorTabVisible("summary", hasFeature) && (
             <>
-              <InvoiceSummarySection summary={report.invoiceSummary} />
-              <ShipmentSummarySection
-                summary={report.shipmentSummary}
-                extractionDiagnostics={
-                  showExtractionDiagnostics ? report.shipmentExtractionDiagnostics : undefined
-                }
-              />
-              <DeliveryAddressSection address={report.deliveryAddress} />
-              <AuditStatusSection
-                auditStatus={verdict.auditStatus}
-                exportStatus={verdict.exportStatus}
-              />
-              <AdminOnly flag="ocrDebugPanels">
+              <PlanFeatureGate feature="customsReadiness">
+                <CustomsReadinessSection
+                  readiness={report.customsReadiness}
+                  score={report.customsReadinessScore}
+                />
+              </PlanFeatureGate>
+
+              <PlanFeatureGate feature="declarationPreparation">
+                <EnterpriseAggregationSections auditReport={report} hideExportActions />
+              </PlanFeatureGate>
+
+              <PlanFeatureGate feature="hsOriginSummary">
+                <HsOriginSummarySection report={report} />
+              </PlanFeatureGate>
+
+              <PlanFeatureGate feature="findings">
+                <BrokerFindingsSection
+                  issues={report.issues}
+                  missingFields={report.missingFields}
+                />
+                <RecommendedActionsSection actions={report.recommendedActions} />
+              </PlanFeatureGate>
+
+              <PlanFeatureGate feature="documentSummary">
+                <DocumentSummarySection report={report} compact />
+              </PlanFeatureGate>
+            </>
+          )}
+
+          {tab === "declaration" && isAuditorTabVisible("declaration", hasFeature) && (
+            <>
+              <PlanFeatureGate feature="declarationReadiness">
+                <DeclarationReadinessSection readiness={report.declarationReadiness} />
+              </PlanFeatureGate>
+              <PlanFeatureGate feature="declarationPreparation">
+                <EnterpriseAggregationSections auditReport={report} hideExportActions />
+              </PlanFeatureGate>
+              <PlanFeatureGate feature="exportDeclarationExcel">
+                <DeclarationExportActions auditReport={report} variant="inline" />
+              </PlanFeatureGate>
+            </>
+          )}
+
+          {tab === "origin" && isAuditorTabVisible("origin", hasFeature) && (
+            <>
+              <PlanFeatureGate feature="originAnalysis">
+                <PreferenceOriginSection analysis={report.preferenceOrigin} />
+                <HsCodesSection codes={report.hsCodesDetected} />
+              </PlanFeatureGate>
+              <PlanFeatureGate feature="hsVerification">
+                <HsVerificationSection summary={report.hsVerificationSummary} />
+              </PlanFeatureGate>
+            </>
+          )}
+
+          {tab === "document" && isAuditorTabVisible("document", hasFeature) && (
+            <>
+              <PlanFeatureGate feature="documentSummary">
+                <DocumentSummarySection report={report} compact={false} />
+                <DeliveryAddressSection address={report.deliveryAddress} />
+                <SupportingDocumentsSection documents={report.supportingDocumentsDetected} />
+                <CustomsDispositionSection disposition={report.customsDisposition} />
+              </PlanFeatureGate>
+              <PlanFeatureGate feature="auditReportPdf">
+                <ExportReportSection report={report} />
+              </PlanFeatureGate>
+            </>
+          )}
+
+          {tab === "forensic" && isAuditorTabVisible("forensic", hasFeature) && (
+            <>
+              <PlanFeatureGate feature="confidenceEngine">
                 <ConfidenceScoreSection
                   scores={report.confidence}
                   dataExtractionCompleteness={
@@ -99,76 +184,43 @@ export function ExportAuditorResultsDashboard({ report }: ExportAuditorResultsDa
                   }
                   customsReadiness={report.customsReadiness}
                 />
-              </AdminOnly>
-              {!FEATURE_FLAGS.ocrDebugPanels && (
-                <CustomsReadinessSection readiness={report.customsReadiness} />
-              )}
-              <DeclarationReadinessSection readiness={report.declarationReadiness} />
-              <AdminOnly flag="ocrDebugPanels">
-                <OcrObservabilitySummary observability={report.ocrObservability} />
-              </AdminOnly>
-              <AdminOnly flag="forensicDiagnostics">
-                <DataRecoverySummary auditReport={report} />
-              </AdminOnly>
-              <PreferenceOriginSection analysis={report.preferenceOrigin} />
-              <SupportingDocumentsSection documents={report.supportingDocumentsDetected} />
-              <HsCodesSection codes={report.hsCodesDetected} />
-              <CustomsDispositionSection disposition={report.customsDisposition} />
-            </>
-          )}
-
-          {tab === "issues" && (
-            <>
-              <SupportingDocumentsSection documents={report.supportingDocumentsDetected} />
-              <IssuesDetectedSection
-                issues={report.issues}
-                missingFields={report.missingFields}
-              />
-              <RecommendedActionsSection actions={report.recommendedActions} />
-            </>
-          )}
-
-          {tab === "classification" && (
-            <>
-              <HsCodesSection codes={report.hsCodesDetected} />
-              <HsVerificationSection summary={report.hsVerificationSummary} />
-              <PreferenceOriginSection analysis={report.preferenceOrigin} />
-            </>
-          )}
-
-          {tab === "enterprise" && (
-            <>
-              <DeclarationReadinessSection readiness={report.declarationReadiness} />
-              <HsVerificationSection summary={report.hsVerificationSummary} />
-              <AdminOnly flag="ocrDebugPanels">
+              </PlanFeatureGate>
+              <PlanFeatureGate feature="hsVerification">
+                <HsVerificationSection summary={report.hsVerificationSummary} />
+              </PlanFeatureGate>
+              <PlanFeatureGate feature="ocrDiagnostics">
                 <OcrObservabilitySection auditReport={report} />
-              </AdminOnly>
-              <AdminOnly flag="forensicDiagnostics">
+              </PlanFeatureGate>
+              <PlanFeatureGate feature="recoveryDiagnostics">
                 <DataRecoveryDiagnosticsSection auditReport={report} />
-              </AdminOnly>
-              <HsAggregationReportSections
-                report={report.hsAggregationReport}
-                currency={report.invoiceSummary.currency}
-              />
-              <EnterpriseAggregationSections auditReport={report} />
-            </>
-          )}
-
-          {tab === "report" && (
-            <>
+              </PlanFeatureGate>
+              <PlanFeatureGate feature="hsAggregationTraceability">
+                <HsAggregationReportSections
+                  report={report.hsAggregationReport}
+                  currency={report.invoiceSummary.currency}
+                />
+              </PlanFeatureGate>
+              <PlanFeatureGate feature="integrityValidation">
+                <BrokerFindingsSection
+                  issues={report.issues}
+                  missingFields={report.missingFields}
+                  showTechnical
+                />
+              </PlanFeatureGate>
               <ShipmentSummarySection
                 summary={report.shipmentSummary}
                 extractionDiagnostics={
                   showExtractionDiagnostics ? report.shipmentExtractionDiagnostics : undefined
                 }
               />
-              <DeliveryAddressSection address={report.deliveryAddress} />
-              <CustomsDispositionSection disposition={report.customsDisposition} />
-              <ExportReportSection report={report} />
             </>
           )}
         </div>
       </div>
+
+      <PlanFeatureGate feature="quickActions">
+        <ExportAuditorQuickActions />
+      </PlanFeatureGate>
     </div>
   );
 }

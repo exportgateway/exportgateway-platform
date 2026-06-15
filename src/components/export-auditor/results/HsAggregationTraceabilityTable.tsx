@@ -61,7 +61,7 @@ export function HsAggregationTraceabilityTable({
 
   if (rows.length === 0) {
     return (
-      <section className="rounded-xl border border-surface-border bg-white p-5">
+      <section className="rounded-xl border border-surface-border bg-white p-4">
         <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
           HS Aggregation
         </h3>
@@ -71,7 +71,7 @@ export function HsAggregationTraceabilityTable({
   }
 
   return (
-    <section className="rounded-xl border border-surface-border bg-white p-5">
+    <section className="rounded-xl border border-surface-border bg-white p-4">
       <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
         HS Aggregation
       </h3>
@@ -275,7 +275,7 @@ export function AuditTraceabilityPanel({
   }, [selectedRow, traceabilityLines]);
 
   return (
-    <section className="rounded-xl border border-surface-border bg-white p-5">
+    <section className="rounded-xl border border-surface-border bg-white p-4">
       <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
         Audit Traceability
       </h3>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PlatformToolOverview } from "@/components/platform/PlatformToolOverview";
-import { FreightCalculatorForm } from "@/components/platform/FreightCalculatorForm";
+import { PlatformFreightTool } from "@/components/platform/PlatformFreightTool";
 import { FreightIntelligenceStrip } from "@/components/platform/FreightIntelligenceStrip";
 import { getPlatformTool } from "@/lib/platform-tools";
 import { buildPageMetadata } from "@/lib/seo";
@@ -26,7 +26,7 @@ export default function PlatformFreightPage() {
           </p>
           <FreightIntelligenceStrip />
           <div className="mt-6">
-            <FreightCalculatorForm />
+            <PlatformFreightTool />
           </div>
         </div>
       </div>

@@ -53,6 +53,7 @@
     "test:invoice-date-readiness": "npx tsx scripts/test-invoice-date-readiness.ts",
 
     "test:readiness-score": "npx tsx scripts/test-readiness-score.ts",
+    "test:dual-scoring": "npx tsx scripts/test-dual-scoring.ts",
 
     "test:origin-countries-ux": "npx tsx scripts/test-origin-countries-ux.ts",
 
@@ -102,6 +103,8 @@
     "test:maxx-group-real-pdf": "npx tsx scripts/test-maxx-group-real-pdf.ts",
     "test:declaration-preparation": "npx tsx scripts/test-declaration-preparation.ts",
     "test:declaration-preparation-certification": "npx tsx scripts/test-declaration-preparation-certification.ts",
+    "test:broker-feedback-round1": "npx tsx scripts/test-broker-feedback-round1.ts",
+    "report:hs-nomenclature-gaps": "npx tsx scripts/report-hs-nomenclature-gaps.ts",
     "test:golden-position-integrity": "npx tsx scripts/test-golden-position-integrity.ts",
     "test:authorised-exporter-detection": "npx tsx scripts/test-authorised-exporter-detection.ts",
     "forensic:maxxgroup-authorised-exporter": "npx tsx scripts/forensic-maxxgroup-authorised-exporter-trace.ts",

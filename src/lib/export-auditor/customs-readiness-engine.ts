@@ -47,6 +47,12 @@ import {
   NET_EXCEEDS_GROSS_MESSAGE,
 } from "@/lib/export-auditor/weight-validation";
 import { MISSING_PACKAGE_COUNT } from "@/lib/export-auditor/shipment-readiness";
+import {
+  DUPLICATE_POSITION_NUMBER_ON_INVOICE,
+  MISSING_POSITION_NUMBER_ON_INVOICE,
+  POSITION_SEQUENCE_GAP,
+  POSITION_SEQUENCE_DUPLICATE,
+} from "@/lib/export-auditor/invoice-consistency-engine";
 
 const HS_MISSING_CODES = new Set([
   "MISSING_HS_CODE",
@@ -260,6 +266,19 @@ function collectReviewReasons(
 
   if (hasHighConfidenceHsDiscrepancy(report.hsVerificationSummary)) {
     reasons.push("HS classification discrepancy detected");
+  }
+
+  const invoiceConsistencyCodes = new Set([
+    DUPLICATE_POSITION_NUMBER_ON_INVOICE,
+    MISSING_POSITION_NUMBER_ON_INVOICE,
+    POSITION_SEQUENCE_GAP,
+    POSITION_SEQUENCE_DUPLICATE,
+  ]);
+  for (const issue of report.issues) {
+    const code = resolveIssueCode(issue);
+    if (invoiceConsistencyCodes.has(code)) {
+      reasons.push(`Invoice position consistency: ${issue.message}`);
+    }
   }
 
   return [...new Set(reasons)];
