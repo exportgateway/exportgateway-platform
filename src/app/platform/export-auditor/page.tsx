@@ -4,6 +4,9 @@ import { ExportAuditorWorkspace } from "@/components/export-auditor/ExportAudito
 import { getPlatformTool } from "@/lib/platform-tools";
 import { buildPageMetadata } from "@/lib/seo";
 
+/** OCR + analysis server actions can run up to ~210s upstream; allow headroom on Vercel. */
+export const maxDuration = 300;
+
 export const metadata: Metadata = buildPageMetadata({
   title: "Export Auditor — Invoice Compliance Audit",
   description:

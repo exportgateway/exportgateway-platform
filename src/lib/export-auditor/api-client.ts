@@ -1,5 +1,6 @@
 import {
-  runFullExportAuditAction,
+  postExportAuditorOcrAction,
+  runExportAuditAnalysisAction,
 } from "@/lib/export-auditor/server-actions";
 import type {
   AuditProgressStep,
@@ -10,6 +11,12 @@ import { AUDIT_PROGRESS_STEPS } from "@/lib/export-auditor/types";
 
 export type ProgressCallback = (steps: AuditProgressStep[]) => void;
 export type TimelineIndexCallback = (index: number) => void;
+
+/** Slightly above server-side limits so the server aborts first when possible. */
+const CLIENT_TIMEOUT_MS = {
+  ocr: 130_000,
+  analysis: 100_000,
+} as const;
 
 function initialSteps(): AuditProgressStep[] {
   return AUDIT_PROGRESS_STEPS.map((s, i) => ({
@@ -40,9 +47,34 @@ function advanceStep(
   return updated;
 }
 
+async function withClientTimeout<T>(
+  promise: Promise<T>,
+  timeoutMs: number,
+  message: string
+): Promise<T> {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      promise,
+      new Promise<never>((_, reject) => {
+        timeoutId = setTimeout(() => {
+          reject({
+            code: "AUDIT_FAILED",
+            message,
+          } satisfies ExportAuditorApiError);
+        }, timeoutMs);
+      }),
+    ]);
+  } finally {
+    if (timeoutId !== undefined) {
+      clearTimeout(timeoutId);
+    }
+  }
+}
+
 /**
- * Export auditor pipeline — single server action keeps enriched invoice on server
- * through mapping (no client round-trip of NormalizedInvoice).
+ * Export auditor pipeline — OCR and analysis as separate server actions so each
+ * gets its own Vercel function budget; analysis re-enriches invoice on the server.
  */
 export async function runFullExportAudit(
   file: File,
@@ -61,24 +93,38 @@ export async function runFullExportAudit(
     const formData = new FormData();
     formData.append("file", file, file.name);
 
+    const ocrResult = await withClientTimeout(
+      postExportAuditorOcrAction(formData),
+      CLIENT_TIMEOUT_MS.ocr,
+      "OCR timed out after 2 minutes. Try a smaller document or retry shortly."
+    );
+
+    if (!ocrResult.ok) {
+      throw ocrResult.error;
+    }
+
     steps = advanceStep(steps, "ocr", "analysis");
     onProgress?.(steps);
     onTimelineIndex?.(2);
 
-    const result = await runFullExportAuditAction(formData);
+    const analysisResult = await withClientTimeout(
+      runExportAuditAnalysisAction(ocrResult.invoice, ocrResult.fileName),
+      CLIENT_TIMEOUT_MS.analysis,
+      "Export audit analysis timed out after 90 seconds. Please try again."
+    );
 
     steps = advanceStep(steps, "analysis", "report");
     onProgress?.(steps);
     onTimelineIndex?.(4);
 
-    if (!result.ok) {
-      throw result.error;
+    if (!analysisResult.ok) {
+      throw analysisResult.error;
     }
 
     console.log("[EXPORT-AUDITOR-RUNTIME] client received report", {
-      authorisedExporterDetected: result.report.preferenceOrigin.authorisedExporterDetected,
-      originDeclarationFound: result.report.preferenceOrigin.originDeclarationFound,
-      shipmentSummary: result.report.shipmentSummary,
+      authorisedExporterDetected: analysisResult.report.preferenceOrigin.authorisedExporterDetected,
+      originDeclarationFound: analysisResult.report.preferenceOrigin.originDeclarationFound,
+      shipmentSummary: analysisResult.report.shipmentSummary,
     });
 
     steps = advanceStep(steps, "report", "complete");
@@ -86,7 +132,7 @@ export async function runFullExportAudit(
     onProgress?.(steps);
     onTimelineIndex?.(5);
 
-    return result.report;
+    return analysisResult.report;
   } catch (err) {
     const failed = steps.map((s) =>
       s.status === "active" ? { ...s, status: "error" as const } : s
