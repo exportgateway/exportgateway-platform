@@ -7,6 +7,10 @@ import { ClassificationInput } from "@/components/platform/classification/Classi
 import { ClassificationLoadingStages } from "@/components/platform/classification/ClassificationLoadingStages";
 import { ClassificationResults } from "@/components/platform/classification/ClassificationResults";
 import { ClassificationTrustSection } from "@/components/platform/classification/ClassificationTrustSection";
+import {
+  DisambiguationPanel,
+  isDisambiguationRequired,
+} from "@/components/platform/classification/DisambiguationPanel";
 import { UsageBar } from "@/components/platform/classification/UsageBar";
 import type { OnClassificationSelected } from "@/components/platform/classification/classification-integration";
 import { extractAesRecordCount } from "@/lib/classification-utils";
@@ -20,7 +24,7 @@ export interface ClassificationWizardProps {
   className?: string;
 }
 
-type WizardPhase = "idle" | "loading" | "results" | "error";
+type WizardPhase = "idle" | "loading" | "disambiguate" | "results" | "error";
 
 export function ClassificationWizard({
   auditorContext = false,
@@ -31,6 +35,7 @@ export function ClassificationWizard({
   const [phase, setPhase] = useState<WizardPhase>("idle");
   const [activeStage, setActiveStage] = useState(0);
   const [result, setResult] = useState<ClassifyV2Response | null>(null);
+  const [disambiguationAnswers, setDisambiguationAnswers] = useState<Record<string, string>>({});
   const [usage, setUsage] = useState<UsageResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [apiAvailable, setApiAvailable] = useState(true);
@@ -57,47 +62,71 @@ export function ClassificationWizard({
   const handleRestart = useCallback(() => {
     setQuery("");
     setResult(null);
+    setDisambiguationAnswers({});
     setError(null);
     setPhase("idle");
     setActiveStage(0);
     void refreshUsage();
   }, [refreshUsage]);
 
+  const runClassification = useCallback(
+    (description: string, answers: Record<string, string>) => {
+      setError(null);
+      setPhase("loading");
+      setActiveStage(0);
+
+      startTransition(async () => {
+        const stageTimers = [
+          setTimeout(() => setActiveStage(1), 600),
+          setTimeout(() => setActiveStage(2), 1400),
+        ];
+
+        const response = await classifyProductV2({
+          product_description: description,
+          plan: effectivePlan,
+          disambiguation: Object.keys(answers).length ? answers : undefined,
+        });
+
+        stageTimers.forEach(clearTimeout);
+
+        if (!response.success) {
+          setPhase("error");
+          setError(response.detail);
+          return;
+        }
+
+        const data = response.data;
+        setActiveStage(data.research_source === "Web Research" ? 3 : 2);
+        setResult(data);
+        setUsage(data.usage);
+
+        if (isDisambiguationRequired(data)) {
+          setPhase("disambiguate");
+        } else {
+          setPhase("results");
+        }
+      });
+    },
+    [effectivePlan]
+  );
+
   const handleClassify = useCallback(() => {
     const trimmed = query.trim();
     if (trimmed.length < 2 || isPending) return;
+    setDisambiguationAnswers({});
+    runClassification(trimmed, {});
+  }, [isPending, query, runClassification]);
 
-    setError(null);
-    setResult(null);
-    setPhase("loading");
-    setActiveStage(0);
-
-    startTransition(async () => {
-      const stageTimers = [
-        setTimeout(() => setActiveStage(1), 600),
-        setTimeout(() => setActiveStage(2), 1400),
-      ];
-
-      const response = await classifyProductV2({
-        product_description: trimmed,
-        plan: effectivePlan,
-      });
-
-      stageTimers.forEach(clearTimeout);
-
-      if (!response.success) {
-        setPhase("error");
-        setError(response.detail);
-        return;
-      }
-
-      const data = response.data;
-      setActiveStage(data.research_source === "Web Research" ? 3 : 2);
-      setResult(data);
-      setUsage(data.usage);
-      setPhase("results");
-    });
-  }, [effectivePlan, isPending, query]);
+  const handleSubmitAnswers = useCallback(
+    (newAnswers: Record<string, string>) => {
+      const trimmed = query.trim();
+      if (!trimmed) return;
+      const merged = { ...disambiguationAnswers, ...newAnswers };
+      setDisambiguationAnswers(merged);
+      runClassification(trimmed, merged);
+    },
+    [disambiguationAnswers, query, runClassification]
+  );
 
   const loading = phase === "loading" && isPending;
 
@@ -109,8 +138,8 @@ export function ClassificationWizard({
         </h1>
         <p className="max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
           Determine the most likely EU CN / HS tariff code from a product description — using AES
-          historical evidence, validated knowledge, AI nomenclature analysis, and product research
-          only when required.
+          historical evidence, validated knowledge, AI nomenclature analysis, and targeted questions
+          when critical details are missing.
         </p>
         <p className="text-xs font-medium text-slate-500" role="note">
           Indicative classification guidance only — not a legally binding tariff ruling. Verify before
@@ -135,13 +164,15 @@ export function ClassificationWizard({
         <UsageBar usage={usage} />
       </div>
 
-      <ClassificationInput
-        value={query}
-        onChange={setQuery}
-        onSubmit={handleClassify}
-        loading={loading}
-        disabled={!apiAvailable}
-      />
+      {phase !== "disambiguate" ? (
+        <ClassificationInput
+          value={query}
+          onChange={setQuery}
+          onSubmit={handleClassify}
+          loading={loading}
+          disabled={!apiAvailable || phase === "results"}
+        />
+      ) : null}
 
       {phase === "loading" ? (
         <ClassificationLoadingStages
@@ -159,6 +190,15 @@ export function ClassificationWizard({
         >
           {error}
         </p>
+      ) : null}
+
+      {phase === "disambiguate" && result ? (
+        <DisambiguationPanel
+          result={result}
+          loading={loading}
+          onSubmitAnswers={handleSubmitAnswers}
+          onCancel={handleRestart}
+        />
       ) : null}
 
       {phase === "results" && result ? (

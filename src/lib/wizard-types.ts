@@ -22,6 +22,34 @@ export type EvidenceStrength = "None" | "Weak" | "Medium" | "Strong" | string;
 export interface ClassifyV2Request {
   product_description: string;
   plan?: string | null;
+  disambiguation?: Record<string, string> | null;
+}
+
+export interface DisambiguationOption {
+  id: string;
+  label: string;
+}
+
+export interface DisambiguationQuestion {
+  id: string;
+  prompt: string;
+  options: DisambiguationOption[];
+}
+
+export interface DetectedAttributes {
+  gender?: string | null;
+  material?: string | null;
+  fabric?: string | null;
+  construction?: string | null;
+}
+
+export type InteractiveCategory = "A" | "B" | "C";
+
+export type CompletionPath = "immediate" | "one_question" | "multiple_questions";
+
+export interface InteractionMetrics {
+  questions_asked: number;
+  completion_path: CompletionPath | string;
 }
 
 export interface HistoricalEvidenceSummary {
@@ -92,6 +120,20 @@ export interface ClassifyV2Response {
   why_explanation: string;
   confidence_source: string;
   source_breakdown: SourceBreakdown | null;
+  needs_more_information?: boolean;
+  classification_state?: string | null;
+  disambiguation_questions?: DisambiguationQuestion[];
+  detected_attributes?: DetectedAttributes | null;
+  auto_answered_questions?: string[];
+  interactive_category?: InteractiveCategory | string | null;
+  interactive_family?: string | null;
+  additional_information_required?: boolean;
+  additional_information_reason?: string;
+  interaction_step?: number | null;
+  interaction_total_steps?: number | null;
+  interaction_metrics?: InteractionMetrics | null;
+  selected_chapter?: string | null;
+  chapter_confidence?: number | null;
 }
 
 export const RESEARCH_SOURCES: readonly ResearchSource[] = [
