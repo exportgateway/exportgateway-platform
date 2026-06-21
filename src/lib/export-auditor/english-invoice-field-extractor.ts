@@ -25,10 +25,18 @@ import {
   QUANTITY_PARSING_WARNING,
 } from "@/lib/export-auditor/parse-quantity";
 
-const INVOICE_NUMBER_RE =
-  /\bInvoice\s*(?:Number|#|No\.?)\s*:?\s*([A-Z0-9][A-Z0-9./\-]+)/i;
+const INVOICE_NUMBER_REJECT_RE =
+  /\b(?:customer\s+order|order\s+number|reference\s+number|shipment\s+number|sales\s+shipment|your\s+reference|customer\s+account|invoice\s+code|product\s+code|customer\s+code|item\s+code)\b/i;
 
-const INVOICE_DATE_RE = /\bDate\s*:?\s*(\d{2}\.\d{2}\.\d{4})/i;
+const GENERIC_CODE_TOKEN_RE = /^(?:code|product|customer|item|invoice)$/i;
+
+const DATE_TOKEN_RE = /(\d{2}[./]\d{2}[./]\d{4}|\d{4}-\d{2}-\d{2})/;
+const INCOTERM_CODES = ["EXW", "FCA", "DAP", "DDP", "CPT", "CIP", "FOB", "CFR", "CIF", "DPU"] as const;
+const CURRENCY_CODES = ["EUR", "USD", "GBP", "CHF", "RSD", "BAM"] as const;
+type HeaderField = "invoice_number" | "invoice_date" | "exporter" | "consignee" | "incoterms" | "currency";
+
+const METADATA_NOISE_RE =
+  /\b(?:payment|iban|swift|bank|footer|page\s+\d+\s+of\s+\d+|shipment\s+summary|products\s+covered\s+by\s+this|declares\s+that|customs\s+authorization)\b/i;
 
 export const TOTAL_AMOUNT_PATTERNS = LABELED_INVOICE_TOTAL_RES;
 
@@ -47,9 +55,30 @@ const LINE_ROW_WITH_BARCODE_RE = new RegExp(
 const LINE_ROW_SIMPLE_RE =
   /^(\d+)\s+(.+?)\s+([\d.,]+)\s*$/;
 
+export const TABLE_RECONSTRUCTION_REJECTED = "TABLE_RECONSTRUCTION_REJECTED";
+const TABLE_RECONSTRUCTION_MIN_SCORE = 70;
+
+const TABLE_RECONSTRUCTION_REJECT_ROW_RE =
+  /\b(?:rue|avenue|street|road|bp|cedex|tel|fax|phone|iban|swift|head\s+quarter|declares\s+that|exporter\s+of\s+the\s+products|products\s+covered\s+by\s+this|customs\s+authorization)\b/i;
+
+const PRODUCT_CODE_RE =
+  /\b(?:SKU|ITEM|ART|REF|PN|P\/N|MODEL|CODE|PRODUCT)\b[\s:#-]*[A-Z0-9][A-Z0-9./_-]{2,}\b/i;
+
+const SKU_LIKE_TOKEN_RE =
+  /\b[A-Z0-9]+(?:[-_/][A-Z0-9]+){1,}\b/i;
+
 /** Reject payment QR footer text mistaken as consignee. */
 export const REJECTED_CONSIGNEE_RE =
   /\b(?:qr\s*(?:for\s*)?payment|scan\s*qr|payment\s*qr|qr\s*code)\b/i;
+
+export interface TableReconstructionQualityDecision {
+  accepted: boolean;
+  score: number;
+  acceptance_reason: string | null;
+  rejection_reason: string | null;
+  rejected_row_count: number;
+  missing_evidence_count: number;
+}
 
 function parseMoney(raw: string): number | null {
   const value = parseLocaleNumber(raw);
@@ -59,11 +88,72 @@ function parseMoney(raw: string): number | null {
 export function isRejectedConsigneeText(text: string | null | undefined): boolean {
   const trimmed = text?.trim() ?? "";
   if (!trimmed) return true;
-  return REJECTED_CONSIGNEE_RE.test(trimmed);
+  return REJECTED_CONSIGNEE_RE.test(trimmed) || METADATA_NOISE_RE.test(trimmed);
 }
 
 export function isValidConsigneeText(text: string | null | undefined): boolean {
   return Boolean(text?.trim()) && !isRejectedConsigneeText(text);
+}
+
+function plainOcrText(corpus: string): string {
+  return corpus
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/(?:tr|table|p|div|h\d)>/gi, "\n")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/[ \t]+/g, " ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+function metadataLines(corpus: string): string[] {
+  return plainOcrText(corpus).split(/\n/).map((line) => line.trim());
+}
+
+function nextNonemptyLine(lines: string[], index: number): string {
+  for (const candidate of lines.slice(index + 1, index + 5)) {
+    const trimmed = candidate.trim();
+    if (trimmed) return trimmed;
+  }
+  return "";
+}
+
+function isMetadataNoise(value: string | null | undefined): boolean {
+  const text = value?.trim() ?? "";
+  return !text || METADATA_NOISE_RE.test(text);
+}
+
+function isValidHeaderValue(field: HeaderField, value: string | null | undefined): boolean {
+  const text = value?.trim() ?? "";
+  if (!text || isMetadataNoise(text)) return false;
+  if (field === "invoice_number" && INVOICE_NUMBER_REJECT_RE.test(text)) return false;
+  if (field === "exporter") {
+    if (/^\d{4,6}\b/.test(text)) return false;
+    if (/^[A-Z]{1,6}\d{4,}[A-Z0-9./-]*$/i.test(text)) return false;
+    if (/^(?:price|amount|quantity|description|reference|code|customs|hs|orig\.?|net\s+total|total)$/i.test(text)) return false;
+    if (/\b(?:description|gross\s+unit|net\s+unit|customs\s+hs|delivered\s+quantity|ordered\s+qty|reference\s+number)\b/i.test(text)) {
+      return false;
+    }
+    if (/\b(?:capital|head\s+quarter|rue|street|avenue|vat|tva|eori|r\s*\.?\s*c\s*\.?\s*s\.?|tax\s+id|iban|swift|bank)\b/i.test(text)) {
+      return false;
+    }
+    if (/\b(?:direction|administration|commerciale?|services?\s+financiers?|office|department|division|cedex|t[ée]l\.?|fax|bp\s+\d+)\b/i.test(text)) {
+      return false;
+    }
+  }
+  if (field === "incoterms") return INCOTERM_CODES.includes(text.split(/\s+/)[0]?.toUpperCase() as typeof INCOTERM_CODES[number]);
+  if (field === "currency") return CURRENCY_CODES.includes(text.toUpperCase() as typeof CURRENCY_CODES[number]);
+  return true;
+}
+
+function cleanPartyLine(value: string): string {
+  return value.replace(/\s+/g, " ").replace(/^[\s:-]+|[\s:-]+$/g, "");
+}
+
+function normalizeCompanyName(value: string): string {
+  const cleaned = cleanPartyLine(value);
+  return cleaned === cleaned.toLowerCase()
+    ? cleaned.replace(/\b\w/g, (char) => char.toUpperCase())
+    : cleaned;
 }
 
 export type BlockExtractionMode = "address" | "standard";
@@ -103,6 +193,37 @@ export function extractBlockAfterLabel(
   return lines;
 }
 
+function extractMetadataBlockAfterLabel(lines: string[], labelRe: RegExp, maxLines = 5): string {
+  const terminator =
+    /^(?:invoice|invoice\s+date|date|incoterms?|delivery\s+terms|terms\s+of\s+delivery|customer|reference|order|payment|bank|iban|swift|total|currency|table|page)\b/i;
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index]!;
+    const match = line.match(labelRe);
+    if (!match) continue;
+
+    const remainder = line.slice(match[0].length).replace(/^[\s:-]+/, "");
+    const candidates = remainder ? [remainder] : [];
+    for (const following of lines.slice(index + 1, index + 1 + maxLines)) {
+      const value = following.trim();
+      if (!value) {
+        if (candidates.length > 0) break;
+        continue;
+      }
+      if (terminator.test(value)) break;
+      candidates.push(value);
+    }
+
+    return candidates
+      .map(cleanPartyLine)
+      .filter((candidate) => candidate && !isMetadataNoise(candidate))
+      .join("\n")
+      .trim();
+  }
+
+  return "";
+}
+
 /** Trade / personal name from Buyer line that also contains a company suffix (d.o.o., GmbH, …). */
 export function extractTradeNameFromBuyerLine(line: string): string | null {
   const trimmed = line.replace(/^["']|["']$/g, "").trim();
@@ -135,25 +256,78 @@ export function extractTradeNameFromBuyerLine(line: string): string | null {
   return null;
 }
 
-function isConsigneeAddressLine(line: string): boolean {
-  const trimmed = line.trim();
-  if (trimmed.length <= 2) return false;
-  if (/^\d/.test(trimmed)) return false;
-  if (isRejectedConsigneeText(trimmed)) return false;
-  if (/^(?:Date|Invoice\s+Date|Issue\s+Date|Due\s+date|Delivery\s+date|Contract|Payment\s+method)\s*:/i.test(trimmed)) {
-    return false;
-  }
-  return true;
-}
-
 export function extractEnglishInvoiceNumber(corpus: string): string | null {
-  const match = corpus.match(INVOICE_NUMBER_RE);
-  return match?.[1]?.trim() ?? null;
+  const lines = metadataLines(corpus);
+  const tokenRe = /^[A-Z0-9][A-Z0-9./-]{2,}$/i;
+  const cleanCandidate = (raw: string | null | undefined): string | null => {
+    const candidates = (raw ?? "")
+      .split(/\s+/)
+      .map((token) => token.replace(/^[\s:#-]+|[\s:#-]+$/g, ""))
+      .filter((candidate) => {
+        if (!tokenRe.test(candidate)) return false;
+        if (!/\d/.test(candidate)) return false;
+        if (GENERIC_CODE_TOKEN_RE.test(candidate)) return false;
+        if (DATE_TOKEN_RE.test(candidate)) return false;
+        if (INVOICE_NUMBER_REJECT_RE.test(candidate)) return false;
+        return true;
+      })
+      .map((candidate) => {
+        let score = 0;
+        if (/[A-Z]/i.test(candidate) && /\d/.test(candidate)) score += 20;
+        if (/^[A-Z]/i.test(candidate)) score += 10;
+        if (/^\d+$/.test(candidate)) score -= 10;
+        score += Math.min(candidate.length, 12);
+        return { candidate, score };
+      })
+      .sort((a, b) => b.score - a.score);
+    return candidates[0]?.candidate ?? null;
+  };
+
+  const explicitIdentifierRe =
+    /\binvoice\s*(?:number|no\.?|#|id|nr\.?)\s*:?\s*([A-Z0-9][A-Z0-9./-]{2,})\b/i;
+  for (const line of lines) {
+    if (INVOICE_NUMBER_REJECT_RE.test(line) || /\binvoice\s+date\b/i.test(line)) continue;
+    const candidate = cleanCandidate(line.match(explicitIdentifierRe)?.[1]);
+    if (candidate) return candidate;
+  }
+
+  const invoiceValueRe = /\binvoice\s*:\s*([A-Z0-9][A-Z0-9./-]{2,})\b/i;
+  for (const line of lines) {
+    if (INVOICE_NUMBER_REJECT_RE.test(line) || /\binvoice\s+date\b/i.test(line)) continue;
+    const candidate = cleanCandidate(line.match(invoiceValueRe)?.[1]);
+    if (candidate) return candidate;
+  }
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index]!;
+    if (!/^\s*invoice\s*$/i.test(line)) continue;
+    const candidate = cleanCandidate(lines.slice(index + 1, index + 5).join(" "));
+    if (candidate) return candidate;
+  }
+
+  const invoiceDirectValueRe = /^\s*invoice\s+([A-Z0-9][A-Z0-9./-]{1,})\s*$/i;
+  for (const line of lines) {
+    if (INVOICE_NUMBER_REJECT_RE.test(line) || /\binvoice\s+date\b/i.test(line)) continue;
+    const candidate = cleanCandidate(line.match(invoiceDirectValueRe)?.[1]);
+    if (candidate) return candidate;
+  }
+  return null;
 }
 
 export function extractEnglishInvoiceDate(corpus: string): string | null {
-  const match = corpus.match(INVOICE_DATE_RE);
-  return match?.[1]?.trim() ?? null;
+  const lines = metadataLines(corpus);
+  const rejectRe = /\b(?:due|payment|delivery)\s+date\b/i;
+  const labelRe = /^\s*(?:invoice\s+date|issue\s+date|date)\s*:?\s*(.*)$/i;
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index]!;
+    if (rejectRe.test(line)) continue;
+    const match = line.match(labelRe);
+    if (!match) continue;
+    const candidate = match[1]?.trim() || nextNonemptyLine(lines, index);
+    const date = candidate.match(DATE_TOKEN_RE)?.[1];
+    if (date) return date;
+  }
+  return null;
 }
 
 export function extractEnglishInvoiceTotal(corpus: string): number | null {
@@ -166,53 +340,53 @@ export function extractLabeledInvoiceTotalByPriority(corpus: string): number | n
 }
 
 export function extractEnglishInvoiceCurrency(corpus: string): string | null {
-  for (const re of TOTAL_AMOUNT_PATTERNS) {
-    const match = corpus.match(re);
-    if (match?.[0] && /\bEUR\b|€/.test(match[0])) return "EUR";
+  const plain = plainOcrText(corpus);
+  for (const line of metadataLines(plain)) {
+    const match = line.match(/^\s*currency\s*:?\s*([A-Z]{3})\b/i);
+    const code = match?.[1]?.toUpperCase();
+    if (code && CURRENCY_CODES.includes(code as typeof CURRENCY_CODES[number])) return code;
   }
-  if (/\bEUR\b|€/.test(corpus)) return "EUR";
+  for (const code of CURRENCY_CODES) {
+    if (new RegExp(`\\b${code}\\b`, "i").test(plain)) return code;
+  }
+  if (/€/.test(plain)) return "EUR";
+  if (/£/.test(plain)) return "GBP";
+  if (/\$/.test(plain)) return "USD";
   return null;
 }
 
-/**
- * Consignee — prefer Recipient block; combine Buyer company name + Recipient address.
- * Rejects QR payment footer strings.
- */
+export function extractEnglishIncoterms(corpus: string): string | null {
+  const lines = metadataLines(corpus);
+  const labelRe = /^\s*(?:incoterms?|delivery\s+terms|terms\s+of\s+delivery|pariteta)\s*:?\s*(.*)$/i;
+  const codeRe = /\b(EXW|FCA|DAP|DDP|CPT|CIP|FOB|CFR|CIF|DPU)\b(?:\s+([A-Za-z0-9 .,'/-]{1,60}))?/i;
+  for (let index = 0; index < lines.length; index += 1) {
+    const match = lines[index]!.match(labelRe);
+    if (!match) continue;
+    const candidate = match[1]?.trim() || nextNonemptyLine(lines, index);
+    const codeMatch = candidate.match(codeRe);
+    if (!codeMatch?.[1]) continue;
+    const term = codeMatch[1].toUpperCase();
+    const location = codeMatch[2]?.replace(/^[\s:-]+|[\s:-]+$/g, "") ?? "";
+    return `${term} ${location}`.trim();
+  }
+  return null;
+}
+
+/** Consignee — prefer explicit party labels, then delivery address. */
 export function extractEnglishConsignee(corpus: string): string | null {
-  const parts: string[] = [];
-
-  const buyerLines = extractBlockAfterLabel(corpus, /Buyer\s*:?\s*/i, 8, "address");
-  for (const line of buyerLines) {
-    const tradeName = extractTradeNameFromBuyerLine(line);
-    if (tradeName && !parts.includes(tradeName)) {
-      parts.push(tradeName);
-      break;
+  const lines = metadataLines(corpus);
+  const labels = [
+    /^\s*consignee\s*:?/i,
+    /^\s*buyer\s*:?/i,
+    /^\s*recipient\s*:?/i,
+    /^\s*bill\s+to\s*:?/i,
+    /^\s*delivery\s+address\s*:?/i,
+  ];
+  for (const label of labels) {
+    const block = extractMetadataBlockAfterLabel(lines, label, 8);
+    if (block && isValidConsigneeText(block)) {
+      return block;
     }
-    const first = line.replace(/^["']|["']$/g, "").trim();
-    if (
-      first.length > 2 &&
-      !/^\d/.test(first) &&
-      !/d\.o\.o\./i.test(first) &&
-      !isRejectedConsigneeText(first) &&
-      !parts.includes(first)
-    ) {
-      parts.push(first);
-      break;
-    }
-  }
-
-  for (const label of [/Recipient\s*:?\s*/i, /Consignee\s*:?\s*/i, /Bill\s+To\s*:?\s*/i]) {
-    const lines = extractBlockAfterLabel(corpus, label, 10, "address");
-    for (const line of lines) {
-      const trimmed = line.trim();
-      if (!isConsigneeAddressLine(trimmed) || parts.includes(trimmed)) continue;
-      parts.push(trimmed);
-    }
-    if (parts.length > 0) break;
-  }
-
-  if (parts.length > 0) {
-    return parts.join("\n");
   }
 
   return null;
@@ -220,21 +394,71 @@ export function extractEnglishConsignee(corpus: string): string | null {
 
 /** Exporter — company with seller VAT (often SI/DE) or Shipper/Seller block. */
 export function extractEnglishExporter(corpus: string): string | null {
-  const shipperLines = extractBlockAfterLabel(corpus, /(?:Shipper|Seller|Exporter)\s*:?\s*/i);
-  if (shipperLines[0]) return shipperLines[0].trim();
+  const lines = metadataLines(corpus);
+  const explicit = extractMetadataBlockAfterLabel(
+    lines,
+    /^\s*(?:shipper|seller|exporter)\s*:/i,
+    6
+  );
+  if (explicit && !isMetadataNoise(explicit)) return explicit;
 
-  const buyerBlock = extractBlockAfterLabel(corpus, /Buyer\s*:?\s*/i, 6);
-  for (const line of buyerBlock) {
-    const siCompany = line.match(/([A-Za-z0-9][A-Za-z0-9.\s&-]*d\.o\.o\.)/i);
-    if (siCompany && /VAT number:\s*SI/i.test(corpus)) {
-      return siCompany[1].trim();
+  const companyIdentityLines: string[] = [];
+  for (const line of lines.slice(0, 90)) {
+    if (/^(?:invoice|invoice\s+date|customer|delivery\s+address|consignee|buyer|recipient|transport|incoterms?)\b/i.test(line)) {
+      break;
+    }
+    if (line) companyIdentityLines.push(line);
+  }
+
+  const departmentOrOfficeRe =
+    /\b(?:direction|administration|commerciale?|services?\s+financiers?|office|department|division|cedex|t[ée]l\.?|fax|bp\s+\d+)\b/i;
+  const addressOrTaxLineRe =
+    /\b(?:capital|head\s+quarter|rue|street|avenue|vat|tva|eori|r\s*\.?\s*c\s*\.?\s*s\.?|tax\s+id|iban|swift|bank)\b/i;
+  let best: { name: string; score: number } | null = null;
+
+  for (let index = 0; index < companyIdentityLines.length; index += 1) {
+    const line = companyIdentityLines[index]!;
+    const cleaned = cleanPartyLine(line);
+    if (!cleaned || isMetadataNoise(cleaned)) continue;
+    if (departmentOrOfficeRe.test(cleaned) || addressOrTaxLineRe.test(cleaned)) continue;
+    if (/^\d{4,6}\b/.test(cleaned)) continue;
+    if (/^[A-Z]{1,6}\d{4,}[A-Z0-9./-]*$/i.test(cleaned)) continue;
+    if (/^(?:price|amount|quantity|description|reference|code|customs|hs|orig\.?|net\s+total|total)$/i.test(cleaned)) continue;
+    if (/\b(?:description|gross\s+unit|net\s+unit|customs\s+hs|delivered\s+quantity|ordered\s+qty|reference\s+number)\b/i.test(cleaned)) continue;
+    if (/^(?:invoice|customer|reference|payment|total|currency|code)\b/i.test(cleaned)) continue;
+    if (cleaned.length < 3 || cleaned.length > 80) continue;
+
+    const nearby = companyIdentityLines.slice(Math.max(0, index - 2), index + 8).join("\n");
+    const hasTaxEvidence = /\b(?:VAT|TVA|EORI|R\.C\.S\.|tax\s+id)\b/i.test(nearby);
+    const hasCompanySuffix = /\b(?:ltd|limited|gmbh|s\.?a\.?|s\.?n\.?c\.?|d\.o\.o\.|s\.r\.o\.)\b/i.test(cleaned);
+    if (!hasTaxEvidence && !hasCompanySuffix) continue;
+
+    let score = 0;
+    if (hasTaxEvidence) score += 60;
+    if (hasCompanySuffix) score += 20;
+    if (index < 20) score += 10;
+    if (cleaned === cleaned.toLowerCase()) score += 5;
+
+    if (!best || score > best.score) {
+      best = { name: normalizeCompanyName(cleaned), score };
     }
   }
 
-  const vatSiMatch = corpus.match(
-    /([A-Za-z0-9][^\n]{3,60}?d\.o\.o\.[^\n]*)\n[^\n]*VAT number:\s*SI/i
-  );
-  if (vatSiMatch?.[1]) return vatSiMatch[1].trim();
+  if (best) return best.name;
+
+  const plain = plainOcrText(corpus);
+  const supplierIdentityPatterns = [
+    /(?:^|\n|\b)([A-Za-z][A-Za-z .&'-]{2,60}?)\s+S\.?\s*N\.?\s*C\.?\s+au\s+capital[\s\S]{0,260}\b(?:VAT|TVA|EORI|R\s*\.?\s*C\s*\.?\s*S\.?)\b/i,
+    /(?:^|\n)([A-Za-z][A-Za-z .&'-]{2,60})\s*\n[\s\S]{0,220}\b(?:VAT|TVA|EORI|R\s*\.?\s*C\s*\.?\s*S\.?)\b/i,
+  ];
+  for (const pattern of supplierIdentityPatterns) {
+    const candidate = cleanPartyLine(plain.match(pattern)?.[1] ?? "");
+    if (!candidate) continue;
+    if (departmentOrOfficeRe.test(candidate) || addressOrTaxLineRe.test(candidate)) continue;
+    if (/^\d{4,6}\b/.test(candidate)) continue;
+    if (/^[A-Z]{1,6}\d{4,}[A-Z0-9./-]*$/i.test(candidate)) continue;
+    return normalizeCompanyName(candidate);
+  }
 
   return null;
 }
@@ -285,6 +509,112 @@ function applyQuantityNormalization(items: ApiInvoiceItem[]): {
 } {
   const { items: normalized, hasWarning } = validateAndNormalizeLineItemQuantities(items);
   return { items: normalized, quantityWarning: hasWarning };
+}
+
+function itemDescription(item: ApiInvoiceItem): string {
+  return [item.item_code, item.description]
+    .map((part) => String(part ?? "").trim())
+    .filter(Boolean)
+    .join(" ");
+}
+
+export function isUnsafeTableReconstructionText(text: string | null | undefined): boolean {
+  return TABLE_RECONSTRUCTION_REJECT_ROW_RE.test(text?.trim() ?? "");
+}
+
+function hasCommercialEvidence(item: ApiInvoiceItem): boolean {
+  const description = itemDescription(item);
+  const hasHs = Boolean(item.hs_code?.trim() || item.invoice_hs_code?.trim());
+  const hasCode = Boolean(
+    item.item_code?.trim() ||
+      PRODUCT_CODE_RE.test(description) ||
+      SKU_LIKE_TOKEN_RE.test(description)
+  );
+  const hasQuantity = parseQuantity(item.quantity) > 0;
+  const hasUnitPrice = parseMoney(String(item.unit_price ?? "")) != null;
+  const hasLineTotal = parseMoney(String(item.line_total ?? "")) != null;
+
+  return hasHs || hasCode || hasQuantity || hasUnitPrice || hasLineTotal;
+}
+
+function positionSanityReasons(items: ApiInvoiceItem[]): string[] {
+  const positions = items
+    .map((item) => item.position_number)
+    .filter((position): position is number => typeof position === "number" && position > 0)
+    .sort((a, b) => a - b);
+  if (positions.length === 0) return ["no valid position numbers"];
+
+  const reasons: string[] = [];
+  const first = positions[0]!;
+  if (first > 10) {
+    reasons.push(`first position ${first} is greater than 10`);
+  }
+  if (positions.some((position) => position > 250)) {
+    reasons.push("position number is implausibly high");
+  }
+  for (let index = 1; index < positions.length; index += 1) {
+    const previous = positions[index - 1]!;
+    const current = positions[index]!;
+    const gap = current - previous;
+    if (gap > 25) {
+      reasons.push(`large position gap ${previous}-${current}`);
+      break;
+    }
+  }
+
+  return reasons;
+}
+
+export function evaluateTableReconstructionQuality(
+  items: ApiInvoiceItem[]
+): TableReconstructionQualityDecision {
+  const reasons: string[] = [];
+  let score = 100;
+
+  if (items.length === 0) {
+    return {
+      accepted: false,
+      score: 0,
+      acceptance_reason: null,
+      rejection_reason: "no reconstructed rows",
+      rejected_row_count: 0,
+      missing_evidence_count: 0,
+    };
+  }
+
+  const rejectedRowCount = items.filter((item) =>
+    isUnsafeTableReconstructionText(itemDescription(item))
+  ).length;
+  if (rejectedRowCount > 0) {
+    score -= 45;
+    reasons.push(`${rejectedRowCount} reconstructed rows contain address/footer/legal text`);
+  }
+
+  const missingEvidenceCount = items.filter((item) => !hasCommercialEvidence(item)).length;
+  if (missingEvidenceCount > 0) {
+    score -= 30;
+    reasons.push(`${missingEvidenceCount} reconstructed rows lack commercial evidence`);
+  }
+
+  const positionReasons = positionSanityReasons(items);
+  if (positionReasons.length > 0) {
+    score -= Math.min(45, positionReasons.length * 20);
+    reasons.push(...positionReasons);
+  }
+
+  score = Math.max(0, Math.min(100, score));
+  const accepted = reasons.length === 0 && score >= TABLE_RECONSTRUCTION_MIN_SCORE;
+
+  return {
+    accepted,
+    score,
+    acceptance_reason: accepted
+      ? `table reconstruction accepted with score ${score}`
+      : null,
+    rejection_reason: accepted ? null : reasons.join("; "),
+    rejected_row_count: rejectedRowCount,
+    missing_evidence_count: missingEvidenceCount,
+  };
 }
 
 function parsePartialLineRow(line: string): ApiInvoiceItem | null {
@@ -596,12 +926,26 @@ export function extractEnglishLineItems(corpus: string): ApiInvoiceItem[] {
 
 export function enrichEnglishInvoiceFieldsFromOcr(invoice: NormalizedInvoice): NormalizedInvoice {
   const corpus = invoice.ocr_text?.trim() ?? "";
-  if (!corpus) return invoice;
-
   let enriched: NormalizedInvoice = { ...invoice };
 
-  if (!enriched.invoice_number?.trim()) {
-    const invoiceNumber = extractEnglishInvoiceNumber(corpus);
+  if (!corpus) {
+    const deliveryCompany = enriched.delivery_address?.company?.trim() ?? "";
+    if (!isValidHeaderValue("consignee", enriched.consignee) && deliveryCompany && !isMetadataNoise(deliveryCompany)) {
+      return { ...enriched, consignee: deliveryCompany };
+    }
+    return enriched;
+  }
+
+  const recoveredInvoiceNumber = extractEnglishInvoiceNumber(corpus);
+  const existingInvoiceNumber = enriched.invoice_number?.trim() ?? "";
+  const shouldReplaceInvoiceNumber =
+    !isValidHeaderValue("invoice_number", existingInvoiceNumber) ||
+    (Boolean(recoveredInvoiceNumber) &&
+      recoveredInvoiceNumber !== existingInvoiceNumber &&
+      /^\d+$/.test(existingInvoiceNumber) &&
+      /[A-Z]/i.test(recoveredInvoiceNumber));
+  if (shouldReplaceInvoiceNumber) {
+    const invoiceNumber = recoveredInvoiceNumber;
     if (invoiceNumber) {
       enriched = { ...enriched, invoice_number: invoiceNumber };
       enriched = appendProvenance(enriched, {
@@ -612,7 +956,7 @@ export function enrichEnglishInvoiceFieldsFromOcr(invoice: NormalizedInvoice): N
     }
   }
 
-  if (!enriched.invoice_date?.trim()) {
+  if (!isValidHeaderValue("invoice_date", enriched.invoice_date)) {
     const invoiceDate = extractEnglishInvoiceDate(corpus);
     if (invoiceDate) {
       enriched = { ...enriched, invoice_date: invoiceDate };
@@ -624,7 +968,7 @@ export function enrichEnglishInvoiceFieldsFromOcr(invoice: NormalizedInvoice): N
     }
   }
 
-  if (!enriched.exporter?.trim()) {
+  if (!isValidHeaderValue("exporter", enriched.exporter)) {
     const exporter = extractEnglishExporter(corpus);
     if (exporter) {
       enriched = { ...enriched, exporter };
@@ -633,12 +977,15 @@ export function enrichEnglishInvoiceFieldsFromOcr(invoice: NormalizedInvoice): N
         value: exporter.slice(0, 80),
         source: "ocr_fallback",
       });
+    } else if (enriched.exporter && isMetadataNoise(enriched.exporter)) {
+      enriched = { ...enriched, exporter: null };
     }
   }
 
-  const consigneeInvalid = isRejectedConsigneeText(enriched.consignee);
-  if (!enriched.consignee?.trim() || consigneeInvalid) {
-    const consignee = extractEnglishConsignee(corpus);
+  const consigneeInvalid = !isValidHeaderValue("consignee", enriched.consignee);
+  if (consigneeInvalid) {
+    const deliveryCompany = enriched.delivery_address?.company?.trim() ?? "";
+    const consignee = extractEnglishConsignee(corpus) ?? (deliveryCompany && !isMetadataNoise(deliveryCompany) ? deliveryCompany : null);
     if (consignee && isValidConsigneeText(consignee)) {
       enriched = recordParserRecovery(enriched, {
         field: "consignee",
@@ -657,32 +1004,82 @@ export function enrichEnglishInvoiceFieldsFromOcr(invoice: NormalizedInvoice): N
     }
   }
 
+  if (!isValidHeaderValue("incoterms", enriched.incoterms)) {
+    const incoterms = extractEnglishIncoterms(corpus);
+    if (incoterms) {
+      enriched = { ...enriched, incoterms };
+      enriched = appendProvenance(enriched, {
+        field: "incoterms",
+        value: incoterms,
+        source: "ocr_fallback",
+      });
+    }
+  }
+
+  if (!isValidHeaderValue("currency", enriched.currency)) {
+    const currency = extractEnglishInvoiceCurrency(corpus);
+    if (currency) {
+      enriched = { ...enriched, currency };
+      enriched = appendProvenance(enriched, {
+        field: "currency",
+        value: currency,
+        source: "ocr_fallback",
+      });
+    }
+  }
+
   if (shouldRecoverLineItemsFromTable(enriched, corpus)) {
     const { items, partialRecovery, quantityWarning } =
       extractEnglishLineItemsWithDiagnostics(corpus);
     if (items.length > 0) {
       const previousCount = enriched.items?.length ?? 0;
-      enriched = recordParserRecovery(enriched, {
-        field: "line_items",
-        original_value: String(previousCount),
-        recovered_value: String(items.length),
-        recovery_source: "TABLE_RECONSTRUCTION",
-      });
-      enriched = {
-        ...enriched,
-        items,
-        document_flags: {
-          ...enriched.document_flags,
-          line_items_recovered: true,
-          ...(partialRecovery ? { line_items_partial_recovery: true } : {}),
-          ...(quantityWarning ? { [QUANTITY_PARSING_WARNING]: true } : {}),
-        },
-      };
-      enriched = appendProvenance(enriched, {
-        field: "items",
-        value: `${items.length} lines`,
-        source: "ocr_fallback",
-      });
+      const reconstructionQuality = evaluateTableReconstructionQuality(items);
+      if (!reconstructionQuality.accepted) {
+        enriched = {
+          ...enriched,
+          items: previousCount > 0 ? enriched.items : [],
+          document_flags: {
+            ...enriched.document_flags,
+            [TABLE_RECONSTRUCTION_REJECTED]: true,
+            table_reconstruction_status: TABLE_RECONSTRUCTION_REJECTED,
+            table_reconstruction_score: reconstructionQuality.score,
+            ...(reconstructionQuality.rejection_reason
+              ? { table_reconstruction_rejection_reason: reconstructionQuality.rejection_reason }
+              : {}),
+          },
+        };
+        enriched = appendProvenance(enriched, {
+          field: "items",
+          value: `rejected:${items.length} lines:score=${reconstructionQuality.score}`,
+          source: "ocr_fallback",
+        });
+      } else {
+        enriched = recordParserRecovery(enriched, {
+          field: "line_items",
+          original_value: String(previousCount),
+          recovered_value: String(items.length),
+          recovery_source: "TABLE_RECONSTRUCTION",
+        });
+        enriched = {
+          ...enriched,
+          items,
+          document_flags: {
+            ...enriched.document_flags,
+            line_items_recovered: true,
+            table_reconstruction_score: reconstructionQuality.score,
+            ...(reconstructionQuality.acceptance_reason
+              ? { table_reconstruction_acceptance_reason: reconstructionQuality.acceptance_reason }
+              : {}),
+            ...(partialRecovery ? { line_items_partial_recovery: true } : {}),
+            ...(quantityWarning ? { [QUANTITY_PARSING_WARNING]: true } : {}),
+          },
+        };
+        enriched = appendProvenance(enriched, {
+          field: "items",
+          value: `${items.length} lines`,
+          source: "ocr_fallback",
+        });
+      }
     }
   }
 

@@ -5,6 +5,9 @@
 const EXCLUDED_LINE_RE =
   /(?:vat\s+base\s+at|vat\s+\d+\s*%|tax\s+(?:rate|percent)|total\s+w\/o\s+vat|subtotal\s+w\/o|net\s+amount\s+w\/o)/i;
 
+const WEIGHT_SUMMARY_LINE_RE =
+  /\b(?:gross\s+weight|net\s+weight|shipment\s+weight|weight\s+summary|kg\b|pallet|euro\s+pallet)\b/i;
+
 /** Standalone pre-discount Amount line (not Amount to be paid / Amount EUR / VAT Amount). */
 const PRE_DISCOUNT_AMOUNT_LINE_RE =
   /^\s*(?:Amount|Znesek)\s*(?!to\s+be\s+paid)(?!EUR\b)(?!with\b)(?!za\s+pla)\s*:?\s/i;
@@ -26,6 +29,8 @@ export function isExcludedMonetaryContext(corpus: string, matchIndex: number): b
   const line = corpus.slice(lineStart, lineEnd === -1 ? undefined : lineEnd);
 
   if (EXCLUDED_LINE_RE.test(line)) return true;
+
+  if (WEIGHT_SUMMARY_LINE_RE.test(line)) return true;
 
   if (/^\s*VAT\s+\d/i.test(line)) return true;
 
