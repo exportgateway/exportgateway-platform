@@ -940,7 +940,7 @@ export function enrichEnglishInvoiceFieldsFromOcr(invoice: NormalizedInvoice): N
   const existingInvoiceNumber = enriched.invoice_number?.trim() ?? "";
   const shouldReplaceInvoiceNumber =
     !isValidHeaderValue("invoice_number", existingInvoiceNumber) ||
-    (Boolean(recoveredInvoiceNumber) &&
+    (recoveredInvoiceNumber !== null &&
       recoveredInvoiceNumber !== existingInvoiceNumber &&
       /^\d+$/.test(existingInvoiceNumber) &&
       /[A-Z]/i.test(recoveredInvoiceNumber));
