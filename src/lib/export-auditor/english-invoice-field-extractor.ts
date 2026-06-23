@@ -375,16 +375,33 @@ export function extractEnglishIncoterms(corpus: string): string | null {
 /** Consignee — prefer explicit party labels, then delivery address. */
 export function extractEnglishConsignee(corpus: string): string | null {
   const lines = metadataLines(corpus);
+  const buyerTradeName = (() => {
+    const buyerIndex = lines.findIndex((line) => /^\s*buyer\s*:?/i.test(line));
+    if (buyerIndex < 0) return null;
+    for (const line of lines.slice(buyerIndex + 1, buyerIndex + 5)) {
+      const candidate = cleanPartyLine(line);
+      if (!candidate || isRejectedConsigneeText(candidate)) continue;
+      if (/vat\s+number|invoice\s+number|recipient|date\b/i.test(candidate)) break;
+      if (/d\.o\.o\.|gmbh|ltd\.?|inc\.?|s\.a\.|s\.r\.o\./i.test(candidate)) continue;
+      return candidate;
+    }
+    return null;
+  })();
   const labels = [
     /^\s*consignee\s*:?/i,
-    /^\s*buyer\s*:?/i,
     /^\s*recipient\s*:?/i,
+    /^\s*buyer\s*:?/i,
     /^\s*bill\s+to\s*:?/i,
     /^\s*delivery\s+address\s*:?/i,
+    /^\s*adressee\s*:?/i,
+    /^\s*addressee\s*:?/i,
   ];
   for (const label of labels) {
     const block = extractMetadataBlockAfterLabel(lines, label, 8);
     if (block && isValidConsigneeText(block)) {
+      if (label.source.includes("recipient") && buyerTradeName && !block.includes(buyerTradeName)) {
+        return `${buyerTradeName}\n${block}`;
+      }
       return block;
     }
   }

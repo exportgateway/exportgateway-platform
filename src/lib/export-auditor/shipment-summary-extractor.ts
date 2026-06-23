@@ -125,7 +125,10 @@ function inferPackageType(token: string | undefined): string | null {
 
 /** Match 35 CARTONS (1 PALLETE) and similar packing lines. */
 const PACKING_PACKAGE_RE =
-  /(\d+)\s*(cartons?|carton|ctns?|ctn|boxes|box|pkgs?|pkg|collis?|colli)\b(?:\s*[\(\[]\s*(\d+)\s*pal+\w*\s*[\)\]])?/gi;
+  /(\d+)[ \t]*(cartons?|carton|ctns?|ctn|boxes|box|pkgs?|pkg|collis?|colli)\b(?:[ \t]*[\(\[][ \t]*(\d+)[ \t]*pal+\w*[ \t]*[\)\]])?/gi;
+
+const CARTON_LABEL_PACKAGE_RE =
+  /\bcartons?\s+(?:nr\.?|no\.?|number)?\s*(\d+)\b/i;
 
 function extractPalletFromParens(text: string): number | null {
   const match = text.match(/[\(\[]\s*(\d+)\s*pal+\w*\s*[\)\]]/i);
@@ -145,6 +148,18 @@ function extractPackingLinePackages(corpus: string): Pick<
   const searchBlocks = packingSection ? [packingSection] : [corpus];
 
   for (const block of searchBlocks) {
+    const labelMatch = block.match(CARTON_LABEL_PACKAGE_RE);
+    if (labelMatch) {
+      const count = parseInt(labelMatch[1], 10);
+      if (Number.isFinite(count)) {
+        return {
+          package_count: count,
+          package_type: "CT",
+          pallet_count: extractPalletFromParens(block),
+        };
+      }
+    }
+
     PACKING_PACKAGE_RE.lastIndex = 0;
     const match = PACKING_PACKAGE_RE.exec(block);
     if (!match) continue;
@@ -161,6 +176,18 @@ function extractPackingLinePackages(corpus: string): Pick<
       package_type: packageType,
       pallet_count: Number.isFinite(palletInParens!) ? palletInParens : null,
     };
+  }
+
+  const cartonLabelMatch = corpus.match(CARTON_LABEL_PACKAGE_RE);
+  if (cartonLabelMatch) {
+    const count = parseInt(cartonLabelMatch[1], 10);
+    if (Number.isFinite(count)) {
+      return {
+        package_count: count,
+        package_type: "CT",
+        pallet_count: extractPalletFromParens(cartonLabelMatch[0]),
+      };
+    }
   }
 
   PACKING_PACKAGE_RE.lastIndex = 0;
@@ -277,6 +304,7 @@ export function extractFooterShipmentMetrics(corpus: string): Pick<
     corpus.match(new RegExp(`\\bbruto\\s*\\/\\s*gross\\s*:?\\s*([\\d.,]+)${WEIGHT_UNIT_SUFFIX}`, "i")) ??
     corpus.match(new RegExp(`\\bgross\\s*\\/\\s*gross\\s*=:?\\s*([\\d.,]+)${WEIGHT_UNIT_SUFFIX}`, "i")) ??
     corpus.match(new RegExp(`\\bbruto\\s*\\/\\s*gross\\s*=:?\\s*([\\d.,]+)${WEIGHT_UNIT_SUFFIX}`, "i")) ??
+    corpus.match(new RegExp(`\\bgross\\s+weight\\s*:?\\s*(kg|km|g|lb|ton|tonne|tons|tonnes)[ \\t]+([\\d.,]+)`, "i")) ??
     corpus.match(new RegExp(`\\bgross\\s+weight\\s*:?\\s*([\\d.,]+)${WEIGHT_UNIT_SUFFIX}`, "i")) ??
     corpus.match(new RegExp(`\\bgross\\s*:\\s*([\\d.,]+)${WEIGHT_UNIT_SUFFIX}`, "i"));
   const netMatch =
@@ -284,12 +312,15 @@ export function extractFooterShipmentMetrics(corpus: string): Pick<
     corpus.match(new RegExp(`\\bnetto\\s*:?\\s*([\\d.,]+)${WEIGHT_UNIT_SUFFIX}`, "i")) ??
     corpus.match(new RegExp(`\\bneto\\s*\\/\\s*nett?\\s*:?\\s*([\\d.,]+)${WEIGHT_UNIT_SUFFIX}`, "i")) ??
     corpus.match(new RegExp(`\\bnetto\\s*\\/\\s*nett?\\s*=:?\\s*([\\d.,]+)${WEIGHT_UNIT_SUFFIX}`, "i")) ??
+    corpus.match(new RegExp(`\\bnet\\s+weight\\s*:?\\s*(kg|g|lb|ton|tonne|tons|tonnes)[ \\t]+([\\d.,]+)`, "i")) ??
     corpus.match(new RegExp(`\\bnet\\s+weight\\s*:?\\s*([\\d.,]+)${WEIGHT_UNIT_SUFFIX}`, "i")) ??
     corpus.match(new RegExp(`\\bnet(?:to|t)?\\s*:\\s*([\\d.,]+)${WEIGHT_UNIT_SUFFIX}`, "i")) ??
     corpus.match(new RegExp(`\\bnett?\\s*=\\s*([\\d.,]+)${WEIGHT_UNIT_SUFFIX}`, "i"));
 
-  const grossTotal = grossMatch ? parseWeightNumber(grossMatch[1]) : null;
-  const netTotal = netMatch ? parseWeightNumber(netMatch[1]) : null;
+  const grossUnitBeforeValue = grossMatch?.[1] != null && grossMatch?.[2] != null && /^(kg|km|g|lb|ton|tonne|tons|tonnes)$/i.test(grossMatch[1]);
+  const netUnitBeforeValue = netMatch?.[1] != null && netMatch?.[2] != null && /^(kg|g|lb|ton|tonne|tons|tonnes)$/i.test(netMatch[1]);
+  const grossTotal = grossMatch ? parseWeightNumber(grossUnitBeforeValue ? grossMatch[2] : grossMatch[1]) : null;
+  const netTotal = netMatch ? parseWeightNumber(netUnitBeforeValue ? netMatch[2] : netMatch[1]) : null;
 
   const package_count =
     packing.package_count ??
@@ -306,10 +337,12 @@ export function extractFooterShipmentMetrics(corpus: string): Pick<
     pallet_count,
     gross_weight_total: grossTotal ?? tabular.gross_weight_total,
     gross_weight_unit:
+      (grossUnitBeforeValue ? (grossMatch![1].toLowerCase() === "km" ? "kg" : grossMatch![1].toLowerCase()) : null) ??
       (grossMatch ? resolveCapturedWeightUnit(grossMatch, 2, grossTotal != null) : null) ??
       tabular.gross_weight_unit,
     net_weight_total: netTotal ?? tabular.net_weight_total,
     net_weight_unit:
+      (netUnitBeforeValue ? netMatch![1].toLowerCase() : null) ??
       (netMatch ? resolveCapturedWeightUnit(netMatch, 2, netTotal != null) : null) ??
       tabular.net_weight_unit,
     pallet_dimensions: null,
@@ -332,7 +365,8 @@ export function extractPackageCount(corpus: string): Pick<ShipmentSummary, "pack
     re: RegExp;
     typeIndex?: number;
   }> = [
-    { re: /(\d+)\s*(cartons?|carton|ctns?|ctn|boxes|box|pkgs?|pkg|collis?|colli)\b(?:\s*[\(\[]\s*\d+\s*palet(?:t)?(?:e|a|s)?\s*[\)\]])?/i, typeIndex: 2 },
+    { re: /\bcartons?\s+(?:nr\.?|no\.?|number)?\s*(\d+)\b/i, typeIndex: 0 },
+    { re: /(\d+)[ \t]*(cartons?|carton|ctns?|ctn|boxes|box|pkgs?|pkg|collis?|colli)\b(?:[ \t]*[\(\[][ \t]*\d+[ \t]*palet(?:t)?(?:e|a|s)?[ \t]*[\)\]])?/i, typeIndex: 2 },
     { re: /skupaj\s+število\s*[:\-]?\s*(\d+)\s*(koli|colli|palet(?:a|e|i)?|pallets?)?/i, typeIndex: 2 },
     { re: /število\s+koli\s*[:\-]?\s*(\d+)/i },
     { re: /number\s+of\s+packages?\s*[:\-]?\s*(\d+)/i },

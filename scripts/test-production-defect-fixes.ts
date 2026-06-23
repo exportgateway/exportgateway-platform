@@ -18,6 +18,8 @@ import {
 import { buildOcrObservability } from "../src/lib/export-auditor/ocr-observability";
 import { mapAuditReportToExportReport } from "../src/lib/export-auditor/map-api-response";
 import { resolveInvoiceValue } from "../src/lib/export-auditor/parse-locale-number";
+import { reconcileInvoiceFinancials } from "../src/lib/export-auditor/financial-reconciliation";
+import { extractInvoiceDiscountContext } from "../src/lib/export-auditor/invoice-discount-context";
 import { evaluatePreferentialOriginDecision } from "../src/lib/export-auditor/preferential-origin-decision-engine";
 import {
   runPreferentialOriginEngine,
@@ -26,7 +28,10 @@ import {
 } from "../src/lib/export-auditor/preferential-origin-engine";
 import {
   enrichInvoiceShipmentData,
+  extractGrossWeight,
   extractLineItemNetWeightTotal,
+  extractNetWeightFromDocument,
+  extractPackageCount,
 } from "../src/lib/export-auditor/shipment-summary-extractor";
 import { resolveWeightHierarchy } from "../src/lib/export-auditor/weight-extraction-hierarchy";
 import { aggregateLineNetWeightsForShipment } from "../src/lib/export-auditor/weight-line-aggregation";
@@ -118,6 +123,34 @@ const as2026Obs = buildOcrObservability(as2026Enriched, 1);
 assert((as2026Obs.dataExtractionCompleteness ?? 0) >= 80, "completeness >= 80% after recovery");
 assert(as2026Enriched.document_flags?.PARSER_MAPPING_FAILURE !== true, "no parser failure flag when recovered");
 
+console.log("\n1d. Sprint 3 — invoice total recovery rejects HS/tariff identifiers");
+
+const SPRINT3_TARIFF_ONLY_OCR = `
+RAČUN br.: 156/26
+TARIFNI BROJEVI:
+- Poz. 615.15-622.15: 73089098
+- Poz. 430.0-435.0: 73090090
+Plaćanje: u roku 90 dana
+`;
+const sprint3TariffOnly = enrichInvoiceDocument(
+  { ocr_text: SPRINT3_TARIFF_ONLY_OCR, items: [] },
+  null
+);
+assert(resolveInvoiceValue(sprint3TariffOnly) === 0, "do not derive invoice total from Poz./HS tariff references");
+
+const SPRINT3_FOR_PAYMENT_OCR = `
+Ordinary share capital: 428.917,00 EUR
+Register number: 1/20406/00
+Value 50.956,50
+Tax 0,00
+For payment EUR 50.956,50
+`;
+const sprint3ForPayment = enrichInvoiceDocument(
+  { ocr_text: SPRINT3_FOR_PAYMENT_OCR, items: [] },
+  null
+);
+assert(Math.abs(resolveInvoiceValue(sprint3ForPayment) - 50956.5) < 0.01, "prefer For payment EUR total over company capital");
+
 console.log("\n1c. AZ Jordan — table reconstruction must not replace 6 parser rows with 2 pallet rows");
 
 const AZ_JORDAN_ITEMS: NormalizedInvoice["items"] = [
@@ -141,6 +174,85 @@ const azJordanInvoice: NormalizedInvoice = {
 assert(!shouldRecoverLineItemsFromTable(azJordanInvoice, AZ_JORDAN_PACKING_OCR), "do not run lower-count table reconstruction over parser rows");
 const azJordanEnriched = enrichEnglishInvoiceFieldsFromOcr(azJordanInvoice);
 assert((azJordanEnriched.items?.length ?? 0) === 6, "6 parser rows preserved");
+
+console.log("\n1e. Golden 305/E — shipment summary OCR labels");
+
+const GOLDEN_305E_SHIPMENT_OCR = `
+Exterior Packaging
+CARTONS
+Freight by
+Transport date 02/02/2026
+Gross Weight Km 525,00
+Net Weight kg 435,00
+Carton Nr. 244
+`;
+const golden305Package = extractPackageCount(GOLDEN_305E_SHIPMENT_OCR);
+const golden305Gross = extractGrossWeight(GOLDEN_305E_SHIPMENT_OCR);
+const golden305Net = extractNetWeightFromDocument(GOLDEN_305E_SHIPMENT_OCR);
+assert(golden305Package.package_count === 244, "305/E package count recovered from Carton Nr. 244");
+assert(golden305Package.package_type === "CT", "305/E package type CT");
+assert(golden305Gross.gross_weight_total === 525, "305/E gross weight recovered from Gross Weight Km 525,00");
+assert(golden305Gross.gross_weight_unit === "kg", "305/E gross unit normalized to kg");
+assert(golden305Net.net_weight_total === 435, "305/E net weight recovered from Net Weight kg 435,00");
+assert(extractPackageCount("Net Weight kg 435,00\nCarton").package_count == null, "reject cross-line 00/Carton package false positive");
+
+console.log("\n1f. Golden 305/E — invoice-level discount reconciliation");
+
+const GOLDEN_305E_DISCOUNT_OCR = `
+Gross Amount € 9.493,20
+Discount 3,0
+Value of discount 284,80
+Total amount € 9.208,40
+`;
+const golden305DiscountInvoice: NormalizedInvoice = {
+  invoice_number: "305/E",
+  total_value: "9.208,40",
+  total_value_numeric: 9208.4,
+  ocr_text: GOLDEN_305E_DISCOUNT_OCR,
+  items: [
+    { position_number: 1, description: "Recovered commercial rows", quantity: 1, line_total: "9.493,20" },
+  ],
+};
+const golden305DiscountContext = extractInvoiceDiscountContext(GOLDEN_305E_DISCOUNT_OCR);
+const golden305Reconciliation = reconcileInvoiceFinancials(golden305DiscountInvoice);
+const golden305DiscountReport = mapAuditReportToExportReport(
+  { ...golden305DiscountInvoice, financial_reconciliation: golden305Reconciliation },
+  baseAudit(),
+  "golden-305e.pdf"
+);
+assert(golden305DiscountContext.preDiscountAmount === 9493.2, "305/E gross amount extracted");
+assert(golden305DiscountContext.discountAmount === 284.8, "305/E discount amount extracted from Value of discount");
+assert(golden305DiscountContext.netTotalFromArithmetic === 9208.4, "305/E discount arithmetic equals invoice total");
+assert(golden305Reconciliation.validation_status === "PASS", "305/E discount reconciliation PASS");
+assert(golden305Reconciliation.invoice_total === 9208.4, "305/E invoice total remains 9208.40");
+assert(golden305Reconciliation.warning == null, "305/E no financial reconciliation warning");
+assert(
+  !golden305DiscountReport.issues.some((issue) => issue.field === "TOTAL_MISMATCH"),
+  "305/E report has no TOTAL_MISMATCH after discount reconciliation"
+);
+
+console.log("\n1g. Golden 305/E — Adressee consignee label recovery");
+
+const GOLDEN_305E_CONSIGNEE_OCR = `
+Adressee
+DRILONI SPORTSWEAR SH.P.K.
+RRUGA NAIM FRASHERI, 41
+70000 FERIZAJ (REPUBLIC OF KOSOVO)
+REPUBLIC OF KOSOVO (RKS)
+`;
+const golden305Consignee = extractEnglishConsignee(GOLDEN_305E_CONSIGNEE_OCR);
+const golden305ConsigneeEnriched = enrichInvoiceDocument(
+  {
+    invoice_number: "305/E",
+    consignee: "",
+    ocr_text: GOLDEN_305E_CONSIGNEE_OCR,
+    items: [],
+  },
+  null
+);
+assert(golden305Consignee?.includes("DRILONI SPORTSWEAR SH.P.K.") === true, "305/E Adressee label recovers consignee name");
+assert(golden305Consignee?.includes("REPUBLIC OF KOSOVO") === true, "305/E Adressee label preserves consignee country lines");
+assert(golden305ConsigneeEnriched.consignee?.includes("DRILONI SPORTSWEAR SH.P.K.") === true, "305/E enrichment fills consignee from Adressee");
 
 console.log("\n1b. AS2026-1069 — production parser failure fixture (QR consignee, total 22)");
 

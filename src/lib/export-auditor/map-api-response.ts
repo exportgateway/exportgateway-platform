@@ -9,7 +9,7 @@ import type {
 } from "@/lib/export-auditor/types";
 import { resolveCountryFromText } from "@/lib/export-auditor/country-resolution";
 import { evaluatePackageCountDecision, formatDeclarationPackageCount } from "@/lib/export-auditor/package-count-decision-engine";
-import { parseLocaleNumber, resolveInvoiceValue } from "@/lib/export-auditor/parse-locale-number";
+import { parseLocaleNumber, resolveInvoiceValue, sumLineTotals } from "@/lib/export-auditor/parse-locale-number";
 import type {
   AuditReportResponse,
   ApiAuditIssue,
@@ -115,6 +115,7 @@ import {
   validateInvoiceTotalConsistency,
   TOTAL_MISMATCH,
 } from "@/lib/export-auditor/invoice-total-consistency-validator";
+import { financialReconciliationIssues } from "@/lib/export-auditor/financial-reconciliation";
 import {
   computePreferentialAllocation,
   computeMixedOriginTotals,
@@ -130,6 +131,12 @@ import { buildOcrObservability } from "@/lib/export-auditor/ocr-observability";
 import { aggregateOcrSessionMetrics } from "@/lib/export-auditor/ocr-session-metrics";
 import { evaluateCustomsReadiness } from "@/lib/export-auditor/customs-readiness-engine";
 import { buildDataRecoveryDiagnostics, applyRecoveryReadinessDowngrade } from "@/lib/export-auditor/data-recovery-diagnostics";
+import {
+  filterGenericIssuesForOcrTableFailure,
+  ocrTableRecoveryIssues,
+  OCR_TABLE_NOT_EXTRACTED,
+  OCR_TABLE_NOT_EXTRACTED_MESSAGE,
+} from "@/lib/export-auditor/ocr-table-recovery";
 import { evaluateDeclarationReadiness } from "@/lib/export-auditor/declaration-readiness-check";
 import { computeExtractionAccuracyScore } from "@/lib/export-auditor/extraction-accuracy-score-engine";
 import { computeCustomsReadinessScore } from "@/lib/export-auditor/customs-readiness-score-engine";
@@ -564,7 +571,47 @@ function mapDocumentFlagIssues(invoice: NormalizedInvoice): AuditIssue[] {
     );
   }
 
+  if (flags[OCR_TABLE_NOT_EXTRACTED] === true) {
+    issues.push(
+      applyIssueSeverity({
+        id: OCR_TABLE_NOT_EXTRACTED,
+        type: "warning",
+        message: OCR_TABLE_NOT_EXTRACTED_MESSAGE,
+        field: OCR_TABLE_NOT_EXTRACTED,
+      })
+    );
+  }
+
   return issues;
+}
+
+function totalsWithinOnePercent(left: number, right: number): boolean {
+  if (!Number.isFinite(left) || !Number.isFinite(right) || left <= 0 || right <= 0) {
+    return false;
+  }
+  const base = Math.max(Math.abs(left), Math.abs(right), 0.01);
+  return Math.abs(left - right) / base <= 0.01;
+}
+
+function isStaleParserTotalOnlyMismatch(
+  invoice: NormalizedInvoice,
+  result: ReturnType<typeof validateInvoiceTotalConsistency>
+): boolean {
+  if (!result.inconsistent || result.issues.length === 0) {
+    return false;
+  }
+
+  const canonical = resolveInvoiceValue(invoice);
+  const lineSum = sumLineTotals(invoice.items);
+  if (lineSum == null || !totalsWithinOnePercent(canonical, lineSum)) {
+    return false;
+  }
+
+  const meaningfulSources = result.sources.filter((source) => source.id !== "parser_total");
+  return (
+    meaningfulSources.length >= 2 &&
+    meaningfulSources.every((source) => totalsWithinOnePercent(source.value, canonical))
+  );
 }
 
 function mapIssues(
@@ -815,7 +862,10 @@ function mapRecommendedActions(
       id: `issue-action-${index}`,
       title: issue.message.slice(0, 80),
       description: issue.message,
-      priority: issue.type === "error" ? ("high" as const) : ("medium" as const),
+      priority:
+        issue.type === "error" || issue.severity === "CRITICAL"
+          ? ("high" as const)
+          : ("medium" as const),
     }));
 
   if (fromStrings.length > 0) return fromStrings;
@@ -1162,6 +1212,7 @@ export function mapAuditReportToExportReport(
   issues = filterResolvedShipmentWarnings(issues, invoice);
   issues = filterResolvedHsCodeWarnings(issues, hsCodes.length);
   issues = filterResolvedVatArticleIssues(issues, invoice);
+  issues = filterGenericIssuesForOcrTableFailure(issues, invoice.ocr_table_recovery);
   const supportingDocumentsDetected = detectSupportingDocuments(invoice, preferenceOrigin, issues);
   issues = filterSupportingDocumentIssues(issues);
   issues = reclassifyHsCodeIssues(issues, hsCodes.length);
@@ -1180,21 +1231,36 @@ export function mapAuditReportToExportReport(
   const totalConsistency = validateInvoiceTotalConsistency(invoice, {
     customsDispositionValue: dispositionTotal,
   });
+  const suppressStaleParserTotalMismatch = isStaleParserTotalOnlyMismatch(
+    invoice,
+    totalConsistency
+  );
+  const suppressReconciledTotalMismatch =
+    invoice.financial_reconciliation?.validation_status === "PASS";
   invoice = {
     ...invoice,
     document_flags: {
       ...invoice.document_flags,
       ...integrity.flags,
-      ...totalConsistency.flags,
+      ...(suppressStaleParserTotalMismatch || suppressReconciledTotalMismatch
+        ? {}
+        : totalConsistency.flags),
     },
   };
   issues = deduplicateIssues([
     ...issues,
     ...integrity.issues.map((issue) => applyIssueSeverity(issue)),
-    ...totalConsistency.issues.map((issue) => applyIssueSeverity(issue)),
+    ...(suppressStaleParserTotalMismatch || suppressReconciledTotalMismatch
+      ? []
+      : totalConsistency.issues.map((issue) => applyIssueSeverity(issue))),
+    ...financialReconciliationIssues(invoice.financial_reconciliation).map((issue) =>
+      applyIssueSeverity(issue)
+    ),
+    ...ocrTableRecoveryIssues(invoice.ocr_table_recovery).map((issue) => applyIssueSeverity(issue)),
     ...mapDocumentFlagIssues(invoice),
   ]);
   issues = reclassifyHsCodeIssues(issues, hsCodes.length);
+  issues = filterGenericIssuesForOcrTableFailure(issues, invoice.ocr_table_recovery);
   issues = deduplicateIssues(issues);
   const errorCount = issues.filter((i) => i.type === "error").length;
   const invoiceFoundationComplete = isInvoiceFoundationComplete(invoice, preferenceOrigin);
@@ -1235,6 +1301,7 @@ export function mapAuditReportToExportReport(
     ),
     missingFields,
     invoiceSummary: buildInvoiceSummary(invoice, hsCodes, preferenceOrigin, extras?.disposition),
+    financialReconciliation: invoice.financial_reconciliation,
     shipmentSummary: mapShipmentSummary(invoice, audit),
     deliveryAddress: mapDeliveryAddress(invoice, audit),
     hsAggregationReport,

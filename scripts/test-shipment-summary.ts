@@ -8,6 +8,7 @@ import {
   extractDeliveryAddress,
   extractFooterShipmentMetrics,
   extractGrossWeight,
+  extractNetWeightFromDocument,
   extractPackageCount,
   extractPalletDimensions,
   extractShipmentSummary,
@@ -68,6 +69,41 @@ assert(extractPackageCount("Number of packages: 3").package_count === 3, "Number
 assert(extractPackageCount("3 pallets").package_count === 3, "3 pallets count");
 assert(extractPackageCount("3 pallets").package_type === "PALLET", "3 pallets type");
 assert(extractGrossWeight("Gross weight: 450 kg").gross_weight_total === 450, "Gross weight 450");
+
+console.log("\nGolden 305/E shipment patterns");
+const golden305ShipmentCorpus = `
+Exterior Packaging
+CARTONS
+Freight by
+Transport date 02/02/2026
+Gross Weight Km 525,00
+Net Weight kg 435,00
+Carton Nr. 244
+`;
+const golden305Summary = extractShipmentSummary(golden305ShipmentCorpus);
+assert(golden305Summary.package_count === 244, "305/E Carton Nr. 244 package_count");
+assert(golden305Summary.package_type === "CT", "305/E package_type CT");
+assert(golden305Summary.gross_weight_total === 525, "305/E Gross Weight Km 525,00");
+assert(golden305Summary.gross_weight_unit === "kg", "305/E gross unit kg");
+assert(golden305Summary.net_weight_total === 435, "305/E Net Weight kg 435,00");
+assert(golden305Summary.net_weight_unit === "kg", "305/E net unit kg");
+assert(extractPackageCount("Net Weight kg 435,00\nCarton").package_count == null, "reject cross-line 00/Carton false match");
+for (const text of [
+  "Carton Nr. 244",
+  "Cartons Nr. 244",
+  "Carton No. 244",
+  "Cartons No. 244",
+  "Carton Number 244",
+  "Cartons 244",
+]) {
+  const result = extractPackageCount(text);
+  assert(result.package_count === 244, `${text} → package_count 244`);
+  assert(result.package_type === "CT", `${text} → type CT`);
+}
+for (const text of ["Gross Weight kg 525,00", "Gross Weight KG 525,00", "Gross Weight Km 525,00"]) {
+  assert(extractGrossWeight(text).gross_weight_total === 525, `${text} → 525`);
+}
+assert(extractNetWeightFromDocument("Net Weight KG 435,00").net_weight_total === 435, "Net Weight KG 435,00 → 435");
 
 console.log("\nPGP 26/00246 packing patterns");
 const pgpCorpus = "PACKING: 35 CARTONS (1 PALLETE)\nBTTO: 538 KG\nNTTO: 500 KG";

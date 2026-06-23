@@ -40,7 +40,12 @@ export function extractVatInclusiveInvoiceTotal(corpus: string): number | null {
 }
 
 const PRE_DISCOUNT_AMOUNT_RE = new RegExp(
-  `(?:^|\\n)\\s*(?:Amount|Znesek)\\s*(?!to\\s+be\\s+paid)(?!EUR\\b)(?!with\\b)(?!za\\s+pla)\\s*:?\\s*(?:EUR|€)?\\s*(${MONEY_CAPTURE})`,
+  `(?:^|\\n)\\s*(?:Amount|Znesek|Gross\\s+(?:Amount|amount|value))\\s*(?!to\\s+be\\s+paid)(?!EUR\\b)(?!with\\b)(?!za\\s+pla)\\s*:?\\s*(?:EUR|€)?\\s*(${MONEY_CAPTURE})`,
+  "i"
+);
+
+const DISCOUNT_VALUE_LINE_RE = new RegExp(
+  `(?:^|\\n)\\s*(?:Value\\s+of\\s+discount|Discount\\s+value)\\s*:?\\s*(?:EUR|€)?\\s*-?\\s*(${MONEY_CAPTURE})`,
   "i"
 );
 
@@ -55,7 +60,7 @@ function extractPreDiscountAmount(corpus: string): number | null {
 }
 
 function extractDiscountAmount(corpus: string): number | null {
-  const match = corpus.match(DISCOUNT_LINE_RE);
+  const match = corpus.match(DISCOUNT_VALUE_LINE_RE) ?? corpus.match(DISCOUNT_LINE_RE);
   const raw = match?.[1] ? parseMoneyToken(match[1]) : null;
   return raw != null ? Math.abs(raw) : null;
 }
