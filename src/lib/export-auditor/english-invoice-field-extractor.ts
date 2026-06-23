@@ -764,7 +764,7 @@ export function shouldRecoverLineItemsFromTable(
   const recovered = extractEnglishLineItemsWithDiagnostics(corpus).items;
   const structuredParser = parserItemsAreStructured(invoice);
 
-  if (structuredParser && recovered.length <= currentCount) {
+  if (recovered.length <= currentCount) {
     return false;
   }
 

@@ -13,6 +13,7 @@ import {
   extractEnglishInvoiceTotal,
   enrichEnglishInvoiceFieldsFromOcr,
   isRejectedConsigneeText,
+  shouldRecoverLineItemsFromTable,
 } from "../src/lib/export-auditor/english-invoice-field-extractor";
 import { buildOcrObservability } from "../src/lib/export-auditor/ocr-observability";
 import { mapAuditReportToExportReport } from "../src/lib/export-auditor/map-api-response";
@@ -116,6 +117,30 @@ const as2026Enriched = enrichInvoiceDocument(
 const as2026Obs = buildOcrObservability(as2026Enriched, 1);
 assert((as2026Obs.dataExtractionCompleteness ?? 0) >= 80, "completeness >= 80% after recovery");
 assert(as2026Enriched.document_flags?.PARSER_MAPPING_FAILURE !== true, "no parser failure flag when recovered");
+
+console.log("\n1c. AZ Jordan — table reconstruction must not replace 6 parser rows with 2 pallet rows");
+
+const AZ_JORDAN_ITEMS: NormalizedInvoice["items"] = [
+  { position_number: 1, item_code: "14-002-606", description: "WRO316 DN23 PVC prozoren", quantity: "900,00", line_total: "4.694,40" },
+  { position_number: 2, item_code: "14-002-106", description: "WRO316L DN23 Rebrasta cev Cats", quantity: "1.200,00", line_total: "5.148,00" },
+  { position_number: 3, item_code: "14-040-554", description: "GV G1 double nipple", quantity: "100,00", line_total: "369,80" },
+  { position_number: 4, item_code: "14-002-104", description: "WRO316L DN18 Rebrasta cev Cats", quantity: "300,00", line_total: "1.029,30" },
+  { position_number: 5, item_code: "14-040-104", description: "G3/4 DN18 Cats brass nut", quantity: "500,00", line_total: "347,50" },
+  { position_number: 6, item_code: "14-002-103", description: "WRO316L DN15 Rebrasta cev Cats", quantity: "180,00", line_total: "608,94" },
+];
+const AZ_JORDAN_PACKING_OCR = `
+Item Qty Value
+1 pallet 1200 800
+2 pallets 1200 1000
+`;
+const azJordanInvoice: NormalizedInvoice = {
+  invoice_number: "26-360-000016",
+  ocr_text: AZ_JORDAN_PACKING_OCR,
+  items: AZ_JORDAN_ITEMS,
+};
+assert(!shouldRecoverLineItemsFromTable(azJordanInvoice, AZ_JORDAN_PACKING_OCR), "do not run lower-count table reconstruction over parser rows");
+const azJordanEnriched = enrichEnglishInvoiceFieldsFromOcr(azJordanInvoice);
+assert((azJordanEnriched.items?.length ?? 0) === 6, "6 parser rows preserved");
 
 console.log("\n1b. AS2026-1069 — production parser failure fixture (QR consignee, total 22)");
 
