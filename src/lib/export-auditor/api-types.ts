@@ -1,4 +1,4 @@
-/** Types aligned with export-auditor backend (https://export-auditor.onrender.com) */
+/** Types aligned with the Export Auditor backend API. */
 
 export type HsSource = "INVOICE" | "WIZARD" | "USER" | "IMPORTED";
 
@@ -23,6 +23,52 @@ export interface ApiInvoiceItem {
   country_of_origin?: string;
   position_number?: number | null;
   net_weight?: number | string | null;
+}
+
+export type FinancialReconciliationStatus = "PASS" | "WARNING" | "FAIL";
+
+export interface FinancialReconciliationSource {
+  id: "invoice_total" | "net_total" | "taxable_amount";
+  label: string;
+  value: number;
+}
+
+export interface FinancialReconciliationResult {
+  invoice_total: number | null;
+  calculated_total: number | null;
+  difference: number | null;
+  difference_ratio: number | null;
+  validation_status: FinancialReconciliationStatus;
+  compared_sources: FinancialReconciliationSource[];
+  warning: string | null;
+  likely_ocr_failure: boolean;
+}
+
+export type OcrTableRecoveryStatus =
+  | "NOT_NEEDED"
+  | "RECOVERED"
+  | "OCR_TABLE_NOT_EXTRACTED"
+  | "RECOVERY_REJECTED";
+
+export type OcrTableRecoverySource =
+  | "PRIMARY_OCR"
+  | "TABLE_RECONSTRUCTION"
+  | "TABLE_FOCUSED_OCR"
+  | "SECONDARY_OCR_UNAVAILABLE"
+  | "NO_TABLE_RECOVERED";
+
+export interface OcrTableRecoveryDiagnostics {
+  status: OcrTableRecoveryStatus;
+  ocr_raw_items: number;
+  ocr_recovered_items: number;
+  recovery_source: OcrTableRecoverySource;
+  metadata_detected: boolean;
+  scanned_image_invoice: boolean;
+  secondary_recovery_attempted: boolean;
+  secondary_recovery_error?: string | null;
+  recovery_score?: number | null;
+  acceptance_reason?: string | null;
+  rejection_reason?: string | null;
 }
 
 export type WeightExtractionSource = "DOCUMENT" | "CALCULATED" | "OCR_TABLE" | "OCR_TEXT";
@@ -86,6 +132,10 @@ export interface NormalizedInvoice {
   shipment_summary?: ShipmentSummary;
   delivery_address?: DeliveryAddress;
   authorised_exporter_number?: string | null;
+  /** Platform-side mandatory validation before HS Wizard enrichment. Not sent to backend. */
+  financial_reconciliation?: FinancialReconciliationResult;
+  /** OCR table recovery diagnostics for scanned/image-only invoice tables. */
+  ocr_table_recovery?: OcrTableRecoveryDiagnostics;
   /** Page count and other OCR pipeline metadata (set server-side after PDF parse). */
   ocr_metadata?: {
     page_count?: number;
@@ -99,6 +149,12 @@ export interface NormalizedInvoice {
     raw_ocr_has_shipment_summary?: boolean;
     raw_ocr_has_ocr_text?: boolean;
     raw_ocr_has_delivery_address?: boolean;
+    scanned_image_invoice?: boolean;
+    ocr_raw_items?: number;
+    ocr_recovered_items?: number;
+    recovery_source?: string;
+    recovery_score?: number;
+    recovery_rejection_reason?: string;
   };
 }
 
