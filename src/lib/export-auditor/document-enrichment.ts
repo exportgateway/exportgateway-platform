@@ -29,6 +29,7 @@ import {
 import {
   enrichEnglishInvoiceFieldsFromOcr,
   isValidConsigneeText,
+  TABLE_RECONSTRUCTION_REJECTED,
 } from "@/lib/export-auditor/english-invoice-field-extractor";
 import { validateAndCorrectInvoiceTotal } from "@/lib/export-auditor/invoice-total-validation";
 import { resolveInvoiceValue } from "@/lib/export-auditor/parse-locale-number";
@@ -141,7 +142,7 @@ export function enrichInvoiceDocument(
   }
 
   const authDetection = detectAuthorisedExporter(corpus, enriched);
-  if (authDetection.authorisation_number) {
+  if (authDetection.detected && authDetection.authorisation_number) {
     enriched = {
       ...enriched,
       authorised_exporter_number: authDetection.authorisation_number,
@@ -200,7 +201,9 @@ export function enrichInvoiceDocument(
   }
 
   const ocrItemsBeforeRecovery = [...(enriched.items ?? [])];
-  enriched = recoverLineValuesFromCorpus(enriched);
+  if (enriched.document_flags?.[TABLE_RECONSTRUCTION_REJECTED] !== true) {
+    enriched = recoverLineValuesFromCorpus(enriched);
+  }
   const preRecoveryItems = [...(enriched.items ?? [])];
   enriched = deduplicateCommercialLineItems(enriched).invoice;
   enriched = lockCommercialPositions(enriched);

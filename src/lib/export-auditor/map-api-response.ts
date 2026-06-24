@@ -386,6 +386,27 @@ function filterResolvedHsCodeWarnings(
   });
 }
 
+function hasResolvedCountryOfOrigin(invoice: NormalizedInvoice): boolean {
+  const itemsWithCountry = (invoice.items ?? []).filter((item) => item.country_of_origin?.trim()).length;
+  const invoiceCountries =
+    (invoice as NormalizedInvoice & { countries_of_origin?: string[] }).countries_of_origin?.filter((country) => country?.trim()).length ?? 0;
+  return itemsWithCountry > 0 || invoiceCountries > 0;
+}
+
+function filterResolvedCountryOfOriginWarnings(
+  issues: AuditIssue[],
+  invoice: NormalizedInvoice
+): AuditIssue[] {
+  if (!hasResolvedCountryOfOrigin(invoice)) return issues;
+  return issues.filter((issue) => {
+    const root = issueRootCode(issue);
+    if (isCountryOfOriginMissingCode(root)) return false;
+    return !/missing.*country of origin|country of origin.*missing|no country of origin/i.test(
+      issue.message
+    );
+  });
+}
+
 function filterGenericShipmentWarningsWhenNoOcrData(
   issues: AuditIssue[],
   invoice: NormalizedInvoice
@@ -989,11 +1010,7 @@ function mapPreferenceOrigin(
       analysis?.origin_declaration_found ||
       engine.origin_declaration_found
   );
-  const authorisedExporterDetected = Boolean(
-    po?.authorised_exporter_found ||
-      analysis?.authorised_exporter_found ||
-      engine.authorised_exporter_detected
-  );
+  const authorisedExporterDetected = Boolean(engine.authorised_exporter_detected);
 
   const invoiceValue = resolveInvoiceValue(invoice);
   const schemeInfo = resolvePreferenceScheme(invoice.country_code, invoice.country);
@@ -1036,8 +1053,7 @@ function mapPreferenceOrigin(
     statementOnOriginDetected,
     rexRegistrationDetected,
     rexRegistrationNumber,
-    authorisedExporterNumber:
-      engine.authorised_exporter_number ?? invoice.authorised_exporter_number ?? null,
+    authorisedExporterNumber: engine.authorised_exporter_number,
     authorisationCountry: authMeta?.authorisation_country ?? null,
     authorisedExporterDetectionRule: authMeta?.detection_rule ?? null,
     authorisedExporterConfidence: authMeta?.confidence ?? null,
@@ -1211,6 +1227,7 @@ export function mapAuditReportToExportReport(
   issues = filterGenericShipmentWarningsWhenNoOcrData(issues, invoice);
   issues = filterResolvedShipmentWarnings(issues, invoice);
   issues = filterResolvedHsCodeWarnings(issues, hsCodes.length);
+  issues = filterResolvedCountryOfOriginWarnings(issues, invoice);
   issues = filterResolvedVatArticleIssues(issues, invoice);
   issues = filterGenericIssuesForOcrTableFailure(issues, invoice.ocr_table_recovery);
   const supportingDocumentsDetected = detectSupportingDocuments(invoice, preferenceOrigin, issues);
@@ -1260,6 +1277,7 @@ export function mapAuditReportToExportReport(
     ...mapDocumentFlagIssues(invoice),
   ]);
   issues = reclassifyHsCodeIssues(issues, hsCodes.length);
+  issues = filterResolvedCountryOfOriginWarnings(issues, invoice);
   issues = filterGenericIssuesForOcrTableFailure(issues, invoice.ocr_table_recovery);
   issues = deduplicateIssues(issues);
   const errorCount = issues.filter((i) => i.type === "error").length;

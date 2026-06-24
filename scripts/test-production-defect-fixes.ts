@@ -26,10 +26,12 @@ import {
   extractAuthorisedExporterNumber,
   parsePositionNumbers,
 } from "../src/lib/export-auditor/preferential-origin-engine";
+import { detectAuthorisedExporter } from "../src/lib/export-auditor/authorised-exporter-detection-engine";
 import {
   enrichInvoiceShipmentData,
   extractGrossWeight,
   extractLineItemNetWeightTotal,
+  extractDeliveryAddress,
   extractNetWeightFromDocument,
   extractPackageCount,
 } from "../src/lib/export-auditor/shipment-summary-extractor";
@@ -41,6 +43,9 @@ import {
   filterSupersededPreferentialAuditIssues,
   resolveIssueCode,
 } from "../src/lib/export-auditor/issue-readiness";
+import { validateCustomsExtractionIntegrity } from "../src/lib/export-auditor/extraction-integrity-validator";
+import { countOcrSourcePositions } from "../src/lib/export-auditor/position-count-reconciliation";
+import { estimateSourceCommercialLineCount } from "../src/lib/export-auditor/commercial-line-deduplication";
 import type { AuditReportResponse, NormalizedInvoice } from "../src/lib/export-auditor/api-types";
 
 let passed = 0;
@@ -253,6 +258,135 @@ const golden305ConsigneeEnriched = enrichInvoiceDocument(
 assert(golden305Consignee?.includes("DRILONI SPORTSWEAR SH.P.K.") === true, "305/E Adressee label recovers consignee name");
 assert(golden305Consignee?.includes("REPUBLIC OF KOSOVO") === true, "305/E Adressee label preserves consignee country lines");
 assert(golden305ConsigneeEnriched.consignee?.includes("DRILONI SPORTSWEAR SH.P.K.") === true, "305/E enrichment fills consignee from Adressee");
+
+console.log("\n1h. Golden 305/E — cleanup false-positive and mapping regressions");
+
+const GOLDEN_305E_CLEANUP_ROWS = Array.from({ length: 25 }, (_, index) => {
+  const row = index + 1;
+  const origin = row % 3 === 0 ? "PORTUGAL" : row % 2 === 0 ? "P.R.CHINA" : "TURKEY";
+  const tariff = row % 3 === 0 ? "6109.10.00" : row % 2 === 0 ? "6107.11.00" : "6115.95.00";
+  return `F${String(9300 + row)} MAN SOCKS COMMERCIAL ROW ${row} MADE IN ${origin} Customs Tariff: ${tariff} PCS ${row} 1,000 ${row},00 K01`;
+});
+const GOLDEN_305E_CLEANUP_OCR = `
+UPPER'S
+MAN SOCKS ITALIA SRL
+VAT IT 02555850208
+Invoice
+No. 305/E
+
+Goods in transit to:
+SKLADIŠČE STORI.KOM DOO
+ŠMARTINSKA CESTA 32
+1000 LJUBLJANA
+SLOVENIJA
+GENERAL SALES CONDITIONS
+Court of Mantova
+personal data clauses
+bank conditions
+payment conditions
+
+Item Nr. Item Description UM* Q.ty Price Amount Discount
+${GOLDEN_305E_CLEANUP_ROWS.join("\n")}
+`;
+const GOLDEN_305E_CLEANUP_ITEMS: NormalizedInvoice["items"] = GOLDEN_305E_CLEANUP_ROWS.map(
+  (row, index) => ({
+    position_number: index + 1,
+    item_code: row.split(/\s+/)[0],
+    description: `MAN SOCKS COMMERCIAL ROW ${index + 1}`,
+    quantity: `${index + 1}`,
+    line_total: `${index + 1},00`,
+    hs_code: index % 3 === 2 ? "61091000" : index % 2 === 1 ? "61071100" : "61159500",
+    country_of_origin: index % 3 === 2 ? "PT" : index % 2 === 1 ? "CN" : "TR",
+  })
+);
+const golden305CleanupInvoice = {
+  invoice_number: "305/E",
+  exporter: "UPPER'S",
+  total_value: "325,00",
+  ocr_text: GOLDEN_305E_CLEANUP_OCR,
+  items: GOLDEN_305E_CLEANUP_ITEMS,
+  countries_of_origin: ["CN", "PT", "TR"],
+} satisfies NormalizedInvoice & { countries_of_origin: string[] };
+const golden305SourceCount = countOcrSourcePositions(
+  GOLDEN_305E_CLEANUP_OCR,
+  GOLDEN_305E_CLEANUP_ITEMS.length,
+  golden305CleanupInvoice
+);
+const golden305DuplicatedOcr = [
+  GOLDEN_305E_CLEANUP_OCR,
+  GOLDEN_305E_CLEANUP_OCR,
+  GOLDEN_305E_CLEANUP_OCR,
+].join("\n");
+const golden305DuplicatedSourceCount = countOcrSourcePositions(
+  golden305DuplicatedOcr,
+  GOLDEN_305E_CLEANUP_ITEMS.length,
+  {
+    ...golden305CleanupInvoice,
+    ocr_text: golden305DuplicatedOcr,
+  }
+);
+const golden305EstimatedSourceCount = estimateSourceCommercialLineCount(golden305CleanupInvoice);
+const golden305Integrity = validateCustomsExtractionIntegrity(golden305CleanupInvoice);
+const golden305CleanupReport = mapAuditReportToExportReport(
+  golden305CleanupInvoice,
+  baseAudit([
+    {
+      severity: "WARNING",
+      code: "MISSING_COUNTRY_OF_ORIGIN",
+      message: "Country of origin information not provided on invoice.",
+    },
+  ]),
+  "golden-305e.pdf"
+);
+const golden305BadAuthReport = mapAuditReportToExportReport(
+  {
+    ...golden305CleanupInvoice,
+    authorised_exporter_number: "SPORTSWEAR",
+  },
+  baseAudit(),
+  "golden-305e-bad-auth.pdf"
+);
+const golden305Delivery = extractDeliveryAddress(GOLDEN_305E_CLEANUP_OCR);
+const golden305ExporterEnriched = enrichInvoiceDocument(golden305CleanupInvoice, null);
+assert(golden305SourceCount === 25, "golden_invoice_11 source commercial row counter equals 25");
+assert(golden305DuplicatedSourceCount === 25, "golden_invoice_11 duplicated OCR row counter remains 25");
+assert(golden305EstimatedSourceCount === 25, "golden_invoice_11 estimated commercial source count equals 25");
+assert(
+  !golden305CleanupReport.issues.some((issue) => resolveIssueCode(issue) === "MISSING_COUNTRY_OF_ORIGIN"),
+  "golden_invoice_11_should_not_raise_missing_country_of_origin"
+);
+assert(
+  !golden305Integrity.issues.some((issue) => issue.field === "EXTRACTION_LINE_COUNT_MISMATCH") &&
+    !golden305CleanupReport.issues.some((issue) => issue.field === "EXTRACTION_LINE_COUNT_MISMATCH"),
+  "golden_invoice_11_no_line_count_mismatch"
+);
+assert(
+  !golden305Integrity.issues.some((issue) => issue.field === "DUPLICATE_LINE_EXTRACTION") &&
+    !golden305CleanupReport.issues.some((issue) => issue.field === "DUPLICATE_LINE_EXTRACTION"),
+  "golden_invoice_11_no_duplicate_extraction_warning"
+);
+assert(golden305Delivery.company === "SKLADIŠČE STORI.KOM DOO", "golden_invoice_11_delivery_address_clean company");
+assert(golden305Delivery.address === "ŠMARTINSKA CESTA 32", "golden_invoice_11_delivery_address_clean address");
+assert(golden305Delivery.city === "LJUBLJANA", "golden_invoice_11_delivery_address_clean city");
+assert(golden305Delivery.country === "Slovenia", "golden_invoice_11_delivery_address_clean country");
+assert(
+  !Object.values(golden305Delivery).some((value) => /general sales conditions|court of mantova|personal data|bank conditions|payment conditions/i.test(String(value ?? ""))),
+  "golden_invoice_11_delivery_address_clean excludes legal footer"
+);
+assert(extractEnglishExporter(GOLDEN_305E_CLEANUP_OCR) === "MAN SOCKS ITALIA SRL", "golden_invoice_11 extracts legal exporter");
+assert(golden305ExporterEnriched.exporter === "MAN SOCKS ITALIA SRL", "golden_invoice_11_exporter_should_be_man_socks_italia");
+assert(
+  golden305BadAuthReport.preferenceOrigin.authorisedExporterDetected === false &&
+    golden305BadAuthReport.preferenceOrigin.authorisedExporterNumber == null,
+  "golden_invoice_11 rejects stale SPORTSWEAR authorised exporter mapping"
+);
+assert(
+  detectAuthorisedExporter(GOLDEN_305E_CONSIGNEE_OCR, {
+    consignee: "DRILONI SPORTSWEAR SH.P.K.",
+    ocr_text: GOLDEN_305E_CONSIGNEE_OCR,
+  }).authorisation_number === null,
+  "golden_invoice_11 does not treat consignee name SPORTSWEAR as authorisation number"
+);
 
 console.log("\n1b. AS2026-1069 — production parser failure fixture (QR consignee, total 22)");
 

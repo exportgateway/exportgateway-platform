@@ -99,7 +99,7 @@ const IDENTIFIER_PATTERNS: Array<{
 ];
 
 const AUTHORIZATION_CAPTURE_RE = new RegExp(
-  `(?:customer\\s+)?(?:${CUSTOMS_AUTH}|exporter\\s+${AUTH_SPELL}|${AUTH_SPELL}|${AUTH_EXPORTER_SPELL}|approved\\s+exporter)\\s*(?:${AUTH_NO})?\\s*[:.]?\\s*\\(?\\s*([A-Z]{2}[A-Z0-9/]{4,20}|ATU\\d{8,11}|FR\\d{6}\\/\\d{4})\\s*\\)?`,
+  `(?:customer\\s+)?(?:${CUSTOMS_AUTH}|exporter\\s+${AUTH_SPELL}|${AUTH_SPELL}|${AUTH_EXPORTER_SPELL}|approved\\s+exporter|REX)\\s*(?:${AUTH_NO})?\\s*[:.]?\\s*\\(?\\s*([A-Z]{2}[A-Z0-9/]{4,20}|ATU\\d{8,11}|FR\\d{6}\\/\\d{4})\\s*\\)?`,
   "i"
 );
 
@@ -131,11 +131,6 @@ function extractIdentifierNearAuthorization(corpus: string): string | null {
   const capture = corpus.match(AUTHORIZATION_CAPTURE_RE);
   if (capture?.[1]) return capture[1].toUpperCase().replace(/\s+/g, "");
 
-  for (const { re, normalize } of IDENTIFIER_PATTERNS) {
-    const match = corpus.match(re);
-    if (match?.[1]) return normalize(match[1]);
-  }
-
   return null;
 }
 
@@ -147,11 +142,6 @@ function extractIdentifierInDeclarationWindow(corpus: string): string | null {
 
   const nearAuth = block.match(AUTHORIZATION_CAPTURE_RE);
   if (nearAuth?.[1]) return nearAuth[1].toUpperCase().replace(/\s+/g, "");
-
-  for (const { re, normalize } of IDENTIFIER_PATTERNS) {
-    const match = block.match(re);
-    if (match?.[1]) return normalize(match[1]);
-  }
 
   return null;
 }
@@ -278,7 +268,7 @@ export function detectAuthorisedExporter(
     confidence,
     rejection_reason: detected
       ? undefined
-      : "Legacy patterns required customs authorisation + slash format (e.g. NL/865/5748) — compact IDs like NL86525748B01 were rejected",
+      : "No authorised-exporter, approved-exporter, customs-authorisation, authorization-number, or REX evidence with a valid identifier was found",
   });
 
   return {

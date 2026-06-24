@@ -12,6 +12,10 @@ const STYLE_CODE = /\b([12][A-Z]{2}[A-Z0-9]{8,})\b/gi;
 const HS_LABELED_ROW = /HS\s*Code\s*[-–]\s*\d{8,10}/gi;
 const POSITION_LED = /^\s*(\d{1,3})\s+(?=[A-Za-z])/;
 const DEXXON_SUFFIX = /\t\.\t(\d{1,3})\s*$/gm;
+const ITEM_NR_SPACE_HEADER =
+  /\bItem\s+Nr\.?\s+Item\s+Description\s+UM\*?\s+Q\.?ty\s+Price\s+Amount\s+Discount\b/i;
+const ITEM_NR_SPACE_ROW =
+  /^\s*[A-Z][A-Z0-9./-]{2,}\s+.+?\b(?:Customs\s+Tariff|HS\s*Code|MADE\s+IN|PCS|PK)\b.+/i;
 
 export function countDistinctStyleCodes(corpus: string): number {
   const codes = new Set<string>();
@@ -55,6 +59,19 @@ function countDexxonSuffixPositions(corpus: string): number {
   return seen.size;
 }
 
+function countItemNrSpaceRows(corpus: string): number {
+  if (!ITEM_NR_SPACE_HEADER.test(corpus)) return 0;
+  const seen = new Set<string>();
+  for (const raw of corpus.split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line || ITEM_NR_SPACE_HEADER.test(line)) continue;
+    if (ITEM_NR_SPACE_ROW.test(line)) {
+      seen.add(line.replace(/\s+/g, " ").toUpperCase());
+    }
+  }
+  return seen.size;
+}
+
 export interface PositionCountReconciliation {
   ocrPositionCount: number;
   finalPositionCount: number;
@@ -66,6 +83,7 @@ export interface PositionCountReconciliation {
     hsLabeledRows: number;
     positionLedRows: number;
     dexxonSuffixRows: number;
+    itemNrSpaceRows: number;
   };
 }
 
@@ -97,8 +115,9 @@ export function countOcrSourcePositions(
   const hsLabeled = countHsLabeledRows(sourceCorpus);
   const positionLed = countPositionLedRows(sourceCorpus);
   const dexxonSuffix = countDexxonSuffixPositions(sourceCorpus);
+  const itemNrSpaceRows = countItemNrSpaceRows(sourceCorpus);
 
-  const signals = [styleCodes, hsLabeled, positionLed, dexxonSuffix].filter((n) => n > 0);
+  const signals = [itemNrSpaceRows, styleCodes, hsLabeled, positionLed, dexxonSuffix].filter((n) => n > 0);
   if (signals.length === 0) return 0;
 
   if (finalHint != null && finalHint > 0) {
@@ -127,6 +146,7 @@ export function reconcilePositionCounts(
   const hsLabeledRows = countHsLabeledRows(corpus);
   const positionLedRows = countPositionLedRows(sourceCorpus);
   const dexxonSuffixRows = countDexxonSuffixPositions(sourceCorpus);
+  const itemNrSpaceRows = countItemNrSpaceRows(sourceCorpus);
 
   const ocrPositionCount = countOcrSourcePositions(
     corpus,
@@ -162,6 +182,7 @@ export function reconcilePositionCounts(
       hsLabeledRows,
       positionLedRows,
       dexxonSuffixRows,
+      itemNrSpaceRows,
     },
   };
 }

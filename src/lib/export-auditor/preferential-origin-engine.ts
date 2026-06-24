@@ -646,13 +646,12 @@ export function runPreferentialOriginEngine(
   const corpus = collectDeclarationCorpus(invoice);
   const declarations = detectDeclarations(corpus);
   const authDetection = detectAuthorisedExporter(corpus, invoice);
-  const authorised_exporter_number =
-    invoice.authorised_exporter_number?.trim() ||
-    authDetection.authorisation_number;
+  const authorised_exporter_number = authDetection.detected
+    ? authDetection.authorisation_number
+    : null;
   const authorised_exporter_detected =
     authDetection.detected ||
-    declarations.some((d) => d.kind === "authorised_exporter") ||
-    Boolean(authorised_exporter_number);
+    declarations.some((d) => d.kind === "authorised_exporter");
   const origin_declaration_found = hasOriginDeclaration(corpus);
   const rules = buildRuleState(declarations, corpus);
 
