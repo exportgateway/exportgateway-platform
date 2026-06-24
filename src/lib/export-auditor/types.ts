@@ -197,6 +197,15 @@ export interface OcrObservability {
   shipmentFieldsDetected?: string[];
   /** Shipment fields absent from OCR backend response. */
   shipmentFieldsMissing?: string[];
+  /** OCR table recovery status for scanned invoices with missing item tables. */
+  ocrTableRecoveryStatus?: import("@/lib/export-auditor/api-types").OcrTableRecoveryStatus;
+  ocrRawItems?: number;
+  ocrRecoveredItems?: number;
+  recoverySource?: import("@/lib/export-auditor/api-types").OcrTableRecoverySource;
+  scannedImageInvoice?: boolean;
+  recoveryScore?: number | null;
+  recoveryAcceptanceReason?: string | null;
+  recoveryRejectionReason?: string | null;
 }
 
 export interface OcrSessionMetrics {
@@ -474,6 +483,7 @@ export interface ExportAuditReport {
   customsReadinessScore?: CustomsReadinessScore;
   missingFields: string[];
   invoiceSummary: InvoiceSummary;
+  financialReconciliation?: import("@/lib/export-auditor/api-types").FinancialReconciliationResult;
   shipmentSummary: ShipmentSummary;
   deliveryAddress: DeliveryAddress;
   hsAggregationReport: HsAggregationReport;
